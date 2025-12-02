@@ -1,0 +1,5 @@
+ID,nombre,valor,createdAt,createdBy,modifiedAt,modifiedBy
+"5f7e1af4-2e40-4f3f-8c2c-39450d83f2b1","NUMERO_SOLICITUD",1000,"2025-01-01T10:00:00Z","system","2025-01-01T10:00:00Z","system"
+"8bb2c4e5-0f8f-4fd2-9cf1-1c6c7f112d77","NUMERO_ASIENTO",5000,"2025-01-01T10:00:00Z","system","2025-01-01T10:00:00Z","system"
+"3a771825-4bcd-4cda-86a2-94d744b4b6a1","NUMERO_WORKFLOW",1,"2025-01-01T10:00:00Z","system","2025-01-01T10:00:00Z","system"
+"e2d0f1cd-3f59-4b0c-a30f-0b5907c051ed","TEST_SEQUENCE",0,"2025-01-01T10:00:00Z","system","2025-01-01T10:00:00Z","system"

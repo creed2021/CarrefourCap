@@ -1,0 +1,106 @@
+{
+  "name": "asientos-ajustes",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "dependencies": {
+    "@cap-js/hana": "^2",
+    "@sap-cloud-sdk/connectivity": "^4.1.2",
+    "@sap-cloud-sdk/http-client": "^4.1.2",
+    "@sap/cds": "^9",
+    "@sap/xssec": "^4",
+    "axios": "^1.13.2",
+    "express": "^4",
+    "soap": "*",
+    "xlsx": "^0.18.5",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2",
+    "@sap/cds-dk": "^9",
+    "cds-plugin-ui5": "^0.13.0",
+    "mbt": "^1.2.29",
+    "rimraf": "^5.0.5",
+    "ui5-middleware-cfdestination": "^3.3.11",
+    "ui5-tooling-modules": "^3.33.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "startNew": "cds run",
+    "undeploy": "cf undeploy asientos-ajustes --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "watch-maestro-configaprobadores": "cds watch --open com.carrefour.maestroconfigaprobadores/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-maestro-configsolicitantes": "cds watch --open com.carrefour.maestroconfigsolicitantes/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-maestro-cuentas": "cds watch --open com.carrefour.maestrocuentas/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-maestro-umbralescuentas": "cds watch --open com.carrefour.maestroumbralescuentas/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-consulta-estado-solicitudes": "cds watch --open com.carrefour.consultaestadosolicitudes/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-maestro-empleados": "cds watch --open com.carrefour.maestroempleados/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-maestro-sectores": "cds watch --open com.carrefour.maestrosectores/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "private": true,
+  "workspaces": [
+    "app/*"
+  ],
+  "cds": {
+    "server": {
+      "body_parser": {
+        "limit": "1mb"
+      }
+    },
+    "build": {
+      "copy": [
+        "srv/wsdl/**/*"
+      ]
+    },
+    "requires": {
+      "bpa-api": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "dest_asientos_backTobpa_SP_DEV"
+        }
+      },
+      "S4HANA": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "S4_QAS_Basic" 
+        }
+      },
+      "[development]": {
+        "auth": {
+          "kind": "mocked",
+          "users": {
+            "alice": {
+              "roles": [
+                "Aprobador"
+              ]
+            },
+            "bob": {
+              "roles": [
+                "Admin_Datos_Maestros"
+              ]
+            }
+          }
+        }
+      },
+      "[production]": {
+        "db": "hana",
+        "auth": "xsuaa"
+      },
+      "destinations": true,
+      "html5-repo": true,
+      "workzone": true
+    },
+    "folders": {
+      "handlers": "srv/handlers"
+    }
+  },
+  "sapux": [
+    "app/maestro-configaprobadores",
+    "app/maestro-configsolicitantes",
+    "app/maestro-cuentas",
+    "app/maestro-umbralescuentas",
+    "app/consulta-estado-solicitudes",
+    "app/maestro-empleados",
+    "app/maestro-sectores"
+  ]
+}

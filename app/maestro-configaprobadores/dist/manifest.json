@@ -1,0 +1,172 @@
+{
+	"_version": "1.76.0",
+	"sap.app": {
+		"id": "com.carrefour.maestroconfigaprobadores",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [
+				""
+			]
+		},
+		"applicationVersion": {
+			"version": "0.0.1"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"sourceTemplate": {
+			"id": "@sap/generator-fiori:lrop",
+			"version": "1.19.5",
+			"toolsId": "834789f9-0fa1-4653-8e12-fa26d0a4a038"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/odata/v4/catalog/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"maestroconfigaprobadores-show": {
+					"semanticObject": "maestroconfigaprobadores",
+					"action": "show",
+					"title": "{{maestroconfigaprobadores-show.flpTitle}}",
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					}
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": true,
+		"dependencies": {
+			"minUI5Version": "1.142.0",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.carrefour.maestroconfigaprobadores.i18n.i18n",
+					"supportedLocales": [
+						""
+					]
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties",
+				"settings": {
+					"supportedLocales": [
+						""
+					]
+				}
+			}
+		},
+		"resources": {
+			"css": []
+		},
+		"routing": {
+			"config": {},
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "ConfigAprobadoresList",
+					"target": "ConfigAprobadoresList"
+				},
+				{
+					"pattern": "ConfigAprobadores({key}):?query:",
+					"name": "ConfigAprobadoresObjectPage",
+					"target": "ConfigAprobadoresObjectPage"
+				}
+			],
+			"targets": {
+				"ConfigAprobadoresList": {
+					"type": "Component",
+					"id": "ConfigAprobadoresList",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"contextPath": "/ConfigAprobadores",
+							"variantManagement": "Page",
+							"navigation": {
+								"ConfigAprobadores": {
+									"detail": {
+										"route": "ConfigAprobadoresObjectPage"
+									}
+								}
+							},
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.LineItem": {
+									"tableSettings": {
+										"type": "ResponsiveTable"
+									}
+								}
+							}
+						}
+					}
+				},
+				"ConfigAprobadoresObjectPage": {
+					"type": "Component",
+					"id": "ConfigAprobadoresObjectPage",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"editableHeaderContent": false,
+							"contextPath": "/ConfigAprobadores"
+						}
+					}
+				}
+			}
+		},
+		"flexBundle": false
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "transactional"
+	},
+	"sap.cloud": {
+		"public": true,
+		"service": "asientosajustes.service"
+	}
+}

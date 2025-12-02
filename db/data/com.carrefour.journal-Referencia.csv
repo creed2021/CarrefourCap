@@ -1,0 +1,4 @@
+ID,codigo,nombre,createdAt,createdBy,modifiedAt,modifiedBy
+b25e70d8-c392-4b2c-84e2-f37f1bbfcb0d,PRO,Prov c/Reversa,2025-11-07T05:30:54.973912,init-script,2025-11-07T05:30:54.973912,init-script
+6094e39f-82fe-4931-a384-c2d98cb0f738,AJC,Aj Cierre,2025-11-07T05:30:54.973912,init-script,2025-11-07T05:30:54.973912,init-script
+f1daf2f4-ed76-4816-b4fd-31fee109a188,AJX,Aj Excep,2025-11-07T05:30:54.973912,init-script,2025-11-07T05:30:54.973912,init-script

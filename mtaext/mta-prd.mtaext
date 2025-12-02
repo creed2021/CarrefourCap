@@ -1,0 +1,23 @@
+_schema-version: "3.1"
+ID: asientos-ajustes-prd
+extends: asientos-ajustes
+
+parameters:
+  DB_REQUIRES: |
+    {
+      "kind": "hana",
+      "credentials": {
+        "service": "ups-database-external"
+      }
+    }
+
+  DB_CONFIG: |
+    {
+      "kind": "hana",
+      "credentials": {
+        "service": "ups-database-external"
+      },
+      "data": false
+    }
+  BPA_DEST: "dest_asientos_backTobpa_SP_PRD"
+  S4_DEST: "S4_QAS_Basic"

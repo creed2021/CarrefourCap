@@ -1,0 +1,9 @@
+{
+  "host": "015424e7-c8a6-48a5-affb-d145004e6225.hana.prod-us30.hanacloud.ondemand.com",
+  "port": "443",
+  "encrypt": true,
+  "sslValidateCertificate": true,
+  "schema": "ASIENTOS_MANUALES_PRD",
+  "user": "CAP_REMOTE",
+  "password": "Pazodearxeriz2026"
+}

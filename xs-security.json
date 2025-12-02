@@ -1,0 +1,56 @@
+{
+  "xsappname": "asientos-ajustes",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Aprobador",
+      "description": "Aprobador"
+    },
+    {
+      "name": "$XSAPPNAME.Solicitante",
+      "description": "Solicitante"
+    },
+    {
+      "name": "$XSAPPNAME.Admin_Datos_Maestros",
+      "description": "Admin_Datos_Maestros"
+    },
+    {
+      "name": "$XSAPPNAME.Callback",
+      "description": "Allow token exchange",
+      "grant-as-authority-to-apps": []
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Admin_Datos_Maestros",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.Admin_Datos_Maestros"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Aprobador",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.Aprobador"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Solicitante",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.Solicitante"
+      ],
+      "attribute-references": []
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://oauth.pstmn.io/v1/browser-callback"
+    ],
+    "token-validity": 3600
+  }
+}

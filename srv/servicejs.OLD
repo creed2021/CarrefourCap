@@ -1,0 +1,2911 @@
+const cds = require('@sap/cds');
+const path = require('path');
+const soap = require('soap');
+const axios = require("axios");
+const { getDestination } = require('@sap-cloud-sdk/connectivity');
+const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
+const xml2js = require('xml2js');
+const { Token } = require('@sap/xssec');
+const { threadId } = require('worker_threads');
+
+//module.exports = { ValidaAsiento };
+//AMBIENTE: DEV
+
+module.exports = cds.service.impl(async function () {
+
+//ESTE ARCHIVO - AMBIENTE: DEV
+
+//AMBIENTE
+const DEFINITION_ID_BPA_DEV = "us30.process-automation-95oeuot4.ajustescontables.main";
+const URL_BPA_DEV = '/workflow/rest/v1/workflow-instances?environmentId=dev';
+const APIKEY_BPA_DEV = 'eoV2Z3u1DDGAQdusyr_qNQuU0Pjil5Rj';
+
+//AMBIENTE PRD
+const DEFINITION_ID_BPA_PRD = "us30.process-automation-95oeuot4.ajustescontables.main";
+const URL_BPA_PRD = '/workflow/rest/v1/workflow-instances?environmentId=prd';
+const APIKEY_BPA_PRD = 'lh8zeBreIeV5VsVISeTEbu8yX9uk48cs';
+
+  // 🔹 Entidades del namespace com.carrefour.journal
+  const { 
+    'com.carrefour.journal.CabeceraAsiento': CabeceraAsiento,
+    'com.carrefour.journal.DetalleAsiento': DetalleAsiento,
+    'com.carrefour.journal.EstadosSolicitud': EstadosSolicitud,
+    'com.carrefour.journal.Cuenta': Cuenta,
+    'com.carrefour.journal.Empleado': Empleado,
+    'com.carrefour.journal.TipoAsiento': TipoAsiento,
+    'com.carrefour.journal.SubTipoAsiento': SubTipoAsiento,
+    'com.carrefour.journal.Referencia': Referencia,
+    'com.carrefour.journal.TipoCuenta': TipoCuenta
+  } = cds.entities;
+
+
+    // /**
+    //  * Formatea fechas a YYYY-MM-DD o devuelve vacío si no es válida
+    //  */
+    // function safeDate(dateValue) {
+    //   if (!dateValue) return '';
+    //   try {
+    //     const d = new Date(dateValue);
+    //     if (isNaN(d.getTime())) return '';
+    //     return d.toISOString().split('T')[0];
+    //   } catch {
+    //     return '';
+    //   }
+    // }
+
+    //   async function testJson(){
+    //     var xml2jsParser = require('xml2js').parseString;
+
+    //     var string = "<container><tag3>option3</tag3></container>";
+
+    //     xml2jsParser(string, function(err, result)
+    //     {
+    //         console.log(result);
+    //     });
+
+    //   }
+
+    //   /**
+    //    * Envía un asiento a SAP S/4HANA (modo test o real)
+    //    * @param {Object} req - Request CAP con datos de CabeceraAsiento e items
+    //    * @param {Boolean} testDataIndicator - true = test / false = contabilización real
+    //    */
+    //   async function ValidaContabilizaAsiento(req, testDataIndicator) {
+    //     console.info('[ValidaContabilizaAsiento] ✅ Ingresando al método');
+    //     console.info(`[ValidaContabilizaAsiento] 🧩 testDataIndicator = ${testDataIndicator}`);
+
+    //     try {
+    //       // 1️⃣ Conectar al destino configurado
+    //       const remote = await cds.connect.to('S4HANA');
+    //       const destinationName = remote.options.credentials.destination;
+    //       const destination = await getDestination({ destinationName });
+
+    //       if (!destination) throw new Error(`No se encontró el destino ${destinationName}`);
+    //       console.info(`[ValidaContabilizaAsiento] 🌍 Usando destination: ${destinationName}`);
+
+    //       // 2️⃣ Extraer datos del request
+    //       const cabecera = req.data;
+    //       const items = Array.isArray(cabecera.items) ? cabecera.items : [];
+
+    //       // 3️⃣ Armar los ítems con reglas de clave e importe
+    //       const itemsXml = items.map(item => {
+    //         const debitCreditCode = item.clave === 40 ? 'S' : 'H'; // 40 → Debe (S), 50 → Haber (H)
+    //         const importe = item.clave === 50
+    //           ? -Math.abs(Number(item.importe) || 0)
+    //           : Math.abs(Number(item.importe) || 0);
+
+    //         return `<Item>
+    //             <GLAccount>${item.cuenta || ''}</GLAccount>
+    //             <DebitCreditCode>${debitCreditCode}</DebitCreditCode>
+    //             <AccountAssignment>
+    //               <CostCenter>${item.centroCosto || ''}</CostCenter>
+    //             </AccountAssignment>
+    //             <AmountInTransactionCurrency currencyCode="${cabecera.moneda || 'ARS'}">${importe}</AmountInTransactionCurrency>
+    //           </Item>`;
+    //       }).join('');
+
+    //       // 4️⃣ Construir el XML SOAP
+    //       const xmlPayload = `
+    //         <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">
+    //           <soapenv:Header/>
+    //           <soapenv:Body>
+    //             <sfin:JournalEntryBulkCreateRequest>
+    //               <MessageHeader>
+    //                 <CreationDateTime>${new Date().toISOString()}</CreationDateTime>
+    //                 <TestDataIndicator>${testDataIndicator}</TestDataIndicator>
+    //               </MessageHeader>
+    //               <JournalEntryCreateRequest>
+    //                 <MessageHeader>
+    //                   <CreationDateTime>${new Date().toISOString()}</CreationDateTime>
+    //                   <TestDataIndicator>${testDataIndicator}</TestDataIndicator>
+    //                 </MessageHeader>
+    //                 <JournalEntry>
+    //                   <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>
+    //                   <BusinessTransactionType>RFBU</BusinessTransactionType>
+    //                   <AccountingDocumentType>${cabecera.claseDocumento || 'SA'}</AccountingDocumentType>
+    //                   <CreatedByUser>${cabecera.createdBy || 'CAP_USER'}</CreatedByUser>
+    //                   <CompanyCode>${cabecera.sociedad || '1000'}</CompanyCode>
+    //                   <DocumentDate>${safeDate(cabecera.fechaDocumento)}</DocumentDate>
+    //                   <PostingDate>${safeDate(cabecera.fechaContabilizacion)}</PostingDate>
+    //                   ${itemsXml}
+    //                 </JournalEntry>
+    //               </JournalEntryCreateRequest>
+    //             </sfin:JournalEntryBulkCreateRequest>
+    //           </soapenv:Body>
+    //         </soapenv:Envelope>
+    //       `;
+
+    //       console.info('[ValidaContabilizaAsiento] 🚀 Enviando payload SOAP a SAP...');
+
+    //       // 5️⃣ Enviar la petición vía SAP Cloud SDK (sin CSRF)
+    //       const response = await executeHttpRequest(
+    //         destination,
+    //         {
+    //           method: 'POST',
+    //           url: '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+    //           headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
+    //           data: xmlPayload
+    //         },
+    //         {
+    //           fetchCsrfToken: false // 🚫 evita el HEAD de CSRF que causa error 500
+    //         }
+    //       );
+
+    //       const xmlResponse = response.data;
+    //       console.info(`[ValidaContabilizaAsiento] 📦 Respuesta recibida desde SAP XMS ${xmlResponse}`);
+
+    //       // 6️⃣ Parsear XML a JSON
+    //       const result = await xml2js.parseStringPromise(xmlResponse, {
+    //         explicitArray: false,
+    //         ignoreAttrs: false
+    //       });
+
+    //       console.info(`[ValidaContabilizaAsiento] 📦 Respuesta recibida desde SAP JSON ${result}`);
+
+    //       // 7️⃣ Si es contabilización real, actualizar datos en la entidad CAP
+    //       if (!testDataIndicator) {
+    //         const confirmation = result?.['soap-env:Envelope']?.['soap-env:Body']?.['n0:JournalEntryBulkCreateConfirmation'];
+    //         const responseDoc = confirmation?.JournalEntryCreateResponse?.AccountingDocument;
+
+    //         const numeroDocumento = responseDoc?.ID;
+    //         const codigoEmpresa = responseDoc?.CompanyCode || cabecera.sociedad || null;
+    //         const anioFiscal = responseDoc?.FiscalYear
+    //           ? Number(responseDoc.FiscalYear)
+    //           : new Date().getFullYear();
+    //         const fechaContabilizacionSAP = responseDoc?.PostingDate;
+    //         const fechaContab = safeDate(fechaContabilizacionSAP) || safeDate(new Date());
+
+    //         console.info(`[ValidaContabilizaAsiento] 💾 Actualizando registro CAP → 
+    //           numeroDocumentoSAP=${numeroDocumento}, 
+    //           numeroAsiento=${numeroDocumento}, 
+    //           fechaContabilizacion=${fechaContab}, 
+    //           CodigoEmpresaContabilizacion=${codigoEmpresa}, 
+    //           AnioFiscalContabilizacion=${anioFiscal}`);
+
+    //         await UPDATE('com.carrefour.journal.CabeceraAsiento')
+    //           .set({
+    //             numeroDocumentoSAP: numeroDocumento || null,
+    //             numeroAsiento: numeroDocumento || null,
+    //             fechaContabilizacion: fechaContab,
+    //             CodigoEmpresaContabilizacion: codigoEmpresa,
+    //             AnioFiscalContabilizacion: anioFiscal
+    //           })
+    //           .where({ ID: cabecera.ID });
+    //       }
+
+    //       // 8️⃣ Retornar resultado al frontend
+    //       return {
+    //         success: true,
+    //         message: testDataIndicator
+    //           ? 'Asiento validado correctamente (modo test)'
+    //           : 'Asiento contabilizado correctamente',
+    //         rawXML: xmlResponse,
+    //         parsed: result
+    //       };
+
+    //     } catch (error) {
+    //       console.error('[ValidaContabilizaAsiento] ❌ Error:', error.message);
+
+    //       const msgError = testDataIndicator
+    //         ? 'Error al validar el asiento'
+    //         : 'Error al contabilizar el asiento';
+
+    //       return {
+    //         success: false,
+    //         message: `${msgError}: ${error.message}`,
+    //         details: error.stack
+    //       };
+    //     }
+    //   }
+      function safeUndef(value) {
+        if (
+          value === undefined ||
+          value === null ||
+          value === 'undefined' ||
+          value === 'null'
+        ) {
+          return '';
+        }
+        return String(value);
+      }
+
+
+      /**
+       * Devuelve fecha en formato YYYY-MM-DD o vacío si no es válida
+       */
+      function safeDate(dateValue) {
+        if (!dateValue) return '';
+        try {
+          const d = new Date(dateValue);
+          if (isNaN(d.getTime())) return '';
+          return d.toISOString().split('T')[0];
+        } catch {
+          return '';
+        }
+      }
+
+      function primerDiaMesSiguiente(fechaStr) {
+          const fecha = new Date(fechaStr);
+
+          // Obtener año y mes
+          let year = fecha.getFullYear();
+          let month = fecha.getMonth(); // 0=Enero ... 11=Diciembre
+
+          // Avanzar al mes siguiente
+          if (month === 11) {          // Si es diciembre
+              year += 1;
+              month = 0;               // Enero
+          } else {
+              month += 1;
+          }
+
+          // Primer día del mes siguiente → día 1
+          const nuevaFecha = new Date(year, month, 1);
+
+          // Formato YYYY-MM-DD
+          const yyyy = nuevaFecha.getFullYear();
+          const mm = String(nuevaFecha.getMonth() + 1).padStart(2, "0");
+          const dd = String(nuevaFecha.getDate()).padStart(2, "0");
+
+          return `${yyyy}-${mm}-${dd}`;
+      }
+
+
+      /**
+       * Envía un asiento a SAP S/4HANA (modo test o real)
+       * @param {Object} req - Request CAP con datos de CabeceraAsiento e items
+       * @param {Boolean} testDataIndicator - true = test / false = contabilización real
+       */
+      async function ValidaContabilizaAsiento(req, testDataIndicator) {
+        console.info('[ValidaContabilizaAsiento] ✅ Ingresando al método');
+        console.info(`[ValidaContabilizaAsiento] 🧩 testDataIndicator = ${testDataIndicator}`);
+        const Referencia = cds.entities.Referencia;
+        const Cuenta = cds.entities.Cuenta;
+
+        const tx = req.tx;
+
+       try {
+                // 1️⃣ Conectar al destino configurado
+                const remote = await cds.connect.to('S4HANA');
+                const destinationName = remote.options.credentials.destination;
+                const destination = await getDestination({ destinationName });
+
+                const CabeceraAsiento = cds.entities.CabceraAsiento;
+                
+
+                if (!destination) throw new Error(`No se encontró el destino ${destinationName}`);
+                console.info(`[ValidaContabilizaAsiento] 🌍 Usando destination: ${destinationName}`);
+
+                // 2️⃣ Extraer datos del request
+                const cabecera = req.data;
+                let nombreReferencia = '';
+                const numeroSol = !testDataIndicator ? cabecera.numeroSolicitud:'';
+
+                if (cabecera.referencia_ID) {
+                  const ref = await SELECT.one.from(Referencia).where({ ID: cabecera.referencia_ID });
+                  if (ref) nombreReferencia = ref.nombre;
+                }
+
+                const items = Array.isArray(cabecera.items) ? cabecera.items : [];
+
+                const cuentas = await SELECT.from(Cuenta).where({
+                    ID: { in: items.map(i => i.cuentaContable_ID) }
+                });
+                const mapCuentas = new Map(cuentas.map(c => [c.ID, c]));
+
+
+                // 3️⃣ Armar los ítems con reglas de clave e importe
+                const itemsXml = items.map(item => {
+                  const debitCreditCode = item.clave === 40 ? 'S' : 'H';
+                  const importe = item.clave === 50
+                    ? -Math.abs(Number(item.importe) || 0)
+                    : Math.abs(Number(item.importe) || 0);
+                  
+                  var cuentaFinal = 0; 
+                  
+                  if (!testDataIndicator){
+                      cuentaFinal = item.numero;
+                  } else {
+                      const cta = mapCuentas.get(item.cuentaContable_ID);
+                      cuentaFinal = cta.numero;
+                  };
+
+                  return `
+                    <Item>
+                      <GLAccount>${cuentaFinal}</GLAccount>
+                      <DebitCreditCode>${debitCreditCode}</DebitCreditCode>
+                      <AccountAssignment>
+                        <CostCenter>${safeUndef(item.centroCosto)}</CostCenter>
+                      </AccountAssignment>
+                      <AmountInTransactionCurrency currencyCode="${cabecera.moneda || 'ARS'}">${importe}</AmountInTransactionCurrency>
+                    </Item>`;
+                }).join('');
+
+                // 4️⃣ Construir el XML SOAP
+                const xmlPayload = `
+                  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">
+                    <soapenv:Header/>
+                    <soapenv:Body>
+                      <sfin:JournalEntryBulkCreateRequest>
+                        <MessageHeader>
+                          <CreationDateTime>${new Date().toISOString()}</CreationDateTime>
+                          <TestDataIndicator>${testDataIndicator}</TestDataIndicator>
+                        </MessageHeader>
+                        <JournalEntryCreateRequest>
+                          <MessageHeader>
+                            <CreationDateTime>${new Date().toISOString()}</CreationDateTime>
+                            <TestDataIndicator>${testDataIndicator}</TestDataIndicator>
+                          </MessageHeader>
+                          <JournalEntry>
+                            <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>
+                            <BusinessTransactionType>RFBU</BusinessTransactionType>
+                            <AccountingDocumentType>${cabecera.claseDocumento || 'SA'}</AccountingDocumentType>
+                            <CreatedByUser>CAP_USER</CreatedByUser>
+                            <CompanyCode>${cabecera.sociedad || '1000'}</CompanyCode>
+                            <DocumentDate>${safeDate(cabecera.fechaDocumento)}</DocumentDate>
+                            <PostingDate>${safeDate(cabecera.fechaContabilizacion)}</PostingDate>
+                            <DocumentReferenceID>${nombreReferencia}</DocumentReferenceID>
+                            <Reference1InDocumentHeader>${numeroSol}</Reference1InDocumentHeader>
+                            <DocumentHeaderText>${cabecera.textoCabecera}</DocumentHeaderText>
+                            <ReversalDate>${primerDiaMesSiguiente(cabecera.fechaContabilizacion)}</ReversalDate>
+                            <ReversalReason>05</ReversalReason>
+                            ${itemsXml}
+                          </JournalEntry>
+                        </JournalEntryCreateRequest>
+                      </sfin:JournalEntryBulkCreateRequest>
+                    </soapenv:Body>
+                  </soapenv:Envelope>`;
+
+                console.info(`[ValidaContabilizaAsiento] 🚀 Enviando payload SOAP a SAP... ${xmlPayload}`);
+
+                // 5️⃣ Ejecutar la llamada
+                const response = await executeHttpRequest(destination, {
+                  method: 'POST',
+                  url: '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+                  headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
+                  data: xmlPayload
+                });
+
+                const xmlResponse = response.data;
+                console.info('[ValidaContabilizaAsiento] 📦 Respuesta recibida desde SAP');
+
+                // 6️⃣ Parsear XML a JSON
+                const parsed = await xml2js.parseStringPromise(xmlResponse, {
+                  explicitArray: false,
+                  ignoreAttrs: false
+                });
+
+                const confirmation = parsed?.['soap-env:Envelope']?.['soap-env:Body']?.['n0:JournalEntryBulkCreateConfirmation'];
+                const responseDoc = confirmation?.JournalEntryCreateConfirmation?.JournalEntryCreateConfirmation;
+                const log = confirmation?.JournalEntryCreateConfirmation?.Log;
+                  // 7️⃣ Detectar errores en SAP
+                  const maxSeverity = Number(log?.MaximumLogItemSeverityCode || 0);
+                  const logItems = Array.isArray(log?.Item)
+                    ? log.Item
+                    : log?.Item
+                      ? [log.Item]
+                      : [];
+
+                  // Solo tomamos los primeros 10
+                  const primeros10 = logItems.slice(0, 10);
+
+                  if (maxSeverity >= 2) {
+                    const errores = primeros10.map(e => ({
+                      codigo: e.TypeID,
+                      severidad: e.SeverityCode,
+                      mensaje: e.Note,
+                      link: e.WebURI
+                    }));
+
+                  // const erroresOData = errores.slice(0, 10).map(e => ({
+                  //   code: e.codigo || 'SAP_ERROR',
+                  //   message: e.mensaje,
+                  //   severity: e.severidad,
+                  //   target: 'ValidaContabilizaAsiento'
+                  // }));
+
+                  return req.reject(400, `SAP devolvió errores en la validación/contabilización ${JSON.stringify(errores, null, 2)}`, {
+                    details: errores.map(e => ({
+                      code: e.codigo,
+                      message: e.mensaje,
+                      target: null
+                    }))
+                  });
+                }
+
+                // 8️⃣ Si no hay errores y es contabilización real, actualizar datos en CAP
+                if (!testDataIndicator) {
+                  const numeroDocumento = responseDoc?.AccountingDocument;
+                  const codigoEmpresa = responseDoc?.CompanyCode || cabecera.sociedad || null;
+                  const anioFiscal = responseDoc?.FiscalYear
+                    ? Number(responseDoc.FiscalYear)
+                    : new Date().getFullYear();
+
+                  const fechaContabilizacionSAP = safeDate(new Date());
+                  console.info(`[ValidaContabilizaAsiento] 💾 Actualizando registro CAP → Documento=${numeroDocumento}`);
+
+                    // await tx.run(
+                    //   UPDATE('GestionaAsientos.Secuencias')
+                    //     .set({ valor: { "+=": 1 } })
+                    //     .where({ nombre: 'NUMERO_SOLICITUD' })
+                    // );
+                    // await tx.run(
+                    //       await UPDATE('GestionaAsientos.CabeceraAsiento')
+                    //         .set({
+                    //           numeroDocumentoSAP: numeroDocumento || null,
+                    //           numeroAsiento: numeroDocumento || null,
+                    //           fechaContabilizacion: fechaContabilizacionSAP,
+                    //           CodigoEmpresaContabilizacion: codigoEmpresa,
+                    //           AnioFiscalContabilizacion: anioFiscal
+                    //         })
+                    //         .where({ ID: cabecera.ID })
+                    //       );
+                  }
+                      // 9️⃣ Retornar resultado exitoso
+                  return {
+                    success: true,
+                    message: testDataIndicator
+                      ? 'Asiento validado correctamente (modo test)'
+                      : 'Asiento contabilizado correctamente',
+                    rawXML: xmlResponse,
+                    parsed
+                  };
+            //FIXME DJ: arreglar catch
+              // } catch (error) {
+              //   console.error('[ValidaContabilizaAsiento] ❌ Error:', error.message);
+              //   const msgError = testDataIndicator
+              //     ? 'Error al validar el asiento'
+              //     : 'Error al contabilizar el asiento';
+
+              //   return req.reject(500, `${msgError}: ${error.message}`);
+              // }
+        } catch (err) {
+          console.error("❌ [ValidaContabilizaAsiento] 🔴 Error detectado", err);
+          // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+          if (err.code) {
+            throw err; // ⚡ sigue para arriba sin cambios
+          }
+
+          // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+          console.error("❌ [ValidaContabilizaAsiento] 🔴 Error interno:", err);
+
+          // devolvemos un error 500 limpio
+          return req.reject(500, "[ValidaContabilizaAsiento] 🔴 Error interno");
+        }
+      }
+
+
+
+
+    // 🔹 1. Reemplaza mail del solicitante por el ID real de Empleado
+  async function ReemplazaMailSolicitantePorID(req) {
+    const emailSolicitante = req.data.correo_solicitante;
+    const Empleado = cds.entities.Empleado;
+
+    console.info('[ReemplazaMailSolicitantePorID] ✅ Ingresa en método');
+
+    try{
+            if (!emailSolicitante) return;
+            const empleado = await SELECT.one.from(Empleado).where({ email: emailSolicitante });
+            if (empleado) {
+              req.data.solicitante_ID = empleado.ID;
+              console.info(`[ReemplazaMailSolicitantePorID] ✅ Mail ${emailSolicitante} → ID ${empleado.ID}`);
+            } else {
+              console.error(`[ReemplazaMailSolicitantePorID] ❌ Error buscando empleado con mail ${emailSolicitante}`);
+              return req.reject(400,`[ReemplazaMailSolicitantePorID] ⚠ No se encontró empleado con mail ${emailSolicitante}`)
+            }
+
+            console.info('[ReemplazaMailSolicitantePorID] ✅ Sale del método');
+        } catch (err) {
+          console.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
+          // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+          if (err.code) {
+            throw err; // ⚡ sigue para arriba sin cambios
+          }
+
+          // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+          console.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
+
+          // devolvemos un error 500 limpio
+          return req.reject(500, "[ReemplazaMailSolicitantePorID] 🔴 Error interno");
+        }
+  }
+
+    // 🔹 2. Completa los campos calculados de la cabecera
+  async function CompletaCamposCabecera(req) {
+    const cab = req.data;
+    const tx = req.tx;
+    const TipoAsiento = cds.entities.TipoAsiento;
+    const EstadosSolicitud = cds.entities.EstadosSolicitud;
+    const Referencia = cds.entities.Referencia;
+
+    console.info('[CompletaCamposCabecera] ✅ Ingresa en método');
+
+    try{
+
+            // -------------------------------------------------------------------------
+            // 🔹 Generar número de solicitud NO repetido, atómico, sin baches
+            // -------------------------------------------------------------------------
+            // if (!cab.numeroSolicitud) {
+            //   cab.numeroSolicitud = await getNextNumeroSolicitudFU(tx);
+            //   console.info(`[CompletaCamposCabecera] NumeroSolicitud asignado = ${cab.numeroSolicitud}`);
+            // }
+            // -------------------------------------------------------------------------
+
+              // estadoSolicitud_ID con código REG
+              const estado = await SELECT.one.from(EstadosSolicitud).where({ codigo: 'REG' });
+              if (estado) cab.estadoSolicitud_ID = estado.ID 
+              else {
+                  console.error(`[CompletaCamposCabecera] ❌ Error al completar el estado`);
+                  return req.reject(404, `[CompletaCamposCabecera] ❌ Error al completar el estado`);
+              }
+
+              // subtipoAsiento_ID
+              const subtipoID = await ObtenerIDSubtipoAsiento(req);
+              if (subtipoID) cab.subtipoAsiento_ID = subtipoID;
+
+              const tipo = await SELECT.one.from(TipoAsiento).where({ ID: cab.tipoAsiento_ID });
+
+              // referencia_ID según tipoAsiento
+              if (tipo?.codigo) {
+                let refCodigo = null;
+                switch (tipo.codigo) {
+                  case '1': refCodigo = 'PRO'; break;
+                  case '2': refCodigo = 'AJC'; break;
+                  case '3': refCodigo = 'AJX'; break;
+                }
+                if (refCodigo) {
+                  const ref = await SELECT.one.from(Referencia).where({ codigo: refCodigo });
+                  if (ref) cab.referencia_ID = ref.ID;
+                }
+              }
+        } catch (err) {
+          console.error("❌ [CompletaCamposCabecera] 🔴 Error detectado", err);
+          // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+          if (err.code) {
+            throw err; // ⚡ sigue para arriba sin cambios
+          }
+
+          // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+          console.error("❌ [CompletaCamposCabecera] 🔴 Error interno:", err);
+
+          // devolvemos un error 500 limpio
+          return req.reject(500, "[CompletaCamposCabecera] 🔴 Error interno");
+        }
+  }
+
+
+  // 🔹 3. Determina el ID del SubTipoAsiento según lógica
+  // async function ObtenerIDSubtipoAsiento(req) {
+  //   const TipoAsiento = cds.entities.TipoAsiento;
+  //   const SubTipoAsiento = cds.entities.SubTipoAsiento;
+  //   const TipoCuenta = cds.entities.TipoCuenta;
+  //   const Cuenta = cds.entities.Cuenta;
+  //   const cab = req.data;
+
+  //   try
+  //   {
+  //       const tipo = await SELECT.one.from(TipoAsiento).where({ ID: cab.tipoAsiento_ID });
+      
+  //       if (!tipo) return req.reject(400, `[ObtenerIDSubtipoAsiento] ❌ No se encontró el tipo de asiento ingresado`);
+
+  //           // Casos directos
+  //           if (tipo.codigo === '1') return (await SELECT.one.from(SubTipoAsiento).where({ codigo: 'G' }))?.ID;
+  //           if (tipo.codigo === '3') return (await SELECT.one.from(SubTipoAsiento).where({ codigo: 'H' }))?.ID;
+
+  //           // Caso tipo 2: analizar ítems
+  //           if (tipo.codigo === '2' && cab.items?.length > 0) {
+  //             const cuentaIDs = cab.items.map(i => i.cuentaContable_ID);
+  //             const tiposCuenta = await SELECT.distinct.from(`com.carrefour.journal.TipoCuenta as A`)
+  //               .columns('codigo')
+  //               .join(`com.carrefour.journal.Cuenta as B`).on`B.tipo_ID = A.ID`
+  //               .where`B.ID in ${cuentaIDs}`;
+
+  //             const codigos = tiposCuenta.map(t => t.codigo);
+  //             const totalTipos = codigos.length;
+
+  //             const solo = (arr, ...codes) => codes.every(c => arr.includes(c)) && arr.length === codes.length;
+  //             let codigoSubtipo = null;
+
+  //             if (solo(codigos, 'GAS') && totalTipos === 1)
+  //               codigoSubtipo = 'A';
+  //             else if (solo(codigos, 'GAS'))
+  //               codigoSubtipo = 'B';
+  //             else if (solo(codigos, 'GAS', 'PRO'))
+  //               codigoSubtipo = 'D';
+  //             else if (solo(codigos, 'GAS', 'MAR') || solo(codigos, 'MAR'))
+  //               codigoSubtipo = 'E';
+  //             else if (solo(codigos, 'MAR', 'PRO') || solo(codigos, 'MAR', 'GAS', 'PRO'))
+  //               codigoSubtipo = 'C';
+  //             else if (solo(codigos, 'BAN'))
+  //               codigoSubtipo = 'F';
+
+  //             if (codigoSubtipo) {
+  //               const sub = await SELECT.one.from(SubTipoAsiento).where({ codigo: codigoSubtipo });
+  //               return sub?.ID;
+  //             }
+  //           } else {
+  //             console.error(`[ObtenerIDSubtipoAsiento] ❌ Error al buscar el subtipo de asiento.`);
+  //             return req.reject(400, `[ObtenerIDSubtipoAsiento] ❌ Error al buscar el subtipo de asiento.`);
+  //           }
+  //         }catch(err){
+  //           console.error(`[ObtenerIDSubtipoAsiento] ❌ Error al buscar el subtipo de asiento.`);
+  //           return req.reject(400, `[ObtenerIDSubtipoAsiento] ❌ Error al buscar el subtipo de asiento.`);
+  //         }
+  // }
+
+
+
+// // 🔹 3. Determina el ID del SubTipoAsiento según lógica completa
+// async function ObtenerIDSubtipoAsiento(req) {
+//   try {
+//     console.info("🔎 [ObtenerIDSubtipoAsiento] Inicio");
+
+//     const cab = req.data;
+//     const items = req.data.items || [];
+
+//     if (!items.length) {
+//       console.error("❌ No se enviaron ítems en el detalle");
+//       return req.reject(400, "Debe enviar al menos un ítem en el detalle del asiento.");
+//     }
+
+//     const tx = cds.transaction(req);
+
+//     // ============================================================
+//     // 1️⃣ AGRUPAR CUENTAS POR TIPO DE CUENTA (únicas)
+//     // ============================================================
+//     const cuentasPorTipo = {};
+//     const cuentasUnicas = new Set();
+
+//     for (const it of items) {
+
+//       const cuenta = it.cuentaContable_ID || it.cuentaContable;
+//       if (!cuenta) continue;
+
+//       // Registrar cuenta única global
+//       cuentasUnicas.add(cuenta);
+
+//       // Buscar tipo de cuenta
+//       const tipoCta = await tx.run(
+//         SELECT.one.from("com.carrefour.journal.Cuenta")
+//           .columns("tipo")
+//           .where({ ID: cuenta })
+//       );
+
+//       if (!tipoCta) {
+//         return req.reject(400, `No se encontró TipoCuenta para la cuenta seleccionada (${cuenta})`);
+//       }
+
+//       const tipoCod = tipoCta.tipo_codigo;
+
+//       if (!cuentasPorTipo[tipoCod]) cuentasPorTipo[tipoCod] = new Set();
+//       cuentasPorTipo[tipoCod].add(cuenta);
+//     }
+
+//     console.info("📊 Agrupación de cuentas por tipo:", JSON.stringify(
+//       Object.fromEntries(Object.entries(cuentasPorTipo).map(([k, v]) => [k, [...v]])),
+//       null,
+//       2
+//     ));
+
+//     // ============================================================
+//     // 2️⃣ SUMAR IMPORTES DE CLAVE 40
+//     // ============================================================
+//     const sumaClave40 = items
+//       .filter(it => it.clave == 40)
+//       .reduce((acc, it) => acc + Number(it.importe || 0), 0);
+
+//     console.info(`🧮 Suma clave 40 = ${sumaClave40}`);
+
+//     // ============================================================
+//     // 3️⃣ OBTENER TIPO SOLICITUD
+//     // ============================================================
+//     const tipoSol = await tx.run(
+//       SELECT.one.from("com.carrefour.journal.TipoSolicitud")
+//         .where({ ID: cab.tipoSolicitud_ID })
+//     );
+
+//     if (!tipoSol) {
+//       return req.reject(400, "No existe el TipoSolicitud indicado");
+//     }
+
+//     const codigoTS = tipoSol.codigo;
+//     console.info(`📌 TipoSolicitud código = ${codigoTS}`);
+
+//     // Helper: obtener subtipo por código
+//     async function getSub(cod) {
+//       const r = await tx.run(
+//         SELECT.one.from("com.carrefour.journal.SubTipoAsiento").where({ codigo: cod })
+//       );
+//       if (!r) return req.reject(400, `No existe SubtipoAsiento código ${cod}`);
+//       return r;
+//     }
+
+//     // Helper: validar conjuntos exactos
+//     const solo = arr =>
+//       Object.keys(cuentasPorTipo).length === arr.length &&
+//       arr.every(k => cuentasPorTipo[k]);
+
+//     // ============================================================
+//     // 🟦 TIPO SOLICITUD 1
+//     // ============================================================
+//     if (codigoTS == "1") {
+
+//       const tienePRO = cuentasPorTipo.PRO?.size > 0;
+//       const tieneGAS = cuentasPorTipo.GAS?.size > 0;
+//       const tieneMAR = cuentasPorTipo.MAR?.size > 0;
+
+//       const valido =
+//         (tienePRO && tieneGAS) ||
+//         (tienePRO && tieneGAS && tieneMAR) ||
+//         (tienePRO && tieneMAR);
+
+//       if (valido) {
+//         const r = await getSub("G");
+//         return r.ID;
+//       }
+
+//       return req.reject(400,
+//         "El tipo de asiento solicitado (TipoSolicitud=1) no es compatible con las cuentas presentadas.");
+//     }
+
+//     // ============================================================
+//     // 🟩 TIPO SOLICITUD 2
+//     // ============================================================
+//     if (codigoTS == "2") {
+
+//       const subA = solo(["GAS"]) && cuentasPorTipo.GAS.size === 1;
+//       const subB = solo(["GAS"]) && cuentasPorTipo.GAS.size > 1;
+//       const subC = solo(["GAS", "MAR"]) || solo(["MAR"]);
+//       const subD = solo(["GAS", "PRO"]);
+//       const subE = solo(["MAR", "PRO"]) || solo(["MAR", "GAS", "PRO"]);
+//       const subF = solo(["BAN"]);
+
+//       if (subA) return (await getSub("A")).ID;
+//       if (subB) return (await getSub("B")).ID;
+//       if (subC) return (await getSub("C")).ID;
+
+//       if (subD) {
+//         const st = await getSub("D");
+//         if (sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+//         return req.reject(400, `El monto clave=40 (${sumaClave40}) no supera el umbral (${st.umbralMinimoAsiento}) para subtipo D.`);
+//       }
+
+//       if (subE) {
+//         const st = await getSub("E");
+//         if (sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+//         return req.reject(400, `El monto clave=40 (${sumaClave40}) no supera el umbral (${st.umbralMinimoAsiento}) para subtipo E.`);
+//       }
+
+//       if (subF) return (await getSub("F")).ID;
+
+//       return req.reject(400,
+//         "El tipo de asiento solicitado (TipoSolicitud=2) no es compatible con las cuentas presentadas.");
+//     }
+
+//     // ============================================================
+//     // 🟧 TIPO SOLICITUD 3
+//     // ============================================================
+//     if (codigoTS == "3") {
+
+//       const tieneEXC = cuentasPorTipo.EXC?.size > 0;
+//       const tienePAT = cuentasPorTipo.PAT?.size > 0;
+
+//       if (tieneEXC && tienePAT) return (await getSub("H")).ID;
+
+//       return req.reject(400,
+//         "El tipo de asiento solicitado (TipoSolicitud=3) requiere cuentas EXC y PAT.");
+//     }
+
+//     // ============================================================
+//     // ❌ Si no coincide ningún tipoSolicitud conocido
+//     // ============================================================
+//     return req.reject(400,
+//       "El tipo de asiento solicitado no es compatible con las cuentas presentadas en el detalle.");
+
+//   } catch (err) {
+//     console.error("❌ [ObtenerIDSubtipoAsiento] Error:", err);
+//     return req.reject(500, "Error interno al determinar el subtipo de asiento.");
+//   }
+// }
+
+
+
+// 🔹 3. Determina el ID del SubTipoAsiento según lógica completa, validación y joins
+async function ObtenerIDSubtipoAsiento(req) {
+  try{
+        //TODO DJ: Agregar valicación de minimo en tipo asiento 1
+        //TODO DJ: Agregar que si viene solo PRO se acepta en tipo asiento 2
+
+        //try {
+          console.info("🔎 [ObtenerIDSubtipoAsiento] Inicio");
+
+          const tx = cds.transaction(req); //req.tx;
+          const cab = req.data;
+          const items = req.data.items || [];
+
+          if (!items.length) {
+            return req.reject(400, "Debe enviar al menos un ítem en el detalle del asiento.");
+          }
+
+          // ============================================================
+          // 1️⃣ AGRUPAR CUENTAS POR TIPO DE CUENTA
+          // ============================================================
+          const cuentasPorTipo = {};
+          const cuentasUnicas = new Set();
+          const cuentasDetalle = [];
+
+          for (const it of items) {
+
+            const cuentaID = it.cuentaContable_ID || it.cuentaContable;
+            if (!cuentaID) {
+              return req.reject(400,
+                `El ítem con ID ${it.ID || "(sin ID)"} no tiene cuenta contable informada`);
+            }
+
+            cuentasUnicas.add(cuentaID);
+
+            // 🔍 Un solo SELECT con join → Cuenta + TipoCuenta
+            const cuentaRow = await tx.run(
+              SELECT.one.from("com.carrefour.journal.Cuenta as C")
+                .columns(
+                  "C.ID",
+                  "C.numero",
+                  "C.nombre",
+                  "T.codigo as tipoCodigo",
+                  "T.nombre as tipoNombre"
+                )
+                .join("com.carrefour.journal.TipoCuenta as T").on("C.tipo_ID = T.ID")
+                .where({ "C.ID": cuentaID })
+            );
+
+            if (!cuentaRow) {
+              return req.reject(
+                400,
+                `La cuenta contable seleccionada (${cuentaID}) no existe en el maestro de Cuentas.`
+              );
+            }
+
+            const tipoCod = cuentaRow.tipoCodigo;
+
+            if (!cuentasPorTipo[tipoCod]) cuentasPorTipo[tipoCod] = new Set();
+            cuentasPorTipo[tipoCod].add(cuentaRow.numero);
+
+            cuentasDetalle.push({
+              cuenta: cuentaRow.numero,
+              nombreCuenta: cuentaRow.nombre,
+              tipoCuenta: cuentaRow.tipoCodigo,
+              nombreTipoCuenta: cuentaRow.tipoNombre
+            });
+
+            console.info(
+              `📌 Cuenta ${cuentaRow.numero} | ${cuentaRow.nombre} → Tipo ${cuentaRow.tipoCodigo} (${cuentaRow.tipoNombre})`
+            );
+          }
+
+          // ============================================================
+          // 🧾 LOG: TOTALES DE CUENTAS
+          // ============================================================
+
+          // 1) Total global de cuentas únicas
+          console.info(`🔢 Total de cuentas distintas recibidas: ${cuentasUnicas.size}`);
+
+          // 2) Total por tipo de cuenta
+          console.info("📘 Totales por Tipo de Cuenta:");
+          for (const [tipo, setCuentas] of Object.entries(cuentasPorTipo)) {
+            console.info(`   - ${tipo}: ${setCuentas.size} cuenta(s) → [${[...setCuentas].join(", ")}]`);
+          }
+
+          // ============================================================
+          // 2️⃣ SUMAR IMPORTES CLAVE 40 Y 50
+          // ============================================================
+          let sumaClave40 = 0;
+          let sumaClave50 = 0;
+
+          items.forEach(it => {
+            if (it.clave == 40) sumaClave40 += Number(it.importe || 0);
+            if (it.clave == 50) sumaClave50 += Number(it.importe || 0);
+          });
+
+          console.info(`🧮 Suma clave 40 = ${sumaClave40}, Suma clave 50 = ${sumaClave50}`);
+
+          // ============================================================
+          // 3️⃣ OBTENER TIPO ASIENTO (antes: TipoSolicitud)
+          // ============================================================
+          const tipoAsiento = await tx.run(
+            SELECT.one.from("com.carrefour.journal.TipoAsiento")
+              .where({ ID: cab.tipoAsiento_ID })
+          );
+
+          if (!tipoAsiento) {
+            return req.reject(400, "No existe el TipoAsiento indicado.");
+          }
+
+          const codigoTS = tipoAsiento.codigo;
+          console.info(`📌 TipoAsiento.codigo = ${codigoTS}`);
+
+          // ============================================================
+          // Helper para obtener subtipo
+          // ============================================================
+          async function getSub(cod) {
+            const r = await tx.run(
+              SELECT.one.from("com.carrefour.journal.SubTipoAsiento").where({ codigo: cod })
+            );
+            if (!r) {
+              return req.reject(400, `No existe SubTipoAsiento con código ${cod}`);
+            }
+            return r;
+          }
+
+          const solo = arr =>
+            Object.keys(cuentasPorTipo).length === arr.length &&
+            arr.every(k => cuentasPorTipo[k]);
+
+          // ============================================================
+          // 🟦 TIPO ASIENTO 1
+          // ============================================================
+          if (codigoTS == "1") {
+
+            const tienePRO = cuentasPorTipo.PRO?.size > 0;
+            const tieneGAS = cuentasPorTipo.GAS?.size > 0;
+            const tieneMAR = cuentasPorTipo.MAR?.size > 0;
+
+            const valido =
+              (
+                (tienePRO && tieneGAS) ||
+                (tienePRO && tieneGAS && tieneMAR) ||
+                (tienePRO && tieneMAR)
+              ) && 
+              (
+                  solo(["GAS", "MAR", "PRO"]) ||
+                  solo(["GAS", "PRO"]) ||
+                  solo(["MAR", "PRO"])
+
+              );
+              
+
+            if (valido){
+              const st = await getSub("G");
+              if (sumaClave40 >= st.umbralMinimoAsiento) {
+                  return st.ID;
+              } else {
+                  return req.reject(
+                    400,
+                    `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo .`
+                  );
+              };
+            };
+
+            // ❌ → RETORNO CON JSON EXTRAS
+            return req.reject(400, {
+              message:
+                "El tipo de asiento solicitado (TipoAsiento=1) no es compatible con las cuentas presentadas.",
+              detalleCuentas: {
+                totalCuentas: cuentasUnicas.size,
+                cuentasPorTipo: Object.fromEntries(
+                  Object.entries(cuentasPorTipo).map(([k, v]) => [k, v.size])
+                )
+              }
+            });
+          }
+
+          // ============================================================
+          // 🟩 TIPO ASIENTO 2
+          // ============================================================
+          if (codigoTS == "2") {
+
+            const subA = solo(["GAS"]) && cuentasPorTipo.GAS.size === 1;
+            const subB = solo(["GAS"]) && cuentasPorTipo.GAS.size > 1;
+            const subC = solo(["GAS", "MAR"]) || solo(["MAR"]);
+            const subD = solo(["GAS", "PRO"]);
+            const subE = solo(["MAR", "PRO"]) || solo(["MAR", "GAS", "PRO"]);
+            const subF = solo(["BAN"]);
+
+            if (subA) return (await getSub("A")).ID;
+            if (subB) return (await getSub("B")).ID;
+            if (subC) return (await getSub("C")).ID;
+
+            if (subD) {
+              const st = await getSub("D");
+              if (sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+              return req.reject(
+                400,
+                `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo D.`
+              );
+            }
+
+            if (subE) {
+              const st = await getSub("E");
+              if (sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+              return req.reject(
+                400,
+                `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo E.`
+              );
+            }
+
+            if (subF) return (await getSub("F")).ID;
+
+            // ❌ → RETORNO CON JSON EXTRAS
+            return req.reject(400, {
+              message:
+                "El tipo de asiento solicitado (TipoAsiento=2) no es compatible con las cuentas presentadas.",
+              detalleCuentas: {
+                totalCuentas: cuentasUnicas.size,
+                cuentasPorTipo: Object.fromEntries(
+                  Object.entries(cuentasPorTipo).map(([k, v]) => [k, v.size])
+                )
+              }
+            });
+          }
+
+          // ============================================================
+          // 🟧 TIPO ASIENTO 3
+          // ============================================================
+          if (codigoTS == "3") {
+
+            const tieneEXC = cuentasPorTipo.EXC?.size > 0;
+            const tienePAT = cuentasPorTipo.PAT?.size > 0;
+
+            if (tieneEXC && tienePAT && solo(["EXC", "PAT"]) )
+              return (await getSub("H")).ID;
+
+            // ❌ → RETORNO CON JSON EXTRAS
+            return req.reject(400, {
+              message:
+                "El tipo de asiento solicitado (TipoAsiento=3) requiere al menos una cuenta EXC y una PAT.",
+              detalleCuentas: {
+                totalCuentas: cuentasUnicas.size,
+                cuentasPorTipo: Object.fromEntries(
+                  Object.entries(cuentasPorTipo).map(([k, v]) => [k, v.size])
+                )
+              }
+            });
+          }
+
+          // ============================================================
+          // ❌ TIPO ASIENTO DESCONOCIDO
+          // ============================================================
+          return req.reject(
+            400,
+            "El tipo de asiento solicitado no es compatible con las cuentas presentadas."
+          );
+      } catch (err) {
+        console.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error detectado", err);
+        // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+        if (err.code) {
+          throw err; // ⚡ sigue para arriba sin cambios
+        }
+
+        // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+        console.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error interno:", err);
+
+        // devolvemos un error 500 limpio
+        return req.reject(500, "[ObtenerIDSubtipoAsiento] 🔴 Error interno");
+      }
+}
+
+
+  
+
+    async function ReemplazaCuentaPorID(req) {
+      const data = req.data;
+      const Cuenta = cds.entities.Cuenta;
+      const tx = req.tx;
+
+      try{      
+            console.info('[ReemplazaCuentaPorID] ✅ Ingresa en método');
+
+            const catalogService = await cds.connect.to('CatalogService');
+
+            if (!data.items || !Array.isArray(data.items)) {
+                  console.error(`[ReemplazaCuentaPorID] ❌ Error en items`);
+                  return req.reject(404,`[ReemplazaCuentaPorID] ❌ Error en items`);
+            } 
+
+            for (const item of data.items) {
+              if (item.cuentaContable_ID && !/^[0-9a-fA-F-]{36}$/.test(item.cuentaContable_ID)) {
+                const codigoCuenta = String(item.cuentaContable_ID).trim();
+              // try {
+                  const cuentaRec = await catalogService.run(
+                    SELECT.one.from('CatalogService.Cuentas').where({ numero: codigoCuenta })
+                  );
+
+                  if (cuentaRec) {
+                    item.cuentaContable_ID = cuentaRec.ID;
+                    console.info(`[ReemplazaCuentaPorID] ✅ Mapeada cuenta ${codigoCuenta} → ${cuentaRec.ID}`);
+                  } else {
+                    const msg = `[ReemplazaCuentaPorID] ❌ Cuenta contable inexistente: ${codigoCuenta}`;
+                    console.error(msg);
+                    req.reject(404, msg);
+                  }
+                //FIXME DJ: arreglar catch
+                  // } catch (err) {
+                //   console.error(`[ReemplazaCuentaPorID] ❌ Error buscando cuenta ${codigoCuenta}: ${err.message}`);
+                //   return req.reject(404, `Error buscando cuenta contable: ${codigoCuenta}`);
+                // }
+            } else if (!item.cuentaContable_ID){
+                  console.error(`[ReemplazaCuentaPorID] ❌ Error buscando cuenta ${codigoCuenta}: ${err.message}`);
+                  return req.reject(404, `Error buscando cuenta contable: ${codigoCuenta}`);
+            }
+          }
+      } catch (err) {
+        console.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
+        // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+        if (err.code) {
+          throw err; // ⚡ sigue para arriba sin cambios
+        }
+
+        // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+        console.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
+
+        // devolvemos un error 500 limpio
+        return req.reject(500, "[ReemplazaMailSolicitantePorID] 🔴 Error interno");
+      }
+  }
+
+
+
+
+
+
+
+
+// ===========================================================
+// 🟢 RegistrarAprobacion
+// ===========================================================
+this.on("RegistrarAprobacion", async (req) => {
+  const { idSolicitud, emailAprobador } = req.data;
+
+  const tx = req.tx;
+
+
+        try{
+
+              if (!idSolicitud || !emailAprobador) {
+                return req.reject(400, "Debe enviar al menos un ítem en el detalle del asiento.");
+              }
+
+              const catalogService = await cds.connect.to('CatalogService');
+
+              console.info(`[RegistrarAprobacion] idSolicitud=${idSolicitud}, emailAprobador=${emailAprobador}`);
+
+              // 🔎 Buscar empleado
+              const empleado = await catalogService.run(SELECT.one.from('CatalogService.Empleados').where({ email: emailAprobador }));
+              if (!empleado) req.reject(404, `No se encontró empleado con email ${emailAprobador}`);
+
+              // 🔎 Validar solicitud
+              const solicitud = await tx.run(SELECT.one.from('GestionaAsientos.CabeceraAsiento').where({ numeroSolicitud: idSolicitud }));
+              if (!solicitud) req.reject(404, `No existe la solicitud con ID ${idSolicitud}`);
+
+              // 📝 Insertar registro en AprobadorSolicitud
+              await tx.run(
+                INSERT.into('GestionaAsientos.AprobadorSolicitud').entries({
+                  empleado_ID: empleado.ID,
+                  solicitud_ID: idSolicitud,
+                  fechaAprobacion: new Date(),
+                  decision: "APROBACION"
+                })
+              );
+
+              console.info(`[RegistrarAprobacion] ✅ Aprobación registrada correctamente`);
+              return { message: "Aprobación registrada correctamente" };
+          } catch (err) {
+            console.error("❌ [RegistrarAprobacion] 🔴 Error detectado", err);
+            // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+            if (err.code) {
+              throw err; // ⚡ sigue para arriba sin cambios
+            }
+
+            // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+            console.error("❌ [RegistrarAprobacion] 🔴 Error interno", err);
+
+            // devolvemos un error 500 limpio
+            return req.reject(500, "[RegistrarAprobacion] 🔴 Error interno");
+          }
+});
+
+
+      // ===========================================================
+      // 🔴 RegistrarRechazo
+      // ===========================================================
+      this.on("RegistrarRechazo", async (req) => {
+          try{
+                const { idSolicitud, emailAprobador } = req.data;
+
+                const tx = req.tx;
+
+                  // const {
+                  //   Empleado,
+                  //   AprobadorSolicitud,
+                  //   CabeceraAsiento,
+                  //   EstadosSolicitud
+                  // } = cds.entities["com.carrefour.journal"];
+
+                  const catalogService = await cds.connect.to('CatalogService');
+
+                  console.info(`[RegistrarRechazo] idSolicitud=${idSolicitud}, emailAprobador=${emailAprobador}`);
+
+                  // 🔎 Buscar empleado
+                  const empleado = await catalogService.run(SELECT.one.from('CatalogService.Empleados').where({ email: emailAprobador }));
+                  if (!empleado) req.reject(404, `No se encontró empleado con email ${emailAprobador}`);
+
+                  // 🔎 Validar solicitud
+                  const solicitud = await tx.run(SELECT.one.from('GestionaAsientos.CabeceraAsiento').where({ numeroSolicitud: idSolicitud }));
+                  if (!solicitud) req.reject(404, `No existe la solicitud con ID ${idSolicitud}`);
+
+                  // 📝 Insertar registro en AprobadorSolicitud
+                  await tx.run(
+                    INSERT.into('GestionaAsientos.AprobadorSolicitud').entries({
+                      empleado_ID: empleado.ID,
+                      solicitud_ID: idSolicitud,
+                      fechaAprobacion: new Date(),
+                      decision: "RECHAZO"
+                    })
+                  );
+
+                  // 🔄 Actualizar estadoSolicitud al código 'RDA'
+                  const estadoRechazada = await catalogService.run(
+                    SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "RDA" })
+                  );
+                  if (!estadoRechazada) req.reject(404, `No se encontró estado con código 'RDA'`);
+
+                  await tx.run(
+                    UPDATE('GestionaAsientos.CabeceraAsiento')
+                      .set({ estadoSolicitud_ID: estadoRechazada.ID })
+                      .where({ ID: idSolicitud })
+                  );
+
+                  console.info(`[RegistrarRechazo] 🔴 Rechazo registrado y estado actualizado a 'RDA'`);
+                  return { message: "Rechazo registrado correctamente" };
+            } catch (err) {
+                console.error("❌ [RegistrarRechazo] 🔴 Error detectado", err);
+                // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+                if (err.code) {
+                  throw err; // ⚡ sigue para arriba sin cambios
+                }
+
+                // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+                console.error("❌ [RegistrarRechazo] 🔴 Error interno", err);
+
+                // devolvemos un error 500 limpio
+                return req.reject(500, "[RegistrarRechazo] 🔴 Error interno");
+            }
+      });
+
+
+
+      /**
+       * -------------------------------------------------------------------------
+       * Helper: EjecutarContabilizacionPorID
+       * -------------------------------------------------------------------------
+       */
+      async function EjecutarContabilizacionPorID(id, req) {
+
+        try{
+                const cabecera = await SELECT.one
+                  .from('com.carrefour.journal.CabeceraAsiento')
+                  .where({ numeroSolicitud: id });
+
+                if (!cabecera) req.reject(400,`CabeceraAsiento con ID ${id} no encontrada`);
+
+                // 🔥 Traer los items + el número de cuenta desde Cuenta
+                  const items = await SELECT
+                    .from('com.carrefour.journal.DetalleAsiento as D')
+                    .leftJoin('com.carrefour.journal.Cuenta as C').on`C.ID = D.cuentaContable_ID`
+                    .columns(
+                      'D.ID',
+                      'D.numeroLinea',
+                      'D.descripcion',
+                      'D.centroCosto',
+                      'D.clave',
+                      'D.importe',
+                      'C.numero',
+                      'D.cuentaContable_ID'
+                    )
+                    .where({ cabecera_ID: cabecera.ID });
+                
+                if (!items) req.reject(400,`Items de CabeceraAsiento con ID ${id} no encontrados`);
+
+
+                cabecera.items = items;
+
+                req.data = cabecera;
+
+                // Llama al método real de contabilización
+                return await ValidaContabilizaAsiento(req, false);
+          } catch (err) {
+              console.error("❌ [RegistrarRechazo] 🔴 Error detectado", err);
+              // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+              if (err.code) {
+                throw err; // ⚡ sigue para arriba sin cambios
+              }
+
+              // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+              console.error("❌ [RegistrarRechazo] 🔴 Error interno", err);
+
+              // devolvemos un error 500 limpio
+              return req.reject(500, "[RegistrarRechazo] 🔴 Error interno");
+          }
+      }
+
+
+      /**
+       * -------------------------------------------------------------------------
+       * Acción: RealizarContabilizacion (versión completa)
+       * -------------------------------------------------------------------------
+       */
+      this.on('RealizarContabilizacion', async (req) => {
+          const tx = req.tx;
+          const catalogService = await cds.connect.to('CatalogService');
+
+         try {
+                const id = req.data.id;
+                if (!id) return req.reject(400, 'Falta ID de la solicitud');
+
+                console.info(`[RealizarContabilizacion] 🧮 Iniciando contabilización para ID=${id}`);
+
+                // 1️⃣ Ejecutar contabilización en S/4HANA
+                const resultado = await EjecutarContabilizacionPorID(id, req);
+
+                // 2️⃣ Si el resultado fue exitoso → actualizar estadoSolicitud = CON
+                // if (resultado.success) {
+                //   const { CabeceraAsiento, EstadosSolicitud } = cds.entities['com.carrefour.journal'];
+
+                //   const estadoContabilizada = await catalogService.run(
+                //     SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: 'CON' })
+                //   );
+                //   if (!estadoContabilizada)
+                //     req.reject(404, `No se encontró estado con código 'CON'`);
+
+                //   await tx.run(
+                //     UPDATE('GestionaAsientos.CabeceraAsiento')
+                //       .set({ estadoSolicitud_ID: estadoContabilizada.ID })
+                //       .where({ ID: id })
+                //   );
+
+                //   console.info(`[RealizarContabilizacion] ✅ Contabilización exitosa y estado actualizado a 'CON'`);
+                //   return resultado;
+                // } else {
+                //   // Si la contabilización devolvió error
+                //   console.warn(`[RealizarContabilizacion] ⚠️ Error en contabilización: ${resultado.message}`);
+                //   return req.reject(400, resultado.message || 'Error en contabilización');
+                // }
+             } catch (err) {
+                console.error("❌ [RealizarContabilizacion] 🔴 Error detectado", err);
+                // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+                if (err.code) {
+                  throw err; // ⚡ sigue para arriba sin cambios
+                }
+
+                // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+                console.error("❌ [RealizarContabilizacion] 🔴 Error interno:", err);
+
+                // devolvemos un error 500 limpio
+                return req.reject(500, "[RealizarContabilizacion] 🔴 Error interno");
+            }
+      });
+  
+
+
+
+
+    // /**
+    //  * 🔹 Hook principal BEFORE CREATE
+    //  */
+    //   this.before('CREATE', 'CabeceraAsiento', async (req) => {
+    //     console.info('[CabeceraAsiento] 🟢 Entrando en BEFORE CREATE');
+        
+    //     await ValidaContabilizaAsiento(req, true);
+    //     await ReemplazaMailSolicitantePorID(req);
+    //     await ReemplazaCuentaPorID(req);
+    //     await CompletaCamposCabecera(req);
+
+    //       // 🚀 INICIAR WORKFLOW BPA
+    //     const idWF = await IniciaWorkflowBPA(req);
+    //     req.data.idInstanciaWorkflow = idWF;
+        
+    //   });
+
+
+
+
+      // ===========================================================
+      // BEFORE CREATE: Validaciones previas + helpers
+      // ===========================================================
+      this.before('CREATE', 'CabeceraAsiento', async (req) => {
+        console.info('[CabeceraAsiento] 🟢 Entrando en BEFORE CREATE');
+
+        try{
+
+              const { periodoAnio, periodoMes, fechaDocumento, fechaContabilizacion, correo_solicitante } = req.data;
+
+              // Si no vienen estos campos -> no validar
+              if (!periodoAnio || !periodoMes)
+                      req.reject(400,
+                      `Falta fechaDocumento y fechaContabilizaci[on]`);;
+
+              //try {
+              // 1️⃣ Obtener fecha inicio y fin del período
+              const mes = Number(periodoMes);
+              const anio = Number(periodoAnio);
+
+              const fechaInicio = new Date(anio, mes - 1, 1);      // primer día del mes
+              const fechaFin = new Date(anio, mes, 0);             // último día del mes
+
+              // 2️⃣ Validar fechaDocumento
+              if (fechaDocumento) {
+                const fdoc = new Date(fechaDocumento);
+                if (fdoc < fechaInicio || fdoc > fechaFin) {
+                  req.reject(
+                    400,
+                    `La fechaDocumento (${fechaDocumento}) debe estar dentro del período ${periodoMes}/${periodoAnio}`
+                  );
+                }
+              }
+
+              // 3️⃣ Validar fechaContabilizacion
+              if (fechaContabilizacion) {
+                const fcont = new Date(fechaContabilizacion);
+                if (fcont < fechaInicio || fcont > fechaFin) {
+                  req.reject(
+                    400,
+                    `La fechaContabilizacion (${fechaContabilizacion}) debe estar dentro del período ${periodoMes}/${periodoAnio}`
+                  );
+                }
+              }
+
+              console.info(
+                `[ValidaFechasPeriodo] OK - Fechas dentro del período ${periodoMes}/${periodoAnio}`
+              );
+              //FIXME DJ: arreglar catch
+                // } catch (err) {
+                //   console.error("[ValidaFechasPeriodo] ERROR:", err);
+                //   req.reject(500, "Error al validar fechas del período");
+                // }
+
+
+              // ================================================================
+              // 1️⃣ CONSTANTE DE CONTROL
+              // ================================================================
+              const MAX_ITEMS_ASIENTO = 900;
+
+              const cab = req.data;
+              const items = cab.items || [];
+              const tx = req.tx;
+
+              // ================================================================
+              // 2️⃣ VALIDAR CANTIDAD MÁXIMA DE ITEMS
+              // ================================================================
+              if (items.length > MAX_ITEMS_ASIENTO) {
+                return req.reject(
+                  400,
+                  `El asiento no puede contener más de ${MAX_ITEMS_ASIENTO} ítems. Se enviaron ${items.length}.`
+                );
+              }
+
+              // ================================================================
+              // 3️⃣ VALIDACIÓN DE CLAVE Y IMPORTE
+              // ================================================================
+              let sumaDebe = 0;
+              let sumaHaber = 0;
+              
+
+              for (const it of items) {
+
+                // Clave válida
+                if (it.clave !== 40 && it.clave !== 50) {
+                  return req.reject(
+                    400,
+                    `El ítem con cuenta ${it.cuentaContable_ID || it.cuentaContable} tiene clave inválida (${it.clave}). Debe ser 40 o 50.`
+                  );
+                }
+
+                // Importe válido
+                if (!it.importe || Number(it.importe) <= 0) {
+                  return req.reject(
+                    400,
+                    `El ítem con cuenta ${it.cuentaContable_ID || it.cuentaContable} tiene importe inválido (${it.importe}). Debe ser mayor a 0.`
+                  );
+                }
+
+                // Acumular sumatoria
+                const importe = Number(it.importe);
+
+                if (it.clave === 40) sumaDebe += importe;
+                if (it.clave === 50) sumaHaber += importe;
+              }
+
+              // ================================================================
+              // 4️⃣ VALIDAR QUE SUMA DEBE == SUMA HABER
+              // ================================================================
+              if (sumaDebe !== sumaHaber) {
+                return req.reject(
+                  400,
+                  `Las sumatorias del asiento no cuadran: Debe=${sumaDebe} | Haber=${sumaHaber}. La suma de clave 40 debe ser igual a la suma de clave 50.`
+                );
+              }
+
+              console.info(`🧮 Validación contable OK → Debe=${sumaDebe}, Haber=${sumaHaber}`);
+
+              // // ================================================================
+              // // 5️⃣ LLAMAR VALIDACIÓN SOAP (modo test)
+              // // ================================================================
+              // await ValidaContabilizaAsiento(req, true);
+
+              // ================================================================
+              // 6️⃣ REEMPLAZOS Y COMPLETADO AUTOMÁTICO
+              // ================================================================
+              await ReemplazaMailSolicitantePorID(req);
+              await ReemplazaCuentaPorID(req);
+              await CompletaCamposCabecera(req);
+
+              // ================================================================
+              // 5️⃣ LLAMAR VALIDACIÓN SOAP (modo test)
+              // ================================================================
+              //PENDING DJ await ValidaContabilizaAsiento(req, true);
+
+              // -------------------------------------------------------------------------
+              // 🔹 Generar número de solicitud NO repetido, atómico, sin baches
+              // -------------------------------------------------------------------------
+              if (!cab.numeroSolicitud) {
+                cab.numeroSolicitud = await getNextNumeroSolicitudFU(tx);
+                console.info(`[CabeceraAsiento] NumeroSolicitud asignado = ${cab.numeroSolicitud}`);
+              }
+              // ================================================================
+              // 7️⃣ Iniciar Workflow BPA
+              // ================================================================
+              //PENDING DJ idWF = await IniciaWorkflowBPA(req);
+              //PENDING DJ req.data.idInstanciaWorkflow = idWF;
+        } catch (err) {
+          console.error("❌ [CabeceraAsiento] 🔴 Error detectado", err);
+          // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+          if (err.code) {
+            throw err; // ⚡ sigue para arriba sin cambios
+          }
+
+          // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+          console.error("❌ [CabeceraAsiento] 🔴 Error interno:", err);
+
+          // devolvemos un error 500 limpio
+          return req.reject(500, "[CabeceraAsiento] 🔴 Error interno");
+        }
+      });
+
+
+
+
+    // /**
+    //    * 🔹 Action: ObtenerDatosReporteSeguimiento
+    //    * Devuelve el resumen de solicitudes + datos de aprobación desde BPA
+    //    */
+    //   this.on("ObtenerDatosReporteSeguimiento", async (req) => {
+    //     const tx = cds.transaction(req);
+    //     const CabeceraAsiento = cds.entities.CabeceraAsiento;
+
+    //     try{
+    //             // 1️⃣ Recuperar todas las solicitudes
+    //             const solicitudes = await tx.run(
+    //               SELECT.from(CabeceraAsiento).columns(
+    //                 "ID",
+    //                 "numeroSolicitud",
+    //                 "tipoAsiento",
+    //                 "subtipoAsiento",
+    //                 "createdAt",
+    //                 "estadoSolicitud_codigo as estado",
+    //                 "numeroDocumentoSAP",
+    //                 "idInstanciaWorkflow"
+    //               )
+    //             );
+
+    //             // 2️⃣ Enriquecer cada solicitud con datos de BPA
+    //             const resultados = await Promise.all(
+    //               solicitudes.map(async (s) => {
+    //                 let aprobador = null;
+    //                 let fechaAprobacion = null;
+
+    //               //  try {
+    //                   if (s.idInstanciaWorkflow) {
+    //                     // 🔸 Ejemplo: consulta a BPA usando el idInstanciaWorkflow
+    //                     const destination = await cds.connect.to("bpa-api");
+    //                     const response = await destination.run({
+    //                       method: "GET",
+    //                       path: `/workflow-runtime/v1/workflow-instances/${s.idInstanciaWorkflow}/context`,
+    //                     });
+
+    //                     // 🔹 Extraer datos (ajustar a tu estructura real del contexto)
+    //                     aprobador = response?.lastApprovedBy?.name || null;
+    //                     fechaAprobacion = response?.lastApprovedAt || null;
+    //                   }
+    //                   //FIXME DJ: arreglar catch
+    //                 // } catch (err) {
+    //                 //   console.warn(`No se pudo recuperar aprobación para ${s.numeroSolicitud}:`, err.message);
+    //                 // }
+
+    //                 return {
+    //                   numeroSolicitud: s.numeroSolicitud,
+    //                   tipoAsiento: s.tipoAsiento,
+    //                   subtipoAsiento: s.subtipoAsiento,
+    //                   fechaCreacion: s.createdAt,
+    //                   aprobador,
+    //                   fechaAprobacion,
+    //                   estado: s.estado,
+    //                   numeroDocumentoSAP: s.numeroDocumentoSAP,
+    //                 };
+    //               })
+    //             );
+
+    //             return resultados;
+    //         } catch (err) {
+    //             console.error("❌ [ObtenerDatosReporteSeguimiento] 🔴 Error detectado", err);
+    //             // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+    //             if (err.code) {
+    //               throw err; // ⚡ sigue para arriba sin cambios
+    //             }
+
+    //             // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+    //             console.error("❌ [ObtenerDatosReporteSeguimiento] 🔴 Error interno", err);
+
+    //             // devolvemos un error 500 limpio
+    //             return req.reject(500, "[ObtenerDatosReporteSeguimiento] 🔴 Error interno");
+    //         }
+    //   });
+
+
+
+
+// ============================================================================
+// 📦 BPA WORKFLOW HELPERS — Carrefour Asientos
+// ============================================================================
+// Contiene:
+//   - getValoresCabecera
+//   - getTablaSumatorias
+//   - getAprobadoresNivel1 / Nivel2 / Nivel3 / Nivel4
+//   - buildPayloadBPA
+//   - callBPA
+//   - IniciaWorkflowBPA (función principal)
+//
+// Todas las consultas están adaptadas 100% a tu schema.cds real:
+//   - asociaciones → JOIN
+//   - filtros reales: Sector.codigo, Cargo.codigo, TipoCuenta.codigo, etc.
+// ============================================================================
+
+
+/* ============================================================================================
+ * 🧩 HELPER 1 — Obtener valores de cabecera desde entidades maestro
+ * ============================================================================================ */
+async function getValoresCabecera(req) {
+  try{
+          const catalog = await cds.connect.to("CatalogService");
+          const d = req.data;
+
+          const solicitante = await catalog.run(
+            SELECT.one.from('CatalogService.Empleados').where({ ID: d.solicitante_ID })
+          );
+          if (!solicitante) return req.reject(400, "No se encontró el solicitante");
+
+          const tipoAsiento = await catalog.run(
+            SELECT.one.from('CatalogService.TiposAsiento').where({ ID: d.tipoAsiento_ID })
+          );
+          if (!tipoAsiento) return req.reject(400, "No se encontró el Tipo de Asiento");
+
+          const subtipoAsiento = await catalog.run(
+            SELECT.one.from('CatalogService.SubTiposAsiento').where({ ID: d.subtipoAsiento_ID })
+          );
+          if (!subtipoAsiento) return req.reject(400, "No se encontró el Subtipo de Asiento");
+
+          const referencia = await catalog.run(
+            SELECT.one.from('CatalogService.Referencia').where({ ID: d.referencia_ID })
+          );
+          if (!referencia) return req.reject(400, "No se encontró la Referencia");
+
+          const sector = await catalog.run(
+            SELECT.one.from('CatalogService.Sectores').where({ ID: d.sectorSolicitante_ID })
+          );
+          if (!sector) return req.reject(400, "No se encontró el sector del solicitante");
+
+          return { solicitante, tipoAsiento, subtipoAsiento, referencia, sector };
+
+      } catch (err) {
+        console.error("❌ [getValoresCabecera] 🔴 Error detectado", err);
+        // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+        if (err.code) {
+          throw err; // ⚡ sigue para arriba sin cambios
+        }
+
+        // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+        console.error("❌ [getValoresCabecera] 🔴 Error interno:", err);
+
+        // devolvemos un error 500 limpio
+        return req.reject(500, "[getValoresCabecera] 🔴 Error interno");
+      }
+}
+
+
+
+/* ============================================================================================
+ * 🧩 HELPER 2 — Calcular tablasumatorias agrupando por cuenta y tipoCuenta
+ * ============================================================================================ */
+
+//TODO DJ: !!!!!!!ATENCION!!!!!! EN ESTE METODOS Y OTROS RELACIOANDOS EN PARTE DEL CIRCUITO SE UTILIZA
+//                                EL NRO DE SOLICITUD EN EL EL CAMP IdSolicitud PORQUE EN EL WORKFLOW 
+//                                SE UTILIZÓ DE ESA MANERA Y NO HUBO TIEMPO DE HACER EL CAMBIO.
+async function getTablaSumatorias(req) {
+    try {
+        const catalog = await cds.connect.to("CatalogService");
+        const d = req.data;
+
+        // 1️⃣ Validación: Deben existir items
+        if (!d.items || !Array.isArray(d.items) || d.items.length === 0) {
+            return req.reject(400, "[getTablaSumatorias] ❌ No se enviaron items para calcular sumatorias");
+        }
+
+        // 2️⃣ Validación: Todos los items deben tener cuentaContable_ID
+        const cuentaIDs = d.items.map(i => i.cuentaContable_ID);
+        if (cuentaIDs.some(id => !id)) {
+            return req.reject(400, "[getTablaSumatorias] ❌ Hay items sin cuentaContable_ID");
+        }
+
+        // 3️⃣ Traer cuentas → solo para recuperar el número
+        // const cuentas = await catalog.run(
+        //     SELECT.from('CatalogService.Cuentas')
+        //         .columns('ID', 'numero')
+        //         .where({ ID: { in: cuentaIDs } })
+        // );
+
+        // const cuentas = await SELECT.from('com.carrefour.journal.Cuentas')
+        //     .columns(
+        //         'ID',
+        //         'numero',
+        //         'tipo_ID',
+        //         { tipoCuenta: ['nombre'] }
+        //     )
+        //     .where({ ID: { in: cuentaIDs } });
+
+        // if (!cuentas || cuentas.length === 0) {
+        //     return req.reject(400, "[getTablaSumatorias] ❌ No se encontraron cuentas para los IDs enviados");
+        // }
+
+        // // Index rápido ID → número
+        // const mapCtas = new Map(cuentas.map(c => [c.ID, c.numero, tipoCuenta]));
+
+        // // 4️⃣ Agrupar SOLO por número de cuenta
+        // const sumMap = {};
+
+        // for (const it of d.items) {
+        //     const numeroCuenta = mapCtas.get(it.cuentaContable_ID);
+
+        //     if (!numeroCuenta) {
+        //         return req.reject(
+        //             400,
+        //             `[getTablaSumatorias] ❌ La cuenta ${it.cuentaContable_ID} no existe en el maestro`
+        //         );
+        //     }
+
+        //     if (!sumMap[numeroCuenta]) {
+        //         sumMap[numeroCuenta] = {
+        //             IdCuenta: numeroCuenta,
+        //             TipoCuenta: tipoCuenta,
+        //             SumatoriaTotal: 0
+        //         };
+        //     }
+
+        //     sumMap[numeroCuenta].SumatoriaTotal += Number(it.importe || 0);
+        // }
+            const cuentas = await catalog.run(
+                SELECT.from('CatalogService.Cuentas')
+                    .columns(
+                        'ID',
+                        'nombre',
+                        'numero'
+                    )
+                    .where({ ID: { in: cuentaIDs } })
+            );
+
+          if (!cuentas || cuentas.length === 0) {
+              return req.reject(400, "[getTablaSumatorias] ❌ No se encontraron cuentas para los IDs enviados");
+          }
+
+          const mapCtas = new Map(
+                cuentas.map(c => [
+                    c.ID,
+                    {
+                        numero: c.numero,
+                        nombre: c.nombre
+                    }
+                ])
+            );
+
+            const sumMap = {};
+
+            for (const it of d.items) {
+                const cta = mapCtas.get(it.cuentaContable_ID);
+
+                if (!cta) {
+                    return req.reject(
+                        400,
+                        `[getTablaSumatorias] ❌ La cuenta ${it.cuentaContable_ID} no existe en el maestro`
+                    );
+                }
+
+                const numeroCuenta = cta.numero;
+                const cuentaNombre = cta.nombre;
+
+                if (!sumMap[numeroCuenta]) {
+                    sumMap[numeroCuenta] = {
+                        IdCuenta: numeroCuenta,
+                        TipoCuenta: cuentaNombre,
+                        SumatoriaTotal: 0
+                    };
+                }
+
+                sumMap[numeroCuenta].SumatoriaTotal += Number(it.importe || 0);
+            }
+
+
+
+        // return Object.values(sumMap);
+        const resultado = Object.values(sumMap);
+
+        // 5️⃣ LOG DETALLADO DE RESULTADO
+        console.info("📊 [getTablaSumatorias] Tabla de sumatorias generada:");
+        console.info(`   🔢 Total cuentas agrupadas: ${resultado.length}`);
+
+        resultado.forEach(elem => {
+            console.info(
+                `   ➡ Cuenta ${elem.IdCuenta} → SumatoriaTotal = ${elem.SumatoriaTotal}`
+            );
+        });
+
+        return resultado;
+
+    } catch (err) {
+
+        console.error("❌ [getTablaSumatorias] 🔴 Error detectado", err);
+
+        // Si el error ya es de CAP → relanzar
+        if (err.code) {
+            throw err;
+        }
+
+        // Error inesperado → 500
+        console.error("❌ [getTablaSumatorias] 🔴 Error interno:", err);
+        return req.reject(500, "[getTablaSumatorias] 🔴 Error interno");
+    }
+}
+
+// async function getTablaSumatorias(req) {
+//   try{
+//         const catalog = await cds.connect.to("CatalogService");
+//         const d = req.data;
+
+//         const cuentaIDs = d.items.map(i => i.cuentaContable_ID);
+
+//         // 1️⃣ Traer cuentas (sin join)
+//         const cuentas = await catalog.run(
+//           SELECT.from('CatalogService.Cuentas')
+//             .columns('ID', 'numero', 'tipo_ID')
+//             .where({ ID: { in: cuentaIDs } })
+//         );
+
+//         // 2️⃣ Traer tipos de cuenta asociados
+//         const tipoIDs = [...new Set(cuentas.map(c => c.tipo_ID).filter(Boolean))];
+
+//         const tipos = tipoIDs.length
+//           ? await catalog.run(
+//               SELECT.from('CatalogService.TiposCuentas')
+//                 .columns('ID', 'codigo')
+//                 .where({ ID: { in: tipoIDs } })
+//             )
+//           : [];
+
+//         const sumMap = {};
+
+//         for (const it of d.items) {
+//           const cta = cuentas.find(c => c.ID === it.cuentaContable_ID);
+//           if (!cta) continue;
+
+//           const tipo = tipos.find(t => t.ID === cta.tipo_ID);
+//           const tipoCodigo = tipo?.codigo || null;
+
+//           const key = `${cta.numero}-${tipoCodigo}`;
+
+//           if (!sumMap[key]) {
+//             sumMap[key] = {
+//               IdCuenta: cta.numero,
+//               TipoCuenta: tipoCodigo,
+//               SumatoriaTotal: 0
+//             };
+//           }
+
+//           sumMap[key].SumatoriaTotal += Number(it.importe);
+//         }
+
+//         return Object.values(sumMap);
+//     } catch (err) {
+//       console.error("❌ [getTablaSumatorias] 🔴 Error detectado", err);
+//       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+//       if (err.code) {
+//         throw err; // ⚡ sigue para arriba sin cambios
+//       }
+
+//       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+//       console.error("❌ [getTablaSumatorias] 🔴 Error interno:", err);
+
+//       // devolvemos un error 500 limpio
+//       return req.reject(500, "[getTablaSumatorias] 🔴 Error interno");
+//     }
+// }
+
+
+
+/* ============================================================================================
+ * 🧩 HELPER 3 — Aprobadores Nivel 1: sector solicitante + cargos GER/DIR
+ * ============================================================================================ */
+async function getAprobadoresNivel1(req) {
+    try{
+          const catalog = await cds.connect.to("CatalogService");
+          const d = req.data;
+
+          // 1️⃣ Traer todos los ConfigAprobadores del sector
+          const cfgSector = await catalog.run(
+            SELECT.from('CatalogService.ConfigAprobadores')
+              .columns('empleado_ID', 'cargo_ID')
+              .where({ sector_ID: d.sectorSolicitante_ID })
+          );
+
+          if (!cfgSector.length) return [];
+
+          // 2️⃣ Traer los cargos asociados
+          const cargoIDs = [...new Set(cfgSector.map(c => c.cargo_ID).filter(Boolean))];
+
+          const cargos = await catalog.run(
+            SELECT.from('CatalogService.Cargos')
+              .columns('ID', 'codigo')
+              .where({ ID: { in: cargoIDs } })
+          );
+
+          if (!cargos.length) return [];
+
+          // 3️⃣ Filtrar solo cargos GER o DIR
+          const cargosValidos = cargos
+            .filter(c => ["GER", "DIR"].includes(c.codigo))
+            .map(c => c.ID);
+
+          if (!cargosValidos.length) return [];
+
+          // 4️⃣ Filtrar ConfigAprobadores nuevamente pero ahora con cargos válidos
+          const aprobadoresIDs = cfgSector
+            .filter(c => cargosValidos.includes(c.cargo_ID))
+            .map(c => c.empleado_ID);
+
+          if (!aprobadoresIDs.length) return [];
+
+          // 5️⃣ Traer empleados finales
+          const empleados = await catalog.run(
+            SELECT.from('CatalogService.Empleados')
+              .columns('email')
+              .where({ ID: { in: aprobadoresIDs } })
+          );
+
+          return empleados.map(e => e.email);
+    } catch (err) {
+      console.error("❌ [getAprobadoresNivel1] 🔴 Error detectado", err);
+      // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+      if (err.code) {
+        throw err; // ⚡ sigue para arriba sin cambios
+      }
+
+      // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+      console.error("❌ [getAprobadoresNivel1] 🔴 Error interno:", err);
+
+      // devolvemos un error 500 limpio
+      return req.reject(500, "[getAprobadoresNivel1] 🔴 Error interno");
+    }
+}
+
+
+
+
+    /* ============================================================================================
+    * 🧩 HELPER 4 — Aprobadores Nivel 2: sector CON + cargo JFE
+    * ============================================================================================ */
+    async function getAprobadoresNivel2(req) {
+      try{
+            const catalog = await cds.connect.to("CatalogService");
+
+            // 1️⃣ Buscar sector con código = "CON"
+            const sectorCON = await catalog.run(
+              SELECT.one.from('CatalogService.Sectores')
+                .columns('ID')
+                .where({ codigo: 'CON' })
+            );
+
+            if (!sectorCON) return [];
+
+            // 2️⃣ Obtener todos los ConfigAprobadores del sector CON
+            const cfgSector = await catalog.run(
+              SELECT.from('CatalogService.ConfigAprobadores')
+                .columns('empleado_ID', 'cargo_ID')
+                .where({ sector_ID: sectorCON.ID })
+            );
+
+            if (!cfgSector.length) return [];
+
+            // 3️⃣ Obtener los cargos asociados
+            const cargoIDs = [...new Set(cfgSector.map(c => c.cargo_ID).filter(Boolean))];
+
+            const cargos = await catalog.run(
+              SELECT.from('CatalogService.Cargos')
+                .columns('ID', 'codigo')
+                .where({ ID: { in: cargoIDs } })
+            );
+
+            if (!cargos.length) return [];
+
+            // 4️⃣ Filtrar solo cargo "JFE"
+            const cargosValidos = cargos
+              .filter(c => c.codigo === "JFE")
+              .map(c => c.ID);
+
+            if (!cargosValidos.length) return [];
+
+            // 5️⃣ Filtrar ConfigAprobadores solo con cargo JFE
+            const aprobadoresIDs = cfgSector
+              .filter(c => cargosValidos.includes(c.cargo_ID))
+              .map(c => c.empleado_ID);
+
+            if (!aprobadoresIDs.length) return [];
+
+            // 6️⃣ Traer los empleados finales
+            const empleados = await catalog.run(
+              SELECT.from('CatalogService.Empleados')
+                .columns('email')
+                .where({ ID: { in: aprobadoresIDs } })
+            );
+
+            return empleados.map(e => e.email);
+        } catch (err) {
+          console.error("❌ [getAprobadoresNivel2] 🔴 Error detectado", err);
+          // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+          if (err.code) {
+            throw err; // ⚡ sigue para arriba sin cambios
+          }
+
+          // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+          console.error("❌ [getAprobadoresNivel2] 🔴 Error interno:", err);
+
+          // devolvemos un error 500 limpio
+          return req.reject(500, "[getAprobadoresNivel2] 🔴 Error interno");
+        }
+    }
+
+
+    /* ============================================================================================
+    * 🧩 HELPER 5 — Aprobadores Nivel 3: supera importeGerencia
+    * ============================================================================================ */
+    async function getAprobadoresNivel3(req, tablasumatorias) {
+      try{
+            const catalog = await cds.connect.to("CatalogService");
+
+            let supera = false;
+
+            // 1️⃣ Verificar si alguna cuenta supera el importeGerencia
+            for (const t of tablasumatorias) {
+
+              console.info(`➡ [getAprobadoresNivel3] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
+
+              const cuenta = await catalog.run(
+                SELECT.one.from('CatalogService.Cuentas')
+                  .columns('ID')
+                  .where({ numero: t.IdCuenta })
+              );
+
+              if (!cuenta) {
+                console.error(`❌ [getAprobadoresNivel3] La cuenta ${t.IdCuenta} NO existe en CatalogService.Cuentas`);
+                return req.reject(400, `[getAprobadoresNivel3] La cuenta ${t.IdCuenta} no existe en el maestro de cuentas`);
+              }
+
+              const umbral = await catalog.run(
+                SELECT.one.from('CatalogService.UmbralesCuentas')
+                  .columns('importeGerencia')
+                  .where({ cuentaContable_ID: cuenta.ID })
+              );
+
+              if (!umbral && !umbral.importeGerencia) {
+                console.warn(`⚠ [getAprobadoresNivel3] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
+              } else {
+                console.info(`   🔍  [getAprobadoresNivel3] Umbral Gerencia: ${umbral.importeGerencia}`);
+              }
+              
+
+              if (umbral && umbral.importeGerencia && t.SumatoriaTotal >= Number(umbral.importeGerencia)) {
+                console.info(` [getAprobadoresNivel3]  ✔ Supera umbral → requiere Aprobador Nivel 3`);
+                
+                supera = true;
+                break;
+              } else {
+                console.info(` [getAprobadoresNivel3] ✖ No supera umbral`);
+              }
+            }
+
+              if (!supera) {
+                console.info("🟦 [getAprobadoresNivel3] Ninguna cuenta supera el umbral de Gerencia → NO hay aprobadores de nivel 3");
+                return [];
+              }
+
+            // 2️⃣ Buscar Sector con código = CON
+            const sectorCON = await catalog.run(
+              SELECT.one.from('CatalogService.Sectores')
+                .columns('ID')
+                .where({ codigo: 'CON' })
+            );
+
+            if (!sectorCON) {
+              console.error("❌ [getAprobadoresNivel3] Sector 'CON' no existe en CatalogService.Sectores");
+              return req.reject(400, "[getAprobadoresNivel3] Sector 'CON' no existe");
+            }
+
+            // 3️⃣ Obtener ConfigAprobadores del sector CON
+            const cfgSector = await catalog.run(
+              SELECT.from('CatalogService.ConfigAprobadores')
+                .columns('empleado_ID', 'cargo_ID')
+                .where({ sector_ID: sectorCON.ID })
+            );
+
+            if (!cfgSector.length) {
+              console.error("❌ [getAprobadoresNivel3] No existen ConfigAprobadores para el sector CON");
+              return req.reject(400, "[getAprobadoresNivel3] No existen ConfigAprobadores para el sector CON");
+            }
+
+            // 4️⃣ Obtener los cargos asociados
+            const cargoIDs = [...new Set(cfgSector.map(c => c.cargo_ID).filter(Boolean))];
+
+            const cargos = await catalog.run(
+              SELECT.from('CatalogService.Cargos')
+                .columns('ID', 'codigo')
+                .where({ ID: { in: cargoIDs } })
+            );
+
+              if (!cargos.length) {
+                console.error("❌ [getAprobadoresNivel3] No existen cargos para los ConfigAprobadores del sector CON");
+                return req.reject(400, "[getAprobadoresNivel3] No existen cargos asociados al sector CON");
+              }
+
+            // 5️⃣ Filtrar los cargos GER
+            const cargosValidos = cargos
+              .filter(c => ((c.codigo === "GER") || (c.codigo === "DIR")) ) //DJ 2025-11-19: agregué DIR
+              .map(c => c.ID);
+
+              if (!cargosValidos.length) {
+                console.error("❌ [getAprobadoresNivel3] No hay cargos GER/DIR en sector CON");
+                return req.reject(400, "[getAprobadoresNivel3] No existen cargos GER/DIR para sector CON");
+              }
+
+            // 6️⃣ Filtrar aprobadores con cargo GER
+            const aprobadoresIDs = cfgSector
+              .filter(c => cargosValidos.includes(c.cargo_ID))
+              .map(c => c.empleado_ID);
+
+              if (!aprobadoresIDs.length) {
+                console.error("❌ getAprobadoresNivel3] No existen empleados asociados a cargos GER/DIR");
+                return req.reject(400, "[getAprobadoresNivel3] No se encontraron empleados para cargos GER/DIR");
+              }
+
+            // 7️⃣ Traer empleados finales
+            const empleados = await catalog.run(
+              SELECT.from('CatalogService.Empleados')
+                .columns('email')
+                .where({ ID: { in: aprobadoresIDs } })
+            );
+
+            console.info(`🟦 [getAprobadoresNivel3] Aprobadores Nivel 3 encontrados: ${empleados.map(e => e.email).join(", ")}`);
+
+
+            return empleados.map(e => e.email);
+        } catch (err) {
+          console.error("❌ [getAprobadoresNivel3] 🔴 Error detectado", err);
+          // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+          if (err.code) {
+            throw err; // ⚡ sigue para arriba sin cambios
+          }
+
+          // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+          console.error("❌ [getAprobadoresNivel3] 🔴 Error interno:", err);
+
+          // devolvemos un error 500 limpio
+          return req.reject(500, "[getAprobadoresNivel3] 🔴 Error interno");
+        }
+    }
+
+      /* ============================================================================================
+      * 🧩 HELPER 6 — Aprobadores Nivel 4: supera importeCFO
+      * ============================================================================================ */
+      async function getAprobadoresNivel4(req, tablasumatorias) {
+
+        try{
+              const catalog = await cds.connect.to("CatalogService");
+
+              let supera = false;
+
+              // 1️⃣ Verificar si alguna cuenta supera el importeCFO
+              for (const t of tablasumatorias) {
+
+              console.info(`➡ [getAprobadoresNivel4] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
+
+                const cuenta = await catalog.run(
+                  SELECT.one.from('CatalogService.Cuentas')
+                    .columns('ID')
+                    .where({ numero: t.IdCuenta })
+                );
+
+              if (!cuenta) {
+                console.error(`❌ [getAprobadoresNivel4] La cuenta ${t.IdCuenta} NO existe en CatalogService.Cuentas`);
+                return req.reject(400, `[getAprobadoresNivel4] La cuenta ${t.IdCuenta} no existe en el maestro de cuentas`);
+              }
+
+                const umbral = await catalog.run(
+                  SELECT.one.from('CatalogService.UmbralesCuentas')
+                    .columns('importeCFO')
+                    .where({ cuentaContable_ID: cuenta.ID })
+                );
+
+                if (!umbral && !umbral.importeCFO) {
+                  console.warn(`⚠ [getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
+                } else {
+                  console.info(`   🔍  [getAprobadoresNivel4] Umbral CFO: ${umbral.importeCFO}`);
+                }
+
+                if (umbral && umbral.importeCFO && t.SumatoriaTotal >= Number(umbral.importeCFO)) {
+                  console.info(` [getAprobadoresNivel4]  ✔ Supera umbral → requiere Aprobador Nivel 4`);
+                  
+                  supera = true;
+                  break;
+                } else {
+                  console.info(` [getAprobadoresNivel4] ✖ No supera umbral`);
+                }
+              }
+
+              if (!supera) {
+                console.info("🟦 [getAprobadoresNivel4] Ninguna cuenta supera el umbral de CFO → NO hay aprobadores de nivel 4");
+                return [];
+              }
+
+              // 2️⃣ Buscar sector EMP
+              const sectorEMP = await catalog.run(
+                SELECT.one.from('CatalogService.Sectores')
+                  .columns('ID')
+                  .where({ codigo: 'EMP' })
+              );
+
+              if (!sectorEMP) {
+                console.error("❌ Sector 'EMP' no existe en CatalogService.Sectores");
+                return req.reject(400, "[getAprobadoresNivel4] Sector 'EMP' no existe");
+              }
+
+              // 3️⃣ Obtener ConfigAprobadores del sector EMP
+              const cfgSector = await catalog.run(
+                SELECT.from('CatalogService.ConfigAprobadores')
+                  .columns('empleado_ID', 'cargo_ID')
+                  .where({ sector_ID: sectorEMP.ID })
+              );
+
+                if (!cfgSector.length) {
+                  console.error("❌ No hay ConfigAprobadores para sector EMP");
+                  return req.reject(400, "[getAprobadoresNivel4] No existen ConfigAprobadores para sector EMP");
+                }
+
+              // 4️⃣ Obtener los cargos asociados
+              const cargoIDs = [...new Set(cfgSector.map(c => c.cargo_ID).filter(Boolean))];
+
+              const cargos = await catalog.run(
+                SELECT.from('CatalogService.Cargos')
+                  .columns('ID', 'codigo')
+                  .where({ ID: { in: cargoIDs } })
+              );
+
+              if (!cargos.length) {
+                console.error("❌ No existen cargos asociados al sector EMP");
+                return req.reject(400, "[getAprobadoresNivel4] No existen cargos para sector EMP");
+              }
+
+              // 5️⃣ Filtrar los cargos CFO
+              const cargosValidos = cargos
+                .filter(c => c.codigo === "CFO")
+                .map(c => c.ID);
+
+              if (!cargosValidos.length) {
+                console.error("❌ No hay cargos CFO en sector EMP");
+                return req.reject(400, "[getAprobadoresNivel4] No existen cargos CFO en sector EMP");
+              }
+
+              // 6️⃣ Filtrar aprobadores
+              const aprobadoresIDs = cfgSector
+                .filter(c => cargosValidos.includes(c.cargo_ID))
+                .map(c => c.empleado_ID);
+
+              if (!aprobadoresIDs.length) {
+                console.error("❌ No se encontraron empleados CFO para sector EMP");
+                return req.reject(400, "[getAprobadoresNivel4] No existen empleados para cargo CFO");
+              }
+
+              // 7️⃣ Traer empleados finales
+              const empleados = await catalog.run(
+                SELECT.from('CatalogService.Empleados')
+                  .columns('email')
+                  .where({ ID: { in: aprobadoresIDs } })
+              );
+
+              console.info(`🟥 Aprobadores Nivel 4 encontrados: ${empleados.map(e => e.email).join(", ")}`);
+
+              return empleados.map(e => e.email);
+          } catch (err) {
+            console.error("❌ [getAprobadoresNivel4] 🔴 Error detectado", err);
+            // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+            if (err.code) {
+              throw err; // ⚡ sigue para arriba sin cambios
+            }
+
+            // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+            console.error("❌ [getAprobadoresNivel4] 🔴 Error interno:", err);
+
+            // devolvemos un error 500 limpio
+            return req.reject(500, "[getAprobadoresNivel4] 🔴 Error interno");
+          }
+      }
+
+
+
+/* ============================================================================================
+ * 🧩 HELPER 7 — Construir payload final BPA
+ * ============================================================================================ */
+function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4) {
+  try{
+          const { solicitante, tipoAsiento, subtipoAsiento, referencia, sector } = valores;
+
+          return {
+            definitionId: DEFINITION_ID_BPA_DEV,
+            context: {
+              numerosolicitud: `${String(d.numeroSolicitud)}`,
+              clasedocumento: d.claseDocumento,
+              fechacontabilizacion: d.fechaContabilizacion,
+              fechadocumento: d.fechaDocumento,
+              periodo: `${d.periodoMes}/${d.periodoAnio}`,
+              referencia: referencia.nombre,
+              sector: sector.nombre,
+              sociedad: d.sociedad,
+              solicitante: solicitante.nombre,
+              subtipoasiento: subtipoAsiento.nombre,
+              textocabecera: d.textoCabecera,
+              tipoasiento: tipoAsiento.nombre,
+              tablasumatorias,
+              emailsolicitante: solicitante.email,
+              moneda: d.moneda,
+              testmode: false,
+              listamailsnivel1: n1,
+              listamailsnivel2: n2,
+              listamailsnivel3: n3,
+              listamailsnivel4: n4,
+              enlacedms: ""
+            }
+          };
+      } catch (err) {
+        console.error("❌ [buildPayloadBPA] 🔴 Error detectado", err);
+        // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+        if (err.code) {
+          throw err; // ⚡ sigue para arriba sin cambios
+        }
+
+        // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+        console.error("❌ [buildPayloadBPA] 🔴 Error interno:", err);
+
+        // devolvemos un error 500 limpio
+        return req.reject(500, "[buildPayloadBPA] 🔴 Error interno");
+      }
+}
+
+
+
+// /* ============================================================================================
+//  * 🧩 HELPER 8 — Llamada a BPA
+//  * ============================================================================================ */
+// async function callBPA(payload, req) {
+
+//   // const bpaService = await cds.connect.to("bpa-api");
+//   // const destinationName = bpaService.options.credentials.destination;
+//   // const destination = await getDestination({ destinationName });
+
+//   // console.info(`[callBPA] 🌍 Usando destination: ${destinationName}`);
+
+//   const strPayload = JSON.stringify(payload, null, 2);
+  
+//   console.info(`[callBPA] 🌍 Payloas: ${strPayload}`);
+
+//   const resp = await executeHttpRequest(
+//     {
+//       method: "POST",
+//       url: "https://spa-api-gateway-bpi-us-prod.cfapps.us30.hana.ondemand.com/workflow/rest/v1/workflow-instances?environmentId=dev",
+//       data: payload,
+//       headers: {
+//         "Content-Type": "application/json",
+//         "x-api-key": "BdBXlx-emFjZWctW6ozyjRUOUAMBt8II",
+//         "x-csrf-token": "unsafe" 
+//       },
+//       fetchCsrfToken: false
+//     }
+//   );
+// }
+
+
+
+
+
+    async function callBPA(payload, req) {
+        //console.info("[callBPA] Payload enviado:", JSON.stringify(payload, null, 2));
+        console.info("[callBPA] Enrenado....:");
+
+        const bpa_destination = await cds.connect.to("bpa-api");
+
+          try {
+                  // let payloadProp = {
+                  //     definitionId: "us30.process-automation-95oeuot4.ajustescontables.main",
+                  //     context: {
+                  //       "numerosolicitud": "d.numeroSolicitud",
+                  //       "clasedocumento": "d.claseDocumento"
+                  //     }
+                  // };
+
+                  let header = {
+                    'irpa-api-key': APIKEY_BPA_DEV
+                  };
+                  
+                  let oResult = await bpa_destination.tx(req).post(URL_BPA_DEV, 
+                                      payload,
+                                      header);
+
+
+                  oResultoSTR = JSON.stringify(oResult, null, 2);
+                  console.info(`[callBPA] ✅ Solicitud registrada correctamente ${oResultoSTR}`);
+
+                  if (oResult.status !== "RUNNING") {
+                    throw new Error('Failed to trigger the process.');
+                  }
+
+            } catch (err) {
+              console.error("❌ [callBPA] 🔴 Error detectado", err);
+              // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+              if (err.code) {
+                throw err; // ⚡ sigue para arriba sin cambios
+              }
+
+              // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+              console.error("❌ [callBPA] 🔴 Error interno:", err);
+
+              // devolvemos un error 500 limpio
+              return req.reject(500, "[callBPA] 🔴 Error interno");
+            }
+    }
+
+
+
+
+
+//   /* ============================================================================================
+//  * 🧩 HELPER 8 — Llamada a BPA
+//  * ============================================================================================ */
+// async function callBPA(payload, req) {
+
+//   const bpaService = await cds.connect.to("bpa-api");
+//   const destinationName = bpaService.options.credentials.destination;
+//   const destination = await getDestination({ destinationName });
+
+//  console.info(`[callBPA] 🌍 Usando destination: ${destinationName}`);
+
+//   console.info("[callBPA-callToken] ✅ Workflow iniciado correctamente:");
+
+//   const token = await executeHttpRequest({
+//                 method: "POST",
+//                 url: "https://process-automation-95oeuot4.authentication.us30.hana.ondemand.com/oauth/token",
+                
+//                 headers: {
+//                   "Content-Type": "application/x-www-form-urlencoded",
+//                   "User-Agent": "PostmanRuntime/7.49.1",
+//                   "Accept": "*/*",
+//                   "Cache-Control": "no-cache",
+//                   "Host": "process-automation-95oeuot4.authentication.us30.hana.ondemand.com",
+//                   "Accept-Encoding": "gzip, deflate, br",
+//                   "Connection": "keep-alive"                
+//                 },
+//                 body: {
+//                   "grant_type": "client_credentials",
+//                   "client_id": "sb-969b01b7-4539-43bf-81fa-06c5a2072cea!b42079|xsuaa!b4445",
+//                   "client_secret": "7bf7c32b-dbcc-4b41-bcd7-2dd5d1fd73ef$IrFzVfotXQcZueV9TPuYL6bTmmeIpG4VrcPv2ULE79A="
+//                 }
+//               }
+//             );
+
+//   const resp = await executeHttpRequest({
+//       method: "POST",
+//       url: "https://spa-api-gateway-bpi-us-prod.cfapps.us30.hana.ondemand.com/workflow/rest/v1/workflow-instances?environmentId=dev",
+//       data: payload,
+//       headers: {
+//         "Authorization:": "Bearer "+token,
+//         "Content-Type": "application/json" 
+//       }
+//     }
+//   );
+
+  
+
+//   console.info("[callBPA] ✅ Workflow iniciado correctamente:", resp.data);
+//   return resp.id;
+
+//   //   return executeHttpRequest(
+//   //   { destination,
+//   //     fetchCsrfToken: false  // 🔥 Desactiva CSRF COMPLETAMENTE
+//   //   },
+//   //   {
+//   //     method: "post",
+//   //     url: "/workflow/rest/v1/workflow-instances?environmentId=dev",
+//   //     data: payload,
+//   //     headers: {
+//   //       "Content-Type": "application/json",
+//   //       "x-api-key": destination.APIKey     // o destination.x_api_key
+//   //     }
+//   //   }
+//   // );
+// }
+
+
+
+
+    // async function callBPA2(payload, req){
+        
+    //     // 1. Obtener los parámetros necesarios para el Workflow
+    //     const data = req.data;
+    //     const businessData = {
+    //         numeroSolicitud: data.numeroSolicitud,
+    //         monto: data.monto,
+    //         usuarioInicio: req.user.id
+    //         // ... otros campos del contexto de tu workflow
+    //     };
+
+    //     // 2. Definir la carga útil (Payload) del Workflow
+    //     // const payload = {
+    //     //     definitionId: "us30.process-automation-95oeuot4.ajustescontables.maina", // <-- ID de tu definición de Workflow en BPA
+    //     //     context: businessData
+    //     // };
+
+    //     // 3. Obtener el servicio inyectado por el ambiente
+    //     // CAP automáticamente conecta al servicio definido en el `package.json`
+    //     const workflowService = await cds.connect.to('bpa-api'); 
+
+    //     // 4. Configurar la llamada HTTP
+    //     // CAP inyecta la URL base y el JWT (token de autenticación) 
+    //     // a través de la conexión `cds.connect.to`.
+    //     const workflowUrl = `${workflowService.options.credentials.url}/workflow/rest/v1/workflow-instances`;
+        
+    //     // Obtener el token de autenticación del servicio (tipo Grant Type: Client Credentials)
+    //     const token = await workflowService.credentials.get_token();
+        
+    //     // La llamada debe ser POST y requiere el token Bearer
+    //     const config = {
+    //         headers: {
+    //             'Authorization': `Bearer ${token}`,
+    //             'Content-Type': 'application/json'
+    //             // NOTA: Para Workflow/BPA, generalmente NO es necesario el CSRF token (GET $metadata + POST),
+    //             // ya que las llamadas service-to-service con Client Credentials son stateless.
+    //         }
+    //     };
+
+    //     try {
+    //         console.log(`Iniciando Workflow [${payload.definitionId}]...`);
+            
+    //         const response = await axios.post(workflowUrl, payload, config);
+            
+    //         console.log(`Workflow iniciado con ID: ${response.data.id}`);
+            
+    //         // Retornar o actualizar el estado de tu entidad con el ID del Workflow
+    //         return {
+    //             status: 'Workflow Iniciado',
+    //             workflowId: response.data.id 
+    //         };
+            
+    //     } catch (error) {
+    //         console.error('Error al iniciar el Workflow de BPA:', error.response?.data || error.message);
+    //         // Re-lanzar un error para que la transacción CAP se revierta
+    //         req.error(500, 'Fallo la comunicación con el servicio de Workflow.'); 
+    //     }
+    // };
+
+
+/* ============================================================================================
+ * 🟩 FUNCIÓN PRINCIPAL — IniciaWorkflowBPA
+ * ============================================================================================ */
+
+//TODO DJ: !!!!!!!ATENCION!!!!!! EN ESTE METODOS Y OTROS RELACIOANDOS EN PARTE DEL CIRCUITO SE UTILIZA
+//                                EL NRO DE SOLICITUD EN EL EL CAMP IdSolicitud PARA ENVIARLO AL WORKFLOW 
+//                                PORQUE EN EL WORKFLOW SE UTILIZÓ DE ESA MANERA Y NO HUBO TIEMPO DE HACER EL CAMBIO.
+
+
+async function IniciaWorkflowBPA(req) {
+  try{
+          const TIPO_ASIENTO_PROV_REVERSA = "1";
+          const TIPO_ASIENTO_ASI_CIERRE = "2";
+          const TIPO_ASIENTO_AJU_EXC = "3";
+
+          const SUBT_ASIENTO_RECLA_MISMAS_GASTOS = "A";
+          const SUBT_ASIENTO_RECLA_DIF_GASTOS = "B";
+          const SUBT_ASIENTO_RECLA_MAR_GAS = "C";
+          const SUBT_ASIENTO_PROV_GASTOS = "D";
+          const SUBT_ASIENTO_PROV_MARGEN = "E";
+          const SUBT_ASIENTO_BANCOS = "F";
+          const SUBT_ASIENTO_PROV_REVERSA = "G";
+          const SUBT_ASIENTO_CUENTAS_EXCEP = "H";
+
+          console.info("🟦 [IniciaWorkflowBPA] Inicio");
+
+          const d = req.data;
+
+          var n1 = [];
+          var n2 = [];
+          var n3 = [];
+          var n4 = [];
+
+          // 🔍 Validaciones mínimas
+          if (!d.items?.length) return req.reject(400, "La solicitud no contiene items");
+          if (!d.tipoAsiento_ID) return req.reject(400, "Falta tipoAsiento_ID");
+          if (!d.subtipoAsiento_ID) return req.reject(400, "Falta subtipoAsiento_ID");
+          if (!d.solicitante_ID) return req.reject(400, "Falta solicitante");
+          if (!d.sectorSolicitante_ID) return req.reject(400, "Falta sector solicitante");
+
+          // 1️⃣ Obtener maestros
+          const valores = await getValoresCabecera(req);
+
+          const { solicitante, tipoAsiento, subtipoAsiento, referencia, sector } = valores;
+
+          // 2️⃣ Calcular sumatorias
+          const tablasumatorias = await getTablaSumatorias(req);
+
+          
+
+          // 3️⃣ Aprobadores
+          n1 = await getAprobadoresNivel1(req);
+
+          if(  (tipoAsiento.codigo == TIPO_ASIENTO_PROV_REVERSA) || 
+
+              (tipoAsiento.codigo == TIPO_ASIENTO_ASI_CIERRE && 
+                    ( subtipoAsiento.codigo == SUBT_ASIENTO_RECLA_MAR_GAS ||
+                      subtipoAsiento.codigo == SUBT_ASIENTO_PROV_GASTOS || 
+                      subtipoAsiento.codigo == SUBT_ASIENTO_PROV_MARGEN
+                    )
+                ) ||
+                
+                (tipoAsiento.codigo == TIPO_ASIENTO_AJU_EXC)
+            ) {
+                n2 = await getAprobadoresNivel2(req);
+                n3 = await getAprobadoresNivel3(req, tablasumatorias);
+              };
+          
+          if(tipoAsiento.codigo == TIPO_ASIENTO_AJU_EXC) {
+            n4 = await getAprobadoresNivel4(req, tablasumatorias);
+          };
+
+          // 4️⃣ Construir payload final
+          const payload = buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4);
+
+          console.info("🟩 [IniciaWorkflowBPA] Payload final:", JSON.stringify(payload, null, 2));
+
+          // 5️⃣ Enviar workflow
+          const id = await callBPA(payload, req);
+
+          console.info("🟩 [IniciaWorkflowBPA] Instancia BPA creada:", id);
+
+          return id;
+      } catch (err) {
+        console.error("❌ [IniciaWorkflowBPA] 🔴 Error detectado", err);
+        // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+        if (err.code) {
+          throw err; // ⚡ sigue para arriba sin cambios
+        }
+
+        // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+        console.error("❌ [IniciaWorkflowBPA] 🔴 Error interno:", err);
+
+        // devolvemos un error 500 limpio
+        return req.reject(500, "[IniciaWorkflowBPA] 🔴 Error interno");
+      }
+}
+
+
+
+// ============================================================================
+// EXPORTS PARA USO EN service.js
+// ============================================================================
+module.exports = {
+  getValoresCabecera,
+  getTablaSumatorias,
+  getAprobadoresNivel1,
+  getAprobadoresNivel2,
+  getAprobadoresNivel3,
+  getAprobadoresNivel4,
+  buildPayloadBPA,
+  callBPA,
+  IniciaWorkflowBPA
+};
+
+this.on("ListarWorkflowsBPA", async (req) => {
+  try {
+          const remote = await cds.connect.to("bpa-api");  // igual que en callBPA
+
+          const destinationName = remote.options.credentials.destination;
+          const destination = await getDestination({ destinationName });
+
+        console.log("👉 Destination seleccionado:", destinationName);
+        console.log("👉 Destination completo:", destination);
+
+          const resp = await executeHttpRequest(destination, {
+            method: "get",
+            url: "/workflow/rest/v1/workflow-definitions",
+            headers: {
+              'Accept': 'application/json','api-key': 'BdBXlx-emFjZWctW6ozyjRUOUAMBt8II'
+            }
+          });
+
+          console.info("[ListarWorkflowsBPA] ✔ Workflow definitions:");
+          console.info(JSON.stringify(resp.data, null, 2));
+
+          return resp.data;
+
+      } catch (err) {
+        console.error("❌ [ListarWorkflowsBPA] 🔴 Error detectado", err);
+        // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+        if (err.code) {
+          throw err; // ⚡ sigue para arriba sin cambios
+        }
+
+        // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+        console.error("❌ [ListarWorkflowsBPA] 🔴 Error interno:", err);
+
+        // devolvemos un error 500 limpio
+        return req.reject(500, "[ListarWorkflowsBPA] 🔴 Error interno");
+      }
+});
+
+async function getNextNumeroSolicitudFU(tx){
+  try{
+        //const db = cds.connect.to('db');
+        const scope = 'NUMERO_SOLICITUD'; // Define your scope
+
+        // Acquire a lock and get the current number within a transaction
+        //const tx = db.transaction(req);
+        const secuencias = await tx.run(
+          SELECT.one.from('GestionaAsientos.Secuencias').where({ nombre: scope }).forUpdate() // forUpdate() helps with concurrency in HANA
+        );
+
+        if (secuencias) {
+          const nextNumber = secuencias.valor + 1;
+          // Format the ID with prefix, padding, etc.
+          //req.data.ID = `${numberRange.prefix}${String(nextNumber).padStart(5, '0')}${numberRange.suffix}`;
+
+          // Update the number range
+          await tx.run(
+            UPDATE('GestionaAsientos.Secuencias').set({ valor: nextNumber }).where({ nombre: scope })
+          );
+
+          return nextNumber;
+        }
+
+    } catch (err) {
+      console.error("❌ [getNextNumeroSolicitudFU] 🔴 Error detectado", err);
+      // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+      if (err.code) {
+        throw err; // ⚡ sigue para arriba sin cambios
+      }
+
+      // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+      console.error("❌ [getNextNumeroSolicitudFU] 🔴 Error interno:", err);
+
+      // devolvemos un error 500 limpio
+      return req.reject(500, "[getNextNumeroSolicitudFU] 🔴 Error interno");
+    }
+}
+
+
+
+async function getNextNumeroSolicitud(tx) {
+  try{
+        //const { Secuencias } = cds.entities['com.carrefour.journal'];
+
+        // 1️⃣ Incrementar la secuencia (sin returning)
+        
+        await tx.run(
+          UPDATE('GestionaAsientos.Secuencias')
+            .set({ valor: { "+=": 1 } })
+            .where({ nombre: 'NUMERO_SOLICITUD' })
+        );
+
+        // 2️⃣ Leer el valor actualizado
+        const row = await tx.run(
+          SELECT.one.from('GestionaAsientos.Secuencias').columns('valor')
+            .where({ nombre: 'NUMERO_SOLICITUD' })
+        );
+
+        // 3️⃣ Si aún no existe → crearlo
+        if (!row) {
+          const nuevoValor = 1;
+
+          await tx.run(
+            INSERT.into('GestionaAsientos.Secuencias').entries({
+              ID: cds.utils.uuid(),
+              nombre: 'NUMERO_SOLICITUD',
+              valor: nuevoValor,
+              createdAt: new Date().toISOString(),
+              createdBy: 'system',
+              modifiedAt: new Date().toISOString(),
+              modifiedB: 'system'
+            })
+          );
+
+          return nuevoValor;
+        }
+
+      return row.valor;
+    } catch (err) {
+      console.error("❌ [getNextNumeroSolicitud] 🔴 Error detectado", err);
+      // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+      if (err.code) {
+        throw err; // ⚡ sigue para arriba sin cambios
+      }
+
+      // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+      console.error("❌ [getNextNumeroSolicitud] 🔴 Error interno:", err);
+
+      // devolvemos un error 500 limpio
+      return req.reject(500, "[getNextNumeroSolicitud] 🔴 Error interno");
+    }
+}
+
+
+
+// async function getNextNumeroSolicitud(tx) {
+//     // El nombre de la secuencia tal como se definió en el artefacto HDI
+//     const sequenceName = 'NUMERO_SOLICITUD_SEQ';
+    
+//     // Consulta SQL para SAP HANA:
+//     const query = `SELECT "${sequenceName}".NEXTVAL AS NextVal FROM DUMMY`;
+    
+//     try {
+//         // tx.run() ejecuta la consulta dentro de la transacción actual
+//         const result = await tx.run(query);
+        
+//         // Se espera un array con un objeto que tiene la propiedad 'NextVal'
+//         return result[0].NextVal;
+//     } catch (error) {
+//         // Manejo de errores
+//         console.error("Error al obtener la secuencia:", error.message);
+//         throw new Error("Fallo en la generación del número de solicitud.");
+//     }
+// }
+
+
+});

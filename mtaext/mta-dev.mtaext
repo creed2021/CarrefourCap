@@ -1,0 +1,11 @@
+_schema-version: "3.1"
+ID: asientos-ajustes-dev
+extends: asientos-ajustes
+
+parameters:
+  BD-REQUIRES: |
+    "hana"
+  DB_CONFIG: |
+    "hana"
+  BPA_DEST: "dest_asientos_backTobpa_SP_DEV"
+  S4_DEST: "S4_QAS_Basic"

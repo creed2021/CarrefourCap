@@ -1,0 +1,21 @@
+ID,codigo,nombre,createdAt,createdBy,modifiedAt,modifiedBy
+5c1f8e72-07a5-4f7a-90cf-b0a2b4d50d91,ADM,Administracion Comercial,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+2f3dbb63-89e3-4a91-8f7f-8ef32e8dc849,CAL,Calidad,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+e1bda7fc-fbc5-4a18-a54b-df4d6c3cbfd2,COM,Compras,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+a76a41b8-1a6f-45d0-83e3-b58b878efb3a,COG,Control de gestion,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+dc960f85-4b63-4d4a-a4b8-17bdb6b1b8bb,ECO,Ecommerce,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+0b3e52b6-0e8b-4ffb-b726-f62e2c90d8a5,FIC,Finanzas - Cobranzas,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+8c1e4fa6-f097-4f4c-929b-7d2ed64cb373,FIT,Finanzas - Tesorería,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+2d08de7d-6b1f-4bb3-a9c4-1b6bdfb17ff2,IMP,Impuestos,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+e4521a47-5b32-4953-80d1-47e8d6ef1f43,ITE,Informaion technology,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+d5b5a4c4-65a4-4c64-9a87-7ac516accc7a,LEG,Legales,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+9274bdfa-58df-4b8a-949a-49e6d6fa03ad,LOG,Logistica,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+d71a84b4-48ab-478f-8a0c-56ed983bf158,MAR,Marketing,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+fa6d6b82-ef22-44d4-83f1-bf7b8d9ed0aa,MER,Mesma,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+1a7442c2-d6fc-4f29-a3a2-5c9b9a9e2a41,OBR,Obras y mantenimiento,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+8a5e85d3-45d0-49f1-8b49-620e7a4cc20c,PRO,Property,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+b3a05a69-12c3-4cf1-a3c8-96717b7dd0a2,RET,Retail Media,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+2bb0438a-61c9-4893-8847-1d3e45e95f20,RRH,RRHH,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+3de27415-53ad-4d74-9a0e-95aaf49304c1,SEG,Seguridad,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+847ff617-9692-4b63-bb60-cc0a36b7b71a,CON,Contabilidad,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system
+20ec6066-6473-4792-9747-aa168cf612e3,EMP,Empresa,2025-11-04T00:00:00Z,system,2025-11-04T00:00:00Z,system

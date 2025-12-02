@@ -1,0 +1,105 @@
+{
+  // uncomment entries once all libraries have been installed via 'npm install'
+  "eslint.validate": [
+    // "javascript",
+    // "typescript",
+    // "csv",
+    // "csv (semicolon)",
+    // "tab",
+    // "tsv"
+  ],
+
+  // ================================
+  // TIDO TREE - CONFIGURACIÓN CAP
+  // ================================
+
+  "todo-tree.highlights.enabled": true,
+  "todo-tree.highlights.defaultHighlight": {
+    "background": "#3f3f3f55",
+    "foreground": "#ffffff",
+    "gutterIcon": true
+  },
+
+  "todo-tree.general.tags": [
+    "TODO",
+    "FIXME",
+    "BUG",
+    "REVIEW",
+    "PENDING",
+    "VALIDAR",
+    "BPA",
+    "S4",
+    "REFACTOR",
+    "OPTIMIZAR"
+  ],
+
+  // RegEx para soportar //, /* */, #, <!-- -->
+  "todo-tree.regex.regex": "((//|#|<!--|;|/\\*)\\s*(TODO|FIXME|BUG|REVIEW|PENDING|VALIDAR|BPA|S4|REFACTOR|OPTIMIZAR))",
+
+  // ================================
+  // 💡 DESTACAR SEGÚN TIPO
+  // ================================
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "check",
+      "foreground": "#4FC3F7"
+    },
+    "FIXME": {
+      "icon": "alert",
+      "foreground": "#FF7043"
+    },
+    "BUG": {
+      "icon": "bug",
+      "foreground": "#FF5252"
+    },
+    "REVIEW": {
+      "icon": "search",
+      "foreground": "#9FA8DA"
+    },
+    "PENDING": {
+      "icon": "clock",
+      "foreground": "#FFCA28"
+    },
+    "VALIDAR": {
+      "icon": "tools",
+      "foreground": "#AED581"
+    },
+    "BPA": {
+      "icon": "tools",
+      "foreground": "#81D4FA"
+    },
+    "S4": {
+      "icon": "file-code",
+      "foreground": "#4DB6AC"
+    },
+    "REFACTOR": {
+      "icon": "tools",
+      "foreground": "#CE93D8"
+    },
+    "OPTIMIZAR": {
+      "icon": "zap",
+      "foreground": "#FDD835"
+    }
+  },
+
+  // ================================
+  // Vista en árbol
+  // ================================
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.tree.showBadges": true,
+  "todo-tree.tree.grouped": true,
+  "todo-tree.tree.groupBy": "tag", // agrupar por tipo (TODO, FIXME, etc.)
+
+  // ================================
+  // Escaneo
+  // ================================
+  "todo-tree.tree.showScanModeButton": true,
+  "todo-tree.general.statusBar": "total",
+  "todo-tree.filtering.excludedGlobs": [
+    "**/node_modules/**",
+    "**/gen/**",
+    "**/dist/**",
+    "**/.git/**"
+  ]
+
+}

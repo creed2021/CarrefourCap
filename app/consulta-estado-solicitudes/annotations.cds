@@ -1,0 +1,408 @@
+using GestionaAsientos as service from '../../srv/service';
+annotate service.CabeceraAsiento with @(
+    UI.FieldGroup #GeneratedGroup : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : numeroSolicitud,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : periodoAnio,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : periodoMes,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : fechaDocumento,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : fechaContabilizacion,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : claseDocumento,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : moneda,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : estadoSolicitud.nombre,
+                Label : 'Estado',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : referencia.nombre,
+                Label : 'Referencia',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : sectorSolicitante.nombre,
+                Label : 'Sector',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : solicitante.nombre,
+                Label : 'Solicitante',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : subtipoAsiento.nombre,
+                Label : 'SubTipo Asiento',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : tipoAsiento.nombre,
+                Label : 'Tipo Asiento',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : textoCabecera,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : sociedad,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'numeroDocumentoSAP',
+                Value : numeroDocumentoSAP,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'idInstanciaWorkflow',
+                Value : idInstanciaWorkflow,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'correo_solicitante',
+                Value : correo_solicitante,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'numeroDocumentoContable',
+                Value : numeroDocumentoContable,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'CodigoEmpresaContabilizacion',
+                Value : CodigoEmpresaContabilizacion,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'AnioFiscalContabilizacion',
+                Value : AnioFiscalContabilizacion,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'numeroAsiento',
+                Value : numeroAsiento,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : items.cuentaContable.nombre,
+                Label : 'nombre',
+            },
+        ],
+    },
+    UI.Facets : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'GeneratedFacet1',
+            Label : 'Consulta Estado de Solicitud',
+            Target : '@UI.FieldGroup#GeneratedGroup',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Detalle de Asiento',
+            ID : 'DetalledeAsiento',
+            Target : 'items/@UI.SelectionPresentationVariant#DetalledeAsiento',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Detalle de Aprobadores',
+            ID : 'DetalledeAprobadores',
+            Target : 'aprobadoresSolicitud/@UI.SelectionPresentationVariant#DetalledeAprobadores',
+        },
+    ],
+    UI.LineItem : [
+        {
+            $Type : 'UI.DataField',
+            Value : numeroSolicitud,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : periodoAnio,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : periodoMes,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : solicitante.nombre,
+            Label : 'Solicitante',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : sectorSolicitante.nombre,
+            Label : 'Sector Solicitante',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : estadoSolicitud.nombre,
+            Label : 'Estado',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : tipoAsiento.nombre,
+            Label : 'Tipo Asiento',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : subtipoAsiento.nombre,
+            Label : 'Subtipo Asiento',
+        },
+    ],
+);
+
+annotate service.CabeceraAsiento with {
+    estadoSolicitud @Common.ValueList : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'EstadosSolicitud',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : estadoSolicitud_ID,
+                ValueListProperty : 'ID',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'codigo',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'nombre',
+            },
+        ],
+    }
+};
+
+annotate service.CabeceraAsiento with {
+    sectorSolicitante @Common.ValueList : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'Sectores',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : sectorSolicitante_ID,
+                ValueListProperty : 'ID',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'codigo',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'nombre',
+            },
+        ],
+    }
+};
+
+annotate service.CabeceraAsiento with {
+    tipoAsiento @Common.ValueList : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'TiposAsiento',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : tipoAsiento_ID,
+                ValueListProperty : 'ID',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'codigo',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'nombre',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'referencia',
+            },
+        ],
+    }
+};
+
+annotate service.CabeceraAsiento with {
+    subtipoAsiento @Common.ValueList : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'SubTiposAsiento',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : subtipoAsiento_ID,
+                ValueListProperty : 'ID',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'codigo',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'nombre',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'umbralMinimoAsiento',
+            },
+        ],
+    }
+};
+
+annotate service.CabeceraAsiento with {
+    referencia @Common.ValueList : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'Referencia',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : referencia_ID,
+                ValueListProperty : 'ID',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'codigo',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'nombre',
+            },
+        ],
+    }
+};
+
+annotate service.CabeceraAsiento with {
+    solicitante @Common.ValueList : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'Empleados',
+        Parameters : [
+            {
+                $Type : 'Common.ValueListParameterInOut',
+                LocalDataProperty : solicitante_ID,
+                ValueListProperty : 'ID',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'nombre',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'email',
+            },
+        ],
+    }
+};
+
+annotate service.DetalleAsiento with @(
+    UI.DeleteHidden : true,
+    UI.LineItem #DetalledeAsiento : [
+        {
+            $Type : 'UI.DataField',
+            Value : numeroLinea,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : clave,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : cuentaContable.numero,
+            Label : 'numero',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : cuentaContable.nombre,
+            Label : 'nombre',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : centroCosto,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : importe,
+        },
+    ],
+    UI.SelectionPresentationVariant #DetalledeAsiento : {
+        $Type : 'UI.SelectionPresentationVariantType',
+        PresentationVariant : {
+            $Type : 'UI.PresentationVariantType',
+            Visualizations : [
+                '@UI.LineItem#DetalledeAsiento',
+            ],
+            SortOrder : [
+                {
+                    $Type : 'Common.SortOrderType',
+                    Property : numeroLinea,
+                    Descending : false,
+                },
+            ],
+        },
+        SelectionVariant : {
+            $Type : 'UI.SelectionVariantType',
+            SelectOptions : [
+            ],
+        },
+    },
+);
+
+annotate service.AprobadorSolicitud with @(
+    UI.LineItem #DetalledeAprobadores : [
+        {
+            $Type : 'UI.DataField',
+            Value : fechaAprobacion,
+            Label : 'fechaAprobacion',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : empleado.nombre,
+            Label : 'nombre',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : decision,
+            Label : 'decision',
+        },
+    ],
+    UI.SelectionPresentationVariant #DetalledeAprobadores : {
+        $Type : 'UI.SelectionPresentationVariantType',
+        PresentationVariant : {
+            $Type : 'UI.PresentationVariantType',
+            Visualizations : [
+                '@UI.LineItem#DetalledeAprobadores',
+            ],
+            SortOrder : [
+                {
+                    $Type : 'Common.SortOrderType',
+                    Property : fechaAprobacion,
+                    Descending : false,
+                },
+            ],
+        },
+        SelectionVariant : {
+            $Type : 'UI.SelectionVariantType',
+            SelectOptions : [
+            ],
+        },
+    },
+);
+
