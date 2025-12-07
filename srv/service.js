@@ -25,6 +25,9 @@ const DEFINITION_ID_BPA_PRD = "us30.process-automation-95oeuot4.ajustescontables
 const URL_BPA_PRD = '/workflow/rest/v1/workflow-instances?environmentId=prd';
 const APIKEY_BPA_PRD = 'lh8zeBreIeV5VsVISeTEbu8yX9uk48cs';
 
+const DECISION_APROBACION = "APROBACION";
+const DECISION_RECHAZO = "RECHAZO";
+
   // 🔹 Entidades del namespace com.carrefour.journal
   const { 
     'com.carrefour.journal.CabeceraAsiento': CabeceraAsiento,
@@ -444,22 +447,26 @@ const APIKEY_BPA_PRD = 'lh8zeBreIeV5VsVISeTEbu8yX9uk48cs';
                   const fechaContabilizacionSAP = safeDate(new Date());
                   console.info(`[ValidaContabilizaAsiento] 💾 Actualizando registro CAP → Documento=${numeroDocumento}`);
 
-                    // await tx.run(
-                    //   UPDATE('GestionaAsientos.Secuencias')
-                    //     .set({ valor: { "+=": 1 } })
-                    //     .where({ nombre: 'NUMERO_SOLICITUD' })
-                    // );
-                    // await tx.run(
-                    //       await UPDATE('GestionaAsientos.CabeceraAsiento')
-                    //         .set({
-                    //           numeroDocumentoSAP: numeroDocumento || null,
-                    //           numeroAsiento: numeroDocumento || null,
-                    //           fechaContabilizacion: fechaContabilizacionSAP,
-                    //           CodigoEmpresaContabilizacion: codigoEmpresa,
-                    //           AnioFiscalContabilizacion: anioFiscal
-                    //         })
-                    //         .where({ ID: cabecera.ID })
-                    //       );
+                  const catalogService = await cds.connect.to('CatalogService');
+
+                    const estadoContabilizada= await catalogService.run(
+                      SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "CON" })
+                    );
+                    if (!estadoContabilizada) req.reject(404, `No se encontró estado con código 'CON'`);                  
+
+                    await tx.run(
+                          UPDATE('GestionaAsientos.CabeceraAsiento')
+                            .set({
+                              numeroDocumentoSAP: numeroDocumento,
+                              numeroAsiento: numeroDocumento,
+                              numeroDocumentoContable: numeroDocumento,
+                              fechaContabilizacion: fechaContabilizacionSAP,
+                              CodigoEmpresaContabilizacion: codigoEmpresa,
+                              AnioFiscalContabilizacion: anioFiscal,
+                              estadoSolicitud_ID: estadoContabilizada.ID
+                            })
+                            .where({ ID: cabecera.ID })
+                          );
                   }
                       // 9️⃣ Retornar resultado exitoso
                   return {
@@ -470,15 +477,7 @@ const APIKEY_BPA_PRD = 'lh8zeBreIeV5VsVISeTEbu8yX9uk48cs';
                     rawXML: xmlResponse,
                     parsed
                   };
-            //FIXME DJ: arreglar catch
-              // } catch (error) {
-              //   console.error('[ValidaContabilizaAsiento] ❌ Error:', error.message);
-              //   const msgError = testDataIndicator
-              //     ? 'Error al validar el asiento'
-              //     : 'Error al contabilizar el asiento';
-
-              //   return req.reject(500, `${msgError}: ${error.message}`);
-              // }
+   
         } catch (err) {
           console.error("❌ [ValidaContabilizaAsiento] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -553,7 +552,7 @@ const APIKEY_BPA_PRD = 'lh8zeBreIeV5VsVISeTEbu8yX9uk48cs';
             // -------------------------------------------------------------------------
 
               // estadoSolicitud_ID con código REG
-              const estado = await SELECT.one.from(EstadosSolicitud).where({ codigo: 'REG' });
+              const estado = await SELECT.one.from(EstadosSolicitud).where({ codigo: 'INI' });
               if (estado) cab.estadoSolicitud_ID = estado.ID 
               else {
                   console.error(`[CompletaCamposCabecera] ❌ Error al completar el estado`);
@@ -1177,33 +1176,41 @@ this.on("RegistrarAprobacion", async (req) => {
   const { idSolicitud, emailAprobador } = req.data;
 
   const tx = req.tx;
-
+  const numeroSolicitudPram = idSolicitud;
 
         try{
 
-              if (!idSolicitud || !emailAprobador) {
+              if (!numeroSolicitudPram || !emailAprobador) {
                 return req.reject(400, "Debe enviar al menos un ítem en el detalle del asiento.");
               }
 
               const catalogService = await cds.connect.to('CatalogService');
 
-              console.info(`[RegistrarAprobacion] idSolicitud=${idSolicitud}, emailAprobador=${emailAprobador}`);
+              console.info(`[RegistrarAprobacion] numeroSolicitud=${numeroSolicitudPram}, emailAprobador=${emailAprobador}`);
 
               // 🔎 Buscar empleado
               const empleado = await catalogService.run(SELECT.one.from('CatalogService.Empleados').where({ email: emailAprobador }));
               if (!empleado) req.reject(404, `No se encontró empleado con email ${emailAprobador}`);
 
+
+             const estadoIniciada = await catalogService.run(
+                SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "INI" })
+              );
+              if (!estadoIniciada) req.reject(404, `No se encontró estado con código 'INI'`);
+
+
               // 🔎 Validar solicitud
-              const solicitud = await tx.run(SELECT.one.from('GestionaAsientos.CabeceraAsiento').where({ numeroSolicitud: idSolicitud }));
-              if (!solicitud) req.reject(404, `No existe la solicitud con ID ${idSolicitud}`);
+              const solicitud = await tx.run(SELECT.one.from('GestionaAsientos.CabeceraAsiento').where({ numeroSolicitud: numeroSolicitudPram }));
+              if (!solicitud || solicitud.estadoSolicitud_ID != estadoIniciada.ID) 
+                req.reject(404, `No existe la solicitud con número ${numeroSolicitudPram} o no se encuentra en el estado Iniciada`);
 
               // 📝 Insertar registro en AprobadorSolicitud
               await tx.run(
                 INSERT.into('GestionaAsientos.AprobadorSolicitud').entries({
                   empleado_ID: empleado.ID,
-                  solicitud_ID: idSolicitud,
+                  cabecera_ID: solicitud.ID,
                   fechaAprobacion: new Date(),
-                  decision: "APROBACION"
+                  decision: DECISION_APROBACION
                 })
               );
 
@@ -1232,6 +1239,8 @@ this.on("RegistrarAprobacion", async (req) => {
           try{
                 const { idSolicitud, emailAprobador } = req.data;
 
+                const numeroSolicitudPram = idSolicitud;
+
                 const tx = req.tx;
 
                   // const {
@@ -1243,23 +1252,30 @@ this.on("RegistrarAprobacion", async (req) => {
 
                   const catalogService = await cds.connect.to('CatalogService');
 
-                  console.info(`[RegistrarRechazo] idSolicitud=${idSolicitud}, emailAprobador=${emailAprobador}`);
+                  console.info(`[RegistrarRechazo] numeroSolicitu=${numeroSolicitudPram}, emailAprobador=${emailAprobador}`);
 
                   // 🔎 Buscar empleado
                   const empleado = await catalogService.run(SELECT.one.from('CatalogService.Empleados').where({ email: emailAprobador }));
                   if (!empleado) req.reject(404, `No se encontró empleado con email ${emailAprobador}`);
 
-                  // 🔎 Validar solicitud
-                  const solicitud = await tx.run(SELECT.one.from('GestionaAsientos.CabeceraAsiento').where({ numeroSolicitud: idSolicitud }));
-                  if (!solicitud) req.reject(404, `No existe la solicitud con ID ${idSolicitud}`);
+                  const estadoIniciada = await catalogService.run(
+                      SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "INI" })
+                    );
+                    if (!estadoIniciada) req.reject(404, `No se encontró estado con código 'INI'`);
+
+
+                    // 🔎 Validar solicitud
+                    const solicitud = await tx.run(SELECT.one.from('GestionaAsientos.CabeceraAsiento').where({ numeroSolicitud: numeroSolicitudPram }));
+                    if (!solicitud || solicitud.estadoSolicitud_ID != estadoIniciada.ID) 
+                      req.reject(404, `No existe la solicitud con número ${numeroSolicitudPram} o no se encuentra en el estado Iniciada`);
 
                   // 📝 Insertar registro en AprobadorSolicitud
                   await tx.run(
                     INSERT.into('GestionaAsientos.AprobadorSolicitud').entries({
                       empleado_ID: empleado.ID,
-                      solicitud_ID: idSolicitud,
+                      cabecera_ID: solicitud.ID,
                       fechaAprobacion: new Date(),
-                      decision: "RECHAZO"
+                      decision: DECISION_RECHAZO
                     })
                   );
 
@@ -1272,7 +1288,7 @@ this.on("RegistrarAprobacion", async (req) => {
                   await tx.run(
                     UPDATE('GestionaAsientos.CabeceraAsiento')
                       .set({ estadoSolicitud_ID: estadoRechazada.ID })
-                      .where({ ID: idSolicitud })
+                      .where({ ID: solicitud.ID })
                   );
 
                   console.info(`[RegistrarRechazo] 🔴 Rechazo registrado y estado actualizado a 'RDA'`);
@@ -1301,12 +1317,23 @@ this.on("RegistrarAprobacion", async (req) => {
        */
       async function EjecutarContabilizacionPorID(id, req) {
 
+        const numeroSolicitudParam = id;
+
         try{
+
+                const catalogService = await cds.connect.to('CatalogService');
+
+                const estadoIniciada = await catalogService.run(
+                    SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "INI" })
+                  );
+                if (!estadoIniciada) req.reject(404, `No se encontró estado con código 'INI'`);
+
                 const cabecera = await SELECT.one
                   .from('com.carrefour.journal.CabeceraAsiento')
-                  .where({ numeroSolicitud: id });
+                  .where({ numeroSolicitud: numeroSolicitudParam });
 
-                if (!cabecera) req.reject(400,`CabeceraAsiento con ID ${id} no encontrada`);
+                if (!cabecera || cabecera.estadoSolicitud_ID != estadoIniciada.ID) 
+                  req.reject(400,`Solicitud con numero ${numeroSolicitudParam} no encontrada o en estado distinto a Iniciada`);
 
                 // 🔥 Traer los items + el número de cuenta desde Cuenta
                   const items = await SELECT
@@ -1324,7 +1351,7 @@ this.on("RegistrarAprobacion", async (req) => {
                     )
                     .where({ cabecera_ID: cabecera.ID });
                 
-                if (!items) req.reject(400,`Items de CabeceraAsiento con ID ${id} no encontrados`);
+                if (!items) req.reject(400,`Items de CabeceraAsiento con numero de solicitud ${numeroSolicitudParam} no encontrados`);
 
 
                 cabecera.items = items;
@@ -1359,37 +1386,39 @@ this.on("RegistrarAprobacion", async (req) => {
           const catalogService = await cds.connect.to('CatalogService');
 
          try {
-                const id = req.data.id;
-                if (!id) return req.reject(400, 'Falta ID de la solicitud');
+                //const id = req.data.id;
+                const numeroSolicitudParam = req.data.id;
 
-                console.info(`[RealizarContabilizacion] 🧮 Iniciando contabilización para ID=${id}`);
+                if (!numeroSolicitudParam) return req.reject(400, 'Falta ID de la solicitud');
+
+                console.info(`[RealizarContabilizacion] 🧮 Iniciando contabilización para numero de solicitud=${numeroSolicitudParam}`);
 
                 // 1️⃣ Ejecutar contabilización en S/4HANA
-                const resultado = await EjecutarContabilizacionPorID(id, req);
+                const resultado = await EjecutarContabilizacionPorID(numeroSolicitudParam, req);
 
-                // 2️⃣ Si el resultado fue exitoso → actualizar estadoSolicitud = CON
-                // if (resultado.success) {
-                //   const { CabeceraAsiento, EstadosSolicitud } = cds.entities['com.carrefour.journal'];
+                //2️⃣ Si el resultado fue exitoso → actualizar estadoSolicitud = CON
+                if (resultado.success) {
+                  //const { CabeceraAsiento, EstadosSolicitud } = cds.entities['com.carrefour.journal'];
 
-                //   const estadoContabilizada = await catalogService.run(
-                //     SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: 'CON' })
-                //   );
-                //   if (!estadoContabilizada)
-                //     req.reject(404, `No se encontró estado con código 'CON'`);
+                  // const estadoContabilizada = await catalogService.run(
+                  //   SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: 'CON' })
+                  // );
+                  // if (!estadoContabilizada)
+                  //   req.reject(404, `No se encontró estado con código 'CON'`);
 
-                //   await tx.run(
-                //     UPDATE('GestionaAsientos.CabeceraAsiento')
-                //       .set({ estadoSolicitud_ID: estadoContabilizada.ID })
-                //       .where({ ID: id })
-                //   );
+                  // await tx.run(
+                  //   UPDATE('GestionaAsientos.CabeceraAsiento')
+                  //     .set({ estadoSolicitud_ID: estadoContabilizada.ID })
+                  //     .where({ numeroSolicitud: numeroSolicitudParam })
+                  // );
 
-                //   console.info(`[RealizarContabilizacion] ✅ Contabilización exitosa y estado actualizado a 'CON'`);
-                //   return resultado;
-                // } else {
-                //   // Si la contabilización devolvió error
-                //   console.warn(`[RealizarContabilizacion] ⚠️ Error en contabilización: ${resultado.message}`);
-                //   return req.reject(400, resultado.message || 'Error en contabilización');
-                // }
+                  console.info(`[RealizarContabilizacion] ✅ Contabilización exitosa y estado actualizado a 'CON'`);
+                  return resultado;
+                } else {
+                  // Si la contabilización devolvió error
+                  console.warn(`[RealizarContabilizacion] ⚠️ Error en contabilización: ${resultado.message}`);
+                  return req.reject(400, resultado.message || 'Error en contabilización');
+                }
              } catch (err) {
                 console.error("❌ [RealizarContabilizacion] 🔴 Error detectado", err);
                 // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual

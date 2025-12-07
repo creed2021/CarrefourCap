@@ -56,13 +56,13 @@
       "bpa-api": {
         "kind": "rest",
         "credentials": {
-          "destination": "$BPA_DEST"
+          "destination": "dest_asientos_backTobpa_SP_PRD"
         }
       },
       "S4HANA": {
         "kind": "rest",
         "credentials": {
-          "destination": "$S4_DEST"
+          "destination": "S4_QAS_Basic"
         }
       },
       "db": {
@@ -96,7 +96,7 @@
         "service": "ups-database-external"
       },
       "data": false
-    },
+    }
     },
       "destinations": true,
       "html5-repo": true,

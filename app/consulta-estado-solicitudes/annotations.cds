@@ -9,6 +9,10 @@ annotate service.CabeceraAsiento with @(
             },
             {
                 $Type : 'UI.DataField',
+                Value : sociedad,
+            },
+            {
+                $Type : 'UI.DataField',
                 Value : periodoAnio,
             },
             {
@@ -53,6 +57,11 @@ annotate service.CabeceraAsiento with @(
             },
             {
                 $Type : 'UI.DataField',
+                Label : 'correo_solicitante',
+                Value : correo_solicitante,
+            },
+            {
+                $Type : 'UI.DataField',
                 Value : subtipoAsiento.nombre,
                 Label : 'SubTipo Asiento',
             },
@@ -67,47 +76,8 @@ annotate service.CabeceraAsiento with @(
             },
             {
                 $Type : 'UI.DataField',
-                Value : sociedad,
-            },
-            {
-                $Type : 'UI.DataField',
                 Label : 'numeroDocumentoSAP',
                 Value : numeroDocumentoSAP,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'idInstanciaWorkflow',
-                Value : idInstanciaWorkflow,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'correo_solicitante',
-                Value : correo_solicitante,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'numeroDocumentoContable',
-                Value : numeroDocumentoContable,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'CodigoEmpresaContabilizacion',
-                Value : CodigoEmpresaContabilizacion,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'AnioFiscalContabilizacion',
-                Value : AnioFiscalContabilizacion,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'numeroAsiento',
-                Value : numeroAsiento,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : items.cuentaContable.nombre,
-                Label : 'nombre',
             },
         ],
     },
@@ -128,7 +98,7 @@ annotate service.CabeceraAsiento with @(
             $Type : 'UI.ReferenceFacet',
             Label : 'Detalle de Aprobadores',
             ID : 'DetalledeAprobadores',
-            Target : 'aprobadoresSolicitud/@UI.SelectionPresentationVariant#DetalledeAprobadores',
+            Target : 'aprobadoresSolicitud/@UI.SelectionPresentationVariant#DetalledeAprobadores1',
         },
     ],
     UI.LineItem : [
@@ -389,6 +359,44 @@ annotate service.AprobadorSolicitud with @(
             $Type : 'UI.PresentationVariantType',
             Visualizations : [
                 '@UI.LineItem#DetalledeAprobadores',
+            ],
+            SortOrder : [
+                {
+                    $Type : 'Common.SortOrderType',
+                    Property : fechaAprobacion,
+                    Descending : false,
+                },
+            ],
+        },
+        SelectionVariant : {
+            $Type : 'UI.SelectionVariantType',
+            SelectOptions : [
+            ],
+        },
+    },
+    UI.LineItem #DetalledeAprobadores1 : [
+        {
+            $Type : 'UI.DataField',
+            Value : cabecera.aprobadoresSolicitud.fechaAprobacion,
+            Label : 'Fecha',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : cabecera.aprobadoresSolicitud.empleado.nombre,
+            Label : 'Empleado',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : cabecera.aprobadoresSolicitud.decision,
+            Label : 'Decisión',
+        },
+    ],
+    UI.SelectionPresentationVariant #DetalledeAprobadores1 : {
+        $Type : 'UI.SelectionPresentationVariantType',
+        PresentationVariant : {
+            $Type : 'UI.PresentationVariantType',
+            Visualizations : [
+                '@UI.LineItem#DetalledeAprobadores1',
             ],
             SortOrder : [
                 {

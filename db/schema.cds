@@ -87,11 +87,10 @@ entity Empleado : cuid, managed {
 
 entity AprobadorSolicitud: cuid, managed {
     empleado         : Association to Empleado;
-    solicitud        : Association to CabeceraAsiento;
     fechaAprobacion  : Date;
     decision         : String(15);
     /* Owner → CabeceraAsiento */
-    cabecera : Association to CabeceraAsiento;
+    cabecera : Association to one CabeceraAsiento;
 }
 
 entity ConfigSolicitante : cuid, managed {

@@ -3,7 +3,7 @@ ID: asientos-ajustes-dev
 extends: asientos-ajustes
 
 parameters:
-  BD-REQUIRES: |
+  DB_REQUIRES: |
     "hana"
   DB_CONFIG: |
     "hana"
