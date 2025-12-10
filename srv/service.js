@@ -1586,7 +1586,7 @@ this.on("RegistrarAprobacion", async (req) => {
               // ================================================================
               // 5️⃣ LLAMAR VALIDACIÓN SOAP (modo test)
               // ================================================================
-              await ValidaContabilizaAsiento(req, true);
+              //PEND DJ await ValidaContabilizaAsiento(req, true);
 
               // -------------------------------------------------------------------------
               // 🔹 Generar número de solicitud NO repetido, atómico, sin baches
@@ -1598,8 +1598,8 @@ this.on("RegistrarAprobacion", async (req) => {
               // ================================================================
               // 7️⃣ Iniciar Workflow BPA
               // ================================================================
-              idWF = await IniciaWorkflowBPA(req);
-              req.data.idInstanciaWorkflow = idWF;
+              //PEND DJ idWF = await IniciaWorkflowBPA(req);
+              //PEND DJ req.data.idInstanciaWorkflow = idWF;
         } catch (err) {
           console.error("❌ [CabeceraAsiento] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
