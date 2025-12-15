@@ -42,9 +42,6 @@
     "app/*"
   ],
   "cds": {
-    "features": {
-      "assert_integrity": "db"
-    },
     "server": {
       "body_parser": {
         "limit": "1mb"

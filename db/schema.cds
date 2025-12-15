@@ -38,17 +38,28 @@ entity CabeceraAsiento : cuid, managed {
 
     aprobadoresSolicitud: Composition of many AprobadorSolicitud
                           on aprobadoresSolicitud.cabecera = $self;
+    
+    adjuntosSolicitud: Composition of many AdjuntoSolicitud
+                          on adjuntosSolicitud.cabecera = $self;
 }
 
-entity DatosReporteSeguimiento: cuid {
-    numeroSolicitud     : String;
-    tipoAsiento         : String;
-    subtipoAsiento      : String;
-    fechaCreacion       : Timestamp;
-    aprobador           : String;
-    fechaAprobacion     : Timestamp;
-    estado              : String;
-    numeroDocumentoSAP  : String;
+// entity DatosReporteSeguimiento: cuid {
+//     numeroSolicitud     : String;
+//     tipoAsiento         : String;
+//     subtipoAsiento      : String;
+//     fechaCreacion       : Timestamp;
+//     aprobador           : String;
+//     fechaAprobacion     : Timestamp;
+//     estado              : String;
+//     numeroDocumentoSAP  : String;
+// }
+
+entity AdjuntoSolicitud: cuid, managed {
+  cabecera              : Association to one CabeceraAsiento;
+  identificadorAdjunto  : String(50);
+  nombreAdjunto         : String(100);
+  urlAdjunto            : String(1000);
+  sessionId             : String(100);
 }
 
 entity EstadosSolicitud : cuid, managed {
@@ -88,6 +99,7 @@ entity Empleado : cuid, managed {
 entity AprobadorSolicitud: cuid, managed {
     empleado         : Association to Empleado;
     fechaAprobacion  : Date;
+    nivelAprobacion  : String(200);
     decision         : String(15);
     /* Owner → CabeceraAsiento */
     cabecera : Association to one CabeceraAsiento;

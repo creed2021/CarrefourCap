@@ -11,32 +11,37 @@ service GestionaAsientos{
             referencia,
             solicitante,
             items,
-            aprobadoresSolicitud
+            aprobadoresSolicitud,
+            adjuntosSolicitud
     };
     entity DetalleAsiento as projection on my.DetalleAsiento {
         *,
         cuentaContable: redirected to Cuentas
     };
-    entity DatosReporteSeguimiento    as projection on my.DatosReporteSeguimiento;
+    // entity DatosReporteSeguimiento    as projection on my.DatosReporteSeguimiento;
     entity AprobadorSolicitud as projection on my.AprobadorSolicitud{
             *,
             empleado: redirected to Empleados
     };
+
+    entity AdjuntoSolicitud as projection on my.AdjuntoSolicitud;
+
+    action prepareAdjuntos (sessionId: String);
     action RegistrarAprobacion(idSolicitud: UUID, emailAprobador: String) returns String;
     action RegistrarRechazo(idSolicitud: UUID, emailAprobador: String) returns String;
     action ObtenerDatosFormularioAprobacion(id: UUID) //returns Object;
     action RealizarContabilizacion(id: UUID) returns String;
     function ListarWorkflowsBPA() returns String;
-    function ObtenerDatosReporteSeguimiento() returns array of {
-        numeroSolicitud     : String;
-        tipoAsiento         : String;
-        subtipoAsiento      : String;
-        fechaCreacion       : Timestamp;
-        aprobador           : String;
-        fechaAprobacion     : Timestamp;
-        estado              : String;
-        numeroDocumentoSAP  : String;
-    };
+    // function ObtenerDatosReporteSeguimiento() returns array of {
+    //     numeroSolicitud     : String;
+    //     tipoAsiento         : String;
+    //     subtipoAsiento      : String;
+    //     fechaCreacion       : Timestamp;
+    //     aprobador           : String;
+    //     fechaAprobacion     : Timestamp;
+    //     estado              : String;
+    //     numeroDocumentoSAP  : String;
+    // };
 
     //----------------------------------------------------------------------
     // ENTIDADES DE APOYO NECESARIAS EN ESTE SERVICIO

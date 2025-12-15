@@ -68,6 +68,18 @@
           "destination": "S4_QAS_Basic" 
         }
       },
+      "dest_dms_dev": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "dest_dms_dev"
+        }
+      },
+      "db": {
+        "kind": "hana",
+        "credentials": {
+          "service": "ups-database-external"
+        }
+      },
       "[development]": {
         "auth": {
           "kind": "mocked",

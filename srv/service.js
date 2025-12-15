@@ -7,6 +7,7 @@ const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
 const xml2js = require('xml2js');
 const { Token } = require('@sap/xssec');
 const { threadId } = require('worker_threads');
+const { ensureFolder, moveFolder, deleteFolder } = require("./helpers/dms-helper");
 
 //module.exports = { ValidaAsiento };
 //AMBIENTE: DEV
@@ -1455,7 +1456,84 @@ this.on("RegistrarAprobacion", async (req) => {
         
     //   });
 
+      // 1️⃣ Preparar carpeta temporal
+      this.on("prepareAdjuntos", async req => {
+        try{
 
+            const { sessionId } = req.data;
+            await ensureFolder(`/solicitud-asientos-adjuntos/temp/${sessionId}`, req);
+
+        } catch (err) {
+          console.error("❌ [prepareAdjuntos] 🔴 Error detectado", err);
+          // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+          if (err.code) {
+            throw err; // ⚡ sigue para arriba sin cambios
+          }
+
+          // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+          console.error("❌ [prepareAdjuntos] 🔴 Error interno:", err);
+
+          // devolvemos un error 500 limpio
+          return req.reject(500, "[prepareAdjuntos] 🔴 Error interno");
+        }
+      });
+
+      this.on("confirmAdjuntos", async req => {
+        try{
+              const { sessionId } = req.data;
+
+              const tx = cds.tx(req);
+
+              const adjuntos = await tx.run(
+                SELECT.from(AdjuntoSolicitud).where({ uploadSessionId: sessionId })
+              );
+
+              if (adjuntos.length === 0) return;
+
+              const solicitudId = adjuntos[0].solicitud_ID;
+              const solicitud = await tx.run(
+                SELECT.one.from(CabeceraAsiento).where({ ID: solicitudId })
+              );
+
+              const destino = `/solicitud-asientos-adjuntos/solicitudes/${solicitud.numeroSolicitud}`;
+              await ensureFolder(destino, req);
+              await moveFolder(`/solicitud-asientos-adjuntos/temp/${sessionId}`, destino, req);
+        } catch (err) {
+          console.error("❌ [confirmAdjuntos] 🔴 Error detectado", err);
+          // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+          if (err.code) {
+            throw err; // ⚡ sigue para arriba sin cambios
+          }
+
+          // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+          console.error("❌ [confirmAdjuntos] 🔴 Error interno:", err);
+
+          // devolvemos un error 500 limpio
+          return req.reject(500, "[confirmAdjuntos] 🔴 Error interno");
+        }
+      });
+
+      // 3️⃣ Rollback
+      this.on("rollbackAdjuntos", async req => {
+        try{
+
+              const { sessionId } = req.data;
+              await deleteFolder(`/solicitud-asientos-adjuntos/temp/${sessionId}`, req);
+
+        } catch (err) {
+          console.error("❌ [rollbackAdjuntos] 🔴 Error detectado", err);
+          // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+          if (err.code) {
+            throw err; // ⚡ sigue para arriba sin cambios
+          }
+
+          // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+          console.error("❌ [rollbackAdjuntos] 🔴 Error interno:", err);
+
+          // devolvemos un error 500 limpio
+          return req.reject(500, "[rollbackAdjuntos] 🔴 Error interno");
+        }
+      });
 
 
       // ===========================================================
@@ -2908,6 +2986,7 @@ async function getNextNumeroSolicitud(tx) {
       return req.reject(500, "[getNextNumeroSolicitud] 🔴 Error interno");
     }
 }
+
 
 
 
