@@ -73,3 +73,7 @@ annotate service.Cuentas with {
     )
 };
 
+annotate service.Cuentas with @(UI.HeaderInfo: {
+    TypeName      : 'Listado de Cuentas',
+    TypeNamePlural: 'Listado de Cuentas'
+});

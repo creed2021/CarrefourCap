@@ -84,3 +84,7 @@ annotate service.UmbralesCuentas with {
     )
 };
 
+annotate service.UmbralesCuentas with @(UI.HeaderInfo: {
+    TypeName      : 'Configuración de Umbrales',
+    TypeNamePlural: 'Configuración de Umbrales'
+});

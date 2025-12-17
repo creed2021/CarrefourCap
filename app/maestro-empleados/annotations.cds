@@ -19,7 +19,7 @@ annotate service.Empleados with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'GeneratedFacet1',
-            Label : 'General Information',
+            Label : 'Maestro de Empleados',
             Target : '@UI.FieldGroup#GeneratedGroup',
         },
     ],
@@ -45,3 +45,7 @@ annotate service.Empleados with {
     email @Common.FieldControl : #Mandatory
 };
 
+annotate service.Empleados with @(UI.HeaderInfo: {
+    TypeName      : 'Listado de Empleados',
+    TypeNamePlural: 'Listado de Empleados'
+});

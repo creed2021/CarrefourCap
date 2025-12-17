@@ -19,7 +19,7 @@ annotate service.Sectores with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'GeneratedFacet1',
-            Label : 'Maestro de Enpleados',
+            Label : 'Maestro de Sectores',
             Target : '@UI.FieldGroup#GeneratedGroup',
         },
     ],
@@ -45,3 +45,7 @@ annotate service.Sectores with {
     nombre @Common.FieldControl : #Mandatory
 };
 
+annotate service.Sectores with @(UI.HeaderInfo: {
+    TypeName      : 'Listado de Sectores',
+    TypeNamePlural: 'Listado de Sectores'
+});
