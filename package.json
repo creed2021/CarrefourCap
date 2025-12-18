@@ -59,13 +59,19 @@
       "bpa-api": {
         "kind": "rest",
         "credentials": {
-          "destination": "dest_asientos_backTobpa_SP_DEV"
+          "destination": "dest_asientos_backTobpa_SP_PRD"
         }
       },
       "S4HANA": {
         "kind": "rest",
         "credentials": {
-          "destination": "S4_QAS_Basic" 
+          "destination": "S4_QAS_Basic"
+        }
+      },
+      "db": {
+        "kind": "hana",
+        "credentials": {
+          "service": "ups-database-external"
         }
       },
       "[development]": {
@@ -85,10 +91,16 @@
           }
         }
       },
-      "[production]": {
-        "db": "hana",
-        "auth": "xsuaa"
+    "[production]": {
+      "auth": "xsuaa",
+      "db":     {
+      "kind": "hana",
+      "credentials": {
+        "service": "ups-database-external"
       },
+      "data": false
+    }
+    },
       "destinations": true,
       "html5-repo": true,
       "workzone": true

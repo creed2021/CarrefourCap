@@ -42,6 +42,9 @@
     "app/*"
   ],
   "cds": {
+    "features": {
+      "assert_integrity": "db"
+    },
     "server": {
       "body_parser": {
         "limit": "1mb"
@@ -56,19 +59,13 @@
       "bpa-api": {
         "kind": "rest",
         "credentials": {
-          "destination": "dest_asientos_backTobpa_SP_PRD"
+          "destination": "dest_asientos_backTobpa_SP_DEV"
         }
       },
       "S4HANA": {
         "kind": "rest",
         "credentials": {
-          "destination": "S4_QAS_Basic"
-        }
-      },
-      "db": {
-        "kind": "hana",
-        "credentials": {
-          "service": "ups-database-external"
+          "destination": "S4_QAS_Basic" 
         }
       },
       "[development]": {
@@ -88,16 +85,10 @@
           }
         }
       },
-    "[production]": {
-      "auth": "xsuaa",
-      "db":     {
-      "kind": "hana",
-      "credentials": {
-        "service": "ups-database-external"
+      "[production]": {
+        "db": "hana",
+        "auth": "xsuaa"
       },
-      "data": false
-    }
-    },
       "destinations": true,
       "html5-repo": true,
       "workzone": true
