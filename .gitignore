@@ -36,4 +36,5 @@ mta_archives/
 dist/
 resources/
 *.zip
+*.mta
 

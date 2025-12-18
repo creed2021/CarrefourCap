@@ -42,6 +42,9 @@
     "app/*"
   ],
   "cds": {
+    "features": {
+      "assert_integrity": "db"
+    },
     "server": {
       "body_parser": {
         "limit": "1mb"
@@ -69,6 +72,12 @@
         "kind": "hana",
         "credentials": {
           "service": "ups-database-external"
+        }
+      },
+      "dmsdev": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "dest_asientos_backTodms_SP_DEV"
         }
       },
       "[development]": {

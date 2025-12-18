@@ -65,13 +65,13 @@
       "S4HANA": {
         "kind": "rest",
         "credentials": {
-          "destination": "S4_QAS_Basic" 
+          "destination": "S4_PRD_Basic"
         }
       },
-      "dest_dms_dev": {
+      "dmsdev": {
         "kind": "rest",
         "credentials": {
-          "destination": "dest_dms_dev"
+          "destination": "dest_asientos_backTodms_SP_DEV"
         }
       },
       "db": {

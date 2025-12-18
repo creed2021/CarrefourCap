@@ -4,7 +4,7 @@ const { getDestination } = require('@sap-cloud-sdk/connectivity');
 
 // 🔴 Ajustar a tu repository real
 const REPO_ID = "59ec1b8c-cf7c-465c-bd5b-460bcb6ca9a4";
-const BASE = `/apidms/browser/${REPO_ID}`;
+const BASE = `/browser/${REPO_ID}`;
 
 /**
  * Convierte path lógico (/AsientosAjuste/temp/x)
@@ -12,8 +12,16 @@ const BASE = `/apidms/browser/${REPO_ID}`;
  */
 function toCmisPath(absPath) {
   const clean = String(absPath || "").replace(/^\/+/, "");
+
+  // caso root
+  if (!clean) {
+    return `${BASE}/root/`;
+  }
+
   return `${BASE}/root/${clean}`;
 }
+
+
 
 /**
  * Verifica existencia de carpeta por path
@@ -22,33 +30,29 @@ async function folderExists(absPath, req) {
 
 
   try {
-    // const remote = await cds.connect.to('dest_dms_dev');
-    // const destinationName = remote.options.credentials.destination;
-    // const destination = await getDestination({ destinationName });
-    
 
-    // if (!destination) throw new Error(`No se encontró el destino ${destinationName}`);
-    
-    // console.info(`[folderExists] 🌍 Usando destination: ${destinationName}`);
-
-    // await client.get(cmisPath, {                                
-    //   params: { cmisselector: "object", succinct: "true" }
-    // });
-       
-    // const response = await executeHttpRequest(destination, {
-    //   method: 'GET',
-    //   url: cmisPath,
-    //   params: { cmisselector: "object", succinct: "true" }
-    // });
     const client = await getDmsClient();
     const cmisPath = toCmisPath(absPath) + "?cmisselector=object&succinct=true";
+    
+    const res = await client.tx(req).get(cmisPath);
 
-    await client.tx(req).get(cmisPath);
+    console.info(`[folderExists] 🧩 ***********res folder exists = ${JSON.stringify(res, null, 2)}`); 
 
     return true;
-  } catch (e) {
-    if (e?.response?.status === 404) return false;
-    throw e;
+
+  } catch (err) {
+    //console.error("❌ [folderExists] 🔴 Error detectado", err);
+    console.info(`[folderExists] 🧩 ***********errrrrrr = ${JSON.stringify(err, null, 2)}`); 
+    // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+    if (err.reason.response.status == 404) {
+      return false;
+    }
+
+    // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+    console.error("❌ [folderExists] 🔴 Error interno:", err);
+
+    // devolvemos un error 500 limpio
+    return req.reject(500, "[folderExists] 🔴 Error interno");
   }
 }
 
@@ -77,19 +81,11 @@ async function createFolder(parentAbsPath, name, req) {
 
   let headers = { "Content-Type": "application/x-www-form-urlencoded" };
 
-  await client.tx(req).post(parentCmis, 
-                            form,
-                            headers);
+  const data = form.toString();
 
-  // await client.post(parentCmis, form, {
-  //   headers: { "Content-Type": "application/x-www-form-urlencoded" }
-  // });
-  // const response = await executeHttpRequest(destination, {
-  //   method: 'POST',
-  //   url: parentCmis,
-  //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //   data: form
-  // });
+  await client.tx(req).post(parentCmis, 
+                            data,
+                            headers);
 
 }
 
@@ -111,33 +107,72 @@ async function ensureFolder(absPath, req) {
   }
 }
 
+// async function getFolderObjectId(parentAbsPath, folderName) {
+//   const client = await getDmsClient();
+//   const parentCmis = toCmisPath(parentAbsPath);
+
+//   const res = await client.get(parentCmis, {
+//     params: {
+//       cmisselector: "children",
+//       succinct: "true"
+//     }
+//   });
+
+//   const children = res?.data?.objects || [];
+
+//   const folder = children.find(o =>
+//     o?.object?.succinctProperties?.["cmis:name"] === folderName &&
+//     o?.object?.succinctProperties?.["cmis:baseTypeId"] === "cmis:folder"
+//   );
+
+//   return folder?.object?.succinctProperties?.["cmis:objectId"];
+// }
+
+// async function moveFolder(sourceAbsPath, targetAbsPath) {
+//   const client = await getDmsClient();
+
+//   // separar parent y nombre
+//   const parts = sourceAbsPath.split("/").filter(Boolean);
+//   const folderName = parts.pop();
+//   const parentAbs = "/" + parts.join("/");
+
+//   const sourceId = await getFolderObjectId(parentAbs, folderName);
+//   if (!sourceId) {
+//     throw new Error(`No se encontró carpeta origen: ${sourceAbsPath}`);
+//   }
+
+//   const targetId = await getObjectIdByPath(targetAbsPath);
+//   if (!targetId) {
+//     throw new Error(`No se encontró carpeta destino: ${targetAbsPath}`);
+//   }
+
+//   const form = new URLSearchParams();
+//   form.append("cmisaction", "move");
+//   form.append("objectId", sourceId);
+//   form.append("targetFolderId", targetId);
+
+//   await client.post(`${BASE}`, form, {
+//     headers: { "Content-Type": "application/x-www-form-urlencoded" }
+//   });
+// }
+
+
+
 /**
  * Obtiene objectId de un path
  */
 async function getObjectIdByPath(absPath, req) {
   const client = await getDmsClient();
 
-  // const remote = await cds.connect.to('dest_dms_dev');
-  // const destinationName = remote.options.credentials.destination;
-  // const destination = await getDestination({ destinationName });
-
   const cmisPath = toCmisPath(absPath) + "?cmisselector=object&succinct=true";
 
-  // const res = await client.get(cmisPath, {
-  //   params: { cmisselector: "object", succinct: "true" }
-  // });
-
-  // const res = await executeHttpRequest(destination, {
-  //   method: 'GET',
-  //   url: cmisPath,
-  //   params: { cmisselector: "object", succinct: "true" }
-  // });
-
-
+  console.info(`[getObjectIdByPath] cmisPath****** = ${cmisPath}`);
 
   const res = await client.tx(req).get(cmisPath);
 
-  return res?.data?.succinctProperties?.["cmis:objectId"];
+  console.info("🟩 [getObjectIdByPath] Resultado busqueda carpeta", JSON.stringify(res, null, 2));
+
+  return res?.succinctProperties?.["cmis:objectId"];
 }
 
 /**
@@ -151,6 +186,9 @@ async function moveFolder(sourceAbsPath, targetAbsPath, req) {
   // const destination = await getDestination({ destinationName });
 
   const sourceId = await getObjectIdByPath(sourceAbsPath, req);
+
+  console.info("🟩 [moveFolder] SOURCEID RESULTADO", JSON.stringify(sourceId, null, 2));
+
   if (!sourceId) {
     throw new Error(`No se encontró carpeta origen: ${sourceAbsPath}`);
   }
@@ -168,19 +206,11 @@ async function moveFolder(sourceAbsPath, targetAbsPath, req) {
   form.append("targetFolderId", targetId);
   form.append("succinct", "true");
 
-    await client.tx(req).post(`${BASE}`, 
-                            form,
-                            headers);
+  const data = form.toString();
 
-  // await client.post(`${BASE}`, form, {
-  //   headers: { "Content-Type": "application/x-www-form-urlencoded" }
-  // });
-  // const response = await executeHttpRequest(destination, {
-  //   method: 'POST',
-  //   url: `${BASE}`,
-  //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //   data: form
-  // });
+    await client.tx(req).post(`${BASE}`, 
+                            data,
+                            headers);
 
 }
 
@@ -218,11 +248,84 @@ async function deleteTree(absPath, req) {
   }
 }
 
+async function confirmAdjuntos(req) {
+      const AdjuntoSolicitud = cds.entities.AdjuntoSolicitud;
+      const CabeceraAsiento = cds.entities.CabeceraAsiento;
+
+      try{
+            // const { sessionId } = req.data;
+
+            // const tx = cds.tx(req);
+
+            // const adjuntos = await tx.run(
+            //   SELECT.from(AdjuntoSolicitud).where({ sessionId: sessionId })
+            // );
+             // console.info("🟩 [confirmAdjuntos] reqqqqqq", JSON.stringify(req, null, 2));
+
+            const cab = req.data;
+            const adjuntos = cab.adjuntosSolicitud;
+
+
+            if (!adjuntos && adjuntos.length === 0){
+                console.info("📊 [confirmAdjuntos] No hay adjuntos");
+                return;
+            };
+
+            // const solicitudId = adjuntos[0].solicitud_ID;
+            // const solicitud = await tx.run(
+            //   SELECT.one.from(CabeceraAsiento).where({ ID: solicitudId })
+            // );
+
+            const destino = `/solicitud-asientos-adjuntos/solicitudes/${cab.numeroSolicitud}`;
+            await ensureFolder(destino, req);
+            await moveFolder(`/solicitud-asientos-adjuntos/temp/${adjuntos[0].sessionId}`, destino, req);
+
+      } catch (err) {
+        console.error("❌ [confirmAdjuntos] 🔴 Error detectado", err);
+        // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+        if (err.code) {
+          throw err; // ⚡ sigue para arriba sin cambios
+        }
+
+        // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+        console.error("❌ [confirmAdjuntos] 🔴 Error interno:", err);
+
+        // devolvemos un error 500 limpio
+        return req.reject(500, "[confirmAdjuntos] 🔴 Error interno");
+      }
+
+}
+
+async function rollbackAdjuntos(req) {
+
+      try{
+
+            const { sessionId } = req.data;
+            await deleteFolder(`/solicitud-asientos-adjuntos/temp/${sessionId}`, req);
+
+      } catch (err) {
+        console.error("❌ [rollbackAdjuntos] 🔴 Error detectado", err);
+        // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
+        if (err.code) {
+          throw err; // ⚡ sigue para arriba sin cambios
+        }
+
+        // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
+        console.error("❌ [rollbackAdjuntos] 🔴 Error interno:", err);
+
+        // devolvemos un error 500 limpio
+        return req.reject(500, "[rollbackAdjuntos] 🔴 Error interno");
+      }
+
+}
+
 module.exports = {
   folderExists,
   createFolder,
   ensureFolder,
   getObjectIdByPath,
   moveFolder,
-  deleteTree
+  deleteTree,
+  confirmAdjuntos,
+  rollbackAdjuntos
 };
