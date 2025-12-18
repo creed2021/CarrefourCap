@@ -198,19 +198,36 @@ async function moveFolder(sourceAbsPath, targetAbsPath, req) {
     throw new Error(`No se encontró carpeta destino: ${targetAbsPath}`);
   }
 
+  const cmisPath = toCmisPath(`${BASE}/root/`) + `?cmisselector=children&objectId=${sourceId}&succinct=true`;
+  
+  const res = await client.tx(req).get(cmisPath);
+
+  console.info(`[moveFolder] 🧩 ***********res folder exists = ${JSON.stringify(res, null, 2)}`); 
+
+
   let headers= { "Content-Type": "application/x-www-form-urlencoded" };
 
-  const form = new URLSearchParams();
-  form.append("cmisaction", "move");
-  form.append("objectId", sourceId);
-  form.append("targetFolderId", targetId);
-  form.append("succinct", "true");
+  for (const it of res.objects) {
 
-  const data = form.toString();
+        const hijo = it?.object?.succinctProperties?.["cmis:objectId"];
 
-    await client.tx(req).post(`${BASE}`, 
-                            data,
-                            headers);
+        console.info(`[moveFolder] 🧩 **********hijo ${JSON.stringify(hijo, null, 2)}`); 
+
+        const form = new URLSearchParams();
+        form.append("cmisaction", "move");
+        form.append("objectId", hijo);
+        form.append("targetFolderId", targetId);
+        form.append("sourceFolderId", sourceId);
+        //form.append("succinct", "true");
+
+        const data = form.toString();
+
+        console.info(`[moveFolder] 🧩 **********FORM ${JSON.stringify(data, null, 2)}`);
+
+          await client.tx(req).post(`${BASE}/root/`, 
+                                  data,
+                                  headers);
+  }
 
 }
 
@@ -266,7 +283,9 @@ async function confirmAdjuntos(req) {
             const adjuntos = cab.adjuntosSolicitud;
 
 
-            if (!adjuntos && adjuntos.length === 0){
+            console.info("🟩 [confirmAdjuntos] adjuntos", JSON.stringify(adjuntos, null, 2));
+
+            if (!adjuntos && adjuntos.length == 0){
                 console.info("📊 [confirmAdjuntos] No hay adjuntos");
                 return;
             };
