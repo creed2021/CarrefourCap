@@ -65,7 +65,7 @@
       "S4HANA": {
         "kind": "rest",
         "credentials": {
-          "destination": "S4_PRD_Basic"
+          "destination": "S4_QAS_Basic"
         }
       },
       "dmsdev": {
