@@ -558,6 +558,15 @@ async function ObtenerIDSubtipoAsiento(req) {
             });
           }
 
+          const SUBT_ASIENTO_RECLA_MISMAS_GASTOS = "A";
+          const SUBT_ASIENTO_RECLA_DIF_GASTOS = "B";
+          const SUBT_ASIENTO_RECLA_MAR_GAS = "C";
+          const SUBT_ASIENTO_PROV_GASTOS = "D";
+          const SUBT_ASIENTO_PROV_MARGEN = "E";
+          const SUBT_ASIENTO_BANCOS = "F";
+          const SUBT_ASIENTO_PROV_REVERSA = "G";
+          const SUBT_ASIENTO_CUENTAS_EXCEP = "H";
+
           // ============================================================
           // 🟩 TIPO ASIENTO 2
           // ============================================================
@@ -566,8 +575,10 @@ async function ObtenerIDSubtipoAsiento(req) {
             const subA = solo(["GAS"]) && cuentasPorTipo.GAS.size === 1;
             const subB = solo(["GAS"]) && cuentasPorTipo.GAS.size > 1;
             const subC = solo(["GAS", "MAR"]) || solo(["MAR"]);
-            const subD = solo(["GAS", "PRO"]);
-            const subE = solo(["MAR", "PRO"]) || solo(["MAR", "GAS", "PRO"]);
+            const subD = solo(["GAS", "PRO"]) || solo(["GAS", "PAT"]) || solo(["GAS", "PRO", "PAT"]); //DJ 2025-12-19
+            const subE = solo(["MAR", "PRO"]) || solo(["MAR", "GAS", "PRO"]) || 
+                         solo(["MAR", "PAT"]) || solo(["MAR", "GAS", "PAT"]) ||
+                         solo(["MAR", "PRO", "PAT"]) || solo(["MAR", "GAS", "PRO", "PAT"]); //DJ 2025-12-19
             const subF = solo(["BAN"]);
 
             if (subA) return (await getSub("A")).ID;
