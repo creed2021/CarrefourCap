@@ -150,7 +150,7 @@ const { threadId } = require('worker_threads');
                             <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>
                             <BusinessTransactionType>RFBU</BusinessTransactionType>
                             <AccountingDocumentType>${cabecera.claseDocumento || 'SA'}</AccountingDocumentType>
-                            <CreatedByUser>CAP_USER</CreatedByUser>
+                            <CreatedByUser>BTP_ASI_CONT</CreatedByUser>
                             <CompanyCode>${cabecera.sociedad || '1000'}</CompanyCode>
                             <DocumentDate>${safeDate(cabecera.fechaDocumento)}</DocumentDate>
                             <PostingDate>${safeDate(cabecera.fechaContabilizacion)}</PostingDate>
