@@ -1,5 +1,0 @@
-ID,codigo,nombre,createdAt,createdBy,modifiedAt,modifiedBy
-bd047e6a-b5cd-4148-a473-0bd8a4c08b61,CON,Contabilizada,2025-11-07T05:56:53.729233,init-script,2025-11-07T05:56:53.729233,init-script
-76f2d8b5-41c0-4c4a-8a53-4e1230a6aa96,APO,Aprobada,2025-11-07T05:56:53.729233,init-script,2025-11-07T05:56:53.729233,init-script
-f5e80ffb-fef8-4a28-b64e-4d9dee75cdeb,REG,Registrada,2025-11-07T05:56:53.729233,init-script,2025-11-07T05:56:53.729233,init-script
-3a3e6d0f-fb99-494d-960e-134be9fb6d0e,RDA,Rechazada,2025-11-07T05:56:53.729233,init-script,2025-11-07T05:56:53.729233,init-script

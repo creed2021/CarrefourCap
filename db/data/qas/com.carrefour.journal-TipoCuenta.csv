@@ -1,7 +1,0 @@
-ID,codigo,nombre,createdAt,createdBy,modifiedAt,modifiedBy
-1ae5aaaa-02eb-47d8-9cf8-da78ad7a04d6,GAS,Gastos,2025-11-07T06:07:40.043395,init-script,2025-11-07T06:07:40.043395,init-script
-b074a28d-c634-48fb-beeb-2a945d3530e2,MAR,Margen,2025-11-07T06:07:40.043395,init-script,2025-11-07T06:07:40.043395,init-script
-8835b55f-3bb0-44ae-8eab-c8585f22d9d9,EXC,Excepcional,2025-11-07T06:07:40.043395,init-script,2025-11-07T06:07:40.043395,init-script
-d3c978ff-bff9-4341-a23b-34374f6c1fab,BAN,Banco,2025-11-07T06:07:40.043395,init-script,2025-11-07T06:07:40.043395,init-script
-e201fa24-6bdf-4d74-9db0-5a0afc7d9041,PRO,Provisión,2025-11-08T08:00:00.000000,init-script,2025-11-08T08:00:00.000000,init-script
-f33b41ce-4878-40f5-92d1-8b4df98a9e24,PAT,Patrimonial,2025-11-08T08:00:00.000000,init-script,2025-11-08T08:00:00.000000,init-script`1

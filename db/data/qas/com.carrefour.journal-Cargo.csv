@@ -1,5 +1,0 @@
-ID,codigo,nombre,createdAt,createdBy,modifiedAt,modifiedBy
-06f85d9a-8565-4595-a043-038b64035ca4,JFE,Jefe,2025-11-07T06:00:44.523705,init-script,2025-11-07T06:00:44.523705,init-script
-e35949b7-6fe2-48c2-b8f6-9478e8905070,GER,Gerente,2025-11-07T06:00:44.523705,init-script,2025-11-07T06:00:44.523705,init-script
-2c42825e-6057-4b04-97f3-74d24f81bf9f,DIR,Director,2025-11-07T06:00:44.523705,init-script,2025-11-07T06:00:44.523705,init-script
-ca91a5c1-1ab2-402d-a5a2-1c0033e10239,CFO,Chief Financial Officer,2025-11-07T06:00:44.523705,init-script,2025-11-07T06:00:44.523705,init-script

@@ -1,9 +1,0 @@
-ID,codigo,nombre,tipoAsiento_ID,createdAt,createdBy,modifiedAt,modifiedBy,umbralMinimoAsiento
-6dd6ab62-b879-4fcb-8e92-7de53eb6c37a,A,Asientos de Reclasificación entre mismas cuentas de gastos,664a1901-083e-4eb8-b5d9-32ab0b61b5d6,2025-11-07T05:20:49.110601,init-script,2025-11-07T05:20:49.110601,init-script,5000000
-4a72c981-4606-44d9-8b7a-d941646e7292,B,Asientos de Reclasificación entre diferentes cuentas de gastos,664a1901-083e-4eb8-b5d9-32ab0b61b5d6,2025-11-07T05:20:49.110601,init-script,2025-11-07T05:20:49.110601,init-script,5000000
-76229dff-e4fd-4b4d-9e09-1c1ab20b46c6,C,Asientos de Reclasificación entre cuentas mg/mg mg a gastos gastos a mg,664a1901-083e-4eb8-b5d9-32ab0b61b5d6,2025-11-07T05:20:49.110601,init-script,2025-11-07T05:20:49.110601,init-script,5000000
-96a1941b-f78a-4ed5-a9ee-eecc2e0ab1d0,D,Asientos de provisiones de gastos,664a1901-083e-4eb8-b5d9-32ab0b61b5d6,2025-11-07T05:20:49.110601,init-script,2025-11-07T05:20:49.110601,init-script,5000000
-b3532bd8-3ec2-478f-8c12-6457fea9db6a,E,Asientos de provisiones de cuentas de margen,664a1901-083e-4eb8-b5d9-32ab0b61b5d6,2025-11-07T05:20:49.110601,init-script,2025-11-07T05:20:49.110601,init-script,5000000
-ec953db8-7fd7-438e-a813-77bb3f6f218f,F,Asientos de cuentas de bancos,664a1901-083e-4eb8-b5d9-32ab0b61b5d6,2025-11-07T05:20:49.110601,init-script,2025-11-07T05:20:49.110601,init-script,5000000
-c2a5f280-3754-46fa-992f-d1fe9145fa2b,G,Provisiones con reversa,7d332e84-551a-491c-8ba2-895245401633,2025-11-07T05:20:49.110601,init-script,2025-11-07T05:20:49.110601,init-script,5000000
-f7f9eeac-b614-4d0c-88fc-1f97bb9484e9,H,Asientos de ajustes contables de cuentas excepcionales,406bd618-c071-42cd-b33c-72df2f655978,2025-11-07T05:20:49.110601,init-script,2025-11-07T05:20:49.110601,init-script,5000000
