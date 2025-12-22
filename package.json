@@ -65,19 +65,19 @@
       "S4HANA": {
         "kind": "rest",
         "credentials": {
-          "destination": "S4_QAS_Basic"
-        }
-      },
-      "db": {
-        "kind": "hana",
-        "credentials": {
-          "service": "ups-database-external"
+          "destination": "S4_PRD_Basic"
         }
       },
       "dmsdev": {
         "kind": "rest",
         "credentials": {
           "destination": "dest_asientos_backTodms_SP_DEV"
+        }
+      },
+      "db": {
+        "kind": "hana",
+        "credentials": {
+          "service": "ups-database-external"
         }
       },
       "[development]": {
