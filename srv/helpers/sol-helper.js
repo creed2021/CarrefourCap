@@ -8,6 +8,11 @@ const xml2js = require('xml2js');
 const { Token } = require('@sap/xssec');
 const { threadId } = require('worker_threads');
 
+const URL_S4_HANA_QAS = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi';
+const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi/journalentrycreaterequestconfi?saml2=disabled';
+                        
+
+
       function safeUndef(value) {
         if (
           value === undefined ||
@@ -171,7 +176,7 @@ const { threadId } = require('worker_threads');
                 // 5️⃣ Ejecutar la llamada
                 const response = await executeHttpRequest(destination, {
                   method: 'POST',
-                  url: '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+                  url: URL_S4_HANA_PRD,
                   headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
                   data: xmlPayload
                 });
