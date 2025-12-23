@@ -179,7 +179,7 @@ async function getTablaSumatorias(req) {
                     };
                 }
 
-                sumMap[numeroCuenta].SumatoriaTotal += Number(it.importe || 0);
+                sumMap[numeroCuenta].SumatoriaTotal += (Math.abs(Number(it.importe || 0)) * (it.clave === 40 ? 1 : -1));
             }
 
 
@@ -640,7 +640,7 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
           const { solicitante, tipoAsiento, subtipoAsiento, referencia, sector } = valores;
 
           return {
-            definitionId: DEFINITION_ID_BPA_PRD,
+            definitionId: DEFINITION_ID_BPA_DEV ,
             context: {
               numerosolicitud: `${String(d.numeroSolicitud)}`,
               clasedocumento: d.claseDocumento,
@@ -697,10 +697,10 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
                   // };
 
                   let header = {
-                    'irpa-api-key': APIKEY_BPA_PRD
+                    'irpa-api-key': APIKEY_BPA_DEV 
                   };
                   
-                  let oResult = await bpa_destination.tx(req).post(URL_BPA_PRD, 
+                  let oResult = await bpa_destination.tx(req).post(URL_BPA_DEV , 
                                       payload,
                                       header);
 

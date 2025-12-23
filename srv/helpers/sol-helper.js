@@ -76,6 +76,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
         console.info(`[ValidaContabilizaAsiento] 🧩 testDataIndicator = ${testDataIndicator}`);
         const Referencia = cds.entities.Referencia;
         const Cuenta = cds.entities.Cuenta;
+        const TipoAsiento = cds.entities.TipoAsiento;
 
         const tx = req.tx;
 
@@ -95,6 +96,26 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 const cabecera = req.data;
                 let nombreReferencia = '';
                 const numeroSol = !testDataIndicator ? cabecera.numeroSolicitud:'';
+
+
+                // ============================================================
+                // 3️⃣ OBTENER TIPO ASIENTO
+                // ============================================================
+                const tipoAsiento = await SELECT.one.from(TipoAsiento).where({ ID: cabecera.tipoAsiento_ID });
+
+                if (!tipoAsiento) {
+                  return req.reject(400, "No existe el TipoAsiento indicado.");
+                }
+
+                const codigoTS = tipoAsiento.codigo;
+                let reversalDateValor = '';
+                let reversalReasonValor = '';
+                console.info(`📌 [ValidaContabilizaAsiento] TipoAsiento.codigo = ${codigoTS}`);
+
+                if (codigoTS == "1") {
+                    reversalDateValor = primerDiaMesSiguiente(cabecera.fechaContabilizacion);
+                    reversalReasonValor = '05';
+                }
 
                 if (cabecera.referencia_ID) {
                   const ref = await SELECT.one.from(Referencia).where({ ID: cabecera.referencia_ID });
@@ -129,6 +150,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                     <Item>
                       <GLAccount>${cuentaFinal}</GLAccount>
                       <DebitCreditCode>${debitCreditCode}</DebitCreditCode>
+                      <DocumentItemText>${item.descripcion}</DocumentItemText>
                       <AccountAssignment>
                         <CostCenter>${safeUndef(item.centroCosto)}</CostCenter>
                       </AccountAssignment>
@@ -139,7 +161,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 // 4️⃣ Construir el XML SOAP
                 const xmlPayload = `
                   <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">
-                    <soapenv:Header/>
+                    <soapenv:Header/>         
                     <soapenv:Body>
                       <sfin:JournalEntryBulkCreateRequest>
                         <MessageHeader>
@@ -162,8 +184,8 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                             <DocumentReferenceID>${nombreReferencia}</DocumentReferenceID>
                             <Reference1InDocumentHeader>${numeroSol}</Reference1InDocumentHeader>
                             <DocumentHeaderText>${cabecera.textoCabecera}</DocumentHeaderText>
-                            <ReversalDate>${primerDiaMesSiguiente(cabecera.fechaContabilizacion)}</ReversalDate>
-                            <ReversalReason>05</ReversalReason>
+                            <ReversalDate>${reversalDateValor}</ReversalDate>
+                            <ReversalReason>${reversalReasonValor}</ReversalReason>
                             ${itemsXml}
                           </JournalEntry>
                         </JournalEntryCreateRequest>
@@ -176,7 +198,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 // 5️⃣ Ejecutar la llamada
                 const response = await executeHttpRequest(destination, {
                   method: 'POST',
-                  url: URL_S4_HANA_PRD,
+                  url: URL_S4_HANA_QAS,
                   headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
                   data: xmlPayload
                 });
