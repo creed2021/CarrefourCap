@@ -401,11 +401,6 @@ this.on("RegistrarAprobacion", async (req) => {
               console.info(
                 `[ValidaFechasPeriodo] OK - Fechas dentro del período ${periodoMes}/${periodoAnio}`
               );
-              //FIXME DJ: arreglar catch
-                // } catch (err) {
-                //   console.error("[ValidaFechasPeriodo] ERROR:", err);
-                //   req.reject(500, "Error al validar fechas del período");
-                // }
 
 
               // ================================================================
@@ -441,6 +436,18 @@ this.on("RegistrarAprobacion", async (req) => {
                   return req.reject(
                     400,
                     `El ítem con cuenta ${it.cuentaContable_ID || it.cuentaContable} tiene clave inválida (${it.clave}). Debe ser 40 o 50.`
+                  );
+                }
+
+                if(!it.descripcion || it.descripcion.length == 0) {
+                  return req.reject(
+                    400,
+                    `El campo descripción de la linea ${it.numeroLinea} debe estar definido.`
+                  );
+                } else if(it.descripcion.length > 50){
+                  return req.reject(
+                    400,
+                    `El campo descripción de la linea ${it.numeroLinea} supera los 50 caracteres de extensión incluyendo espacios`
                   );
                 }
 
@@ -513,8 +520,9 @@ this.on("RegistrarAprobacion", async (req) => {
 
           // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
           console.error("❌ [CabeceraAsiento] 🔴 Error interno:", err);
-
-          await rollbackAdjuntos(req);
+          
+          //DJ 2025-12-25 se comenta ya que no es aplicable por el momento
+          //DJ 2025-12-25 await rollbackAdjuntos(req);
 
           // devolvemos un error 500 limpio
           return req.reject(500, "[CabeceraAsiento] 🔴 Error interno");
@@ -525,9 +533,9 @@ this.on("RegistrarAprobacion", async (req) => {
  * 🟩 FUNCIÓN PRINCIPAL — IniciaWorkflowBPA
  * ============================================================================================ */
 
-//TODO DJ: !!!!!!!ATENCION!!!!!! EN ESTE METODOS Y OTROS RELACIOANDOS EN PARTE DEL CIRCUITO SE UTILIZA
-//                                EL NRO DE SOLICITUD EN EL EL CAMP IdSolicitud PARA ENVIARLO AL WORKFLOW 
-//                                PORQUE EN EL WORKFLOW SE UTILIZÓ DE ESA MANERA Y NO HUBO TIEMPO DE HACER EL CAMBIO.
+//!!!!!!!ATENCION!!!!!! EN ESTE METODO Y OTROS RELACIOANDOS EN PARTE DEL CIRCUITO SE UTILIZA
+//                                EL NRO DE SOLICITUD EN EL EL CAMPO IdSolicitud PARA ENVIARLO AL WORKFLOW 
+//                                PORQUE EN EL WORKFLOW SE UTILIZÓ DE ESA MANERA.
 
 
 async function IniciaWorkflowBPA(req) {
