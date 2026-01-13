@@ -1,0 +1,47 @@
+SELECT COUNT(*) 
+FROM COM_CARREFOUR_JOURNAL_EMPLEADO;
+
+SELECT COUNT(*) 
+FROM COM_CARREFOUR_JOURNAL_EMPLEADO
+GROUP BY NOMBRE, EMAIL
+HAVING COUNT(*) > 1;
+
+DELETE FROM COM_CARREFOUR_JOURNAL_EMPLEADO E
+WHERE EXISTS (
+  SELECT 1
+  FROM COM_CARREFOUR_JOURNAL_EMPLEADO X
+  WHERE X.NOMBRE = E.NOMBRE
+    AND X.EMAIL  = E.EMAIL
+    AND X.ID < E.ID
+);
+
+SELECT * 
+FROM COM_CARREFOUR_JOURNAL_EMPLEADO
+WHERE NOMBRE in ('MARIANA PAULA SINCOSKY','GERARDO FABIAN MORENO','MARIANA PAULA SINCOSKY','MANUELA VILLANUEVA');
+
+
+select *
+from COM_CARREFOUR_JOURNAL_CABECERAASIENTO CA
+where CA.solicitante_ID not in (select ID from COM_CARREFOUR_JOURNAL_EMPLEADO);
+
+
+select nombre, count(1)
+from com_carrefour_journal_empleado
+group by nombre
+having count(1) > 1;
+
+select email, count(1)
+from com_carrefour_journal_empleado
+group by email
+having count(1) > 1;
+
+select *
+from BB83586B71A741C983DB97D08DF93F80.COM_CARREFOUR_JOURNAL_EMPLEADO
+where email = 'javier_flores@carrefour.com '
+c
+select *
+from BB83586B71A741C983DB97D08DF93F80.COM_CARREFOUR_JOURNAL_EMPLEADO
+where email = 'javier_flores@carrefour.com ';
+
+delete FROM COM_CARREFOUR_JOURNAL_EMPLEADO
+where email = 'javier_flores@carrefour.com ';

@@ -62,9 +62,13 @@ entity AdjuntoSolicitud: cuid, managed {
   sessionId             : String(100);
 }
 
+@assert.unique: {
+  codigoNombreEstadosSol: [ codigo ],
+  nombreEstadosSol: [ nombre ],
+}
 entity EstadosSolicitud : cuid, managed {
-    codigo : String(10) not null;
-    nombre : String(100) not null;
+    codigo : String(10);
+    nombre : String(100);
 }
 
 /**
@@ -81,16 +85,28 @@ entity DetalleAsiento : cuid, managed {
   importe         : Decimal(15, 2) @title: 'Importe';
 }
 
+@assert.unique: {
+  codigoCargo: [ codigo ],
+  nombreCargo: [ nombre ],
+}
 entity Cargo : cuid, managed {
   codigo                 : String(50);
   nombre                 : String(100);
 }
 
+@assert.unique: {
+  codigoSector: [ codigo ],
+  nombreSector: [ nombre ],
+}
 entity Sector : cuid, managed {
   codigo                  : String(50);
   nombre                  : String(50);
 }
 
+@assert.unique: {
+  nombreEmp: [ nombre ],
+  emailEmp: [ email ],
+}
 entity Empleado : cuid, managed {
   nombre            : String(50);
   email              : String(100);
@@ -105,27 +121,44 @@ entity AprobadorSolicitud: cuid, managed {
     cabecera : Association to one CabeceraAsiento;
 }
 
+@assert.unique: {
+  empSecConfigSol: [ empleado, sector ],
+}
 entity ConfigSolicitante : cuid, managed {
     empleado  : Association to Empleado;
     sector    : Association to Sector;
+}
+
+@assert.unique: {
+  codigoTipoCuenta: [ codigo ],
+  nombreTipoCuenta: [ nombre ],
 }
 entity TipoCuenta : cuid, managed {
   codigo : String(50);
   nombre : String(100);
 }
 
+@assert.unique: {
+  empSecCar: [ empleado, sector, cargo ],
+}
 entity ConfigAprobador : cuid, managed {
     empleado  : Association to Empleado;
     sector     : Association to Sector;
     cargo      : Association to Cargo;
 }                          
 
+@assert.unique: {
+  numeroCuenta: [ numero ],
+}
 entity Cuenta : cuid, managed {
     numero : String(20);
     nombre : String(100);
     tipo   : Association to TipoCuenta;
 }
 
+@assert.unique: {
+  cuentaContableUmbral: [ cuentaContable ],
+}
 entity UmbralCuenta : cuid, managed {
     cuentaContable : Association to Cuenta;
     importeGerencia : Decimal(15, 2) @title: 'Importe Gerencia';
@@ -133,6 +166,10 @@ entity UmbralCuenta : cuid, managed {
     comentarios: String(255);
 }
 
+@assert.unique: {
+  codigoTipoAsiento: [ codigo ],
+  nombreTipoAiento: [ nombre ],
+}
 entity TipoAsiento : cuid, managed {
     codigo     : String(10);
     nombre     : String(100);
@@ -140,6 +177,10 @@ entity TipoAsiento : cuid, managed {
     subTipos   : Composition of many SubTipoAsiento on subTipos.tipoAsiento = $self;
 }
 
+@assert.unique: {
+  codigoSubTipoAsiento: [ codigo ],
+  nombreTipoAsiento: [ nombre ]
+}
 entity SubTipoAsiento : cuid, managed {
     codigo      : String(10);
     nombre      : String(100);
@@ -151,6 +192,11 @@ entity Constantes : cuid, managed {
     nombreConstante : String(100);
     codigo          : String(50);
     nombreElemento  : String(100);
+}
+
+@assert.unique: {
+  codigoReferencia: [ codigo ],
+  nombreReferencia: [ nombre ],
 }
 entity Referencia : cuid, managed {
     codigo: String(50);

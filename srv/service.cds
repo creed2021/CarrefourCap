@@ -14,6 +14,10 @@ service GestionaAsientos{
             aprobadoresSolicitud,
             adjuntosSolicitud
     };
+
+    annotate CabeceraAsiento with {
+        numeroSolicitud @cds.collation: 'SAP_DEFAULT';
+    }
     entity DetalleAsiento as projection on my.DetalleAsiento {
         *,
         cuentaContable: redirected to Cuentas
