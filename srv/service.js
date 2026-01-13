@@ -50,6 +50,41 @@ const DECISION_RECHAZO = "RECHAZO";
     'com.carrefour.journal.TipoCuenta': TipoCuenta
   } = cds.entities;
 
+
+ this.before('READ', 'CabeceraAsiento', req => {
+  const q = req.query?.SELECT;
+  if (!q) return;
+
+  // 🔒 Solo ListReport
+  const isListReport =
+    Array.isArray(q.orderBy) &&
+    q.limit?.rows?.val !== undefined &&
+    !q.where;
+
+  if (!isListReport) return;
+
+  const idx = q.orderBy.findIndex(o =>
+    o.ref && o.ref[0] === 'numeroSolicitud'
+  );
+
+  if (idx === -1) return;
+
+  const desc = q.orderBy[idx].sort === 'desc';
+
+  // 🔁 Reemplazo limpio y válido para HANA
+  q.orderBy[idx] = {
+    xpr: [
+      'cast',
+      '(',
+        { ref: ['numeroSolicitud'] },
+      'as',
+        'Integer',
+      ')'
+    ],
+    sort: desc ? 'desc' : 'asc'
+  };
+});
+
 // ===========================================================
 // 🟢 RegistrarAprobacion
 // ===========================================================
