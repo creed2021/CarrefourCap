@@ -6,7 +6,7 @@ annotate service.UmbralesCuentas with @(
             {
                 $Type : 'UI.DataField',
                 Value : cuentaContable_ID,
-                Label : 'cuentaContable_ID',
+                Label : 'Cuenta Contable',
             },
             {
                 $Type : 'UI.DataField',
@@ -18,7 +18,7 @@ annotate service.UmbralesCuentas with @(
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'comentarios',
+                Label : 'Comentarios',
                 Value : comentarios,
             },
         ],
@@ -78,9 +78,12 @@ annotate service.UmbralesCuentas with {
                     ValueListProperty : 'nombre',
                 },
             ],
+            Label : 'Cuenta Contable',
         },
         Common.Text : cuentaContable.nombre,
         Common.Text.@UI.TextArrangement : #TextOnly,
+        Common.FieldControl : #Mandatory,
+        Common.ValueListWithFixedValues : true,
     )
 };
 
@@ -88,3 +91,17 @@ annotate service.UmbralesCuentas with @(UI.HeaderInfo: {
     TypeName      : 'Configuración de Umbrales',
     TypeNamePlural: 'Configuración de Umbrales'
 });
+annotate service.UmbralesCuentas with {
+    importeGerencia @Common.FieldControl : #Mandatory
+};
+
+annotate service.UmbralesCuentas with {
+    importeCFO @Common.FieldControl : #Mandatory
+};
+
+annotate service.Cuentas with {
+    ID @(
+        Common.Text : nombre,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+)};
+

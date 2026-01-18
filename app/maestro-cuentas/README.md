@@ -1,18 +1,18 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Tue Nov 11 2025 16:07:44 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Thu Jan 15 2026 04:42:21 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
-|**App Generator Version**<br>1.19.5|
+|**App Generator Version**<br>1.20.0|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local CAP|
-|**Service URL**<br>http://localhost:4004/odata/v4/catalog/|
+|**Service URL**<br>http://localhost:4004/odata/v4/gestiona-asientos/|
 |**Module Name**<br>maestro-cuentas|
 |**Application Title**<br>Maestro de Cuentas|
 |**Namespace**<br>com.carrefour|
 |**UI5 Theme**<br>sap_horizon|
-|**UI5 Version**<br>1.142.0|
+|**UI5 Version**<br>1.143.2|
 |**Enable Code Assist Libraries**<br>False|
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|

@@ -36,21 +36,7 @@ service GestionaAsientos{
     action ObtenerDatosFormularioAprobacion(id: UUID) //returns Object;
     action RealizarContabilizacion(id: UUID) returns String;
     function ListarWorkflowsBPA() returns String;
-    // function ObtenerDatosReporteSeguimiento() returns array of {
-    //     numeroSolicitud     : String;
-    //     tipoAsiento         : String;
-    //     subtipoAsiento      : String;
-    //     fechaCreacion       : Timestamp;
-    //     aprobador           : String;
-    //     fechaAprobacion     : Timestamp;
-    //     estado              : String;
-    //     numeroDocumentoSAP  : String;
-    // };
 
-    //----------------------------------------------------------------------
-    // ENTIDADES DE APOYO NECESARIAS EN ESTE SERVICIO
-    // (para que Fiori Elements pueda resolver las asociaciones)
-    //----------------------------------------------------------------------
 
     entity EstadosSolicitud as projection on my.EstadosSolicitud;
     entity Sectores         as projection on my.Sector;
@@ -59,6 +45,7 @@ service GestionaAsientos{
     entity Referencia       as projection on my.Referencia;
     entity Empleados        as projection on my.Empleado;
     entity Cuentas          as projection on my.Cuenta;
+    entity TiposCuentas         as projection on my.TipoCuenta;
     entity Secuencias          as projection on my.Secuencias;
 }
 
@@ -111,12 +98,12 @@ service CatalogService {
    annotate GestionaAsientos.Sectores @UI.CreateHidden: false;
    annotate GestionaAsientos.Sectores with @odata.draft.enabled;
 
-   annotate CatalogService.Cuentas with @Capabilities.InsertRestrictions.Insertable: true;
-   annotate CatalogService.Cuentas with @Capabilities.UpdateRestrictions.Updatable: true;
-   annotate CatalogService.Cuentas with @Capabilities.DeleteRestrictions.Deletable: true;
-   annotate CatalogService.Cuentas with @UI.CreateEnabled: true;
-   annotate CatalogService.Cuentas @UI.CreateHidden: false;
-   annotate CatalogService.Cuentas with @odata.draft.enabled;
+   annotate GestionaAsientos.Cuentas with @Capabilities.InsertRestrictions.Insertable: true;
+   annotate GestionaAsientos.Cuentas with @Capabilities.UpdateRestrictions.Updatable: true;
+   annotate GestionaAsientos.Cuentas with @Capabilities.DeleteRestrictions.Deletable: true;
+   annotate GestionaAsientos.Cuentas with @UI.CreateEnabled: true;
+   annotate GestionaAsientos.Cuentas @UI.CreateHidden: false;
+   annotate GestionaAsientos.Cuentas with @odata.draft.enabled;
 
    annotate CatalogService.UmbralesCuentas with @Capabilities.InsertRestrictions.Insertable: true;
    annotate CatalogService.UmbralesCuentas with @Capabilities.UpdateRestrictions.Updatable: true;

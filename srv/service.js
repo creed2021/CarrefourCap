@@ -28,6 +28,11 @@ const {   safeUndef,
           ReemplazaCuentaPorID   
       } = require("./helpers/sol-helper");
 
+const {   informaFailConstraint,
+          informaConstraintsDelete,
+          controlesCampoRegistro
+      } = require("./helpers/con-helper");
+
 //module.exports = { ValidaAsiento };
 //AMBIENTE: DEV
 
@@ -50,7 +55,11 @@ const DECISION_RECHAZO = "RECHAZO";
     'com.carrefour.journal.TipoCuenta': TipoCuenta
   } = cds.entities;
 
-
+/**
+ * Before read entidad CabceraAsiento - Genera el query
+ * tomando el campo numeroSolcitud como numero para odenar en lugar de 
+ * tomarlo como string como está en la tabla lo cual no ordena bien.
+ */
  this.before('READ', 'CabeceraAsiento', req => {
   const q = req.query?.SELECT;
   if (!q) return;
@@ -84,6 +93,31 @@ const DECISION_RECHAZO = "RECHAZO";
     sort: desc ? 'desc' : 'asc'
   };
 });
+
+this.on(['CREATE','UPDATE'], 'Cuentas', informaFailConstraint);
+this.on('DELETE', 'Cuentas', informaConstraintsDelete);
+this.before(['UPDATE'],'Cuentas', controlesCampoRegistro({
+              immutable: ['numero', 'tipo_ID']
+            }));
+
+this.on(['CREATE','UPDATE'], 'Sectores', informaFailConstraint);
+this.on('DELETE', 'Sectores', informaConstraintsDelete);
+
+this.before('UPDATE', 'Sectores', controlesCampoRegistro({
+              immutable: ['codigo'],
+              isProtected: r => r.ID === '847ff617-9692-4b63-bb60-cc0a36b7b71a'
+            }));
+
+
+this.on(['CREATE','UPDATE'], 'Empleados', informaFailConstraint);
+this.on('DELETE', 'Empleados', informaConstraintsDelete);
+this.before(['UPDATE', 'draftActivate'],'Empleados', controlesCampoRegistro({immutable: ['email']}));
+
+this.on(['CREATE','UPDATE'], 'ConfigAprobadores', informaFailConstraint);
+this.on('DELETE', 'ConfigAprobadores', informaConstraintsDelete);
+
+this.on(['CREATE','UPDATE'], 'UmbralesCuentas', informaFailConstraint);
+this.on('DELETE', 'UmbralesCuentas', informaConstraintsDelete);
 
 // ===========================================================
 // 🟢 RegistrarAprobacion
