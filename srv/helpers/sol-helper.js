@@ -198,7 +198,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 // 5️⃣ Ejecutar la llamada
                 const response = await executeHttpRequest(destination, {
                   method: 'POST',
-                  url: URL_S4_HANA_QAS,
+                  url: URL_S4_HANA_PRD,
                   headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
                   data: xmlPayload
                 });
