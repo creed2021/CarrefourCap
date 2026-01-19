@@ -1,4 +1,4 @@
-using CatalogService as service from '../../srv/service';
+using GestionaAsientos as service from '../../srv/service';
 annotate service.Cuentas with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
@@ -16,7 +16,7 @@ annotate service.Cuentas with @(
             {
                 $Type : 'UI.DataField',
                 Value : tipo_ID,
-                Label : 'Tipo',
+                Label : 'Tipo de Cuenta',
             },
         ],
     },
@@ -31,20 +31,23 @@ annotate service.Cuentas with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'Numero',
+            Label : 'numero',
             Value : numero,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'Nombre',
+            Label : 'nombre',
             Value : nombre,
         },
-        {
-            $Type : 'UI.DataField',
-            Value : tipo.nombre,
-            Label : 'Tipo',
-        },
     ],
+    UI.HeaderInfo : {
+        TypeName : 'Cuenta',
+        TypeNamePlural : 'TypeCuentas',
+        Title : {
+            $Type : 'UI.DataField',
+            Value : nombre,
+        },
+    },
 );
 
 annotate service.Cuentas with {
@@ -67,13 +70,26 @@ annotate service.Cuentas with {
                     ValueListProperty : 'nombre',
                 },
             ],
+            Label : 'Maestro de Cuentas',
         },
         Common.Text : tipo.nombre,
         Common.Text.@UI.TextArrangement : #TextOnly,
+        Common.ValueListWithFixedValues : true,
+        Common.FieldControl : #Mandatory,
     )
 };
 
-annotate service.Cuentas with @(UI.HeaderInfo: {
-    TypeName      : 'Listado de Cuentas',
-    TypeNamePlural: 'Listado de Cuentas'
-});
+annotate service.Cuentas with {
+    numero @Common.FieldControl : #Mandatory
+};
+
+annotate service.Cuentas with {
+    nombre @Common.FieldControl : #Mandatory
+};
+
+annotate service.TiposCuentas with {
+    ID @(
+        Common.Text : nombre,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+)};
+

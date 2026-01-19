@@ -1,0 +1,96 @@
+--MAESTROS SIN DEPENDENCIAS
+
+EXPORT COM_CARREFOUR_JOURNAL_ESTADOSSOLICITUD
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/01_maestros'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_CARGO
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/01_maestros'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_SECTOR
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/01_maestros'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_EMPLEADO
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/01_maestros'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_TIPOCUENTA
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/01_maestros'
+WITH REPLACE;
+
+--MAESTROS CON RELACIONES
+
+EXPORT COM_CARREFOUR_JOURNAL_CUENTA
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/02_maestros_rel'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_UMBRALCUENTA
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/02_maestros_rel'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_CONFIGSOLICITANTE
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/02_maestros_rel'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_CONFIGAPROBADOR
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/02_maestros_rel'
+WITH REPLACE;
+
+
+
+--TIPO ASIENTO / SUBTIPO
+
+EXPORT COM_CARREFOUR_JOURNAL_TIPOASIENTO
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/03_tipo_asiento'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_SUBTIPOASIENTO
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/03_tipo_asiento'
+WITH REPLACE;
+
+
+
+-- REFERENCIAS / CONSTANTES / SECUENCIAS
+
+EXPORT COM_CARREFOUR_JOURNAL_REFERENCIA
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/04_referencia'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_CONSTANTES
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/04_referencia'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_SECUENCIAS
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/04_referencia'
+WITH REPLACE;
+
+
+--CORE FUNCIONAL – CABECERA
+
+EXPORT COM_CARREFOUR_JOURNAL_CABECERAASIENTO
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/05_core'
+WITH REPLACE;
+
+
+--COMPOSICIONES / HIJOS
+EXPORT COM_CARREFOUR_JOURNAL_DETALLEASIENTO
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/06_hijos'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_APROBADORSOLICITUD
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/06_hijos'
+WITH REPLACE;
+
+EXPORT COM_CARREFOUR_JOURNAL_ADJUNTOSOLICITUD
+AS CSV INTO '/hana/shared/export/com_carrefour_journal/06_hijos'
+WITH REPLACE;
+
+
+SELECT TABLE_NAME, RECORD_COUNT
+FROM M_TABLES
+WHERE SCHEMA_NAME = CURRENT_SCHEMA
+  AND TABLE_NAME LIKE 'COM_CARREFOUR_JOURNAL_%'
+ORDER BY TABLE_NAME;
+

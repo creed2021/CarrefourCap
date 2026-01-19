@@ -73,6 +73,7 @@ annotate service.ConfigAprobadores with {
         Common.Text : empleado.nombre,
         Common.Text.@UI.TextArrangement : #TextOnly,
         Common.ValueListWithFixedValues : false,
+        Common.FieldControl : #Mandatory,
     )
 };
 
@@ -100,6 +101,7 @@ annotate service.ConfigAprobadores with {
         Common.Text : sector.nombre,
         Common.Text.@UI.TextArrangement : #TextOnly,
         Common.ValueListWithFixedValues : false,
+        Common.FieldControl : #Mandatory,
     )
 };
 
@@ -127,6 +129,7 @@ annotate service.ConfigAprobadores with {
         Common.Text : cargo.nombre,
         Common.Text.@UI.TextArrangement : #TextOnly,
         Common.ValueListWithFixedValues : false,
+        Common.FieldControl : #Mandatory,
     )
 };
 annotate service.ConfigAprobadores with @(

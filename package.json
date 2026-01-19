@@ -31,11 +31,11 @@
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
     "watch-maestro-configaprobadores": "cds watch --open com.carrefour.maestroconfigaprobadores/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-maestro-configsolicitantes": "cds watch --open com.carrefour.maestroconfigsolicitantes/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "watch-maestro-cuentas": "cds watch --open com.carrefour.maestrocuentas/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-maestro-umbralescuentas": "cds watch --open com.carrefour.maestroumbralescuentas/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-consulta-estado-solicitudes": "cds watch --open com.carrefour.consultaestadosolicitudes/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-maestro-empleados": "cds watch --open com.carrefour.maestroempleados/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "watch-maestro-sectores": "cds watch --open com.carrefour.maestrosectores/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-maestro-sectores": "cds watch --open com.carrefour.maestrosectores/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-maestro-cuentas": "cds watch --open com.carrefour.maestrocuentas/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "workspaces": [
@@ -59,25 +59,19 @@
       "bpa-api": {
         "kind": "rest",
         "credentials": {
-          "destination": "dest_asientos_backTobpa_SP_PRD"
+          "destination": "dest_asientos_backTobpa_SP_DEV"
         }
       },
       "S4HANA": {
         "kind": "rest",
         "credentials": {
-          "destination": "S4_PRD_Basic"
+          "destination": "S4_QAS_Basic"
         }
       },
       "dmsdev": {
         "kind": "rest",
         "credentials": {
           "destination": "dest_asientos_backTodms_SP_DEV"
-        }
-      },
-      "db": {
-        "kind": "hana",
-        "credentials": {
-          "service": "ups-database-external"
         }
       },
       "[development]": {
@@ -97,16 +91,10 @@
           }
         }
       },
-    "[production]": {
-      "auth": "xsuaa",
-      "db":     {
-      "kind": "hana",
-      "credentials": {
-        "service": "ups-database-external"
+      "[production]": {
+        "db": "hana",
+        "auth": "xsuaa"
       },
-      "data": false
-    }
-    },
       "destinations": true,
       "html5-repo": true,
       "workzone": true
@@ -118,10 +106,10 @@
   "sapux": [
     "app/maestro-configaprobadores",
     "app/maestro-configsolicitantes",
-    "app/maestro-cuentas",
     "app/maestro-umbralescuentas",
     "app/consulta-estado-solicitudes",
     "app/maestro-empleados",
-    "app/maestro-sectores"
+    "app/maestro-sectores",
+    "app/maestro-cuentas"
   ]
 }
