@@ -133,9 +133,10 @@ WHERE NOMBRE IS NULL;
 
 
 
-
+--Vista
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_Cuenta_numeroCuenta
 ON com_carrefour_journal_Cuenta (NUMERO);
+
 
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_TipoCuenta_codigo
 ON com_carrefour_journal_TipoCuenta (CODIGO);
@@ -143,11 +144,13 @@ ON com_carrefour_journal_TipoCuenta (CODIGO);
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_TipoCuenta_nombre
 ON com_carrefour_journal_TipoCuenta (NOMBRE);
 
+
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_EstadosSolicitud_codigo
 ON com_carrefour_journal_EstadosSolicitud (CODIGO);
 
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_EstadosSolicitud_nombre
 ON com_carrefour_journal_EstadosSolicitud (NOMBRE);
+
 
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_Sector_codigo
 ON com_carrefour_journal_Sector (CODIGO);
@@ -155,11 +158,13 @@ ON com_carrefour_journal_Sector (CODIGO);
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_Sector_nombre
 ON com_carrefour_journal_Sector (NOMBRE);
 
+
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_TipoAsiento_codigo
 ON com_carrefour_journal_TipoAsiento (CODIGO);
 
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_TipoAsiento_nombre
 ON com_carrefour_journal_TipoAsiento (NOMBRE);
+
 
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_SubTipoAsiento_codigo
 ON com_carrefour_journal_SubTipoAsiento (CODIGO);
@@ -167,14 +172,20 @@ ON com_carrefour_journal_SubTipoAsiento (CODIGO);
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_SubTipoAsiento_nombre
 ON com_carrefour_journal_SubTipoAsiento (NOMBRE);
 
+
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_Referencia_codigo
 ON com_carrefour_journal_Referencia (CODIGO);
 
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_Referencia_nombre
 ON com_carrefour_journal_Referencia (NOMBRE);
 
+
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_Empleado_email
 ON com_carrefour_journal_Empleado (EMAIL);
+
+CREATE UNIQUE INVERTED INDEX com_carrefour_journal_Empleado_nombreEmp 
+ON com_carrefour_journal_Empleado (nombre)
+
 
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_Cargo_codigo
 ON com_carrefour_journal_Cargo (CODIGO);
@@ -182,11 +193,14 @@ ON com_carrefour_journal_Cargo (CODIGO);
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_Cargo_nombre
 ON com_carrefour_journal_Cargo (NOMBRE);
 
+
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_ConfigSolicitante_empSec
 ON com_carrefour_journal_ConfigSolicitante (EMPLEADO_ID, SECTOR_ID);
 
+
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_ConfigAprobador_empSecCar
 ON com_carrefour_journal_ConfigAprobador (EMPLEADO_ID, SECTOR_ID, CARGO_ID);
+
 
 CREATE UNIQUE INVERTED INDEX com_carrefour_journal_UmbralCuenta_cuenta
 ON com_carrefour_journal_UmbralCuenta (CUENTACONTABLE_ID);
