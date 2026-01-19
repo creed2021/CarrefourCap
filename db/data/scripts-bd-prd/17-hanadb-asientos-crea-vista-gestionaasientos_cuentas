@@ -13,3 +13,13 @@ CREATE TABLE GESTIONAASIENTOS_CUENTAS_DRAFTS (
     DRAFTADMINISTRATIVEDATA_DRAFTUUID NVARCHAR(36) NOT NULL,
     PRIMARY KEY (ID)
 );
+
+CREATE VIEW GestionaAsientos_TiposCuentas AS SELECT
+  TipoCuenta_0.ID,
+  TipoCuenta_0.createdAt,
+  TipoCuenta_0.createdBy,
+  TipoCuenta_0.modifiedAt,
+  TipoCuenta_0.modifiedBy,
+  TipoCuenta_0.codigo,
+  TipoCuenta_0.nombre
+FROM com_carrefour_journal_TipoCuenta AS TipoCuenta_0;
