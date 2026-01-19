@@ -79,56 +79,56 @@ WHERE NOMBRE IS NULL;
 
 
 
-ALTER TABLE com_carrefour_journal_Cuenta
-ALTER ("NUMERO" NVARCHAR(20) NOT NULL,
-       "NOMBRE" NVARCHAR(100) NOT NULL,
-       "TIPO_ID" NVARCHAR(36) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_Cuenta
+-- ALTER ("NUMERO" NVARCHAR(20) NOT NULL,
+--       "NOMBRE" NVARCHAR(100) NOT NULL,
+--       "TIPO_ID" NVARCHAR(36) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_TipoCuenta
-ALTER ("CODIGO" NVARCHAR(50) NOT NULL,
-       "NOMBRE" NVARCHAR(100) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_TipoCuenta
+-- ALTER ("CODIGO" NVARCHAR(50) NOT NULL,
+--       "NOMBRE" NVARCHAR(100) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_EstadosSolicitud
-ALTER ("CODIGO" NVARCHAR(10) NOT NULL,
-       "NOMBRE" NVARCHAR(100) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_EstadosSolicitud
+-- ALTER ("CODIGO" NVARCHAR(10) NOT NULL,
+--       "NOMBRE" NVARCHAR(100) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_Sector
-ALTER ("CODIGO" NVARCHAR(50) NOT NULL,
-       "NOMBRE" NVARCHAR(50) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_Sector
+-- ALTER ("CODIGO" NVARCHAR(50) NOT NULL,
+--       "NOMBRE" NVARCHAR(50) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_TipoAsiento
-ALTER ("CODIGO" NVARCHAR(10) NOT NULL,
-       "NOMBRE" NVARCHAR(100) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_TipoAsiento
+-- ALTER ("CODIGO" NVARCHAR(10) NOT NULL,
+--       "NOMBRE" NVARCHAR(100) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_SubTipoAsiento
-ALTER ("CODIGO" NVARCHAR(10) NOT NULL,
-       "NOMBRE" NVARCHAR(100) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_SubTipoAsiento
+-- ALTER ("CODIGO" NVARCHAR(10) NOT NULL,
+--       "NOMBRE" NVARCHAR(100) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_Referencia
-ALTER ("CODIGO" NVARCHAR(50) NOT NULL,
-       "NOMBRE" NVARCHAR(100) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_Referencia
+-- ALTER ("CODIGO" NVARCHAR(50) NOT NULL,
+--       "NOMBRE" NVARCHAR(100) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_Empleado
-ALTER ("NOMBRE" NVARCHAR(50) NOT NULL,
-       "EMAIL"  NVARCHAR(100) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_Empleado
+-- ALTER ("NOMBRE" NVARCHAR(50) NOT NULL,
+--       "EMAIL"  NVARCHAR(100) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_Cargo
-ALTER ("CODIGO" NVARCHAR(50) NOT NULL,
-       "NOMBRE" NVARCHAR(100) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_Cargo
+-- ALTER ("CODIGO" NVARCHAR(50) NOT NULL,
+--       "NOMBRE" NVARCHAR(100) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_ConfigSolicitante
-ALTER ("EMPLEADO_ID" NVARCHAR(36) NOT NULL,
-       "SECTOR_ID"   NVARCHAR(36) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_ConfigSolicitante
+-- ALTER ("EMPLEADO_ID" NVARCHAR(36) NOT NULL,
+--       "SECTOR_ID"   NVARCHAR(36) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_ConfigAprobador
-ALTER ("EMPLEADO_ID" NVARCHAR(36) NOT NULL,
-       "SECTOR_ID"   NVARCHAR(36) NOT NULL,
-       "CARGO_ID"    NVARCHAR(36) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_ConfigAprobador
+-- ALTER ("EMPLEADO_ID" NVARCHAR(36) NOT NULL,
+--       "SECTOR_ID"   NVARCHAR(36) NOT NULL,
+--       "CARGO_ID"    NVARCHAR(36) NOT NULL);
 
-ALTER TABLE com_carrefour_journal_UmbralCuenta
-ALTER ("CUENTACONTABLE_ID" NVARCHAR(36) NOT NULL,
-       "IMPORTEGERENCIA"   DECIMAL(15,2) NOT NULL,
-       "IMPORTECFO"        DECIMAL(15,2) NOT NULL);
+-- ALTER TABLE com_carrefour_journal_UmbralCuenta
+-- ALTER ("CUENTACONTABLE_ID" NVARCHAR(36) NOT NULL,
+--       "IMPORTEGERENCIA"   DECIMAL(15,2) NOT NULL,
+--       "IMPORTECFO"        DECIMAL(15,2) NOT NULL);
 
 
 
