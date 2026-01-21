@@ -24,27 +24,19 @@ const APIKEY_BPA_PRD = 'lh8zeBreIeV5VsVISeTEbu8yX9uk48cs';
  * ============================================================================================ */
 async function getUrlsAdjuntos(req) {
   try {
-    // const d = req.data;
-
-    // if (!d.ID) return [];
-
-    // const adjuntos = await SELECT
-    //   .from('com.carrefour.journal.AdjuntoSolicitud')
-    //   .columns('urlAdjunto')
-    //   .where({ cabecera_ID: d.ID });
 
     const cab = req.data;
     const adjuntos = cab.adjuntosSolicitud;
 
-    console.info("🟩 [confirmAdjuntos] adjuntos", JSON.stringify(adjuntos, null, 2));
+    //LOG console.info("🟩 [confirmAdjuntos] adjuntos", JSON.stringify(adjuntos, null, 2));
 
     if(adjuntos) {
       if (adjuntos.length == 0){
-          console.info("📊 [confirmAdjuntos] No hay adjuntos");
+          //LOG console.info("📊 [confirmAdjuntos] No hay adjuntos");
           return;
       };
     } else{
-          console.info("📊 [confirmAdjuntos] No hay adjuntos");
+          //LOG console.info("📊 [confirmAdjuntos] No hay adjuntos");
           return;              
     }
 
@@ -113,9 +105,9 @@ async function getValoresCabecera(req) {
  * 🧩 HELPER 2 — Calcular tablasumatorias agrupando por cuenta y tipoCuenta
  * ============================================================================================ */
 
-//TODO DJ: !!!!!!!ATENCION!!!!!! EN ESTE METODOS Y OTROS RELACIOANDOS EN PARTE DEL CIRCUITO SE UTILIZA
-//                                EL NRO DE SOLICITUD EN EL EL CAMP IdSolicitud PORQUE EN EL WORKFLOW 
-//                                SE UTILIZÓ DE ESA MANERA Y NO HUBO TIEMPO DE HACER EL CAMBIO.
+//!!!!!!!ATENCION!!!!!! EN ESTE METODOS Y OTROS RELACIOANDOS EN PARTE DEL CIRCUITO SE UTILIZA
+//                                EL NRO DE SOLICITUD EN EL EL CAMPO IdSolicitud PORQUE EN EL WORKFLOW 
+//                                SE UTILIZÓ DE ESA MANERA.
 async function getTablaSumatorias(req) {
     try {
         const catalog = await cds.connect.to("CatalogService");
@@ -188,14 +180,12 @@ async function getTablaSumatorias(req) {
         const resultado = Object.values(sumMap);
 
         // 5️⃣ LOG DETALLADO DE RESULTADO
-        console.info("📊 [getTablaSumatorias] Tabla de sumatorias generada:");
-        console.info(`   🔢 Total cuentas agrupadas: ${resultado.length}`);
+        //LOG console.info("📊 [getTablaSumatorias] Tabla de sumatorias generada:");
+        //LOG console.info(`   🔢 Total cuentas agrupadas: ${resultado.length}`);
 
-        resultado.forEach(elem => {
-            console.info(
-                `   ➡ Cuenta ${elem.IdCuenta} → SumatoriaTotal = ${elem.SumatoriaTotal}`
-            );
-        });
+        //LOG resultado.forEach(elem => {
+        //     console.info(`   ➡ Cuenta ${elem.IdCuenta} → SumatoriaTotal = ${elem.SumatoriaTotal}`);
+        // });
 
         return resultado;
 
@@ -369,7 +359,7 @@ async function getAprobadoresNivel1(req) {
             // 1️⃣ Verificar si alguna cuenta supera el importeGerencia
             for (const t of tablasumatorias) {
 
-              console.info(`➡ [getAprobadoresNivel3] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
+              //LOG console.info(`➡ [getAprobadoresNivel3] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
 
               const cuenta = await catalog.run(
                 SELECT.one.from('CatalogService.Cuentas')
@@ -389,24 +379,25 @@ async function getAprobadoresNivel1(req) {
               );
 
               if (!umbral && !umbral.importeGerencia) {
-                console.warn(`⚠ [getAprobadoresNivel3] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
-              } else {
-                console.info(`   🔍  [getAprobadoresNivel3] Umbral Gerencia: ${umbral.importeGerencia}`);
-              }
+                //LOG console.warn(`⚠ [getAprobadoresNivel3] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
+                return req.reject(400, `[getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
+              } //LOG else {
+                // console.info(`   🔍  [getAprobadoresNivel3] Umbral Gerencia: ${umbral.importeGerencia}`);
+              //}
               
 
               if (umbral && umbral.importeGerencia && t.SumatoriaTotal >= Number(umbral.importeGerencia)) {
-                console.info(` [getAprobadoresNivel3]  ✔ Supera umbral → requiere Aprobador Nivel 3`);
+                //LOG console.info(` [getAprobadoresNivel3]  ✔ Supera umbral → requiere Aprobador Nivel 3`);
                 
                 supera = true;
                 break;
-              } else {
-                console.info(` [getAprobadoresNivel3] ✖ No supera umbral`);
-              }
+              } //LOG else {
+                //console.info(` [getAprobadoresNivel3] ✖ No supera umbral`);
+              //}
             }
 
               if (!supera) {
-                console.info("🟦 [getAprobadoresNivel3] Ninguna cuenta supera el umbral de Gerencia → NO hay aprobadores de nivel 3");
+                //LOG console.info("🟦 [getAprobadoresNivel3] Ninguna cuenta supera el umbral de Gerencia → NO hay aprobadores de nivel 3");
                 return [];
               }
 
@@ -475,7 +466,7 @@ async function getAprobadoresNivel1(req) {
                 .where({ ID: { in: aprobadoresIDs } })
             );
 
-            console.info(`🟦 [getAprobadoresNivel3] Aprobadores Nivel 3 encontrados: ${empleados.map(e => e.email).join(", ")}`);
+            //LOG console.info(`🟦 [getAprobadoresNivel3] Aprobadores Nivel 3 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
 
             return empleados.map(e => e.email);
@@ -507,7 +498,7 @@ async function getAprobadoresNivel1(req) {
               // 1️⃣ Verificar si alguna cuenta supera el importeCFO
               for (const t of tablasumatorias) {
 
-              console.info(`➡ [getAprobadoresNivel4] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
+              //LOG console.info(`➡ [getAprobadoresNivel4] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
 
                 const cuenta = await catalog.run(
                   SELECT.one.from('CatalogService.Cuentas')
@@ -527,23 +518,25 @@ async function getAprobadoresNivel1(req) {
                 );
 
                 if (!umbral && !umbral.importeCFO) {
-                  console.warn(`⚠ [getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
-                } else {
-                  console.info(`   🔍  [getAprobadoresNivel4] Umbral CFO: ${umbral.importeCFO}`);
-                }
+                  //LOG console.warn(`⚠ [getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
+                  return req.reject(400, `[getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
+                } //LOG else {
+                  //console.info(`   🔍  [getAprobadoresNivel4] Umbral CFO: ${umbral.importeCFO}`);
+                //}
 
                 if (umbral && umbral.importeCFO && t.SumatoriaTotal >= Number(umbral.importeCFO)) {
-                  console.info(` [getAprobadoresNivel4]  ✔ Supera umbral → requiere Aprobador Nivel 4`);
+                  //LOG console.info(` [getAprobadoresNivel4]  ✔ Supera umbral → requiere Aprobador Nivel 4`);
                   
                   supera = true;
                   break;
-                } else {
-                  console.info(` [getAprobadoresNivel4] ✖ No supera umbral`);
-                }
+                } 
+                // LOG else {
+                //   console.info(` [getAprobadoresNivel4] ✖ No supera umbral`);
+                // }
               }
 
               if (!supera) {
-                console.info("🟦 [getAprobadoresNivel4] Ninguna cuenta supera el umbral de CFO → NO hay aprobadores de nivel 4");
+                //LOG console.info("🟦 [getAprobadoresNivel4] Ninguna cuenta supera el umbral de CFO → NO hay aprobadores de nivel 4");
                 return [];
               }
 
@@ -612,7 +605,7 @@ async function getAprobadoresNivel1(req) {
                   .where({ ID: { in: aprobadoresIDs } })
               );
 
-              console.info(`🟥 Aprobadores Nivel 4 encontrados: ${empleados.map(e => e.email).join(", ")}`);
+              //LOG console.info(`🟥 Aprobadores Nivel 4 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
               return empleados.map(e => e.email);
           } catch (err) {
@@ -640,7 +633,7 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
           const { solicitante, tipoAsiento, subtipoAsiento, referencia, sector } = valores;
 
           return {
-            definitionId: DEFINITION_ID_BPA_PRD,
+            definitionId: DEFINITION_ID_BPA_DEV,
             context: {
               numerosolicitud: `${String(d.numeroSolicitud)}`,
               clasedocumento: d.claseDocumento,
@@ -682,31 +675,24 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
 }
 
     async function callBPA(payload, req) {
-        //console.info("[callBPA] Payload enviado:", JSON.stringify(payload, null, 2));
+        //LOG console.info("[callBPA] Payload enviado:", JSON.stringify(payload, null, 2));
         console.info("[callBPA] Enrenado....:");
 
         const bpa_destination = await cds.connect.to("bpa-api");
 
           try {
-                  // let payloadProp = {
-                  //     definitionId: "us30.process-automation-95oeuot4.ajustescontables.main",
-                  //     context: {
-                  //       "numerosolicitud": "d.numeroSolicitud",
-                  //       "clasedocumento": "d.claseDocumento"
-                  //     }
-                  // };
 
                   let header = {
-                    'irpa-api-key': APIKEY_BPA_PRD
+                    'irpa-api-key': APIKEY_BPA_DEV
                   };
                   
-                  let oResult = await bpa_destination.tx(req).post(URL_BPA_PRD, 
+                  let oResult = await bpa_destination.tx(req).post(URL_BPA_DEV, 
                                       payload,
                                       header);
 
 
                   oResultoSTR = JSON.stringify(oResult, null, 2);
-                  console.info(`[callBPA] ✅ Solicitud registrada correctamente ${oResultoSTR}`);
+                  //LOG console.info(`[callBPA] ✅ Solicitud registrada correctamente ${oResultoSTR}`);
 
                   if (oResult.status !== "RUNNING") {
                     throw new Error('Failed to trigger the process.');

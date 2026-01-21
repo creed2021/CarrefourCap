@@ -43,16 +43,6 @@ entity CabeceraAsiento : cuid, managed {
                           on adjuntosSolicitud.cabecera = $self;
 }
 
-// entity DatosReporteSeguimiento: cuid {
-//     numeroSolicitud     : String;
-//     tipoAsiento         : String;
-//     subtipoAsiento      : String;
-//     fechaCreacion       : Timestamp;
-//     aprobador           : String;
-//     fechaAprobacion     : Timestamp;
-//     estado              : String;
-//     numeroDocumentoSAP  : String;
-// }
 
 entity AdjuntoSolicitud: cuid, managed {
   cabecera              : Association to one CabeceraAsiento;

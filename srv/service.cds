@@ -75,21 +75,9 @@ service CatalogService {
     };
 }
 
-//    annotate GestionaAsientos.CabeceraAsiento with @(requires: 'Solicitante');
-//    annotate GestionaAsientos.ObtenerDatosFormularioAprobacion with @(requires: 'Aprobador');
-//    annotate GestionaAsientos.RealizarContabilizacion with @(requires: 'Aprobador');
-//    annotate GestionaAsientos.RegistrarAprobacion with @(requires: 'Aprobador');
-//    annotate GestionaAsientos.RegistrarRechazo with @(requires: 'Aprobador');    
-
-//    annotate CatalogService with @(requires: 'Admin_Datos_Maestros');
-
-   //annotate GestionaAsientos.CabeceraAsiento with @Capabilities.InsertRestrictions.Insertable: false;
-   //annotate GestionaAsientos.CabeceraAsiento with @Capabilities.UpdateRestrictions.Updatable: false;
-   //annotate GestionaAsientos.CabeceraAsiento with @Capabilities.DeleteRestrictions.Deletable: false;
    annotate GestionaAsientos.CabeceraAsiento with @UI.CreateEnabled: false;
    annotate GestionaAsientos.CabeceraAsiento @UI.CreateHidden: true;
    annotate GestionaAsientos.CabeceraAsiento @UI.DeleteHidden: true;
-   //annotate GestionaAsientos.CabeceraAsiento with @odata.draft.enabled;
 
    annotate GestionaAsientos.Sectores with @Capabilities.InsertRestrictions.Insertable: true;
    annotate GestionaAsientos.Sectores with @Capabilities.UpdateRestrictions.Updatable: true;

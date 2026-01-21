@@ -33,8 +33,7 @@ const {   informaFailConstraint,
           controlesCampoRegistro
       } = require("./helpers/con-helper");
 
-//module.exports = { ValidaAsiento };
-//AMBIENTE: DEV
+
 
 module.exports = cds.service.impl(async function () {
 
@@ -95,6 +94,7 @@ const DECISION_RECHAZO = "RECHAZO";
   };
 });
 
+//Controles de constraints en maestros y configuraciones
 this.on(['CREATE','UPDATE'], 'Cuentas', informaFailConstraint);
 this.on('DELETE', 'Cuentas', informaConstraintsDelete);
 this.before(['UPDATE'],'Cuentas', controlesCampoRegistro({
@@ -193,13 +193,6 @@ this.on("RegistrarAprobacion", async (req) => {
                 const numeroSolicitudPram = idSolicitud;
 
                 const tx = req.tx;
-
-                  // const {
-                  //   Empleado,
-                  //   AprobadorSolicitud,
-                  //   CabeceraAsiento,
-                  //   EstadosSolicitud
-                  // } = cds.entities["com.carrefour.journal"];
 
                   const catalogService = await cds.connect.to('CatalogService');
 
@@ -349,20 +342,6 @@ this.on("RegistrarAprobacion", async (req) => {
 
                 //2️⃣ Si el resultado fue exitoso → actualizar estadoSolicitud = CON
                 if (resultado.success) {
-                  //const { CabeceraAsiento, EstadosSolicitud } = cds.entities['com.carrefour.journal'];
-
-                  // const estadoContabilizada = await catalogService.run(
-                  //   SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: 'CON' })
-                  // );
-                  // if (!estadoContabilizada)
-                  //   req.reject(404, `No se encontró estado con código 'CON'`);
-
-                  // await tx.run(
-                  //   UPDATE('GestionaAsientos.CabeceraAsiento')
-                  //     .set({ estadoSolicitud_ID: estadoContabilizada.ID })
-                  //     .where({ numeroSolicitud: numeroSolicitudParam })
-                  // );
-
                   console.info(`[RealizarContabilizacion] ✅ Contabilización exitosa y estado actualizado a 'CON'`);
                   return resultado;
                 } else {
@@ -438,7 +417,6 @@ this.on("RegistrarAprobacion", async (req) => {
                       req.reject(400,
                       `Falta fechaDocumento y fechaContabilizaci[on]`);;
 
-              //try {
               // 1️⃣ Obtener fecha inicio y fin del período
               const mes = Number(periodoMes);
               const anio = Number(periodoAnio);
@@ -594,7 +572,6 @@ this.on("RegistrarAprobacion", async (req) => {
           //DJ 2025-12-25 se comenta ya que no es aplicable por el momento
           //DJ 2025-12-25 await rollbackAdjuntos(req);
 
-          // devolvemos un error 500 limpio
           return req.reject(500, "[CabeceraAsiento] 🔴 Error interno");
         }
       });
@@ -676,7 +653,7 @@ async function IniciaWorkflowBPA(req) {
           // 4️⃣ Construir payload final
           const payload = buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldms);
 
-          console.info("🟩 [IniciaWorkflowBPA] Payload final:", JSON.stringify(payload, null, 2));
+          //LOG console.info("🟩 [IniciaWorkflowBPA] Payload final:", JSON.stringify(payload, null, 2));
 
           // 5️⃣ Enviar workflow
           const id = await callBPA(payload, req);
@@ -699,60 +676,6 @@ async function IniciaWorkflowBPA(req) {
       }
 }
 
-
-
-// ============================================================================
-// EXPORTS PARA USO EN service.js
-// ============================================================================
-// module.exports = {
-//   getValoresCabecera,
-//   getTablaSumatorias,
-//   getAprobadoresNivel1,
-//   getAprobadoresNivel2,
-//   getAprobadoresNivel3,
-//   getAprobadoresNivel4,
-//   buildPayloadBPA,
-//   callBPA,
-//   IniciaWorkflowBPA
-// };
-
-// this.on("ListarWorkflowsBPA", async (req) => {
-//   try {
-//           const remote = await cds.connect.to("bpa-api");  // igual que en callBPA
-
-//           const destinationName = remote.options.credentials.destination;
-//           const destination = await getDestination({ destinationName });
-
-//         console.log("👉 Destination seleccionado:", destinationName);
-//         console.log("👉 Destination completo:", destination);
-
-//           const resp = await executeHttpRequest(destination, {
-//             method: "get",
-//             url: "/workflow/rest/v1/workflow-definitions",
-//             headers: {
-//               'Accept': 'application/json','api-key': 'BdBXlx-emFjZWctW6ozyjRUOUAMBt8II'
-//             }
-//           });
-
-//           console.info("[ListarWorkflowsBPA] ✔ Workflow definitions:");
-//           console.info(JSON.stringify(resp.data, null, 2));
-
-//           return resp.data;
-
-//       } catch (err) {
-//         console.error("❌ [ListarWorkflowsBPA] 🔴 Error detectado", err);
-//         // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
-//         if (err.code) {
-//           throw err; // ⚡ sigue para arriba sin cambios
-//         }
-
-//         // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-//         console.error("❌ [ListarWorkflowsBPA] 🔴 Error interno:", err);
-
-//         // devolvemos un error 500 limpio
-//         return req.reject(500, "[ListarWorkflowsBPA] 🔴 Error interno");
-//       }
-// });
 
 async function getNextNumeroSolicitudFU(tx){
   try{
@@ -792,61 +715,5 @@ async function getNextNumeroSolicitudFU(tx){
       return req.reject(500, "[getNextNumeroSolicitudFU] 🔴 Error interno");
     }
 }
-
-
-
-// async function getNextNumeroSolicitud(tx) {
-//   try{
-//         //const { Secuencias } = cds.entities['com.carrefour.journal'];
-
-//         // 1️⃣ Incrementar la secuencia (sin returning)
-        
-//         await tx.run(
-//           UPDATE('GestionaAsientos.Secuencias')
-//             .set({ valor: { "+=": 1 } })
-//             .where({ nombre: 'NUMERO_SOLICITUD' })
-//         );
-
-//         // 2️⃣ Leer el valor actualizado
-//         const row = await tx.run(
-//           SELECT.one.from('GestionaAsientos.Secuencias').columns('valor')
-//             .where({ nombre: 'NUMERO_SOLICITUD' })
-//         );
-
-//         // 3️⃣ Si aún no existe → crearlo
-//         if (!row) {
-//           const nuevoValor = 1;
-
-//           await tx.run(
-//             INSERT.into('GestionaAsientos.Secuencias').entries({
-//               ID: cds.utils.uuid(),
-//               nombre: 'NUMERO_SOLICITUD',
-//               valor: nuevoValor,
-//               createdAt: new Date().toISOString(),
-//               createdBy: 'system',
-//               modifiedAt: new Date().toISOString(),
-//               modifiedB: 'system'
-//             })
-//           );
-
-//           return nuevoValor;
-//         }
-
-//       return row.valor;
-//     } catch (err) {
-//       console.error("❌ [getNextNumeroSolicitud] 🔴 Error detectado", err);
-//       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
-//       if (err.code) {
-//         throw err; // ⚡ sigue para arriba sin cambios
-//       }
-
-//       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-//       console.error("❌ [getNextNumeroSolicitud] 🔴 Error interno:", err);
-
-//       // devolvemos un error 500 limpio
-//       return req.reject(500, "[getNextNumeroSolicitud] 🔴 Error interno");
-//     }
-// }
-
 
 });

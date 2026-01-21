@@ -198,7 +198,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 // 5️⃣ Ejecutar la llamada
                 const response = await executeHttpRequest(destination, {
                   method: 'POST',
-                  url: URL_S4_HANA_PRD,
+                  url: URL_S4_HANA_QAS,
                   headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
                   data: xmlPayload
                 });
@@ -322,7 +322,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
             const empleado = await SELECT.one.from(Empleado).where({ email: emailSolicitante });
             if (empleado) {
               req.data.solicitante_ID = empleado.ID;
-              console.info(`[ReemplazaMailSolicitantePorID] ✅ Mail ${emailSolicitante} → ID ${empleado.ID}`);
+              //LOG console.info(`[ReemplazaMailSolicitantePorID] ✅ Mail ${emailSolicitante} → ID ${empleado.ID}`);
             } else {
               console.error(`[ReemplazaMailSolicitantePorID] ❌ Error buscando empleado con mail ${emailSolicitante}`);
               return req.reject(400,`[ReemplazaMailSolicitantePorID] ⚠ No se encontró empleado con mail ${emailSolicitante}`)
@@ -356,16 +356,6 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
 
     try{
 
-            // -------------------------------------------------------------------------
-            // 🔹 Generar número de solicitud NO repetido, atómico, sin baches
-            // -------------------------------------------------------------------------
-            // if (!cab.numeroSolicitud) {
-            //   cab.numeroSolicitud = await getNextNumeroSolicitudFU(tx);
-            //   console.info(`[CompletaCamposCabecera] NumeroSolicitud asignado = ${cab.numeroSolicitud}`);
-            // }
-            // -------------------------------------------------------------------------
-
-              // estadoSolicitud_ID con código REG
               const estado = await SELECT.one.from(EstadosSolicitud).where({ codigo: 'INI' });
               if (estado) cab.estadoSolicitud_ID = estado.ID 
               else {
@@ -410,10 +400,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
 // 🔹 3. Determina el ID del SubTipoAsiento según lógica completa, validación y joins
 async function ObtenerIDSubtipoAsiento(req) {
   try{
-        //TODO DJ: Agregar valicación de minimo en tipo asiento 1
-        //TODO DJ: Agregar que si viene solo PRO se acepta en tipo asiento 2
 
-        //try {
           console.info("🔎 [ObtenerIDSubtipoAsiento] Inicio");
 
           const tx = cds.transaction(req); //req.tx;
@@ -474,9 +461,7 @@ async function ObtenerIDSubtipoAsiento(req) {
               nombreTipoCuenta: cuentaRow.tipoNombre
             });
 
-            console.info(
-              `📌 Cuenta ${cuentaRow.numero} | ${cuentaRow.nombre} → Tipo ${cuentaRow.tipoCodigo} (${cuentaRow.tipoNombre})`
-            );
+            //LOG console.info(`📌 Cuenta ${cuentaRow.numero} | ${cuentaRow.nombre} → Tipo ${cuentaRow.tipoCodigo} (${cuentaRow.tipoNombre})`);
           }
 
           // ============================================================
@@ -719,17 +704,13 @@ async function ObtenerIDSubtipoAsiento(req) {
 
                   if (cuentaRec) {
                     item.cuentaContable_ID = cuentaRec.ID;
-                    console.info(`[ReemplazaCuentaPorID] ✅ Mapeada cuenta ${codigoCuenta} → ${cuentaRec.ID}`);
+                    //LOGconsole.info(`[ReemplazaCuentaPorID] ✅ Mapeada cuenta ${codigoCuenta} → ${cuentaRec.ID}`);
                   } else {
                     const msg = `[ReemplazaCuentaPorID] ❌ Cuenta contable inexistente: ${codigoCuenta}`;
                     console.error(msg);
                     req.reject(404, msg);
                   }
-                //FIXME DJ: arreglar catch
-                  // } catch (err) {
-                //   console.error(`[ReemplazaCuentaPorID] ❌ Error buscando cuenta ${codigoCuenta}: ${err.message}`);
-                //   return req.reject(404, `Error buscando cuenta contable: ${codigoCuenta}`);
-                // }
+
             } else if (!item.cuentaContable_ID){
                   console.error(`[ReemplazaCuentaPorID] ❌ Error buscando cuenta ${codigoCuenta}: ${err.message}`);
                   return req.reject(404, `Error buscando cuenta contable: ${codigoCuenta}`);
