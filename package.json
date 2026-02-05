@@ -42,6 +42,16 @@
     "app/*"
   ],
   "cds": {
+    "log": {
+      "levels": {
+        "cds": "info",
+        "app": "info",
+        "sql": "warn",
+        "odata": "warn",
+        "auth": "warn",
+        "audit-log": "info"
+      }
+    },
     "features": {
       "assert_integrity": "db"
     },

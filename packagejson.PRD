@@ -35,13 +35,26 @@
     "watch-maestro-umbralescuentas": "cds watch --open com.carrefour.maestroumbralescuentas/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-consulta-estado-solicitudes": "cds watch --open com.carrefour.consultaestadosolicitudes/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-maestro-empleados": "cds watch --open com.carrefour.maestroempleados/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "watch-maestro-sectores": "cds watch --open com.carrefour.maestrosectores/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-maestro-sectores": "cds watch --open com.carrefour.maestrosectores/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "release:patch": "npm version patch && node scripts/sync-mta-version.js",
+    "release:minor": "npm version minor && node scripts/sync-mta-version.js",
+    "release:major": "npm version major && node scripts/sync-mta-version.js"
   },
   "private": true,
   "workspaces": [
     "app/*"
   ],
   "cds": {
+    "log": {
+      "levels": {
+        "cds": "info",
+        "app": "info",
+        "sql": "warn",
+        "odata": "warn",
+        "auth": "warn",
+        "audit-log": "info"
+      }
+    },
     "features": {
       "assert_integrity": "db"
     },

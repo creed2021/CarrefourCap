@@ -5,7 +5,9 @@ const { getDestination } = require('@sap-cloud-sdk/connectivity');
 const REPO_ID_DEV = "59ec1b8c-cf7c-465c-bd5b-460bcb6ca9a4";
 const REPO_ID_PRD = "f2fdf3d8-7692-4816-ba33-563a9390dae1";
 const BASE = `/browser/${REPO_ID_DEV}`;
-  
+
+const AppLog = require('../helpers/logging/app-log');
+
 /**
  * Convierte path lógico (/AsientosAjuste/temp/x)
  * a path CMIS (/browser/<repo>/root/AsientosAjuste/temp/x)
@@ -36,20 +38,19 @@ async function folderExists(absPath, req) {
     
     const res = await client.tx(req).get(cmisPath);
 
-    console.info(`[folderExists] 🧩 ***********res folder exists = ${JSON.stringify(res, null, 2)}`); 
+    AppLog.debug(`[folderExists] 🧩 ***********res folder exists = ${JSON.stringify(res, null, 2)}`); 
 
     return true;
 
   } catch (err) {
-    //console.error("❌ [folderExists] 🔴 Error detectado", err);
-    console.info(`[folderExists] 🧩 ***********errrrrrr = ${JSON.stringify(err, null, 2)}`); 
+    AppLog.debug(`[folderExists] 🧩 ***********errrrrrr = ${JSON.stringify(err, null, 2)}`); 
     // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
     if (err.reason.response.status == 404) {
       return false;
     }
 
     // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-    console.error("❌ [folderExists] 🔴 Error interno:", err);
+    AppLog.error("❌ [folderExists] 🔴 Error interno:", err);
 
     // devolvemos un error 500 limpio
     return req.reject(500, "[folderExists] 🔴 Error interno");
@@ -64,9 +65,9 @@ async function createFolder(parentAbsPath, name, req) {
 
   const parentCmis = toCmisPath(parentAbsPath);
 
-  console.info(`[createFolder] 🧩 ***********parentAbsPath = ${JSON.stringify(parentAbsPath, null, 2)}`); 
-  console.info(`[createFolder] 🧩 ***********parentCmis = ${JSON.stringify(parentCmis, null, 2)}`); 
-  console.info(`[createFolder] 🧩 ***********name = ${name}`);
+  AppLog.debug(`[createFolder] 🧩 ***********parentAbsPath = ${JSON.stringify(parentAbsPath, null, 2)}`); 
+  AppLog.debug(`[createFolder] 🧩 ***********parentCmis = ${JSON.stringify(parentCmis, null, 2)}`); 
+  AppLog.debug(`[createFolder] 🧩 ***********name = ${name}`);
 
   const form = new URLSearchParams();
   form.append("cmisaction", "createFolder");
@@ -112,11 +113,11 @@ async function getObjectIdByPath(absPath, req) {
 
   const cmisPath = toCmisPath(absPath) + "?cmisselector=object&succinct=true";
 
-  console.info(`[getObjectIdByPath] cmisPath****** = ${cmisPath}`);
+  AppLog.debug(`[getObjectIdByPath] cmisPath****** = ${cmisPath}`);
 
   const res = await client.tx(req).get(cmisPath);
 
-  console.info("🟩 [getObjectIdByPath] Resultado busqueda carpeta", JSON.stringify(res, null, 2));
+  AppLog.debug("🟩 [getObjectIdByPath] Resultado busqueda carpeta", JSON.stringify(res, null, 2));
 
   return res?.succinctProperties?.["cmis:objectId"];
 }
@@ -129,7 +130,7 @@ async function moveFolder(sourceAbsPath, targetAbsPath, req) {
 
   const sourceId = await getObjectIdByPath(sourceAbsPath, req);
 
-  console.info("🟩 [moveFolder] SOURCEID RESULTADO", JSON.stringify(sourceId, null, 2));
+  AppLog.debug("🟩 [moveFolder] SOURCEID RESULTADO", JSON.stringify(sourceId, null, 2));
 
   if (!sourceId) {
     throw new Error(`No se encontró carpeta origen: ${sourceAbsPath}`);
@@ -144,7 +145,7 @@ async function moveFolder(sourceAbsPath, targetAbsPath, req) {
   
   const res = await client.tx(req).get(cmisPath);
 
-  console.info(`[moveFolder] 🧩 ***********res folder exists = ${JSON.stringify(res, null, 2)}`); 
+  AppLog.debug(`[moveFolder] 🧩 ***********res folder exists = ${JSON.stringify(res, null, 2)}`); 
 
 
   let headers= { "Content-Type": "application/x-www-form-urlencoded" };
@@ -153,7 +154,7 @@ async function moveFolder(sourceAbsPath, targetAbsPath, req) {
 
         const hijo = it?.object?.succinctProperties?.["cmis:objectId"];
 
-        console.info(`[moveFolder] 🧩 **********hijo ${JSON.stringify(hijo, null, 2)}`); 
+        AppLog.debug(`[moveFolder] 🧩 **********hijo ${JSON.stringify(hijo, null, 2)}`); 
 
         const form = new URLSearchParams();
         form.append("cmisaction", "move");
@@ -164,7 +165,7 @@ async function moveFolder(sourceAbsPath, targetAbsPath, req) {
 
         const data = form.toString();
 
-        console.info(`[moveFolder] 🧩 **********FORM ${JSON.stringify(data, null, 2)}`);
+        AppLog.debug(`[moveFolder] 🧩 **********FORM ${JSON.stringify(data, null, 2)}`);
 
           await client.tx(req).post(`${BASE}/root/`, 
                                   data,
@@ -201,15 +202,15 @@ async function confirmAdjuntos(req) {
             const adjuntos = cab.adjuntosSolicitud;
 
 
-            console.info("🟩 [confirmAdjuntos] adjuntos", JSON.stringify(adjuntos, null, 2));
+            AppLog.debug("🟩 [confirmAdjuntos] adjuntos", JSON.stringify(adjuntos, null, 2));
 
             if(adjuntos) {
               if (adjuntos.length == 0){
-                  console.info("📊 [confirmAdjuntos] No hay adjuntos");
+                  AppLog.info("📊 [confirmAdjuntos] No hay adjuntos");
                   return;
               };
             } else{
-                  console.info("📊 [confirmAdjuntos] No hay adjuntos");
+                  AppLog.info("📊 [confirmAdjuntos] No hay adjuntos");
                   return;              
             }
 
@@ -218,14 +219,14 @@ async function confirmAdjuntos(req) {
             await moveFolder(`/solicitud-asientos-adjuntos/temp/${adjuntos[0].sessionId}`, destino, req);
 
       } catch (err) {
-        console.error("❌ [confirmAdjuntos] 🔴 Error detectado", err);
+        AppLog.error("❌ [confirmAdjuntos] 🔴 Error detectado", err);
         // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
         if (err.code) {
           throw err; // ⚡ sigue para arriba sin cambios
         }
 
         // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-        console.error("❌ [confirmAdjuntos] 🔴 Error interno:", err);
+        AppLog.error("❌ [confirmAdjuntos] 🔴 Error interno:", err);
 
         // devolvemos un error 500 limpio
         return req.reject(500, "[confirmAdjuntos] 🔴 Error interno");
@@ -241,14 +242,14 @@ async function rollbackAdjuntos(req) {
             await deleteTree(`/solicitud-asientos-adjuntos/temp/${sessionId}`, req);
 
       } catch (err) {
-        console.error("❌ [rollbackAdjuntos] 🔴 Error detectado", err);
+        AppLog.error("❌ [rollbackAdjuntos] 🔴 Error detectado", err);
         // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
         if (err.code) {
           throw err; // ⚡ sigue para arriba sin cambios
         }
 
         // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-        console.error("❌ [rollbackAdjuntos] 🔴 Error interno:", err);
+        AppLog.error("❌ [rollbackAdjuntos] 🔴 Error interno:", err);
 
         // devolvemos un error 500 limpio
         return req.reject(500, "[rollbackAdjuntos] 🔴 Error interno");

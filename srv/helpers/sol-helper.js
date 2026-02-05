@@ -8,6 +8,8 @@ const xml2js = require('xml2js');
 const { Token } = require('@sap/xssec');
 const { threadId } = require('worker_threads');
 
+const AppLog = require('../helpers/logging/app-log');
+
 const URL_S4_HANA_QAS = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi';
 const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi/journalentrycreaterequestconfi?saml2=disabled';
                         
@@ -72,8 +74,8 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
        * @param {Boolean} testDataIndicator - true = test / false = contabilización real
        */
       async function ValidaContabilizaAsiento(req, testDataIndicator) {
-        console.info('[ValidaContabilizaAsiento] ✅ Ingresando al método');
-        console.info(`[ValidaContabilizaAsiento] 🧩 testDataIndicator = ${testDataIndicator}`);
+        AppLog.info('[ValidaContabilizaAsiento] ✅ Ingresando al método');
+        AppLog.debug(`[ValidaContabilizaAsiento] 🧩 testDataIndicator = ${testDataIndicator}`);
         const Referencia = cds.entities.Referencia;
         const Cuenta = cds.entities.Cuenta;
         const TipoAsiento = cds.entities.TipoAsiento;
@@ -90,7 +92,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 
 
                 if (!destination) throw new Error(`No se encontró el destino ${destinationName}`);
-                console.info(`[ValidaContabilizaAsiento] 🌍 Usando destination: ${destinationName}`);
+                AppLog.debug(`[ValidaContabilizaAsiento] 🌍 Usando destination: ${destinationName}`);
 
                 // 2️⃣ Extraer datos del request
                 const cabecera = req.data;
@@ -110,7 +112,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 const codigoTS = tipoAsiento.codigo;
                 let reversalDateValor = '';
                 let reversalReasonValor = '';
-                console.info(`📌 [ValidaContabilizaAsiento] TipoAsiento.codigo = ${codigoTS}`);
+                AppLog.debug(`📌 [ValidaContabilizaAsiento] TipoAsiento.codigo = ${codigoTS}`);
 
                 if (codigoTS == "1") {
                     reversalDateValor = primerDiaMesSiguiente(cabecera.fechaContabilizacion);
@@ -193,7 +195,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                     </soapenv:Body>
                   </soapenv:Envelope>`;
 
-                console.info(`[ValidaContabilizaAsiento] 🚀 Enviando payload SOAP a SAP... ${xmlPayload}`);
+                AppLog.debug(`[ValidaContabilizaAsiento] 🚀 Enviando payload SOAP a SAP... ${xmlPayload}`);
 
                 // 5️⃣ Ejecutar la llamada
                 const response = await executeHttpRequest(destination, {
@@ -204,7 +206,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 });
 
                 const xmlResponse = response.data;
-                console.info('[ValidaContabilizaAsiento] 📦 Respuesta recibida desde SAP');
+                AppLog.info('[ValidaContabilizaAsiento] 📦 Respuesta recibida desde SAP');
 
                 // 6️⃣ Parsear XML a JSON
                 const parsed = await xml2js.parseStringPromise(xmlResponse, {
@@ -259,7 +261,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                     : new Date().getFullYear();
 
                   const fechaContabilizacionSAP = safeDate(new Date());
-                  console.info(`[ValidaContabilizaAsiento] 💾 Actualizando registro CAP → Documento=${numeroDocumento}`);
+                  AppLog.info(`[ValidaContabilizaAsiento] 💾 Actualizando registro CAP → Documento=${numeroDocumento}`);
 
                   const catalogService = await cds.connect.to('CatalogService');
 
@@ -293,14 +295,14 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                   };
    
         } catch (err) {
-          console.error("❌ [ValidaContabilizaAsiento] 🔴 Error detectado", err);
+          AppLog.error("❌ [ValidaContabilizaAsiento] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
           if (err.code) {
             throw err; // ⚡ sigue para arriba sin cambios
           }
 
           // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-          console.error("❌ [ValidaContabilizaAsiento] 🔴 Error interno:", err);
+          AppLog.error("❌ [ValidaContabilizaAsiento] 🔴 Error interno:", err);
 
           // devolvemos un error 500 limpio
           return req.reject(500, "[ValidaContabilizaAsiento] 🔴 Error interno");
@@ -315,29 +317,29 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
     const emailSolicitante = req.data.correo_solicitante;
     const Empleado = cds.entities.Empleado;
 
-    console.info('[ReemplazaMailSolicitantePorID] ✅ Ingresa en método');
+    AppLog.info('[ReemplazaMailSolicitantePorID] ✅ Ingresa en método');
 
     try{
             if (!emailSolicitante) return;
             const empleado = await SELECT.one.from(Empleado).where({ email: emailSolicitante });
             if (empleado) {
               req.data.solicitante_ID = empleado.ID;
-              //LOG console.info(`[ReemplazaMailSolicitantePorID] ✅ Mail ${emailSolicitante} → ID ${empleado.ID}`);
+              AppLog.debug(`[ReemplazaMailSolicitantePorID] ✅ Mail ${emailSolicitante} → ID ${empleado.ID}`);
             } else {
-              console.error(`[ReemplazaMailSolicitantePorID] ❌ Error buscando empleado con mail ${emailSolicitante}`);
+              AppLog.error(`[ReemplazaMailSolicitantePorID] ❌ Error buscando empleado con mail ${emailSolicitante}`);
               return req.reject(400,`[ReemplazaMailSolicitantePorID] ⚠ No se encontró empleado con mail ${emailSolicitante}`)
             }
 
-            console.info('[ReemplazaMailSolicitantePorID] ✅ Sale del método');
+            AppLog.info('[ReemplazaMailSolicitantePorID] ✅ Sale del método');
         } catch (err) {
-          console.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
+          AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
           if (err.code) {
             throw err; // ⚡ sigue para arriba sin cambios
           }
 
           // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-          console.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
+          AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
 
           // devolvemos un error 500 limpio
           return req.reject(500, "[ReemplazaMailSolicitantePorID] 🔴 Error interno");
@@ -352,14 +354,14 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
     const EstadosSolicitud = cds.entities.EstadosSolicitud;
     const Referencia = cds.entities.Referencia;
 
-    console.info('[CompletaCamposCabecera] ✅ Ingresa en método');
+    AppLog.info('[CompletaCamposCabecera] ✅ Ingresa en método');
 
     try{
 
               const estado = await SELECT.one.from(EstadosSolicitud).where({ codigo: 'INI' });
               if (estado) cab.estadoSolicitud_ID = estado.ID 
               else {
-                  console.error(`[CompletaCamposCabecera] ❌ Error al completar el estado`);
+                  AppLog.error(`[CompletaCamposCabecera] ❌ Error al completar el estado`);
                   return req.reject(404, `[CompletaCamposCabecera] ❌ Error al completar el estado`);
               }
 
@@ -383,14 +385,14 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 }
               }
         } catch (err) {
-          console.error("❌ [CompletaCamposCabecera] 🔴 Error detectado", err);
+          AppLog.error("❌ [CompletaCamposCabecera] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
           if (err.code) {
             throw err; // ⚡ sigue para arriba sin cambios
           }
 
           // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-          console.error("❌ [CompletaCamposCabecera] 🔴 Error interno:", err);
+          AppLog.error("❌ [CompletaCamposCabecera] 🔴 Error interno:", err);
 
           // devolvemos un error 500 limpio
           return req.reject(500, "[CompletaCamposCabecera] 🔴 Error interno");
@@ -401,7 +403,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
 async function ObtenerIDSubtipoAsiento(req) {
   try{
 
-          console.info("🔎 [ObtenerIDSubtipoAsiento] Inicio");
+          AppLog.info("🔎 [ObtenerIDSubtipoAsiento] Inicio");
 
           const tx = cds.transaction(req); //req.tx;
           const cab = req.data;
@@ -461,7 +463,8 @@ async function ObtenerIDSubtipoAsiento(req) {
               nombreTipoCuenta: cuentaRow.tipoNombre
             });
 
-            //LOG console.info(`📌 Cuenta ${cuentaRow.numero} | ${cuentaRow.nombre} → Tipo ${cuentaRow.tipoCodigo} (${cuentaRow.tipoNombre})`);
+            AppLog.debug(`📌 Cuenta ${cuentaRow.numero} | ${cuentaRow.nombre} → Tipo ${cuentaRow.tipoCodigo} (${cuentaRow.tipoNombre})`);
+
           }
 
           // ============================================================
@@ -469,12 +472,12 @@ async function ObtenerIDSubtipoAsiento(req) {
           // ============================================================
 
           // 1) Total global de cuentas únicas
-          console.info(`🔢 Total de cuentas distintas recibidas: ${cuentasUnicas.size}`);
+          AppLog.debug(`🔢 Total de cuentas distintas recibidas: ${cuentasUnicas.size}`);
 
           // 2) Total por tipo de cuenta
-          console.info("📘 Totales por Tipo de Cuenta:");
+          AppLog.debug("📘 Totales por Tipo de Cuenta:");
           for (const [tipo, setCuentas] of Object.entries(cuentasPorTipo)) {
-            console.info(`   - ${tipo}: ${setCuentas.size} cuenta(s) → [${[...setCuentas].join(", ")}]`);
+            AppLog.debug(`   - ${tipo}: ${setCuentas.size} cuenta(s) → [${[...setCuentas].join(", ")}]`);
           }
 
           // ============================================================
@@ -488,7 +491,7 @@ async function ObtenerIDSubtipoAsiento(req) {
             if (it.clave == 50) sumaClave50 += Number(it.importe || 0);
           });
 
-          console.info(`🧮 Suma clave 40 = ${sumaClave40}, Suma clave 50 = ${sumaClave50}`);
+          AppLog.debug(`🧮 Suma clave 40 = ${sumaClave40}, Suma clave 50 = ${sumaClave50}`);
 
           // ============================================================
           // 3️⃣ OBTENER TIPO ASIENTO (antes: TipoSolicitud)
@@ -503,7 +506,7 @@ async function ObtenerIDSubtipoAsiento(req) {
           }
 
           const codigoTS = tipoAsiento.codigo;
-          console.info(`📌 TipoAsiento.codigo = ${codigoTS}`);
+          AppLog.debug(`📌 TipoAsiento.codigo = ${codigoTS}`);
 
           // ============================================================
           // Helper para obtener subtipo
@@ -662,14 +665,14 @@ async function ObtenerIDSubtipoAsiento(req) {
             "El tipo de asiento solicitado no es compatible con las cuentas presentadas."
           );
       } catch (err) {
-        console.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error detectado", err);
+        AppLog.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error detectado", err);
         // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
         if (err.code) {
           throw err; // ⚡ sigue para arriba sin cambios
         }
 
         // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-        console.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error interno:", err);
+        AppLog.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error interno:", err);
 
         // devolvemos un error 500 limpio
         return req.reject(500, "[ObtenerIDSubtipoAsiento] 🔴 Error interno");
@@ -685,12 +688,12 @@ async function ObtenerIDSubtipoAsiento(req) {
       const tx = req.tx;
 
       try{      
-            console.info('[ReemplazaCuentaPorID] ✅ Ingresa en método');
+            AppLog.info('[ReemplazaCuentaPorID] ✅ Ingresa en método');
 
             const catalogService = await cds.connect.to('CatalogService');
 
             if (!data.items || !Array.isArray(data.items)) {
-                  console.error(`[ReemplazaCuentaPorID] ❌ Error en items`);
+                  AppLog.error(`[ReemplazaCuentaPorID] ❌ Error en items`);
                   return req.reject(404,`[ReemplazaCuentaPorID] ❌ Error en items`);
             } 
 
@@ -704,27 +707,27 @@ async function ObtenerIDSubtipoAsiento(req) {
 
                   if (cuentaRec) {
                     item.cuentaContable_ID = cuentaRec.ID;
-                    //LOGconsole.info(`[ReemplazaCuentaPorID] ✅ Mapeada cuenta ${codigoCuenta} → ${cuentaRec.ID}`);
+                    AppLog.debug(`[ReemplazaCuentaPorID] ✅ Mapeada cuenta ${codigoCuenta} → ${cuentaRec.ID}`);
                   } else {
                     const msg = `[ReemplazaCuentaPorID] ❌ Cuenta contable inexistente: ${codigoCuenta}`;
-                    console.error(msg);
+                    AppLog.error(msg);
                     req.reject(404, msg);
                   }
 
             } else if (!item.cuentaContable_ID){
-                  console.error(`[ReemplazaCuentaPorID] ❌ Error buscando cuenta ${codigoCuenta}: ${err.message}`);
+                  AppLog.error(`[ReemplazaCuentaPorID] ❌ Error buscando cuenta ${codigoCuenta}: ${err.message}`);
                   return req.reject(404, `Error buscando cuenta contable: ${codigoCuenta}`);
             }
           }
       } catch (err) {
-        console.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
+        AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
         // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
         if (err.code) {
           throw err; // ⚡ sigue para arriba sin cambios
         }
 
         // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-        console.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
+        AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
 
         // devolvemos un error 500 limpio
         return req.reject(500, "[ReemplazaMailSolicitantePorID] 🔴 Error interno");

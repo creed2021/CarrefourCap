@@ -33,6 +33,8 @@ const {   informaFailConstraint,
           controlesCampoRegistro
       } = require("./helpers/con-helper");
 
+const AppLog = require('./helpers/logging/app-log');
+
 
 
 module.exports = cds.service.impl(async function () {
@@ -137,7 +139,7 @@ this.on("RegistrarAprobacion", async (req) => {
 
               const catalogService = await cds.connect.to('CatalogService');
 
-              console.info(`[RegistrarAprobacion] numeroSolicitud=${numeroSolicitudPram}, emailAprobador=${emailAprobador}`);
+              AppLog.info(`[RegistrarAprobacion] numeroSolicitud=${numeroSolicitudPram}, emailAprobador=${emailAprobador}`);
 
               // 🔎 Buscar empleado
               const empleado = await catalogService.run(SELECT.one.from('CatalogService.Empleados').where({ email: emailAprobador }));
@@ -165,17 +167,17 @@ this.on("RegistrarAprobacion", async (req) => {
                 })
               );
 
-              console.info(`[RegistrarAprobacion] ✅ Aprobación registrada correctamente`);
+              AppLog.info(`[RegistrarAprobacion] ✅ Aprobación registrada correctamente`);
               return { message: "Aprobación registrada correctamente" };
           } catch (err) {
-            console.error("❌ [RegistrarAprobacion] 🔴 Error detectado", err);
+            AppLog.error("❌ [RegistrarAprobacion] 🔴 Error detectado", err);
             // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
             if (err.code) {
               throw err; // ⚡ sigue para arriba sin cambios
             }
 
             // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-            console.error("❌ [RegistrarAprobacion] 🔴 Error interno", err);
+            AppLog.error("❌ [RegistrarAprobacion] 🔴 Error interno", err);
 
             // devolvemos un error 500 limpio
             return req.reject(500, "[RegistrarAprobacion] 🔴 Error interno");
@@ -196,7 +198,7 @@ this.on("RegistrarAprobacion", async (req) => {
 
                   const catalogService = await cds.connect.to('CatalogService');
 
-                  console.info(`[RegistrarRechazo] numeroSolicitu=${numeroSolicitudPram}, emailAprobador=${emailAprobador}`);
+                  AppLog.info(`[RegistrarRechazo] numeroSolicitu=${numeroSolicitudPram}, emailAprobador=${emailAprobador}`);
 
                   // 🔎 Buscar empleado
                   const empleado = await catalogService.run(SELECT.one.from('CatalogService.Empleados').where({ email: emailAprobador }));
@@ -235,17 +237,17 @@ this.on("RegistrarAprobacion", async (req) => {
                       .where({ ID: solicitud.ID })
                   );
 
-                  console.info(`[RegistrarRechazo] 🔴 Rechazo registrado y estado actualizado a 'RDA'`);
+                  AppLog.info(`[RegistrarRechazo] 🔴 Rechazo registrado y estado actualizado a 'RDA'`);
                   return { message: "Rechazo registrado correctamente" };
             } catch (err) {
-                console.error("❌ [RegistrarRechazo] 🔴 Error detectado", err);
+                AppLog.error("❌ [RegistrarRechazo] 🔴 Error detectado", err);
                 // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
                 if (err.code) {
                   throw err; // ⚡ sigue para arriba sin cambios
                 }
 
                 // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-                console.error("❌ [RegistrarRechazo] 🔴 Error interno", err);
+                AppLog.error("❌ [RegistrarRechazo] 🔴 Error interno", err);
 
                 // devolvemos un error 500 limpio
                 return req.reject(500, "[RegistrarRechazo] 🔴 Error interno");
@@ -305,14 +307,14 @@ this.on("RegistrarAprobacion", async (req) => {
                 // Llama al método real de contabilización
                 return await ValidaContabilizaAsiento(req, false);
           } catch (err) {
-              console.error("❌ [RegistrarRechazo] 🔴 Error detectado", err);
+              AppLog.error("❌ [RegistrarRechazo] 🔴 Error detectado", err);
               // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
               if (err.code) {
                 throw err; // ⚡ sigue para arriba sin cambios
               }
 
               // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-              console.error("❌ [RegistrarRechazo] 🔴 Error interno", err);
+              AppLog.error("❌ [RegistrarRechazo] 🔴 Error interno", err);
 
               // devolvemos un error 500 limpio
               return req.reject(500, "[RegistrarRechazo] 🔴 Error interno");
@@ -335,29 +337,29 @@ this.on("RegistrarAprobacion", async (req) => {
 
                 if (!numeroSolicitudParam) return req.reject(400, 'Falta ID de la solicitud');
 
-                console.info(`[RealizarContabilizacion] 🧮 Iniciando contabilización para numero de solicitud=${numeroSolicitudParam}`);
+                AppLog.info(`[RealizarContabilizacion] 🧮 Iniciando contabilización para numero de solicitud=${numeroSolicitudParam}`);
 
                 // 1️⃣ Ejecutar contabilización en S/4HANA
                 const resultado = await EjecutarContabilizacionPorID(numeroSolicitudParam, req);
 
                 //2️⃣ Si el resultado fue exitoso → actualizar estadoSolicitud = CON
                 if (resultado.success) {
-                  console.info(`[RealizarContabilizacion] ✅ Contabilización exitosa y estado actualizado a 'CON'`);
+                  AppLog.info(`[RealizarContabilizacion] ✅ Contabilización exitosa y estado actualizado a 'CON'`);
                   return resultado;
                 } else {
                   // Si la contabilización devolvió error
-                  console.warn(`[RealizarContabilizacion] ⚠️ Error en contabilización: ${resultado.message}`);
+                  AppLog.error(`[RealizarContabilizacion] ⚠️ Error en contabilización: ${resultado.message}`);
                   return req.reject(400, resultado.message || 'Error en contabilización');
                 }
              } catch (err) {
-                console.error("❌ [RealizarContabilizacion] 🔴 Error detectado", err);
+                AppLog.error("❌ [RealizarContabilizacion] 🔴 Error detectado", err);
                 // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
                 if (err.code) {
                   throw err; // ⚡ sigue para arriba sin cambios
                 }
 
                 // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-                console.error("❌ [RealizarContabilizacion] 🔴 Error interno:", err);
+                AppLog.error("❌ [RealizarContabilizacion] 🔴 Error interno:", err);
 
                 // devolvemos un error 500 limpio
                 return req.reject(500, "[RealizarContabilizacion] 🔴 Error interno");
@@ -378,14 +380,14 @@ this.on("RegistrarAprobacion", async (req) => {
             return { success: true };
 
         } catch (err) {
-          console.error("❌ [prepareAdjuntos] 🔴 Error detectado", err);
+          AppLog.error("❌ [prepareAdjuntos] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
           if (err.code) {
             throw err; // ⚡ sigue para arriba sin cambios
           }
 
           // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-          console.error("❌ [prepareAdjuntos] 🔴 Error interno:", err);
+          AppLog.error("❌ [prepareAdjuntos] 🔴 Error interno:", err);
 
           // devolvemos un error 500 limpio
           return req.reject(500, "[prepareAdjuntos] 🔴 Error interno");
@@ -406,7 +408,7 @@ this.on("RegistrarAprobacion", async (req) => {
       // BEFORE CREATE: Validaciones previas + helpers
       // ===========================================================
       this.before('CREATE', 'CabeceraAsiento', async (req) => {
-        console.info('[CabeceraAsiento] 🟢 Entrando en BEFORE CREATE');
+        AppLog.info('[CabeceraAsiento] 🟢 Entrando en BEFORE CREATE');
 
         try{
 
@@ -446,7 +448,7 @@ this.on("RegistrarAprobacion", async (req) => {
                 }
               }
 
-              console.info(
+              AppLog.debug(
                 `[ValidaFechasPeriodo] OK - Fechas dentro del período ${periodoMes}/${periodoAnio}`
               );
 
@@ -513,7 +515,6 @@ this.on("RegistrarAprobacion", async (req) => {
                 if (it.clave === 40) sumaDebe += importe;
                 if (it.clave === 50) sumaHaber += importe;
 
-                // console.info(`🧮 Log por items → nro linea=${it.numeroLinea} , Clave=${it.clave} it.importe= ${it.importe}, Importe=${importe}, Debe=${sumaDebe}, Haber=${sumaHaber}`);
               }
 
               sumaDebe = sumaDebe / 100;
@@ -529,7 +530,7 @@ this.on("RegistrarAprobacion", async (req) => {
                 );
               }
 
-              console.info(`🧮 Validación contable OK → Debe=${sumaDebe}, Haber=${sumaHaber}`);
+              AppLog.debug(`🧮 Validación contable OK → Debe=${sumaDebe}, Haber=${sumaHaber}`);
 
               // ================================================================
               // 6️⃣ REEMPLAZOS Y COMPLETADO AUTOMÁTICO
@@ -548,7 +549,7 @@ this.on("RegistrarAprobacion", async (req) => {
               // -------------------------------------------------------------------------
               if (!cab.numeroSolicitud) {
                 cab.numeroSolicitud = await getNextNumeroSolicitudFU(tx);
-                console.info(`[CabeceraAsiento] NumeroSolicitud asignado = ${cab.numeroSolicitud}`);
+                AppLog.info(`[CabeceraAsiento] NumeroSolicitud asignado = ${cab.numeroSolicitud}`);
               }
               
               // ================================================================
@@ -560,14 +561,14 @@ this.on("RegistrarAprobacion", async (req) => {
               await confirmAdjuntos(req);
 
         } catch (err) {
-          console.error("❌ [CabeceraAsiento] 🔴 Error detectado", err);
+          AppLog.error("❌ [CabeceraAsiento] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
           if (err.code) {
             throw err; // ⚡ sigue para arriba sin cambios
           }
 
           // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-          console.error("❌ [CabeceraAsiento] 🔴 Error interno:", err);
+          AppLog.error("❌ [CabeceraAsiento] 🔴 Error interno:", err);
           
           //DJ 2025-12-25 se comenta ya que no es aplicable por el momento
           //DJ 2025-12-25 await rollbackAdjuntos(req);
@@ -600,7 +601,7 @@ async function IniciaWorkflowBPA(req) {
           const SUBT_ASIENTO_PROV_REVERSA = "G";
           const SUBT_ASIENTO_CUENTAS_EXCEP = "H";
 
-          console.info("🟦 [IniciaWorkflowBPA] Inicio");
+          AppLog.info("🟦 [IniciaWorkflowBPA] Inicio");
 
           const d = req.data;
 
@@ -653,23 +654,23 @@ async function IniciaWorkflowBPA(req) {
           // 4️⃣ Construir payload final
           const payload = buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldms);
 
-          //LOG console.info("🟩 [IniciaWorkflowBPA] Payload final:", JSON.stringify(payload, null, 2));
+          AppLog.debug("🟩 [IniciaWorkflowBPA] Payload final:", JSON.stringify(payload, null, 2));
 
           // 5️⃣ Enviar workflow
           const id = await callBPA(payload, req);
 
-          console.info("🟩 [IniciaWorkflowBPA] Instancia BPA creada:", id);
+          AppLog.info("🟩 [IniciaWorkflowBPA] Instancia BPA creada:", id);
 
           return id;
       } catch (err) {
-        console.error("❌ [IniciaWorkflowBPA] 🔴 Error detectado", err);
+        AppLog.error("❌ [IniciaWorkflowBPA] 🔴 Error detectado", err);
         // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
         if (err.code) {
           throw err; // ⚡ sigue para arriba sin cambios
         }
 
         // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-        console.error("❌ [IniciaWorkflowBPA] 🔴 Error interno:", err);
+        AppLog.error("❌ [IniciaWorkflowBPA] 🔴 Error interno:", err);
 
         // devolvemos un error 500 limpio
         return req.reject(500, "[IniciaWorkflowBPA] 🔴 Error interno");
@@ -702,14 +703,14 @@ async function getNextNumeroSolicitudFU(tx){
         }
 
     } catch (err) {
-      console.error("❌ [getNextNumeroSolicitudFU] 🔴 Error detectado", err);
+      AppLog.error("❌ [getNextNumeroSolicitudFU] 🔴 Error detectado", err);
       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
 
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-      console.error("❌ [getNextNumeroSolicitudFU] 🔴 Error interno:", err);
+      AppLog.error("❌ [getNextNumeroSolicitudFU] 🔴 Error interno:", err);
 
       // devolvemos un error 500 limpio
       return req.reject(500, "[getNextNumeroSolicitudFU] 🔴 Error interno");

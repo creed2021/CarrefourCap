@@ -8,6 +8,8 @@ const xml2js = require('xml2js');
 const { Token } = require('@sap/xssec');
 const { threadId } = require('worker_threads');
 
+const AppLog = require('../helpers/logging/app-log');
+
 //REVISAR QUE JUEGO DE CONSTANTES ESTÁ PRENDIDO
 //AMBIENTE DEV
 const DEFINITION_ID_BPA_DEV = "us30.process-automation-95oeuot4.ajustescontables.main";
@@ -28,15 +30,15 @@ async function getUrlsAdjuntos(req) {
     const cab = req.data;
     const adjuntos = cab.adjuntosSolicitud;
 
-    //LOG console.info("🟩 [confirmAdjuntos] adjuntos", JSON.stringify(adjuntos, null, 2));
+    AppLog.debug("🟩 [confirmAdjuntos] adjuntos", JSON.stringify(adjuntos, null, 2));
 
     if(adjuntos) {
       if (adjuntos.length == 0){
-          //LOG console.info("📊 [confirmAdjuntos] No hay adjuntos");
+          AppLog.debug("📊 [confirmAdjuntos] No hay adjuntos");
           return;
       };
     } else{
-          //LOG console.info("📊 [confirmAdjuntos] No hay adjuntos");
+          AppLog.debug("📊 [confirmAdjuntos] No hay adjuntos");
           return;              
     }
 
@@ -45,7 +47,7 @@ async function getUrlsAdjuntos(req) {
       .filter(u => u && u.trim() !== '');
 
   } catch (err) {
-    console.error("❌ [getUrlsAdjuntos] 🔴 Error detectado", err);
+    AppLog.error("❌ [getUrlsAdjuntos] 🔴 Error detectado", err);
     if (err.code) throw err;
     return req.reject(500, "[getUrlsAdjuntos] 🔴 Error interno");
   }
@@ -87,14 +89,14 @@ async function getValoresCabecera(req) {
           return { solicitante, tipoAsiento, subtipoAsiento, referencia, sector };
 
       } catch (err) {
-        console.error("❌ [getValoresCabecera] 🔴 Error detectado", err);
+        AppLog.error("❌ [getValoresCabecera] 🔴 Error detectado", err);
         // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
         if (err.code) {
           throw err; // ⚡ sigue para arriba sin cambios
         }
 
         // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-        console.error("❌ [getValoresCabecera] 🔴 Error interno:", err);
+        AppLog.error("❌ [getValoresCabecera] 🔴 Error interno:", err);
 
         // devolvemos un error 500 limpio
         return req.reject(500, "[getValoresCabecera] 🔴 Error interno");
@@ -180,18 +182,18 @@ async function getTablaSumatorias(req) {
         const resultado = Object.values(sumMap);
 
         // 5️⃣ LOG DETALLADO DE RESULTADO
-        //LOG console.info("📊 [getTablaSumatorias] Tabla de sumatorias generada:");
-        //LOG console.info(`   🔢 Total cuentas agrupadas: ${resultado.length}`);
+        AppLog.debug("📊 [getTablaSumatorias] Tabla de sumatorias generada:");
+        AppLog.debug(`   🔢 Total cuentas agrupadas: ${resultado.length}`);
 
-        //LOG resultado.forEach(elem => {
-        //     console.info(`   ➡ Cuenta ${elem.IdCuenta} → SumatoriaTotal = ${elem.SumatoriaTotal}`);
-        // });
+        resultado.forEach(elem => {
+            AppLog.debug(`   ➡ Cuenta ${elem.IdCuenta} → SumatoriaTotal = ${elem.SumatoriaTotal}`);
+        });
 
         return resultado;
 
     } catch (err) {
 
-        console.error("❌ [getTablaSumatorias] 🔴 Error detectado", err);
+        AppLog.error("❌ [getTablaSumatorias] 🔴 Error detectado", err);
 
         // Si el error ya es de CAP → relanzar
         if (err.code) {
@@ -199,7 +201,7 @@ async function getTablaSumatorias(req) {
         }
 
         // Error inesperado → 500
-        console.error("❌ [getTablaSumatorias] 🔴 Error interno:", err);
+        AppLog.error("❌ [getTablaSumatorias] 🔴 Error interno:", err);
         return req.reject(500, "[getTablaSumatorias] 🔴 Error interno");
     }
 }
@@ -256,14 +258,14 @@ async function getAprobadoresNivel1(req) {
 
           return empleados.map(e => e.email);
     } catch (err) {
-      console.error("❌ [getAprobadoresNivel1] 🔴 Error detectado", err);
+      AppLog.error("❌ [getAprobadoresNivel1] 🔴 Error detectado", err);
       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
 
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-      console.error("❌ [getAprobadoresNivel1] 🔴 Error interno:", err);
+      AppLog.error("❌ [getAprobadoresNivel1] 🔴 Error interno:", err);
 
       // devolvemos un error 500 limpio
       return req.reject(500, "[getAprobadoresNivel1] 🔴 Error interno");
@@ -332,14 +334,14 @@ async function getAprobadoresNivel1(req) {
 
             return empleados.map(e => e.email);
         } catch (err) {
-          console.error("❌ [getAprobadoresNivel2] 🔴 Error detectado", err);
+          AppLog.error("❌ [getAprobadoresNivel2] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
           if (err.code) {
             throw err; // ⚡ sigue para arriba sin cambios
           }
 
           // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-          console.error("❌ [getAprobadoresNivel2] 🔴 Error interno:", err);
+          AppLog.error("❌ [getAprobadoresNivel2] 🔴 Error interno:", err);
 
           // devolvemos un error 500 limpio
           return req.reject(500, "[getAprobadoresNivel2] 🔴 Error interno");
@@ -359,7 +361,7 @@ async function getAprobadoresNivel1(req) {
             // 1️⃣ Verificar si alguna cuenta supera el importeGerencia
             for (const t of tablasumatorias) {
 
-              //LOG console.info(`➡ [getAprobadoresNivel3] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
+              AppLog.debug(`➡ [getAprobadoresNivel3] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
 
               const cuenta = await catalog.run(
                 SELECT.one.from('CatalogService.Cuentas')
@@ -368,7 +370,7 @@ async function getAprobadoresNivel1(req) {
               );
 
               if (!cuenta) {
-                console.error(`❌ [getAprobadoresNivel3] La cuenta ${t.IdCuenta} NO existe en CatalogService.Cuentas`);
+                AppLog.error(`❌ [getAprobadoresNivel3] La cuenta ${t.IdCuenta} NO existe en CatalogService.Cuentas`);
                 return req.reject(400, `[getAprobadoresNivel3] La cuenta ${t.IdCuenta} no existe en el maestro de cuentas`);
               }
 
@@ -379,25 +381,25 @@ async function getAprobadoresNivel1(req) {
               );
 
               if (!umbral && !umbral.importeGerencia) {
-                //LOG console.warn(`⚠ [getAprobadoresNivel3] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
+                AppLog.error(`⚠ [getAprobadoresNivel3] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
                 return req.reject(400, `[getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
-              } //LOG else {
-                // console.info(`   🔍  [getAprobadoresNivel3] Umbral Gerencia: ${umbral.importeGerencia}`);
-              //}
+              } else {
+                AppLog.debug(`   🔍  [getAprobadoresNivel3] Umbral Gerencia: ${umbral.importeGerencia}`);
+              }
               
 
               if (umbral && umbral.importeGerencia && t.SumatoriaTotal >= Number(umbral.importeGerencia)) {
-                //LOG console.info(` [getAprobadoresNivel3]  ✔ Supera umbral → requiere Aprobador Nivel 3`);
+                AppLog.debug(` [getAprobadoresNivel3]  ✔ Supera umbral → requiere Aprobador Nivel 3`);
                 
                 supera = true;
                 break;
-              } //LOG else {
-                //console.info(` [getAprobadoresNivel3] ✖ No supera umbral`);
-              //}
+              } else {
+                AppLog.debug(` [getAprobadoresNivel3] ✖ No supera umbral`);
+              }
             }
 
               if (!supera) {
-                //LOG console.info("🟦 [getAprobadoresNivel3] Ninguna cuenta supera el umbral de Gerencia → NO hay aprobadores de nivel 3");
+                AppLog.debug("🟦 [getAprobadoresNivel3] Ninguna cuenta supera el umbral de Gerencia → NO hay aprobadores de nivel 3");
                 return [];
               }
 
@@ -409,7 +411,7 @@ async function getAprobadoresNivel1(req) {
             );
 
             if (!sectorCON) {
-              console.error("❌ [getAprobadoresNivel3] Sector 'CON' no existe en CatalogService.Sectores");
+              AppLog.error("❌ [getAprobadoresNivel3] Sector 'CON' no existe en CatalogService.Sectores");
               return req.reject(400, "[getAprobadoresNivel3] Sector 'CON' no existe");
             }
 
@@ -421,7 +423,7 @@ async function getAprobadoresNivel1(req) {
             );
 
             if (!cfgSector.length) {
-              console.error("❌ [getAprobadoresNivel3] No existen ConfigAprobadores para el sector CON");
+              AppLog.error("❌ [getAprobadoresNivel3] No existen ConfigAprobadores para el sector CON");
               return req.reject(400, "[getAprobadoresNivel3] No existen ConfigAprobadores para el sector CON");
             }
 
@@ -435,7 +437,7 @@ async function getAprobadoresNivel1(req) {
             );
 
               if (!cargos.length) {
-                console.error("❌ [getAprobadoresNivel3] No existen cargos para los ConfigAprobadores del sector CON");
+                AppLog.error("❌ [getAprobadoresNivel3] No existen cargos para los ConfigAprobadores del sector CON");
                 return req.reject(400, "[getAprobadoresNivel3] No existen cargos asociados al sector CON");
               }
 
@@ -445,7 +447,7 @@ async function getAprobadoresNivel1(req) {
               .map(c => c.ID);
 
               if (!cargosValidos.length) {
-                console.error("❌ [getAprobadoresNivel3] No hay cargos GER/DIR en sector CON");
+                AppLog.error("❌ [getAprobadoresNivel3] No hay cargos GER/DIR en sector CON");
                 return req.reject(400, "[getAprobadoresNivel3] No existen cargos GER/DIR para sector CON");
               }
 
@@ -455,7 +457,7 @@ async function getAprobadoresNivel1(req) {
               .map(c => c.empleado_ID);
 
               if (!aprobadoresIDs.length) {
-                console.error("❌ getAprobadoresNivel3] No existen empleados asociados a cargos GER/DIR");
+                AppLog.error("❌ getAprobadoresNivel3] No existen empleados asociados a cargos GER/DIR");
                 return req.reject(400, "[getAprobadoresNivel3] No se encontraron empleados para cargos GER/DIR");
               }
 
@@ -466,19 +468,19 @@ async function getAprobadoresNivel1(req) {
                 .where({ ID: { in: aprobadoresIDs } })
             );
 
-            //LOG console.info(`🟦 [getAprobadoresNivel3] Aprobadores Nivel 3 encontrados: ${empleados.map(e => e.email).join(", ")}`);
+            AppLog.debug(`🟦 [getAprobadoresNivel3] Aprobadores Nivel 3 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
 
             return empleados.map(e => e.email);
         } catch (err) {
-          console.error("❌ [getAprobadoresNivel3] 🔴 Error detectado", err);
+          AppLog.error("❌ [getAprobadoresNivel3] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
           if (err.code) {
             throw err; // ⚡ sigue para arriba sin cambios
           }
 
           // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-          console.error("❌ [getAprobadoresNivel3] 🔴 Error interno:", err);
+          AppLog.error("❌ [getAprobadoresNivel3] 🔴 Error interno:", err);
 
           // devolvemos un error 500 limpio
           return req.reject(500, "[getAprobadoresNivel3] 🔴 Error interno");
@@ -498,7 +500,7 @@ async function getAprobadoresNivel1(req) {
               // 1️⃣ Verificar si alguna cuenta supera el importeCFO
               for (const t of tablasumatorias) {
 
-              //LOG console.info(`➡ [getAprobadoresNivel4] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
+              AppLog.debug(`➡ [getAprobadoresNivel4] Procesando cuenta ${t.IdCuenta} con sumatoria ${t.SumatoriaTotal}`);
 
                 const cuenta = await catalog.run(
                   SELECT.one.from('CatalogService.Cuentas')
@@ -507,7 +509,7 @@ async function getAprobadoresNivel1(req) {
                 );
 
               if (!cuenta) {
-                console.error(`❌ [getAprobadoresNivel4] La cuenta ${t.IdCuenta} NO existe en CatalogService.Cuentas`);
+                AppLog.error(`❌ [getAprobadoresNivel4] La cuenta ${t.IdCuenta} NO existe en CatalogService.Cuentas`);
                 return req.reject(400, `[getAprobadoresNivel4] La cuenta ${t.IdCuenta} no existe en el maestro de cuentas`);
               }
 
@@ -518,25 +520,24 @@ async function getAprobadoresNivel1(req) {
                 );
 
                 if (!umbral && !umbral.importeCFO) {
-                  //LOG console.warn(`⚠ [getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
+                  AppLog.error(`⚠ [getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
                   return req.reject(400, `[getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
-                } //LOG else {
-                  //console.info(`   🔍  [getAprobadoresNivel4] Umbral CFO: ${umbral.importeCFO}`);
-                //}
+                } else {
+                  AppLog.debug(`   🔍  [getAprobadoresNivel4] Umbral CFO: ${umbral.importeCFO}`);
+                }
 
                 if (umbral && umbral.importeCFO && t.SumatoriaTotal >= Number(umbral.importeCFO)) {
-                  //LOG console.info(` [getAprobadoresNivel4]  ✔ Supera umbral → requiere Aprobador Nivel 4`);
+                  AppLog.debug(` [getAprobadoresNivel4]  ✔ Supera umbral → requiere Aprobador Nivel 4`);
                   
                   supera = true;
                   break;
-                } 
-                // LOG else {
-                //   console.info(` [getAprobadoresNivel4] ✖ No supera umbral`);
-                // }
+                } else {
+                  AppLog.debug(` [getAprobadoresNivel4] ✖ No supera umbral`);
+                }
               }
 
               if (!supera) {
-                //LOG console.info("🟦 [getAprobadoresNivel4] Ninguna cuenta supera el umbral de CFO → NO hay aprobadores de nivel 4");
+                AppLog.debug("🟦 [getAprobadoresNivel4] Ninguna cuenta supera el umbral de CFO → NO hay aprobadores de nivel 4");
                 return [];
               }
 
@@ -548,7 +549,7 @@ async function getAprobadoresNivel1(req) {
               );
 
               if (!sectorEMP) {
-                console.error("❌ Sector 'EMP' no existe en CatalogService.Sectores");
+                AppLog.error("❌ Sector 'EMP' no existe en CatalogService.Sectores");
                 return req.reject(400, "[getAprobadoresNivel4] Sector 'EMP' no existe");
               }
 
@@ -560,7 +561,7 @@ async function getAprobadoresNivel1(req) {
               );
 
                 if (!cfgSector.length) {
-                  console.error("❌ No hay ConfigAprobadores para sector EMP");
+                  AppLog.error("❌ No hay ConfigAprobadores para sector EMP");
                   return req.reject(400, "[getAprobadoresNivel4] No existen ConfigAprobadores para sector EMP");
                 }
 
@@ -574,7 +575,7 @@ async function getAprobadoresNivel1(req) {
               );
 
               if (!cargos.length) {
-                console.error("❌ No existen cargos asociados al sector EMP");
+                AppLog.error("❌ No existen cargos asociados al sector EMP");
                 return req.reject(400, "[getAprobadoresNivel4] No existen cargos para sector EMP");
               }
 
@@ -584,7 +585,7 @@ async function getAprobadoresNivel1(req) {
                 .map(c => c.ID);
 
               if (!cargosValidos.length) {
-                console.error("❌ No hay cargos CFO en sector EMP");
+                AppLog.error("❌ No hay cargos CFO en sector EMP");
                 return req.reject(400, "[getAprobadoresNivel4] No existen cargos CFO en sector EMP");
               }
 
@@ -594,7 +595,7 @@ async function getAprobadoresNivel1(req) {
                 .map(c => c.empleado_ID);
 
               if (!aprobadoresIDs.length) {
-                console.error("❌ No se encontraron empleados CFO para sector EMP");
+                AppLog.error("❌ No se encontraron empleados CFO para sector EMP");
                 return req.reject(400, "[getAprobadoresNivel4] No existen empleados para cargo CFO");
               }
 
@@ -605,18 +606,18 @@ async function getAprobadoresNivel1(req) {
                   .where({ ID: { in: aprobadoresIDs } })
               );
 
-              //LOG console.info(`🟥 Aprobadores Nivel 4 encontrados: ${empleados.map(e => e.email).join(", ")}`);
+              AppLog.debug(`🟥 Aprobadores Nivel 4 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
               return empleados.map(e => e.email);
           } catch (err) {
-            console.error("❌ [getAprobadoresNivel4] 🔴 Error detectado", err);
+            AppLog.error("❌ [getAprobadoresNivel4] 🔴 Error detectado", err);
             // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
             if (err.code) {
               throw err; // ⚡ sigue para arriba sin cambios
             }
 
             // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-            console.error("❌ [getAprobadoresNivel4] 🔴 Error interno:", err);
+            AppLog.error("❌ [getAprobadoresNivel4] 🔴 Error interno:", err);
 
             // devolvemos un error 500 limpio
             return req.reject(500, "[getAprobadoresNivel4] 🔴 Error interno");
@@ -660,14 +661,14 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
             }
           };
       } catch (err) {
-        console.error("❌ [buildPayloadBPA] 🔴 Error detectado", err);
+        AppLog.error("❌ [buildPayloadBPA] 🔴 Error detectado", err);
         // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
         if (err.code) {
           throw err; // ⚡ sigue para arriba sin cambios
         }
 
         // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-        console.error("❌ [buildPayloadBPA] 🔴 Error interno:", err);
+        AppLog.error("❌ [buildPayloadBPA] 🔴 Error interno:", err);
 
         // devolvemos un error 500 limpio
         return req.reject(500, "[buildPayloadBPA] 🔴 Error interno");
@@ -675,8 +676,8 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
 }
 
     async function callBPA(payload, req) {
-        //LOG console.info("[callBPA] Payload enviado:", JSON.stringify(payload, null, 2));
-        console.info("[callBPA] Enrenado....:");
+        AppLog.debug("[callBPA] Payload enviado:", JSON.stringify(payload, null, 2));
+        AppLog.info("[callBPA] Entrando....:");
 
         const bpa_destination = await cds.connect.to("bpa-api");
 
@@ -692,7 +693,7 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
 
 
                   oResultoSTR = JSON.stringify(oResult, null, 2);
-                  //LOG console.info(`[callBPA] ✅ Solicitud registrada correctamente ${oResultoSTR}`);
+                  AppLog.debug(`[callBPA] ✅ Solicitud registrada correctamente ${oResultoSTR}`);
 
                   if (oResult.status !== "RUNNING") {
                     throw new Error('Failed to trigger the process.');
@@ -701,14 +702,14 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
                   }
 
             } catch (err) {
-              console.error("❌ [callBPA] 🔴 Error detectado", err);
+              AppLog.error("❌ [callBPA] 🔴 Error detectado", err);
               // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
               if (err.code) {
                 throw err; // ⚡ sigue para arriba sin cambios
               }
 
               // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-              console.error("❌ [callBPA] 🔴 Error interno:", err);
+              AppLog.error("❌ [callBPA] 🔴 Error interno:", err);
 
               // devolvemos un error 500 limpio
               return req.reject(500, "[callBPA] 🔴 Error interno");
