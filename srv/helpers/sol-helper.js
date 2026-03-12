@@ -198,7 +198,7 @@ const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/
                 // 5️⃣ Ejecutar la llamada
                 const response = await executeHttpRequest(destination, {
                   method: 'POST',
-                  url: URL_S4_HANA_PRD,
+                  url: URL_S4_HANA_QAS,
                   headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
                   data: xmlPayload
                 });
@@ -602,10 +602,15 @@ async function ObtenerIDSubtipoAsiento(req) {
             const subA = solo(["GAS"]) && cuentasPorTipo.GAS.size === 1;
             const subB = solo(["GAS"]) && cuentasPorTipo.GAS.size > 1;
             const subC = solo(["GAS", "MAR"]) || solo(["MAR"]);
-            const subD = solo(["GAS", "PRO"]) || solo(["GAS", "PAT"]) || solo(["GAS", "PRO", "PAT"]); //DJ 2025-12-19
-            const subE = solo(["MAR", "PRO"]) || solo(["MAR", "GAS", "PRO"]) || 
+            //const subD = solo(["GAS", "PRO"]) || solo(["GAS", "PAT"]) || solo(["GAS", "PRO", "PAT"]); //DJ 2025-12-19
+            // 12-03-26 - Dante Tagliavini
+            const subD = solo(["GAS", "PAT"]);
+
+            /* const subE = solo(["MAR", "PRO"]) || solo(["MAR", "GAS", "PRO"]) || 
                          solo(["MAR", "PAT"]) || solo(["MAR", "GAS", "PAT"]) ||
                          solo(["MAR", "PRO", "PAT"]) || solo(["MAR", "GAS", "PRO", "PAT"]); //DJ 2025-12-19
+            */
+            const subE = solo(["MAR", "PAT"]) || solo(["MAR", "GAS", "PAT"]); 
             const subF = solo(["BAN"]);
 
             if (subA) return (await getSub("A")).ID;
