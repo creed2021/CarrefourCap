@@ -590,10 +590,15 @@ async function ObtenerIDSubtipoAsiento(req) {
             const subA = solo(["GAS"]) && cuentasPorTipo.GAS.size === 1;
             const subB = solo(["GAS"]) && cuentasPorTipo.GAS.size > 1;
             const subC = solo(["GAS", "MAR"]) || solo(["MAR"]);
-            const subD = solo(["GAS", "PRO"]) || solo(["GAS", "PAT"]) || solo(["GAS", "PRO", "PAT"]); //DJ 2025-12-19
-            const subE = solo(["MAR", "PRO"]) || solo(["MAR", "GAS", "PRO"]) || 
+            //const subD = solo(["GAS", "PRO"]) || solo(["GAS", "PAT"]) || solo(["GAS", "PRO", "PAT"]); //DJ 2025-12-19
+            // 12-03-26 - Dante Tagliavini
+            const subD = solo(["GAS", "PAT"]);
+
+            /* const subE = solo(["MAR", "PRO"]) || solo(["MAR", "GAS", "PRO"]) || 
                          solo(["MAR", "PAT"]) || solo(["MAR", "GAS", "PAT"]) ||
                          solo(["MAR", "PRO", "PAT"]) || solo(["MAR", "GAS", "PRO", "PAT"]); //DJ 2025-12-19
+            */
+            const subE = solo(["MAR", "PAT"]) || solo(["MAR", "GAS", "PAT"]); 
             const subF = solo(["BAN"]);
 
             if (subA) return (await getSub("A")).ID;
