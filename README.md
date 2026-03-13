@@ -25,8 +25,17 @@ Para logueo ampliado en json para sistemas de observabilidad, mucho texto para C
 - cf restage asientos-ajustes-srv (baja momentaneamente la aplicación)
 
 ## Nivel de logueo
-Se pueden establecer los siguientes niveles de logueo, de menor a mayor cantidad de lineas:
-silent->error->info->debug->trace
+Se pueden establecer los siguientes niveles de logueo:
+silent->error->warn->info->debug->trace
 
-- cf set-env asientos-ajustes-srv CDS_LOG_LEVELS '{"app":"silent","sql":"debug","odata":"info","auth":"silent","audit":"silent"}'
+- cf set-env asientos-ajustes-srv CDS_LOG_LEVELS '{"app":"debug","sql":"silent","odata":"silent","auth":"silent","audit":"silent"}'
 - cf restage asientos-ajustes-srv (baja momentaneamente la aplicación)
+
+## Configuración por entorno
+### DEV
+- cf set-env asientos-ajustes-srv CDS_LOG_LEVELS '{"app":"debug","sql":"silent","odata":"silent","auth":"silent","audit":"silent"}'
+- cf set-env asientos-ajustes-srv CDS_LOG_FORMAT plain
+### PRD
+- cf set-env asientos-ajustes-srv CDS_LOG_LEVELS '{"app":"error","sql":"silent","odata":"silent","auth":"silent","audit":"silent"}'
+- cf set-env asientos-ajustes-srv CDS_LOG_FORMAT plain
+
