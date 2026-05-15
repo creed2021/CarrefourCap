@@ -656,7 +656,7 @@ async function ObtenerIDSubtipoAsiento(req) {
         &&
         solo(["EXC", "PAT", "BAN"]);
 
-      if (modeloValido) {
+      if (modeloValido) 
       //if (tieneEXC && tienePAT && solo(["EXC", "PAT"]))
         return (await getSub("H")).ID;
 
