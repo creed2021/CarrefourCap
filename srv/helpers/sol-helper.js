@@ -663,7 +663,7 @@ async function ObtenerIDSubtipoAsiento(req) {
       // ❌ → RETORNO CON JSON EXTRAS
       return req.reject(400, {
         message:
-          "El tipo de asiento solicitado (TipoAsiento=3) requiere al menos una cuenta EXC y una PAT.",
+          "El tipo de asiento solicitado (TipoAsiento=3) requiere al menos una cuenta EXC y una cuenta PAT o BAN.",
         detalleCuentas: {
           totalCuentas: cuentasUnicas.size,
           cuentasPorTipo: Object.fromEntries(
