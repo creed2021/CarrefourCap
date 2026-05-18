@@ -656,7 +656,7 @@ async function ObtenerIDSubtipoAsiento(req) {
         return (await getSub("H")).ID;
       }
       //if (tieneEXC && tienePAT && solo(["EXC", "PAT"]))
-      return (await getSub("H")).ID;
+      //return (await getSub("H")).ID;
 
       // ❌ → RETORNO CON JSON EXTRAS
       return req.reject(400, {
