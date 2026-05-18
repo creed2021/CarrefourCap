@@ -648,17 +648,15 @@ async function ObtenerIDSubtipoAsiento(req) {
 
       //Tagliavini 15-05-26 - se pemite tener otras cuentas además de EXC y PAT o EXC y BAN, pero debe haber al menos una de cada una de esas dos
       const tieneBAN = cuentasPorTipo.BAN?.size > 0;
-      const modeloValido =
-        (
-          (tieneEXC && tienePAT) ||
-          (tieneEXC && tieneBAN)
-        )
-        &&
-        solo(["EXC", "PAT", "BAN"]);
-
-      if (modeloValido) 
-      //if (tieneEXC && tienePAT && solo(["EXC", "PAT"]))
+      if (
+        (tieneEXC && tienePAT && solo(["EXC", "PAT"])) ||
+        (tieneEXC && tieneBAN && solo(["EXC", "BAN"])) ||
+        (tieneEXC && tienePAT && tieneBAN && solo(["EXC", "PAT", "BAN"]))
+      ) {
         return (await getSub("H")).ID;
+      }
+      //if (tieneEXC && tienePAT && solo(["EXC", "PAT"]))
+      return (await getSub("H")).ID;
 
       // ❌ → RETORNO CON JSON EXTRAS
       return req.reject(400, {
