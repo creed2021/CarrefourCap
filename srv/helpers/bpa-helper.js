@@ -10,16 +10,13 @@ const { threadId } = require('worker_threads');
 
 const AppLog = require('../helpers/logging/app-log');
 
-//REVISAR QUE JUEGO DE CONSTANTES ESTÁ PRENDIDO
-//AMBIENTE DEV
-const DEFINITION_ID_BPA_DEV = "us30.process-automation-95oeuot4.ajustescontables.main";
-const URL_BPA_DEV = '/workflow/rest/v1/workflow-instances?environmentId=dev';
-const APIKEY_BPA_DEV = 'eoV2Z3u1DDGAQdusyr_qNQuU0Pjil5Rj';
+const BPA_DEFINITION_ID = process.env.BPA_DEFINITION_ID;
+const BPA_URL = process.env.BPA_URL;
+const BPA_API_KEY = process.env.BPA_API_KEY;
 
-//AMBIENTE PRD
-const DEFINITION_ID_BPA_PRD = "us30.process-automation-95oeuot4.ajustescontables.main";
-const URL_BPA_PRD = '/workflow/rest/v1/workflow-instances?environmentId=prd';
-const APIKEY_BPA_PRD = 'lh8zeBreIeV5VsVISeTEbu8yX9uk48cs';
+if (!BPA_DEFINITION_ID || !BPA_URL || !BPA_API_KEY) {
+  throw new Error("Missing BPA environment variables");
+}
 
 /* ============================================================================================
  * 🧩 HELPER — URLs de Adjuntos (DMS)
@@ -634,7 +631,7 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
           const { solicitante, tipoAsiento, subtipoAsiento, referencia, sector } = valores;
 
           return {
-            definitionId: DEFINITION_ID_BPA_PRD,
+            definitionId: BPA_DEFINITION_ID,
             context: {
               numerosolicitud: `${String(d.numeroSolicitud)}`,
               clasedocumento: d.claseDocumento,
@@ -684,10 +681,10 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
           try {
 
                   let header = {
-                    'irpa-api-key': APIKEY_BPA_PRD
+                    'irpa-api-key': BPA_API_KEY
                   };
                   
-                  let oResult = await bpa_destination.tx(req).post(URL_BPA_PRD, 
+                  let oResult = await bpa_destination.tx(req).post(BPA_URL, 
                                       payload,
                                       header);
 

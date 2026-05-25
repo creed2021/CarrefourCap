@@ -10,10 +10,11 @@ const { threadId } = require('worker_threads');
 
 const AppLog = require('../helpers/logging/app-log');
 
-const URL_S4_HANA_QAS = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi';
-const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi/journalentrycreaterequestconfi?saml2=disabled';
+const URL_S4_HANA = process.env.S4_HANA_URL;
 
-
+if (!URL_S4_HANA) {
+  throw new Error("Missing env var S4_HANA_URL");
+}
 
 function safeUndef(value) {
   if (
@@ -200,7 +201,7 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
     // 5️⃣ Ejecutar la llamada
     const response = await executeHttpRequest(destination, {
       method: 'POST',
-      url: URL_S4_HANA_PRD,
+      url: URL_S4_HANA,
       headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
       data: xmlPayload
     });
