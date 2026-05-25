@@ -1,0 +1,1002 @@
+Retrieving logs for app asientos-ajustes-srv in org Carrefour ARG_process-automation-95oeuot4 / space SP_DEV as dftagliavini@indracompany.com...
+
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _options: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _ended: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _ending: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _redirectCount: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _redirects: [],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _requestBodyLength: 446717,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _requestBodyBuffers: [],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _eventsCount: 3,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _onNativeResponse: [Function (anonymous)],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _currentRequest: [Circular *1],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _currentUrl: 'http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _timeout: null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kBytesWritten): 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kNeedDrain): true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(corked): 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedBuffer): [],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedLength): 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kSocket): [object Socket],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kOutHeaders): [Object: null prototype] {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR accept: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'content-type': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR authorization: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'proxy-authorization': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-client': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'user-agent': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'content-length': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'accept-encoding': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR host: [Array]
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(errored): null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kHighWaterMark): 65536,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kRejectNonStandardBodyWrites): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kUniqueHeaders): null
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR response: {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR status: 500,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR statusText: 'Internal Server Error',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR headers: Object [AxiosHeaders] {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'set-cookie': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'content-type': 'text/xml; charset=utf-8',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'content-length': '469',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR accept: 'text/xml',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-srt_id': '20260522/204342/v1.00_final_6.40/3F912B5B40FE1FE195C702130738F2CB',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-server': 'true',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-perf-fesrec': '753823.000000',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR connection: 'close'
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR config: {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR transitional: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR adapter: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR transformRequest: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR transformResponse: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR timeout: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR xsrfCookieName: 'XSRF-TOKEN',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR xsrfHeaderName: 'X-XSRF-TOKEN',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxContentLength: -1,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxBodyLength: -1,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR env: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR validateStatus: [Function: validateStatus],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR headers: [Object [AxiosHeaders]],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR httpAgent: [Agent],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR httpsAgent: [Agent],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR paramsSerializer: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR method: 'post',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR baseURL: 'http://webdispatcherqas:8043',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR params: {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR proxy: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR url: '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR data: '\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <soapenv:Header/>         \n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <soapenv:Body>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <sfin:JournalEntryBulkCreateRequest>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <CreationDateTime>2026-05-22T23:43:39.748Z</CreationDateTime>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <TestDataIndicator>true</TestDataIndicator>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        </MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <JournalEntryCreateRequest>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <CreationDateTime>2026-05-22T23:43:39.748Z</CreationDateTime>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <TestDataIndicator>true</TestDataIndicator>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          </MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <JournalEntry>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <BusinessTransactionType>RFBU</BusinessTransactionType>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <AccountingDocumentType>SA</AccountingDocumentType>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <CreatedByUser>BTP_ASI_CONT</CreatedByUser>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <CompanyCode>INCS</CompanyCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <DocumentDate>2026-05-08</DocumentDate>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <PostingDate>2026-05-14</PostingDate>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <DocumentReferenceID>Aj Cierre</DocumentReferenceID>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <Reference1InDocumentHeader></Reference1InDocumentHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <DocumentHeaderText>p</DocumentHeaderText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <ReversalDate></ReversalDate>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <ReversalReason></ReversalReason>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            \n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Servicio Seguridad</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012037</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">91904920.76</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Servicio Seguridad</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012037</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">15712038.2</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Servicio Seguridad</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012900</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">2157265.07</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110213</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>EWCA FC 431 ARBIL 2026</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012045</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">4169.75</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Retiro de Equipo/limpieza/desarme/bobina</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">740000</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Etiqueta ILUSTRACION std 105x120 BLANCA</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">1439700</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>SELLO FECHADOR C/PLANCHA 40X60 MM</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">45000</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>VOLIGOMA X 30 ML</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">5500</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>PIZARRA Corcho60x80</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">20600</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>LIQUIDO CORRECTOR ECONOMICO</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">6876</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>LIBRO DE ACTAS 200 PAGINAS</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">13682</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>CUADERNO OFICIO RAYADO x 84 h</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">21250</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>CARPETA PLASTICA DUNSON BASE OPACA TAPA</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">9792</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>CARBONICO OFICIO x 50 Unid.</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">6750</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>PLANCHAS P/PLAST CLTE A4 X 50U</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">183560</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110217</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Reparacion de Cargador</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012045</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">1778910</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110217</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCod'... 436581 more characters,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR allowAbsoluteUrls: true
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR request: <ref *1> ClientRequest {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _events: [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _eventsCount: 7,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR outputData: [],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR outputSize: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR writable: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR destroyed: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _last: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR chunkedEncoding: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR shouldKeepAlive: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxRequestsOnConnectionReached: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _defaultKeepAlive: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR useChunkedEncodingByDefault: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR sendDate: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _removedConnection: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _removedContLen: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _removedTE: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR strictContentLength: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _contentLength: 446717,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _hasBody: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _trailer: '',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR finished: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _headerSent: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _closed: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _header: 'POST http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi HTTP/1.1\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Accept: text/xml\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Content-Type: text/xml\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'authorization: Basic QlRQX0FTSV9DT05UOkluaWNpby0xMjM0NTY3ODk=\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Proxy-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJqaWQiOiJlcTE4TFVxemJsWGNVRnNXVUdXWHJKMHIvSmVXYXdhZjVrRldLMTJ6N1RRPSIsImFsZyI6IlJTMjU2Iiwiamt1IjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS90b2tlbl9rZXlzIiwia2lkIjoiZGVmYXVsdC1qd3Qta2V5LTMzMjNmODRiZmUifQ.eyJzdWIiOiJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiaXNzIjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS9vYXV0aC90b2tlbiIsImF1dGhvcml0aWVzIjpbInVhYS5yZXNvdXJjZSIsImNvbm5lY3Rpdml0eSFiMzMucHJveHkiXSwiY2xpZW50X2lkIjoic2ItY2xvbmU3NGYzYjk3NjMzMGI0ZGI3YWMwMmZiY2ZjMGI5NjkzOCFiNDIwNzl8Y29ubmVjdGl2aXR5IWIzMyIsImF1ZCI6WyJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiY29ubmVjdGl2aXR5IWIzMyIsInVhYSJdLCJleHRfYXR0ciI6eyJlbmhhbmNlciI6IlhTVUFBIiwic3ViYWNjb3VudGlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiemRuIjoicHJvY2Vzcy1hdXRvbWF0aW9uLTk1b2V1b3Q0Iiwic2VydmljZWluc3RhbmNlaWQiOiI3NGYzYjk3Ni0zMzBiLTRkYjctYWMwMi1mYmNmYzBiOTY5MzgifSwiemlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsImF6cCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMiLCJzY29wZSI6WyJ1YWEucmVzb3VyY2UiLCJjb25uZWN0aXZpdHkhYjMzLnByb3h5Il0sImV4cCI6MTc3OTUyNjQ3MCwiaWF0IjoxNzc5NDgzMjcwLCJqdGkiOiIzNjAxM2RjNWYyY2Y0ZmU3OGM5M2M4NjI2YzNiMTZkMyIsInJldl9zaWciOiJjODU4ZDA0NSIsImNpZCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMifQ.nfCbj31EM45TeRhaPFSuenQjvcEZQ9wW24XcZk_yCj-vmxYVHg5btGqyz0MIz0UefBoZqxZBhCoc5wFPmvyhOfWOU3KQ8QggxuMgX9BnQn5cOCk6dW0Oh-0eFcPPlyfWV2QPYMgRgJKqd6e5rKZ5YTIDT9ieh5srXvt3vwl1xwR7j82z-jMuRTm9zi2k1a96p7rMtT3hqLcuV02laWcVwNThsXDxcdF4pSCpHhSKeZlJSWvMUXxI7FQVa8nh7Uo_NLoXT-iGlklQzKFSafTGHvyEOBVH-BMPljbmRpoKHUyJ_7u7jtC0yEs9lWRAaQxmW4U-ukx7W3B8a8XDFxcfvg\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-client: 300\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'User-Agent: axios/1.13.2\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Content-Length: 446717\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'host: webdispatcherqas:8043\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Connection: close\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '\r\n',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _keepAliveTimeout: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _onPendingData: [Function: nop],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR agent: [Agent],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR socketPath: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR method: 'POST',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxHeaderSize: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR insecureHTTPParser: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR joinDuplicateHeaders: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR path: 'http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _ended: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR res: [object IncomingMessage],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR aborted: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR timeoutCb: null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR upgradeOrConnect: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR parser: null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxHeadersCount: null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR reusedSocket: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR host: '192.168.2.5',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR protocol: 'http:',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _redirectable: [Writable],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kBytesWritten): 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kNeedDrain): true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(corked): 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedBuffer): [],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedLength): 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kSocket): [object Socket],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kOutHeaders): [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(errored): null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kHighWaterMark): 65536,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kRejectNonStandardBodyWrites): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kUniqueHeaders): null
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR data: '<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"><soap-env:Header/><soap-env:Body><soap-env:Fault><faultcode>soap-env:Server</faultcode><faultstring xml:lang="es">Error en el tratamiento de servicio web; Más detalles en log de error de servicio web en la página de proveedor (Cronomarcador UTC 20260522234342; ID de transacción 3FF03887618201C0E006A056A5692B00)</faultstring><detail/></soap-env:Fault></soap-env:Body></soap-env:Envelope>'
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR status: 500
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR }
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR [error] - 500 - AxiosError: Request failed with status code 500
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR at settle (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:2106:12)
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR at IncomingMessage.handleStreamEnd (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:3491:11)
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR at Axios.request (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:4731:41)
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR at async ValidaContabilizaAsiento (/home/vcap/app/srv/helpers/sol-helper.js:201:22)
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:545:15)
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR at async Promise.all (index 0)
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:48:24) {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR code: 'ERR_BAD_RESPONSE',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR config: {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR transitional: {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR silentJSONParsing: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR forcedJSONParsing: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR clarifyTimeoutError: false
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR adapter: [ 'xhr', 'http', 'fetch' ],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR transformRequest: [ [Function: transformRequest] ],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR transformResponse: [ [Function: transformResponse] ],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR timeout: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR xsrfCookieName: 'XSRF-TOKEN',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR xsrfHeaderName: 'X-XSRF-TOKEN',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxContentLength: -1,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxBodyLength: -1,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR env: { FormData: [Function [FormData]], Blob: [class Blob] },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR validateStatus: [Function: validateStatus],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR headers: Object [AxiosHeaders] {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Accept: 'text/xml',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Content-Type': 'text/xml',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR authorization: 'Basic QlRQX0FTSV9DT05UOkluaWNpby0xMjM0NTY3ODk=',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Proxy-Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJqaWQiOiJlcTE4TFVxemJsWGNVRnNXVUdXWHJKMHIvSmVXYXdhZjVrRldLMTJ6N1RRPSIsImFsZyI6IlJTMjU2Iiwiamt1IjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS90b2tlbl9rZXlzIiwia2lkIjoiZGVmYXVsdC1qd3Qta2V5LTMzMjNmODRiZmUifQ.eyJzdWIiOiJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiaXNzIjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS9vYXV0aC90b2tlbiIsImF1dGhvcml0aWVzIjpbInVhYS5yZXNvdXJjZSIsImNvbm5lY3Rpdml0eSFiMzMucHJveHkiXSwiY2xpZW50X2lkIjoic2ItY2xvbmU3NGYzYjk3NjMzMGI0ZGI3YWMwMmZiY2ZjMGI5NjkzOCFiNDIwNzl8Y29ubmVjdGl2aXR5IWIzMyIsImF1ZCI6WyJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiY29ubmVjdGl2aXR5IWIzMyIsInVhYSJdLCJleHRfYXR0ciI6eyJlbmhhbmNlciI6IlhTVUFBIiwic3ViYWNjb3VudGlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiemRuIjoicHJvY2Vzcy1hdXRvbWF0aW9uLTk1b2V1b3Q0Iiwic2VydmljZWluc3RhbmNlaWQiOiI3NGYzYjk3Ni0zMzBiLTRkYjctYWMwMi1mYmNmYzBiOTY5MzgifSwiemlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsImF6cCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMiLCJzY29wZSI6WyJ1YWEucmVzb3VyY2UiLCJjb25uZWN0aXZpdHkhYjMzLnByb3h5Il0sImV4cCI6MTc3OTUyNjQ3MCwiaWF0IjoxNzc5NDgzMjcwLCJqdGkiOiIzNjAxM2RjNWYyY2Y0ZmU3OGM5M2M4NjI2YzNiMTZkMyIsInJldl9zaWciOiJjODU4ZDA0NSIsImNpZCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMifQ.nfCbj31EM45TeRhaPFSuenQjvcEZQ9wW24XcZk_yCj-vmxYVHg5btGqyz0MIz0UefBoZqxZBhCoc5wFPmvyhOfWOU3KQ8QggxuMgX9BnQn5cOCk6dW0Oh-0eFcPPlyfWV2QPYMgRgJKqd6e5rKZ5YTIDT9ieh5srXvt3vwl1xwR7j82z-jMuRTm9zi2k1a96p7rMtT3hqLcuV02laWcVwNThsXDxcdF4pSCpHhSKeZlJSWvMUXxI7FQVa8nh7Uo_NLoXT-iGlklQzKFSafTGHvyEOBVH-BMPljbmRpoKHUyJ_7u7jtC0yEs9lWRAaQxmW4U-ukx7W3B8a8XDFxcfvg',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-client': '300',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'User-Agent': 'axios/1.13.2',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Content-Length': '446717',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Accept-Encoding': 'gzip, compress, deflate, br'
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR httpAgent: Agent {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _events: [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _eventsCount: 2,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR options: [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR defaultPort: 80,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR protocol: 'http:',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR requests: [Object: null prototype] {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR sockets: [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR freeSockets: [Object: null prototype] {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR keepAliveMsecs: 1000,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR keepAlive: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxSockets: Infinity,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxFreeSockets: 256,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR scheduling: 'lifo',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxTotalSockets: Infinity,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR totalSocketCount: 1,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR agentKeepAliveTimeoutBuffer: 1000,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR httpsAgent: Agent {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _events: [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _eventsCount: 2,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR options: [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR defaultPort: 443,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR protocol: 'https:',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR requests: [Object: null prototype] {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR sockets: [Object: null prototype] {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR freeSockets: [Object: null prototype] {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR keepAliveMsecs: 1000,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR keepAlive: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxSockets: Infinity,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxFreeSockets: 256,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR scheduling: 'lifo',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxTotalSockets: Infinity,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR totalSocketCount: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR agentKeepAliveTimeoutBuffer: 1000,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxCachedSessions: 100,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _sessionCache: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR paramsSerializer: { serialize: [Function: serialize] },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR method: 'post',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR baseURL: 'http://webdispatcherqas:8043',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR params: {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR proxy: { host: '192.168.2.5', protocol: 'http', port: '20003' },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR url: '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR data: '\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <soapenv:Header/>         \n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <soapenv:Body>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <sfin:JournalEntryBulkCreateRequest>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <CreationDateTime>2026-05-22T23:43:39.748Z</CreationDateTime>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <TestDataIndicator>true</TestDataIndicator>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        </MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <JournalEntryCreateRequest>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <CreationDateTime>2026-05-22T23:43:39.748Z</CreationDateTime>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <TestDataIndicator>true</TestDataIndicator>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          </MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <JournalEntry>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <BusinessTransactionType>RFBU</BusinessTransactionType>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <AccountingDocumentType>SA</AccountingDocumentType>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <CreatedByUser>BTP_ASI_CONT</CreatedByUser>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <CompanyCode>INCS</CompanyCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <DocumentDate>2026-05-08</DocumentDate>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <PostingDate>2026-05-14</PostingDate>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <DocumentReferenceID>Aj Cierre</DocumentReferenceID>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <Reference1InDocumentHeader></Reference1InDocumentHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <DocumentHeaderText>p</DocumentHeaderText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <ReversalDate></ReversalDate>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <ReversalReason></ReversalReason>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            \n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Servicio Seguridad</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012037</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">91904920.76</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Servicio Seguridad</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012037</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">15712038.2</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Servicio Seguridad</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012900</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">2157265.07</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110213</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>EWCA FC 431 ARBIL 2026</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012045</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">4169.75</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Retiro de Equipo/limpieza/desarme/bobina</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">740000</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Etiqueta ILUSTRACION std 105x120 BLANCA</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">1439700</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>SELLO FECHADOR C/PLANCHA 40X60 MM</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">45000</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>VOLIGOMA X 30 ML</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">5500</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>PIZARRA Corcho60x80</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">20600</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>LIQUIDO CORRECTOR ECONOMICO</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">6876</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>LIBRO DE ACTAS 200 PAGINAS</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">13682</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>CUADERNO OFICIO RAYADO x 84 h</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">21250</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>CARPETA PLASTICA DUNSON BASE OPACA TAPA</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">9792</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>CARBONICO OFICIO x 50 Unid.</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">6750</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>PLANCHAS P/PLAST CLTE A4 X 50U</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">183560</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110217</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Reparacion de Cargador</DocumentItemText>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012045</CostCenter>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">1778910</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110217</GLAccount>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCod'... 436581 more characters,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR allowAbsoluteUrls: true
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR request: <ref *1> ClientRequest {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _events: [Object: null prototype] {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR abort: [Function (anonymous)],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR aborted: [Function (anonymous)],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR connect: [Function (anonymous)],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR error: [Function (anonymous)],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR socket: [Function (anonymous)],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR timeout: [Function (anonymous)],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR finish: [Function: requestOnFinish]
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _eventsCount: 7,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR outputData: [],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR outputSize: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR writable: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR destroyed: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _last: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR chunkedEncoding: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR shouldKeepAlive: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxRequestsOnConnectionReached: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _defaultKeepAlive: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR useChunkedEncodingByDefault: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR sendDate: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _removedConnection: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _removedContLen: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _removedTE: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR strictContentLength: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _contentLength: 446717,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _hasBody: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _trailer: '',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR finished: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _headerSent: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _closed: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _header: 'POST http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi HTTP/1.1\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Accept: text/xml\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Content-Type: text/xml\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'authorization: Basic QlRQX0FTSV9DT05UOkluaWNpby0xMjM0NTY3ODk=\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Proxy-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJqaWQiOiJlcTE4TFVxemJsWGNVRnNXVUdXWHJKMHIvSmVXYXdhZjVrRldLMTJ6N1RRPSIsImFsZyI6IlJTMjU2Iiwiamt1IjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS90b2tlbl9rZXlzIiwia2lkIjoiZGVmYXVsdC1qd3Qta2V5LTMzMjNmODRiZmUifQ.eyJzdWIiOiJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiaXNzIjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS9vYXV0aC90b2tlbiIsImF1dGhvcml0aWVzIjpbInVhYS5yZXNvdXJjZSIsImNvbm5lY3Rpdml0eSFiMzMucHJveHkiXSwiY2xpZW50X2lkIjoic2ItY2xvbmU3NGYzYjk3NjMzMGI0ZGI3YWMwMmZiY2ZjMGI5NjkzOCFiNDIwNzl8Y29ubmVjdGl2aXR5IWIzMyIsImF1ZCI6WyJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiY29ubmVjdGl2aXR5IWIzMyIsInVhYSJdLCJleHRfYXR0ciI6eyJlbmhhbmNlciI6IlhTVUFBIiwic3ViYWNjb3VudGlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiemRuIjoicHJvY2Vzcy1hdXRvbWF0aW9uLTk1b2V1b3Q0Iiwic2VydmljZWluc3RhbmNlaWQiOiI3NGYzYjk3Ni0zMzBiLTRkYjctYWMwMi1mYmNmYzBiOTY5MzgifSwiemlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsImF6cCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMiLCJzY29wZSI6WyJ1YWEucmVzb3VyY2UiLCJjb25uZWN0aXZpdHkhYjMzLnByb3h5Il0sImV4cCI6MTc3OTUyNjQ3MCwiaWF0IjoxNzc5NDgzMjcwLCJqdGkiOiIzNjAxM2RjNWYyY2Y0ZmU3OGM5M2M4NjI2YzNiMTZkMyIsInJldl9zaWciOiJjODU4ZDA0NSIsImNpZCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMifQ.nfCbj31EM45TeRhaPFSuenQjvcEZQ9wW24XcZk_yCj-vmxYVHg5btGqyz0MIz0UefBoZqxZBhCoc5wFPmvyhOfWOU3KQ8QggxuMgX9BnQn5cOCk6dW0Oh-0eFcPPlyfWV2QPYMgRgJKqd6e5rKZ5YTIDT9ieh5srXvt3vwl1xwR7j82z-jMuRTm9zi2k1a96p7rMtT3hqLcuV02laWcVwNThsXDxcdF4pSCpHhSKeZlJSWvMUXxI7FQVa8nh7Uo_NLoXT-iGlklQzKFSafTGHvyEOBVH-BMPljbmRpoKHUyJ_7u7jtC0yEs9lWRAaQxmW4U-ukx7W3B8a8XDFxcfvg\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-client: 300\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'User-Agent: axios/1.13.2\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Content-Length: 446717\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'host: webdispatcherqas:8043\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'Connection: close\r\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '\r\n',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _keepAliveTimeout: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _onPendingData: [Function: nop],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR agent: Agent {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _events: [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _eventsCount: 2,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR options: [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR defaultPort: 80,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR protocol: 'http:',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR requests: [Object: null prototype] {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR sockets: [Object: null prototype],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR freeSockets: [Object: null prototype] {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR keepAliveMsecs: 1000,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR keepAlive: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxSockets: Infinity,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxFreeSockets: 256,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR scheduling: 'lifo',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxTotalSockets: Infinity,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR totalSocketCount: 1,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR agentKeepAliveTimeoutBuffer: 1000,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR socketPath: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR method: 'POST',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxHeaderSize: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR insecureHTTPParser: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR joinDuplicateHeaders: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR path: 'http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _ended: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR res: [object IncomingMessage],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR aborted: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR timeoutCb: null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR upgradeOrConnect: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR parser: null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxHeadersCount: null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR reusedSocket: false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR host: '192.168.2.5',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR protocol: 'http:',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _redirectable: Writable {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _events: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _writableState: [WritableState],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _options: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _ended: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _ending: true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _redirectCount: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _redirects: [],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _requestBodyLength: 446717,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _requestBodyBuffers: [],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _eventsCount: 3,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _onNativeResponse: [Function (anonymous)],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _currentRequest: [Circular *1],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _currentUrl: 'http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR _timeout: null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kBytesWritten): 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kNeedDrain): true,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(corked): 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedBuffer): [],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedLength): 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kSocket): [object Socket],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kOutHeaders): [Object: null prototype] {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR accept: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'content-type': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR authorization: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'proxy-authorization': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-client': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'user-agent': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'content-length': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'accept-encoding': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR host: [Array]
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(errored): null,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kHighWaterMark): 65536,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kRejectNonStandardBodyWrites): false,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR Symbol(kUniqueHeaders): null
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR response: {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR status: 500,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR statusText: 'Internal Server Error',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR headers: Object [AxiosHeaders] {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'set-cookie': [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'content-type': 'text/xml; charset=utf-8',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'content-length': '469',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR accept: 'text/xml',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-srt_id': '20260522/204342/v1.00_final_6.40/3F912B5B40FE1FE195C702130738F2CB',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-server': 'true',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR 'sap-perf-fesrec': '753823.000000',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR connection: 'close'
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR config: {
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR transitional: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR adapter: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR transformRequest: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR transformResponse: [Array],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR timeout: 0,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR xsrfCookieName: 'XSRF-TOKEN',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR xsrfHeaderName: 'X-XSRF-TOKEN',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxContentLength: -1,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR maxBodyLength: -1,
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR env: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR validateStatus: [Function: validateStatus],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR headers: [Object [AxiosHeaders]],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR httpAgent: [Agent],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR httpsAgent: [Agent],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR paramsSerializer: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR method: 'post',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR baseURL: 'http://webdispatcherqas:8043',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR params: {},
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR proxy: [Object],
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR url: '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR data: '\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <soapenv:Header/>         \n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                    <soapenv:Body>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                      <sfin:JournalEntryBulkCreateRequest>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <CreationDateTime>2026-05-22T23:43:39.748Z</CreationDateTime>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <TestDataIndicator>true</TestDataIndicator>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        </MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                        <JournalEntryCreateRequest>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <CreationDateTime>2026-05-22T23:43:39.748Z</CreationDateTime>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <TestDataIndicator>true</TestDataIndicator>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          </MessageHeader>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                          <JournalEntry>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <BusinessTransactionType>RFBU</BusinessTransactionType>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <AccountingDocumentType>SA</AccountingDocumentType>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <CreatedByUser>BTP_ASI_CONT</CreatedByUser>\n' +
+   2026-05-22T23:43:43.12+0000 [APP/PROC/WEB/0] ERR '                            <CompanyCode>INCS</CompanyCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                            <DocumentDate>2026-05-08</DocumentDate>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                            <PostingDate>2026-05-14</PostingDate>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                            <DocumentReferenceID>Aj Cierre</DocumentReferenceID>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                            <Reference1InDocumentHeader></Reference1InDocumentHeader>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                            <DocumentHeaderText>p</DocumentHeaderText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                            <ReversalDate></ReversalDate>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                            <ReversalReason></ReversalReason>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                            \n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Servicio Seguridad</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012037</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">91904920.76</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Servicio Seguridad</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012037</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">15712038.2</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Servicio Seguridad</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012900</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">2157265.07</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110213</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>EWCA FC 431 ARBIL 2026</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012045</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">4169.75</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110212</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Retiro de Equipo/limpieza/desarme/bobina</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">740000</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Etiqueta ILUSTRACION std 105x120 BLANCA</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">1439700</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>SELLO FECHADOR C/PLANCHA 40X60 MM</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">45000</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>VOLIGOMA X 30 ML</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">5500</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>PIZARRA Corcho60x80</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">20600</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>LIQUIDO CORRECTOR ECONOMICO</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">6876</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>LIBRO DE ACTAS 200 PAGINAS</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">13682</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>CUADERNO OFICIO RAYADO x 84 h</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">21250</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>CARPETA PLASTICA DUNSON BASE OPACA TAPA</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">9792</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>CARBONICO OFICIO x 50 Unid.</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">6750</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110218</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>PLANCHAS P/PLAST CLTE A4 X 50U</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012056</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">183560</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110217</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>S</DebitCreditCode>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>Reparacion de Cargador</DocumentItemText>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411012045</CostCenter>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">1778910</AmountInTransactionCurrency>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>52110217</GLAccount>\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCod'... 436581 more characters,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR allowAbsoluteUrls: true
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR request: <ref *1> ClientRequest {
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _events: [Object: null prototype],
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _eventsCount: 7,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR outputData: [],
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR outputSize: 0,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR writable: true,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR destroyed: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _last: true,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR chunkedEncoding: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR shouldKeepAlive: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR maxRequestsOnConnectionReached: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _defaultKeepAlive: true,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR useChunkedEncodingByDefault: true,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR sendDate: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _removedConnection: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _removedContLen: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _removedTE: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR strictContentLength: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _contentLength: 446717,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _hasBody: true,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _trailer: '',
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR finished: true,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _headerSent: true,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _closed: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _header: 'POST http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi HTTP/1.1\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'Accept: text/xml\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'Content-Type: text/xml\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'authorization: Basic QlRQX0FTSV9DT05UOkluaWNpby0xMjM0NTY3ODk=\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'Proxy-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJqaWQiOiJlcTE4TFVxemJsWGNVRnNXVUdXWHJKMHIvSmVXYXdhZjVrRldLMTJ6N1RRPSIsImFsZyI6IlJTMjU2Iiwiamt1IjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS90b2tlbl9rZXlzIiwia2lkIjoiZGVmYXVsdC1qd3Qta2V5LTMzMjNmODRiZmUifQ.eyJzdWIiOiJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiaXNzIjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS9vYXV0aC90b2tlbiIsImF1dGhvcml0aWVzIjpbInVhYS5yZXNvdXJjZSIsImNvbm5lY3Rpdml0eSFiMzMucHJveHkiXSwiY2xpZW50X2lkIjoic2ItY2xvbmU3NGYzYjk3NjMzMGI0ZGI3YWMwMmZiY2ZjMGI5NjkzOCFiNDIwNzl8Y29ubmVjdGl2aXR5IWIzMyIsImF1ZCI6WyJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiY29ubmVjdGl2aXR5IWIzMyIsInVhYSJdLCJleHRfYXR0ciI6eyJlbmhhbmNlciI6IlhTVUFBIiwic3ViYWNjb3VudGlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiemRuIjoicHJvY2Vzcy1hdXRvbWF0aW9uLTk1b2V1b3Q0Iiwic2VydmljZWluc3RhbmNlaWQiOiI3NGYzYjk3Ni0zMzBiLTRkYjctYWMwMi1mYmNmYzBiOTY5MzgifSwiemlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsImF6cCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMiLCJzY29wZSI6WyJ1YWEucmVzb3VyY2UiLCJjb25uZWN0aXZpdHkhYjMzLnByb3h5Il0sImV4cCI6MTc3OTUyNjQ3MCwiaWF0IjoxNzc5NDgzMjcwLCJqdGkiOiIzNjAxM2RjNWYyY2Y0ZmU3OGM5M2M4NjI2YzNiMTZkMyIsInJldl9zaWciOiJjODU4ZDA0NSIsImNpZCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMifQ.nfCbj31EM45TeRhaPFSuenQjvcEZQ9wW24XcZk_yCj-vmxYVHg5btGqyz0MIz0UefBoZqxZBhCoc5wFPmvyhOfWOU3KQ8QggxuMgX9BnQn5cOCk6dW0Oh-0eFcPPlyfWV2QPYMgRgJKqd6e5rKZ5YTIDT9ieh5srXvt3vwl1xwR7j82z-jMuRTm9zi2k1a96p7rMtT3hqLcuV02laWcVwNThsXDxcdF4pSCpHhSKeZlJSWvMUXxI7FQVa8nh7Uo_NLoXT-iGlklQzKFSafTGHvyEOBVH-BMPljbmRpoKHUyJ_7u7jtC0yEs9lWRAaQxmW4U-ukx7W3B8a8XDFxcfvg\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'sap-client: 300\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'User-Agent: axios/1.13.2\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'Content-Length: 446717\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'host: webdispatcherqas:8043\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR 'Connection: close\r\n' +
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR '\r\n',
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _keepAliveTimeout: 0,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _onPendingData: [Function: nop],
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR agent: [Agent],
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR socketPath: undefined,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR method: 'POST',
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR maxHeaderSize: undefined,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR insecureHTTPParser: undefined,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR joinDuplicateHeaders: undefined,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR path: 'http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _ended: true,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR res: [object IncomingMessage],
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR aborted: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR timeoutCb: null,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR upgradeOrConnect: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR parser: null,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR maxHeadersCount: null,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR reusedSocket: false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR host: '192.168.2.5',
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR protocol: 'http:',
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR _redirectable: [Writable],
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kBytesWritten): 0,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kNeedDrain): true,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(corked): 0,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedBuffer): [],
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedLength): 0,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kSocket): [object Socket],
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kOutHeaders): [Object: null prototype],
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(errored): null,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kHighWaterMark): 65536,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kRejectNonStandardBodyWrites): false,
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR Symbol(kUniqueHeaders): null
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR },
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR data: '<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"><soap-env:Header/><soap-env:Body><soap-env:Fault><faultcode>soap-env:Server</faultcode><faultstring xml:lang="es">Error en el tratamiento de servicio web; Más detalles en log de error de servicio web en la página de proveedor (Cronomarcador UTC 20260522234342; ID de transacción 3FF03887618201C0E006A056A5692B00)</faultstring><detail/></soap-env:Fault></soap-env:Body></soap-env:Envelope>'
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR }
+   2026-05-22T23:43:43.13+0000 [APP/PROC/WEB/0] ERR }
+   2026-05-22T23:43:43.13+0000 [RTR/5] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-05-22T23:43:27.280168346Z] "POST /odata/v4/gestiona-asientos/$batch HTTP/1.1" 200 135038 306 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36" "10.5.8.0:62594" "10.5.9.11:61108" x_forwarded_for:"163.116.225.113, 10.2.8.0, 35.202.175.147, 10.5.8.0" x_forwarded_proto:"https" vcap_request_id:"883619ce-706a-4fcf-4b18-36719c19f50d" response_time:15.856892 gorouter_time:0.000068 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"92d32cf2-d09e-4dee-742e-c5d8" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.000402 tls_time:0.008497 backend_time:15.856823 local_address:"10.5.1.9:13676" x_cf_routererror:"-" x_correlationid:"883619ce-706a-4fcf-4b18-36719c19f50d" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"18111f19-cc83-4092-9d1b-b4fb2ca254ea-6A10EA1F-441B535" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-e09a514681a3327256bf54a4495214f7-75f2f7bb61c59abc-01" true_client_ip:"-" x_cf_true_client_ip:"35.202.175.147" x_request_id:"-" x_b3_traceid:"883619ce706a4fcf4b1836719c19f50d" x_b3_spanid:"4b1836719c19f50d" x_b3_parentspanid:"-" b3:"883619ce706a4fcf4b1836719c19f50d-4b1836719c19f50d"

@@ -2,9 +2,12 @@ const { getDmsClient } = require("./dms-client");
 const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
 const { getDestination } = require('@sap-cloud-sdk/connectivity');
 
-const REPO_ID_DEV = "59ec1b8c-cf7c-465c-bd5b-460bcb6ca9a4";
-const REPO_ID_PRD = "f2fdf3d8-7692-4816-ba33-563a9390dae1";
-const BASE = `/browser/${REPO_ID_DEV}`;
+const REPO_ID = process.env.DMS_REPO_ID;
+
+if (!REPO_ID) {
+  throw new Error("Missing env var DMS_REPO_ID");
+}
+const BASE = `/browser/${REPO_ID}`;
 
 const AppLog = require('../helpers/logging/app-log');
 
