@@ -49,3 +49,17 @@ annotate service.Sectores with @(UI.HeaderInfo: {
     TypeName      : 'Listado de Sectores',
     TypeNamePlural: 'Listado de Sectores'
 });
+
+annotate service.Sectores with @(
+    UI.PresentationVariant : {
+        $Type : 'UI.PresentationVariantType',
+        Visualizations : ['@UI.LineItem'],
+        SortOrder : [
+            {
+                $Type : 'Common.SortOrderType',
+                Property : nombre,
+                Descending : false
+            }
+        ]
+    }
+);
