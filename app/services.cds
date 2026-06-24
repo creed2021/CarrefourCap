@@ -20,3 +20,5 @@ using from './maestro-empleados/annotations';
 using from './maestro-sectores/annotations';
 
 using from './maestro-cuentas/annotations';
+
+using from './maestro-configadjuntos/annotations';

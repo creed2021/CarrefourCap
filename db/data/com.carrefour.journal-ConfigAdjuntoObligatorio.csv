@@ -1,0 +1,4 @@
+ID,tipoAsiento_ID,obligatorio,createdAt,createdBy,modifiedAt,modifiedBy
+cf288290-14e7-49ab-a98a-d2635cafd14f,7d332e84-551a-491c-8ba2-895245401633,true,2026-06-24T00:00:00.000000,init-script,2026-06-24T00:00:00.000000,init-script
+f900c03f-93fc-4614-9c51-46abe36a9e52,664a1901-083e-4eb8-b5d9-32ab0b61b5d6,true,2026-06-24T00:00:00.000000,init-script,2026-06-24T00:00:00.000000,init-script
+fdbb8e0f-c517-4cb2-88ed-cd7170918587,406bd618-c071-42cd-b33c-72df2f655978,true,2026-06-24T00:00:00.000000,init-script,2026-06-24T00:00:00.000000,init-script

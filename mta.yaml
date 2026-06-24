@@ -90,6 +90,10 @@ modules:
       - comcarrefourmaestrosectores.zip
       name: comcarrefourmaestrosectores
       target-path: resources/
+    - artifacts:
+      - maestroconfigadjuntos.zip
+      name: maestroconfigadjuntos
+      target-path: resources/
 - name: asientos-ajustes-destinations
   type: com.sap.application.content
   requires:
@@ -184,6 +188,16 @@ modules:
 - name: comcarrefourmaestrosectores
   type: html5
   path: app/maestro-sectores
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: maestroconfigadjuntos
+  type: html5
+  path: app/maestro-configadjuntos
   build-parameters:
     build-result: dist
     builder: custom

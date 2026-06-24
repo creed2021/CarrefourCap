@@ -35,7 +35,8 @@
     "watch-consulta-estado-solicitudes": "cds watch --open com.carrefour.consultaestadosolicitudes/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-maestro-empleados": "cds watch --open com.carrefour.maestroempleados/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-maestro-sectores": "cds watch --open com.carrefour.maestrosectores/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "watch-maestro-cuentas": "cds watch --open com.carrefour.maestrocuentas/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-maestro-cuentas": "cds watch --open com.carrefour.maestrocuentas/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-maestro-configadjuntos": "cds watch --open maestroconfigadjuntos/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "workspaces": [
@@ -120,6 +121,7 @@
     "app/consulta-estado-solicitudes",
     "app/maestro-empleados",
     "app/maestro-sectores",
-    "app/maestro-cuentas"
+    "app/maestro-cuentas",
+    "app/maestro-configadjuntos"
   ]
 }
