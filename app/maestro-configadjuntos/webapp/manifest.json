@@ -24,6 +24,19 @@
           "odataVersion": "4.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "maestro_configadjuntos-show": {
+          "semanticObject": "maestro_configadjuntos",
+          "action": "show",
+          "title": "{{maestro_configadjuntos-show.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
   },
   "sap.ui": {
