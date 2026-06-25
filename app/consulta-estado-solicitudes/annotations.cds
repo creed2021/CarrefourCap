@@ -97,6 +97,12 @@ annotate service.CabeceraAsiento with @(
         },
         {
             $Type : 'UI.ReferenceFacet',
+            Label : 'Resumen por Cuenta',
+            ID    : 'ResumenCuentas',
+            Target: 'resumenCuentas/@UI.SelectionPresentationVariant#ResumenCuentas',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
             Label : 'Detalle de Aprobadores',
             ID    : 'DetalledeAprobadores',
             Target: 'aprobadoresSolicitud/@UI.SelectionPresentationVariant#DetalledeAprobadores1',
@@ -328,6 +334,53 @@ annotate service.DetalleAsiento with @(
             SortOrder     : [{
                 $Type     : 'Common.SortOrderType',
                 Property  : numeroLinea,
+                Descending: false,
+            }, ],
+        },
+        SelectionVariant   : {
+            $Type        : 'UI.SelectionVariantType',
+            SelectOptions: [],
+        },
+    },
+);
+
+annotate service.ResumenCuentas with @(
+    UI.LineItem #ResumenCuentas                    : [
+        {
+            $Type: 'UI.DataField',
+            Value: idCuenta,
+            Label: 'Cuenta',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: nombreCuenta,
+            Label: 'Nombre Cuenta',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: tipoCuenta,
+            Label: 'Tipo de Cuenta',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: importeDebe,
+            Label: 'Debe',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: importeHaber,
+            Label: 'Haber',
+        },
+    ],
+    UI.SelectionPresentationVariant #ResumenCuentas: {
+        $Type              : 'UI.SelectionPresentationVariantType',
+        PresentationVariant: {
+            $Type         : 'UI.PresentationVariantType',
+            Visualizations: ['@UI.LineItem#ResumenCuentas',
+            ],
+            SortOrder     : [{
+                $Type     : 'Common.SortOrderType',
+                Property  : idCuenta,
                 Descending: false,
             }, ],
         },
