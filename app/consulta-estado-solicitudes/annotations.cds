@@ -1,5 +1,4 @@
 using GestionaAsientos as service from '../../srv/service';
-
 annotate service.CabeceraAsiento with @(
     UI.FieldGroup #GeneratedGroup: {
         $Type: 'UI.FieldGroupType',
@@ -97,6 +96,12 @@ annotate service.CabeceraAsiento with @(
         },
         {
             $Type : 'UI.ReferenceFacet',
+            Label : 'Resumen por Cuenta',
+            ID    : 'ResumenCuentas',
+            Target: 'resumenCuentas/@UI.SelectionPresentationVariant#ResumenCuentas',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
             Label : 'Detalle de Aprobadores',
             ID    : 'DetalledeAprobadores',
             Target: 'aprobadoresSolicitud/@UI.SelectionPresentationVariant#DetalledeAprobadores1',
@@ -148,7 +153,6 @@ annotate service.CabeceraAsiento with @(
         },
     ],
 );
-
 annotate service.CabeceraAsiento with {
     estadoSolicitud @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -170,7 +174,6 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
-
 annotate service.CabeceraAsiento with {
     sectorSolicitante @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -192,7 +195,6 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
-
 annotate service.CabeceraAsiento with {
     tipoAsiento @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -218,7 +220,6 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
-
 annotate service.CabeceraAsiento with {
     subtipoAsiento @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -244,7 +245,6 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
-
 annotate service.CabeceraAsiento with {
     referencia @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -266,7 +266,6 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
-
 annotate service.CabeceraAsiento with {
     solicitante @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -288,7 +287,6 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
-
 annotate service.DetalleAsiento with @(
     UI.DeleteHidden                                  : true,
     UI.LineItem #DetalledeAsiento                    : [
@@ -337,7 +335,52 @@ annotate service.DetalleAsiento with @(
         },
     },
 );
-
+annotate service.ResumenCuentas with @(
+    UI.LineItem #ResumenCuentas                    : [
+        {
+            $Type: 'UI.DataField',
+            Value: idCuenta,
+            Label: 'Cuenta',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: nombreCuenta,
+            Label: 'Nombre Cuenta',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: tipoCuenta,
+            Label: 'Tipo de Cuenta',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: importeDebe,
+            Label: 'Debe',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: importeHaber,
+            Label: 'Haber',
+        },
+    ],
+    UI.SelectionPresentationVariant #ResumenCuentas: {
+        $Type              : 'UI.SelectionPresentationVariantType',
+        PresentationVariant: {
+            $Type         : 'UI.PresentationVariantType',
+            Visualizations: ['@UI.LineItem#ResumenCuentas',
+            ],
+            SortOrder     : [{
+                $Type     : 'Common.SortOrderType',
+                Property  : idCuenta,
+                Descending: false,
+            }, ],
+        },
+        SelectionVariant   : {
+            $Type        : 'UI.SelectionVariantType',
+            SelectOptions: [],
+        },
+    },
+);
 annotate service.AprobadorSolicitud with @(
     UI.LineItem #DetalledeAprobadores                     : [
         {
@@ -408,7 +451,6 @@ annotate service.AprobadorSolicitud with @(
         },
     },
 );
-
 annotate service.AdjuntoSolicitud with @(UI.LineItem #Adjuntos: [
     {
         $Type: 'UI.DataField',
@@ -427,7 +469,6 @@ annotate service.AdjuntoSolicitud with @(UI.LineItem #Adjuntos: [
         Url  : urlAdjunto
     },
 ]);
-
 annotate service.CabeceraAsiento with @(UI.HeaderInfo: {
     TypeName      : 'Listado de Solicitudes',
     TypeNamePlural: 'Listado de Solicitudes'
