@@ -116,6 +116,7 @@
             "settings": {
               "contextPath": "/ConfigAdjuntosObligatorios",
               "variantManagement": "Page",
+              "initialLoad": "Enabled",
               "navigation": {
                 "ConfigAdjuntosObligatorios": {
                   "detail": {
