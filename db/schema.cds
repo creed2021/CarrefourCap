@@ -109,7 +109,8 @@ entity Sector : cuid, managed {
 }
 entity Empleado : cuid, managed {
   nombre            : String(50);
-  email              : String(100);
+  email             : String(100);
+  username          : String(100);
 }
 
 entity AprobadorSolicitud: cuid, managed {

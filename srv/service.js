@@ -114,6 +114,31 @@ this.on(['CREATE','UPDATE'], 'Empleados', informaFailConstraint);
 this.on('DELETE', 'Empleados', informaConstraintsDelete);
 this.before(['UPDATE', 'draftActivate'],'Empleados', controlesCampoRegistro({immutable: ['email']}));
 
+this.before(['CREATE', 'UPDATE'], 'Empleados', async (req) => {
+    if (req.data.email) {
+        try {
+            const iasApi = await cds.connect.to("ias-api");
+            // IAS API uses SCIM protocol, searching by email
+            let res = await iasApi.tx(req).get(`/scim/Users?filter=emails.value eq "${req.data.email}"`);
+            if (res && res.Resources && res.Resources.length > 0) {
+                let user = res.Resources[0];
+                // Intentamos sacar el userName, si está vacío usamos el id (UUID)
+                let fetchedUsername = user.userName;
+                if (!fetchedUsername || fetchedUsername.trim() === "") {
+                    fetchedUsername = user.id;
+                }
+                req.data.username = fetchedUsername;
+                console.info(`[IAS API] Fetched username ${req.data.username} for email ${req.data.email}`);
+            } else {
+                console.warn(`[IAS API] User with email ${req.data.email} not found in IAS.`);
+            }
+        } catch (err) {
+            console.error("❌ [IAS API] Error fetching username from IAS:", err.message);
+        }
+    }
+});
+
+
 this.on(['CREATE','UPDATE'], 'ConfigAprobadores', informaFailConstraint);
 this.on('DELETE', 'ConfigAprobadores', informaConstraintsDelete);
 
