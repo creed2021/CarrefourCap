@@ -17,6 +17,7 @@ entity CabeceraAsiento : cuid, managed {
   sociedad                     : String(50)                    @title: 'Sociedad';
   numeroDocumentoSAP           : String(20);
   idInstanciaWorkflow          : String(100);
+  nivelesWorkflow              : Integer default 1;
   // ✅ Campo no persistente, pero accesible vía OData y req.data
   correo_solicitante           : String(100)
                                                                @cds.persistence.skip
@@ -131,12 +132,13 @@ entity Empleado : cuid, managed {
 }
 
 entity AprobadorSolicitud : cuid, managed {
-  empleado        : Association to Empleado;
-  fechaAprobacion : Date;
-  nivelAprobacion : String(200);
-  decision        : String(15);
-  /* Owner → CabeceraAsiento */
-  cabecera        : Association to one CabeceraAsiento;
+  empleado          : Association to Empleado;
+  fechaAprobacion   : Date;
+  nivelAprobacion   : String(200);
+  decision          : String(15);
+  cabecera          : Association to one CabeceraAsiento;
+  flujoaprobadores  : String(5000);  
+  motivoRechazo     : String(1000);  
 }
 
 @assert.unique: {empSecConfigSol: [
