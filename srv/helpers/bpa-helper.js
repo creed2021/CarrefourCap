@@ -260,11 +260,20 @@ async function getAprobadoresNivel1(req) {
           // 5️⃣ Traer empleados finales
           const empleados = await catalog.run(
             SELECT.from('CatalogService.Empleados')
-              .columns('email', 'username')
+              .columns('ID', 'email')
               .where({ ID: { in: aprobadoresIDs } })
           );
 
-          return empleados.map(e => ({ email: e.email, username: e.username || e.email }));
+          const cuentas = await cds.tx(req).run(
+            SELECT.from('com.carrefour.journal.CuentaUsuario')
+              .columns('empleado_ID', 'username')
+              .where({ empleado_ID: { in: aprobadoresIDs } })
+          );
+
+          return empleados.map(e => {
+              const c = cuentas.find(x => x.empleado_ID === e.ID);
+              return { email: e.email, username: c?.username || e.email };
+          });
     } catch (err) {
       console.error("❌ [getAprobadoresNivel1] 🔴 Error detectado", err);
       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -336,11 +345,20 @@ async function getAprobadoresNivel1(req) {
             // 6️⃣ Traer los empleados finales
             const empleados = await catalog.run(
               SELECT.from('CatalogService.Empleados')
-                .columns('email', 'username')
+                .columns('ID', 'email')
                 .where({ ID: { in: aprobadoresIDs } })
             );
 
-            return empleados.map(e => ({ email: e.email, username: e.username || e.email }));
+            const cuentas = await cds.tx(req).run(
+              SELECT.from('com.carrefour.journal.CuentaUsuario')
+                .columns('empleado_ID', 'username')
+                .where({ empleado_ID: { in: aprobadoresIDs } })
+            );
+
+            return empleados.map(e => {
+                const c = cuentas.find(x => x.empleado_ID === e.ID);
+                return { email: e.email, username: c?.username || e.email };
+            });
         } catch (err) {
           console.error("❌ [getAprobadoresNivel2] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -471,14 +489,22 @@ async function getAprobadoresNivel1(req) {
             // 7️⃣ Traer empleados finales
             const empleados = await catalog.run(
               SELECT.from('CatalogService.Empleados')
-                .columns('email', 'username')
+                .columns('ID', 'email')
                 .where({ ID: { in: aprobadoresIDs } })
+            );
+
+            const cuentas = await cds.tx(req).run(
+              SELECT.from('com.carrefour.journal.CuentaUsuario')
+                .columns('empleado_ID', 'username')
+                .where({ empleado_ID: { in: aprobadoresIDs } })
             );
 
             console.info(`🟦 [getAprobadoresNivel3] Aprobadores Nivel 3 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
-
-            return empleados.map(e => ({ email: e.email, username: e.username || e.email }));
+            return empleados.map(e => {
+                const c = cuentas.find(x => x.empleado_ID === e.ID);
+                return { email: e.email, username: c?.username || e.email };
+            });
         } catch (err) {
           console.error("❌ [getAprobadoresNivel3] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -608,13 +634,22 @@ async function getAprobadoresNivel1(req) {
               // 7️⃣ Traer empleados finales
               const empleados = await catalog.run(
                 SELECT.from('CatalogService.Empleados')
-                  .columns('email', 'username')
+                  .columns('ID', 'email')
                   .where({ ID: { in: aprobadoresIDs } })
+              );
+
+              const cuentas = await cds.tx(req).run(
+                SELECT.from('com.carrefour.journal.CuentaUsuario')
+                  .columns('empleado_ID', 'username')
+                  .where({ empleado_ID: { in: aprobadoresIDs } })
               );
 
               console.info(`🟥 Aprobadores Nivel 4 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
-              return empleados.map(e => ({ email: e.email, username: e.username || e.email }));
+              return empleados.map(e => {
+                  const c = cuentas.find(x => x.empleado_ID === e.ID);
+                  return { email: e.email, username: c?.username || e.email };
+              });
           } catch (err) {
             console.error("❌ [getAprobadoresNivel4] 🔴 Error detectado", err);
             // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
