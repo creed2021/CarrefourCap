@@ -110,6 +110,7 @@ module.exports = cds.service.impl(async function () {
   }));
 
 
+  
   this.on(['CREATE', 'UPDATE'], 'Empleados', informaFailConstraint);
   this.on('DELETE', 'Empleados', informaConstraintsDelete);
   this.before(['UPDATE', 'draftActivate'], 'Empleados', controlesCampoRegistro({ immutable: ['email'] }));
