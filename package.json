@@ -67,6 +67,12 @@
       ]
     },
     "requires": {
+      "ias-api": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "IAS_API"
+        }
+      },
       "bpa-api": {
         "kind": "rest",
         "credentials": {

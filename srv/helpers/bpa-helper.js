@@ -252,11 +252,11 @@ async function getAprobadoresNivel1(req) {
           // 5️⃣ Traer empleados finales
           const empleados = await catalog.run(
             SELECT.from('CatalogService.Empleados')
-              .columns('email')
+              .columns('email', 'username')
               .where({ ID: { in: aprobadoresIDs } })
           );
 
-          return empleados.map(e => e.email);
+          return empleados.map(e => ({ email: e.email, username: e.username || e.email }));
     } catch (err) {
       AppLog.error("❌ [getAprobadoresNivel1] 🔴 Error detectado", err);
       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -328,11 +328,11 @@ async function getAprobadoresNivel1(req) {
             // 6️⃣ Traer los empleados finales
             const empleados = await catalog.run(
               SELECT.from('CatalogService.Empleados')
-                .columns('email')
+                .columns('email', 'username')
                 .where({ ID: { in: aprobadoresIDs } })
             );
 
-            return empleados.map(e => e.email);
+            return empleados.map(e => ({ email: e.email, username: e.username || e.email }));
         } catch (err) {
           AppLog.error("❌ [getAprobadoresNivel2] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -464,14 +464,14 @@ async function getAprobadoresNivel1(req) {
             // 7️⃣ Traer empleados finales
             const empleados = await catalog.run(
               SELECT.from('CatalogService.Empleados')
-                .columns('email')
+                .columns('email', 'username')
                 .where({ ID: { in: aprobadoresIDs } })
             );
 
             AppLog.debug(`🟦 [getAprobadoresNivel3] Aprobadores Nivel 3 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
 
-            return empleados.map(e => e.email);
+            return empleados.map(e => ({ email: e.email, username: e.username || e.email }));
         } catch (err) {
           AppLog.error("❌ [getAprobadoresNivel3] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -602,13 +602,13 @@ async function getAprobadoresNivel1(req) {
               // 7️⃣ Traer empleados finales
               const empleados = await catalog.run(
                 SELECT.from('CatalogService.Empleados')
-                  .columns('email')
+                  .columns('email', 'username')
                   .where({ ID: { in: aprobadoresIDs } })
               );
 
               AppLog.debug(`🟥 Aprobadores Nivel 4 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
-              return empleados.map(e => e.email);
+              return empleados.map(e => ({ email: e.email, username: e.username || e.email }));
           } catch (err) {
             AppLog.error("❌ [getAprobadoresNivel4] 🔴 Error detectado", err);
             // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -652,10 +652,14 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
               emailsolicitante: solicitante.email,
               moneda: d.moneda,
               testmode: false,
-              listamailsnivel1: n1,
-              listamailsnivel2: n2,
-              listamailsnivel3: n3,
-              listamailsnivel4: n4,
+              listamailsnivel1: n1.map(e => e.email),
+              listamailsnivel2: n2.map(e => e.email),
+              listamailsnivel3: n3.map(e => e.email),
+              listamailsnivel4: n4.map(e => e.email),
+              listausernamesnivel1: n1.map(e => e.username),
+              listausernamesnivel2: n2.map(e => e.username),
+              listausernamesnivel3: n3.map(e => e.username),
+              listausernamesnivel4: n4.map(e => e.username),
               enlacedms: "",
               listaurldms
             }
