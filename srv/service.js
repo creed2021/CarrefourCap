@@ -112,29 +112,59 @@ module.exports = cds.service.impl(async function () {
     isProtected: r => r.ID === '847ff617-9692-4b63-bb60-cc0a36b7b71a'
   }));
 
+  this.on(['CREATE', 'UPDATE'], 'Cuentas', informaFailConstraint);
+  this.on('DELETE', 'Cuentas', informaConstraintsDelete);
+  this.before(['UPDATE'], 'Cuentas', controlesCampoRegistro({
+    immutable: ['numero', 'tipo_ID']
+  }));
+
+  this.on(['CREATE', 'UPDATE'], 'Sectores', informaFailConstraint);
+  this.on('DELETE', 'Sectores', informaConstraintsDelete);
+
+  this.before('UPDATE', 'Sectores', controlesCampoRegistro({
+    immutable: ['codigo'],
+    isProtected: r => r.ID === '847ff617-9692-4b63-bb60-cc0a36b7b71a'
+  }));
+
+
   this.on(['CREATE', 'UPDATE'], 'Empleados', informaFailConstraint);
   this.on('DELETE', 'Empleados', informaConstraintsDelete);
   this.before(['UPDATE', 'draftActivate'], 'Empleados', controlesCampoRegistro({ immutable: ['email'] }));
-  this.before(['CREATE', 'UPDATE'], 'Empleados', async (req) => {
-    if (req.data.email) {
-      try {
-        const iasApi = await cds.connect.to("ias-api");
-        // IAS API uses SCIM protocol, searching by email
-        let res = await iasApi.tx(req).get(`/scim/Users?filter=emails.value eq "${req.data.email}"`);
-        if (res && res.Resources && res.Resources.length > 0) {
-          let user = res.Resources[0];
-          // Intentamos sacar el userName, si está vacío usamos el id (UUID)
-          let fetchedUsername = user.userName;
-          if (!fetchedUsername || fetchedUsername.trim() === "") {
-            fetchedUsername = user.id;
+
+  this.after(['CREATE', 'UPDATE'], 'Empleados', async (data, req) => {
+    // data can be an array or a single object
+    const records = Array.isArray(data) ? data : [data];
+
+    for (const record of records) {
+      if (record.email && record.ID) {
+        try {
+          const iasApi = await cds.connect.to("ias-api");
+          let res = await iasApi.tx(req).get(`/scim/Users?filter=emails.value eq "${record.email}"`);
+
+          if (res && res.Resources && res.Resources.length > 0) {
+            let user = res.Resources[0];
+            let fetchedUsername = user.userName;
+            if (!fetchedUsername || fetchedUsername.trim() === "") {
+              fetchedUsername = user.id;
+            }
+
+            const tx = req.tx;
+            // Check if CuentaUsuario already exists for this empleado
+            const existing = await tx.run(SELECT.one.from('com.carrefour.journal.CuentaUsuario').where({ empleado_ID: record.ID }));
+
+            if (existing) {
+              await tx.run(UPDATE('com.carrefour.journal.CuentaUsuario').set({ username: fetchedUsername }).where({ ID: existing.ID }));
+            } else {
+              await tx.run(INSERT.into('com.carrefour.journal.CuentaUsuario').entries({ empleado_ID: record.ID, username: fetchedUsername }));
+            }
+
+            console.info(`[IAS API] Fetched username ${fetchedUsername} for email ${record.email} and saved to CuentaUsuario manually`);
+          } else {
+            console.warn(`[IAS API] User with email ${record.email} not found in IAS.`);
           }
-          req.data.username = fetchedUsername;
-          console.info(`[IAS API] Fetched username ${req.data.username} for email ${req.data.email}`);
-        } else {
-          console.warn(`[IAS API] User with email ${req.data.email} not found in IAS.`);
+        } catch (err) {
+          console.error("❌ [IAS API] Error fetching username from IAS and saving CuentaUsuario:", err.message);
         }
-      } catch (err) {
-        console.error("❌ [IAS API] Error fetching username from IAS:", err.message);
       }
     }
   });
