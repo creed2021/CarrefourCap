@@ -1,5 +1,4 @@
 using com.carrefour.journal as my from '../db/schema';
-
 @odata: {version: '4.0'}
 service GestionaAsientos {
     entity CabeceraAsiento            as
@@ -16,29 +15,25 @@ service GestionaAsientos {
             adjuntosSolicitud,
             resumenCuentas : redirected to ResumenCuentas
         };
-
     annotate CabeceraAsiento with {
         numeroSolicitud @cds.collation: 'SAP_DEFAULT';
     }
-
     @cds.redirection.target
     entity DetalleAsiento             as
         projection on my.DetalleAsiento {
             *,
             cuentaContable : redirected to Cuentas
         };
-
     entity AprobadorSolicitud         as
         projection on my.AprobadorSolicitud {
             *,
             empleado : redirected to Empleados
         };
-
     entity AdjuntoSolicitud           as projection on my.AdjuntoSolicitud;
     action   prepareAdjuntos(sessionId: String);
-    action   RegistrarAprobacion(idSolicitud: UUID, emailAprobador: String, nivelAprobacion: Integer, flujoaprobadores: String) returns String;
+    action   RegistrarAprobacion(idSolicitud: UUID, emailAprobador: String, nivelAprobacion: Integer, flujoaprobadores: String, totalNiveles: Integer) returns String;
     action   RegistrarRechazo(idSolicitud: UUID, emailAprobador: String, flujoaprobadores: String, motivoRechazo: String)       returns String;
-    action   ObtenerDatosFormularioAprobacion(id: UUID)
+    action   ObtenerDatosFormularioAprobacion(id: UUID);
     action   RealizarContabilizacion(id: UUID)                                                                                  returns String;
     function ListarWorkflowsBPA()                                                                                               returns String;
     entity EstadosSolicitud           as projection on my.EstadosSolicitud;
@@ -53,7 +48,6 @@ service GestionaAsientos {
     entity ConfigAdjuntosObligatorios as projection on my.ConfigAdjuntoObligatorio;
     entity ResumenCuentas             as projection on my.ResumenCuentas;
 }
-
 @odata: {version: '4.0'}
 service CatalogService {
     entity Cargos                     as projection on my.Cargo;
@@ -61,7 +55,6 @@ service CatalogService {
     entity ConfigAprobadores          as projection on my.ConfigAprobador;
     entity ConfigSolicitantes         as projection on my.ConfigSolicitante;
     entity TiposCuentas               as projection on my.TipoCuenta;
-
     entity Cuentas                    as
         projection on my.Cuenta {
             ID,
@@ -69,69 +62,58 @@ service CatalogService {
             nombre,
             tipo
         };
-
     entity UmbralesCuentas            as projection on my.UmbralCuenta;
     entity TiposAsiento               as projection on my.TipoAsiento;
     entity SubTiposAsiento            as projection on my.SubTipoAsiento;
     entity Constantes                 as projection on my.Constantes;
     entity EstadosSolicitud           as projection on my.EstadosSolicitud;
     entity Referencia                 as projection on my.Referencia;
-
     entity Empleados                  as
         projection on my.Empleado {
             ID,
             *
         };
-
     entity ConfigAdjuntosObligatorios as projection on my.ConfigAdjuntoObligatorio;
 }
-
 annotate GestionaAsientos.CabeceraAsiento with @UI.CreateEnabled: false;
 annotate GestionaAsientos.CabeceraAsiento @UI.CreateHidden: true;
 annotate GestionaAsientos.CabeceraAsiento @UI.DeleteHidden: true;
-
 annotate GestionaAsientos.Sectores with @Capabilities.InsertRestrictions.Insertable: true;
 annotate GestionaAsientos.Sectores with @Capabilities.UpdateRestrictions.Updatable: true;
 annotate GestionaAsientos.Sectores with @Capabilities.DeleteRestrictions.Deletable: true;
 annotate GestionaAsientos.Sectores with @UI.CreateEnabled: true;
 annotate GestionaAsientos.Sectores @UI.CreateHidden: false;
 annotate GestionaAsientos.Sectores with @odata.draft.enabled;
-
 annotate GestionaAsientos.Cuentas with @Capabilities.InsertRestrictions.Insertable: true;
 annotate GestionaAsientos.Cuentas with @Capabilities.UpdateRestrictions.Updatable: true;
 annotate GestionaAsientos.Cuentas with @Capabilities.DeleteRestrictions.Deletable: true;
 annotate GestionaAsientos.Cuentas with @UI.CreateEnabled: true;
 annotate GestionaAsientos.Cuentas @UI.CreateHidden: false;
 annotate GestionaAsientos.Cuentas with @odata.draft.enabled;
-
 annotate CatalogService.UmbralesCuentas with @Capabilities.InsertRestrictions.Insertable: true;
 annotate CatalogService.UmbralesCuentas with @Capabilities.UpdateRestrictions.Updatable: true;
 annotate CatalogService.UmbralesCuentas with @Capabilities.DeleteRestrictions.Deletable: true;
 annotate CatalogService.UmbralesCuentas with @UI.CreateEnabled: true;
 annotate CatalogService.UmbralesCuentas @UI.CreateHidden: false;
 annotate CatalogService.UmbralesCuentas with @odata.draft.enabled;
-
 annotate CatalogService.ConfigSolicitantes with @Capabilities.InsertRestrictions.Insertable: true;
 annotate CatalogService.ConfigSolicitantes with @Capabilities.UpdateRestrictions.Updatable: true;
 annotate CatalogService.ConfigSolicitantes with @Capabilities.DeleteRestrictions.Deletable: true;
 annotate CatalogService.ConfigSolicitantes with @UI.CreateEnabled: true;
 annotate CatalogService.ConfigSolicitantes @UI.CreateHidden: false;
 annotate CatalogService.ConfigSolicitantes with @odata.draft.enabled;
-
 annotate CatalogService.ConfigAprobadores with @Capabilities.InsertRestrictions.Insertable: true;
 annotate CatalogService.ConfigAprobadores with @Capabilities.UpdateRestrictions.Updatable: true;
 annotate CatalogService.ConfigAprobadores with @Capabilities.DeleteRestrictions.Deletable: true;
 annotate CatalogService.ConfigAprobadores with @UI.CreateEnabled: true;
 annotate CatalogService.ConfigAprobadores @UI.CreateHidden: false;
 annotate CatalogService.ConfigAprobadores with @odata.draft.enabled;
-
 annotate GestionaAsientos.Empleados with @Capabilities.InsertRestrictions.Insertable: true;
 annotate GestionaAsientos.Empleados with @Capabilities.UpdateRestrictions.Updatable: true;
 annotate GestionaAsientos.Empleados with @Capabilities.DeleteRestrictions.Deletable: true;
 annotate GestionaAsientos.Empleados with @UI.CreateEnabled: true;
 annotate GestionaAsientos.Empleados @UI.CreateHidden: false;
 annotate GestionaAsientos.Empleados with @odata.draft.enabled;
-
 annotate CatalogService.ConfigAdjuntosObligatorios with @Capabilities.InsertRestrictions.Insertable: false;
 annotate CatalogService.ConfigAdjuntosObligatorios with @Capabilities.UpdateRestrictions.Updatable: true;
 annotate CatalogService.ConfigAdjuntosObligatorios with @Capabilities.DeleteRestrictions.Deletable: false;

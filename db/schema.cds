@@ -17,14 +17,12 @@ entity CabeceraAsiento : cuid, managed {
   sociedad                     : String(50)                    @title: 'Sociedad';
   numeroDocumentoSAP           : String(20);
   idInstanciaWorkflow          : String(100);
-  nivelesWorkflow              : Integer default 1;
   // ✅ Campo no persistente, pero accesible vía OData y req.data
   correo_solicitante           : String(100)
                                                                @cds.persistence.skip
                                                                @Core.Description: 'Email del solicitante (no persistente)';
-
   items                        : Composition of many DetalleAsiento
-                                   on items.cabecera = $self; // $self apunta a la instancia actual de CabeceraAsiento
+                                   on items.cabecera = $self;
   estadoSolicitud              : Association to EstadosSolicitud;
   numeroDocumentoContable      : String(50);
   CodigoEmpresaContabilizacion : String(10);
@@ -37,7 +35,6 @@ entity CabeceraAsiento : cuid, managed {
   solicitante                  : Association to Empleado       @title: 'Solicitante';
   aprobadoresSolicitud         : Composition of many AprobadorSolicitud
                                    on aprobadoresSolicitud.cabecera = $self;
-
   adjuntosSolicitud            : Composition of many AdjuntoSolicitud
                                    on adjuntosSolicitud.cabecera = $self;
   resumenCuentas               : Association to many ResumenCuentas
@@ -61,10 +58,6 @@ entity EstadosSolicitud : cuid, managed {
   nombre : String(100);
 }
 
-/**
- * Entidad DetalleAsiento
- * (El child, contenido en la cabecera)
- */
 entity DetalleAsiento : cuid, managed {
   cabecera       : Association to one CabeceraAsiento;
   numeroLinea    : Integer        @title: 'Número Línea';
@@ -75,10 +68,6 @@ entity DetalleAsiento : cuid, managed {
   importe        : Decimal(15, 2) @title: 'Importe';
 }
 
-/**
- * Vista ResumenCuentas
- * Agrega el detalle de asiento por cuenta contable, separando los importes según signo
- */
 entity ResumenCuentas as
   select from DetalleAsiento {
     key cabecera.ID                as cabecera_ID       : UUID,
@@ -132,13 +121,13 @@ entity Empleado : cuid, managed {
 }
 
 entity AprobadorSolicitud : cuid, managed {
-  empleado          : Association to Empleado;
-  fechaAprobacion   : Date;
-  nivelAprobacion   : String(200);
-  decision          : String(15);
-  cabecera          : Association to one CabeceraAsiento;
-  flujoaprobadores  : String(5000);  
-  motivoRechazo     : String(1000);  
+  empleado         : Association to Empleado;
+  fechaAprobacion  : Date;
+  nivelAprobacion  : String(200);
+  decision         : String(15);
+  cabecera         : Association to one CabeceraAsiento;
+  flujoaprobadores : String(5000);
+  motivoRechazo    : String(1000);
 }
 
 @assert.unique: {empSecConfigSol: [

@@ -120,25 +120,21 @@ module.exports = cds.service.impl(async function () {
 
   // ===========================================================
   // 🟢 RegistrarAprobacion — MEJORA 10
+  // totalNiveles viene de BPA en el payload (no se persiste en DB)
   // ===========================================================
   this.on("RegistrarAprobacion", async (req) => {
-    // ✅ MEJORA 10: se agrega nivelAprobacion al destructuring
-    const { idSolicitud, emailAprobador, nivelAprobacion, flujoaprobadores } = req.data;
+    const { idSolicitud, emailAprobador, nivelAprobacion, flujoaprobadores, totalNiveles } = req.data;
     const tx = req.tx;
     const numeroSolicitudPram = idSolicitud;
-
     try {
       if (!numeroSolicitudPram || !emailAprobador) {
         return req.reject(400, "Debe enviar idSolicitud y emailAprobador.");
       }
-
-      // ✅ MEJORA 10: validar que venga el nivel
       if (!nivelAprobacion) {
         return req.reject(400, "Debe enviar nivelAprobacion.");
       }
-
       const catalogService = await cds.connect.to('CatalogService');
-      AppLog.info(`[RegistrarAprobacion] numeroSolicitud=${numeroSolicitudPram}, emailAprobador=${emailAprobador}, nivelAprobacion=${nivelAprobacion}`);
+      AppLog.info(`[RegistrarAprobacion] numeroSolicitud=${numeroSolicitudPram}, emailAprobador=${emailAprobador}, nivelAprobacion=${nivelAprobacion}, totalNiveles=${totalNiveles}`);
 
       // 🔎 Buscar empleado
       const empleado = await catalogService.run(
@@ -146,18 +142,17 @@ module.exports = cds.service.impl(async function () {
       );
       if (!empleado) return req.reject(404, `No se encontró empleado con email ${emailAprobador}`);
 
-      // 🔎 Validar solicitud — sin filtrar por estado, puede llegar en cualquier instancia pendiente
+      // 🔎 Validar solicitud
       const solicitud = await tx.run(
         SELECT.one.from('GestionaAsientos.CabeceraAsiento').where({ numeroSolicitud: numeroSolicitudPram })
       );
       if (!solicitud) return req.reject(404, `No existe la solicitud con número ${numeroSolicitudPram}`);
 
-      // ✅ MEJORA 10: determinar próximo estado según nivel aprobado y total de niveles del workflow
+      // ✅ MEJORA 10: totalNiveles viene como parámetro desde BPA (no se lee de DB)
       const nivel = parseInt(nivelAprobacion);
-      const totalNiveles = solicitud.nivelesWorkflow ?? 1;
-      const proximoCodigo = determinarProximoEstado(nivel, totalNiveles);
-
-      AppLog.info(`[RegistrarAprobacion] Nivel=${nivel}, TotalNiveles=${totalNiveles}, ProximoEstado=${proximoCodigo}`);
+      const total = parseInt(totalNiveles ?? 1);
+      const proximoCodigo = determinarProximoEstado(nivel, total);
+      AppLog.info(`[RegistrarAprobacion] Nivel=${nivel}, TotalNiveles=${total}, ProximoEstado=${proximoCodigo}`);
 
       const proximoEstado = await catalogService.run(
         SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: proximoCodigo })
@@ -172,7 +167,7 @@ module.exports = cds.service.impl(async function () {
           fechaAprobacion: new Date(),
           nivelAprobacion: String(nivel),
           decision: DECISION_APROBACION,
-          flujoaprobadores: flujoaprobadores ?? null  // ✅ MEJORA 11
+          flujoaprobadores: flujoaprobadores ?? null
         })
       );
 
@@ -185,7 +180,6 @@ module.exports = cds.service.impl(async function () {
 
       AppLog.info(`[RegistrarAprobacion] ✅ Aprobación nivel ${nivel} registrada → Estado actualizado a '${proximoCodigo}'`);
       return { message: "Aprobación registrada correctamente" };
-
     } catch (err) {
       AppLog.error("❌ [RegistrarAprobacion] 🔴 Error detectado", err);
       if (err.code) throw err;
@@ -224,8 +218,8 @@ module.exports = cds.service.impl(async function () {
           cabecera_ID: solicitud.ID,
           fechaAprobacion: new Date(),
           decision: DECISION_RECHAZO,
-          flujoaprobadores: flujoaprobadores ?? null,  
-          motivoRechazo: motivoRechazo ?? null         
+          flujoaprobadores: flujoaprobadores ?? null,
+          motivoRechazo: motivoRechazo ?? null
         })
       );
 
@@ -243,7 +237,6 @@ module.exports = cds.service.impl(async function () {
 
       AppLog.info(`[RegistrarRechazo] 🔴 Rechazo registrado y estado actualizado a 'RDA'`);
       return { message: "Rechazo registrado correctamente" };
-
     } catch (err) {
       AppLog.error("❌ [RegistrarRechazo] 🔴 Error detectado", err);
       if (err.code) throw err;
@@ -261,8 +254,7 @@ module.exports = cds.service.impl(async function () {
     const numeroSolicitudParam = id;
     try {
       const catalogService = await cds.connect.to('CatalogService');
-
-      // ✅ MEJORA 10: contabilización valida contra estado APO (Aprobada), no INI
+      // ✅ MEJORA 10: contabilización valida contra estado APO (Aprobada)
       const estadoAprobada = await catalogService.run(
         SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "APO" })
       );
@@ -292,12 +284,9 @@ module.exports = cds.service.impl(async function () {
         .where({ cabecera_ID: cabecera.ID });
 
       if (!items) return req.reject(400, `Items de CabeceraAsiento con numero de solicitud ${numeroSolicitudParam} no encontrados`);
-
       cabecera.items = items;
       req.data = cabecera;
-
       return await ValidaContabilizaAsiento(req, false);
-
     } catch (err) {
       AppLog.error("❌ [EjecutarContabilizacionPorID] 🔴 Error detectado", err);
       if (err.code) throw err;
@@ -308,7 +297,7 @@ module.exports = cds.service.impl(async function () {
 
   /**
    * -------------------------------------------------------------------------
-   * Acción: RealizarContabilizacion (versión completa)
+   * Acción: RealizarContabilizacion
    * -------------------------------------------------------------------------
    */
   this.on('RealizarContabilizacion', async (req) => {
@@ -317,13 +306,10 @@ module.exports = cds.service.impl(async function () {
     try {
       const numeroSolicitudParam = req.data.id;
       if (!numeroSolicitudParam) return req.reject(400, 'Falta ID de la solicitud');
-
       AppLog.info(`[RealizarContabilizacion] 🧮 Iniciando contabilización para numero de solicitud=${numeroSolicitudParam}`);
 
-      // 1️⃣ Ejecutar contabilización en S/4HANA
       const resultado = await EjecutarContabilizacionPorID(numeroSolicitudParam, req);
 
-      // 2️⃣ Si el resultado fue exitoso → actualizar estadoSolicitud = CON
       if (resultado.success) {
         AppLog.info(`[RealizarContabilizacion] ✅ Contabilización exitosa y estado actualizado a 'CON'`);
         return resultado;
@@ -331,7 +317,6 @@ module.exports = cds.service.impl(async function () {
         AppLog.error(`[RealizarContabilizacion] ⚠️ Error en contabilización: ${resultado.message}`);
         return req.reject(400, resultado.message || 'Error en contabilización');
       }
-
     } catch (err) {
       AppLog.error("❌ [RealizarContabilizacion] 🔴 Error detectado", err);
       if (err.code) throw err;
@@ -371,24 +356,21 @@ module.exports = cds.service.impl(async function () {
     AppLog.info('[CabeceraAsiento] 🟢 Entrando en BEFORE CREATE');
     try {
       const { periodoAnio, periodoMes, fechaDocumento, fechaContabilizacion, correo_solicitante } = req.data;
+      const cabReq = req.data;
 
       // Adjunto obligatorio según ConfigAdjuntoObligatorio
-      const cabReq = req.data;
       if (!cabReq.tipoAsiento_ID) {
         return req.reject(400, "Falta tipoAsiento_ID");
       }
-
       const tipoAsientoReq = await SELECT.one
         .from('com.carrefour.journal.TipoAsiento')
         .where({ ID: cabReq.tipoAsiento_ID });
       if (!tipoAsientoReq) {
         return req.reject(404, `No se encontró TipoAsiento con ID ${cabReq.tipoAsiento_ID}`);
       }
-
       const configAdjunto = await SELECT.one
         .from('com.carrefour.journal.ConfigAdjuntoObligatorio')
         .where({ tipoAsiento_ID: cabReq.tipoAsiento_ID });
-
       const esObligatorio = configAdjunto ? configAdjunto.obligatorio : true;
       if (esObligatorio) {
         const tieneAdjuntos = Array.isArray(cabReq.adjuntosSolicitud) && cabReq.adjuntosSolicitud.length > 0;
@@ -444,7 +426,6 @@ module.exports = cds.service.impl(async function () {
 
       let sumaDebe = 0;
       let sumaHaber = 0;
-
       for (const it of items) {
         if (it.clave !== 40 && it.clave !== 50) {
           return req.reject(
@@ -467,10 +448,8 @@ module.exports = cds.service.impl(async function () {
         if (it.clave === 40) sumaDebe += importe;
         if (it.clave === 50) sumaHaber += importe;
       }
-
       sumaDebe = sumaDebe / 100;
       sumaHaber = sumaHaber / 100;
-
       if (sumaDebe !== sumaHaber) {
         return req.reject(
           400,
@@ -490,15 +469,15 @@ module.exports = cds.service.impl(async function () {
       }
 
       // ================================================================
-      // ✅ MEJORA 10: IniciaWorkflowBPA ahora retorna { id, niveles }
+      // ✅ MEJORA 10: IniciaWorkflowBPA retorna { id, niveles }
+      // niveles se usa solo en memoria — NO se persiste en DB
+      // BPA recibirá totalNiveles en cada Invoke Action (vía Chiara)
       // ================================================================
       const resultadoBPA = await IniciaWorkflowBPA(req);
       cab.idInstanciaWorkflow = resultadoBPA.id;
-      cab.nivelesWorkflow = resultadoBPA.niveles;
-      AppLog.info(`[CabeceraAsiento] idInstanciaWorkflow=${cab.idInstanciaWorkflow}, nivelesWorkflow=${cab.nivelesWorkflow}`);
+      AppLog.info(`[CabeceraAsiento] idInstanciaWorkflow=${cab.idInstanciaWorkflow}, nivelesWorkflow (en memoria)=${resultadoBPA.niveles}`);
 
       await confirmAdjuntos(req);
-
     } catch (err) {
       AppLog.error("❌ [CabeceraAsiento] 🔴 Error detectado", err);
       if (err.code) throw err;
@@ -564,7 +543,6 @@ module.exports = cds.service.impl(async function () {
         n2 = await getAprobadoresNivel2(req);
         n3 = await getAprobadoresNivel3(req, tablasumatorias);
       }
-
       if (tipoAsiento.codigo == TIPO_ASIENTO_AJU_EXC) {
         n4 = await getAprobadoresNivel4(req, tablasumatorias);
       }
@@ -578,12 +556,12 @@ module.exports = cds.service.impl(async function () {
       // 5️⃣ Enviar workflow
       const id = await callBPA(payload, req);
 
-      // ✅ MEJORA 10: calcular cuántos niveles tiene este workflow y retornarlos junto al id
+      // ✅ MEJORA 10: calcular cuántos niveles tiene este workflow
+      // Este valor viaja de vuelta al BEFORE CREATE solo en memoria
+      // BPA debe incluirlo en cada Invoke Action como parámetro totalNiveles
       const niveles = [n1, n2, n3, n4].filter(arr => arr && arr.length > 0).length;
       AppLog.info(`🟩 [IniciaWorkflowBPA] Instancia BPA creada: ${id}, niveles: ${niveles}`);
-
       return { id, niveles };
-
     } catch (err) {
       AppLog.error("❌ [IniciaWorkflowBPA] 🔴 Error detectado", err);
       if (err.code) throw err;
