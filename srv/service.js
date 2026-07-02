@@ -27,21 +27,15 @@ const { safeUndef,
   ObtenerIDSubtipoAsiento,
   ReemplazaCuentaPorID
 } = require("./helpers/sol-helper");
-
 const { informaFailConstraint,
   informaConstraintsDelete,
   controlesCampoRegistro
 } = require("./helpers/con-helper");
-
 //module.exports = { ValidaAsiento };
 //AMBIENTE: DEV
-
 module.exports = cds.service.impl(async function () {
-
-
   const DECISION_APROBACION = "APROBACION";
   const DECISION_RECHAZO = "RECHAZO";
-
   // 🔹 Entidades del namespace com.carrefour.journal
   const {
     'com.carrefour.journal.CabeceraAsiento': CabeceraAsiento,
@@ -55,6 +49,24 @@ module.exports = cds.service.impl(async function () {
     'com.carrefour.journal.TipoCuenta': TipoCuenta
   } = cds.entities;
 
+  // ===========================================================
+  // 🗺️ MEJORA 10 — Helper: determinar próximo estado
+  // ===========================================================
+  // nivelQueAprobo: nivel que acaba de aprobar (1,2,3,4)
+  // totalNiveles: cuántos niveles tiene ESTE workflow en particular
+  //               (viene como parámetro desde BPA en cada llamada,
+  //               NO se persiste en la cabecera)
+  function determinarProximoEstado(nivelQueAprobo, totalNiveles) {
+    // Si aprobó el último nivel → pasa a Aprobada, lista para contabilizar
+    if (nivelQueAprobo >= totalNiveles) return 'APO';
+    // Si quedan niveles → avanzar al siguiente pendiente
+    const mapa = {
+      1: 'P2', // aprobó N1 (Gte/Dir Área) → Pendiente Jefe Contabilidad
+      2: 'P3', // aprobó N2 (Jefe Contabilidad) → Pendiente Gte/Dir Contabilidad
+      3: 'P4', // aprobó N3 (Gte/Dir Contabilidad) → Pendiente CFO
+    };
+    return mapa[nivelQueAprobo] ?? 'APO';
+  }
 
   /**
    * Before read entidad CabceraAsiento - Genera el query
@@ -64,23 +76,17 @@ module.exports = cds.service.impl(async function () {
   this.before('READ', 'CabeceraAsiento', req => {
     const q = req.query?.SELECT;
     if (!q) return;
-
     // 🔒 Solo ListReport
     const isListReport =
       Array.isArray(q.orderBy) &&
       q.limit?.rows?.val !== undefined &&
       !q.where;
-
     if (!isListReport) return;
-
     const idx = q.orderBy.findIndex(o =>
       o.ref && o.ref[0] === 'numeroSolicitud'
     );
-
     if (idx === -1) return;
-
     const desc = q.orderBy[idx].sort === 'desc';
-
     // 🔁 Reemplazo limpio y válido para HANA
     q.orderBy[idx] = {
       xpr: [
@@ -94,27 +100,21 @@ module.exports = cds.service.impl(async function () {
       sort: desc ? 'desc' : 'asc'
     };
   });
-
   this.on(['CREATE', 'UPDATE'], 'Cuentas', informaFailConstraint);
   this.on('DELETE', 'Cuentas', informaConstraintsDelete);
   this.before(['UPDATE'], 'Cuentas', controlesCampoRegistro({
     immutable: ['numero', 'tipo_ID']
   }));
-
   this.on(['CREATE', 'UPDATE'], 'Sectores', informaFailConstraint);
   this.on('DELETE', 'Sectores', informaConstraintsDelete);
-
   this.before('UPDATE', 'Sectores', controlesCampoRegistro({
     immutable: ['codigo'],
     isProtected: r => r.ID === '847ff617-9692-4b63-bb60-cc0a36b7b71a'
   }));
 
-
-  
   this.on(['CREATE', 'UPDATE'], 'Empleados', informaFailConstraint);
   this.on('DELETE', 'Empleados', informaConstraintsDelete);
   this.before(['UPDATE', 'draftActivate'], 'Empleados', controlesCampoRegistro({ immutable: ['email'] }));
-
   this.before(['CREATE', 'UPDATE'], 'Empleados', async (req) => {
     if (req.data.email) {
       try {
@@ -138,59 +138,66 @@ module.exports = cds.service.impl(async function () {
       }
     }
   });
-
   this.on(['CREATE', 'UPDATE'], 'ConfigAprobadores', informaFailConstraint);
   this.on('DELETE', 'ConfigAprobadores', informaConstraintsDelete);
-
   this.on(['CREATE', 'UPDATE'], 'UmbralesCuentas', informaFailConstraint);
   this.on('DELETE', 'UmbralesCuentas', informaConstraintsDelete);
 
   // ===========================================================
-  // 🟢 RegistrarAprobacion
+  // 🟢 RegistrarAprobacion  —  MEJORA 10 + MEJORA 11
   // ===========================================================
   this.on("RegistrarAprobacion", async (req) => {
-    const { idSolicitud, emailAprobador } = req.data;
-
+    const { idSolicitud, emailAprobador, nivelAprobacion, flujoaprobadores, totalNiveles } = req.data;
     const tx = req.tx;
     const numeroSolicitudPram = idSolicitud;
-
     try {
-
       if (!numeroSolicitudPram || !emailAprobador) {
-        return req.reject(400, "Debe enviar al menos un ítem en el detalle del asiento.");
+        return req.reject(400, "Debe enviar idSolicitud y emailAprobador.");
       }
-
+      // ✅ MEJORA 10: nivelAprobacion es obligatorio para poder calcular el próximo estado
+      if (!nivelAprobacion) {
+        return req.reject(400, "Debe enviar nivelAprobacion.");
+      }
       const catalogService = await cds.connect.to('CatalogService');
-
-      console.info(`[RegistrarAprobacion] numeroSolicitud=${numeroSolicitudPram}, emailAprobador=${emailAprobador}`);
-
+      console.info(`[RegistrarAprobacion] numeroSolicitud=${numeroSolicitudPram}, emailAprobador=${emailAprobador}, nivelAprobacion=${nivelAprobacion}, totalNiveles=${totalNiveles}`);
       // 🔎 Buscar empleado
       const empleado = await catalogService.run(SELECT.one.from('CatalogService.Empleados').where({ email: emailAprobador }));
       if (!empleado) req.reject(404, `No se encontró empleado con email ${emailAprobador}`);
-
-
-      const estadoIniciada = await catalogService.run(
-        SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "INI" })
-      );
-      if (!estadoIniciada) req.reject(404, `No se encontró estado con código 'INI'`);
-
-
       // 🔎 Validar solicitud
+      // ✅ MEJORA 10: ya no se filtra por estado 'INI'. Una solicitud puede llegar a este
+      //    handler estando en cualquiera de los estados "Pendiente ..." intermedios.
       const solicitud = await tx.run(SELECT.one.from('GestionaAsientos.CabeceraAsiento').where({ numeroSolicitud: numeroSolicitudPram }));
-      if (!solicitud || solicitud.estadoSolicitud_ID != estadoIniciada.ID)
-        req.reject(404, `No existe la solicitud con número ${numeroSolicitudPram} o no se encuentra en el estado Iniciada`);
-
+      if (!solicitud) req.reject(404, `No existe la solicitud con número ${numeroSolicitudPram}`);
+      // ✅ MEJORA 10: determinar próximo estado en base al nivel que acaba de aprobar
+      //    y al total de niveles de ESTE workflow (llega como parámetro desde BPA).
+      const nivel = parseInt(nivelAprobacion);
+      const total = parseInt(totalNiveles ?? 1);
+      const proximoCodigo = determinarProximoEstado(nivel, total);
+      console.info(`[RegistrarAprobacion] Nivel=${nivel}, TotalNiveles=${total}, ProximoEstado=${proximoCodigo}`);
+      const proximoEstado = await catalogService.run(
+        SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: proximoCodigo })
+      );
+      if (!proximoEstado) req.reject(404, `No se encontró estado con código '${proximoCodigo}'. Verificar maestro EstadosSolicitud.`);
       // 📝 Insertar registro en AprobadorSolicitud
+      // ✅ MEJORA 10: persiste nivelAprobacion (antes quedaba vacío)
+      // ✅ MEJORA 11: persiste flujoaprobadores (JSON serializado con instancia/usuario/decisión)
       await tx.run(
         INSERT.into('GestionaAsientos.AprobadorSolicitud').entries({
           empleado_ID: empleado.ID,
           cabecera_ID: solicitud.ID,
           fechaAprobacion: new Date(),
-          decision: DECISION_APROBACION
+          nivelAprobacion: String(nivel),
+          decision: DECISION_APROBACION,
+          flujoaprobadores: flujoaprobadores ?? null
         })
       );
-
-      console.info(`[RegistrarAprobacion] ✅ Aprobación registrada correctamente`);
+      // 🔄 MEJORA 10: actualizar estadoSolicitud al próximo código calculado
+      await tx.run(
+        UPDATE('GestionaAsientos.CabeceraAsiento')
+          .set({ estadoSolicitud_ID: proximoEstado.ID })
+          .where({ ID: solicitud.ID })
+      );
+      console.info(`[RegistrarAprobacion] ✅ Aprobación registrada, estado actualizado a '${proximoCodigo}'`);
       return { message: "Aprobación registrada correctamente" };
     } catch (err) {
       console.error("❌ [RegistrarAprobacion] 🔴 Error detectado", err);
@@ -198,75 +205,54 @@ module.exports = cds.service.impl(async function () {
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
-
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
       console.error("❌ [RegistrarAprobacion] 🔴 Error interno", err);
-
       // devolvemos un error 500 limpio
       return req.reject(500, "[RegistrarAprobacion] 🔴 Error interno");
     }
   });
 
-
   // ===========================================================
-  // 🔴 RegistrarRechazo
+  // 🔴 RegistrarRechazo  —  MEJORA 11 + MEJORA 12
   // ===========================================================
   this.on("RegistrarRechazo", async (req) => {
     try {
-      const { idSolicitud, emailAprobador } = req.data;
-
+      const { idSolicitud, emailAprobador, flujoaprobadores, motivoRechazo } = req.data;
       const numeroSolicitudPram = idSolicitud;
-
       const tx = req.tx;
-
-      // const {
-      //   Empleado,
-      //   AprobadorSolicitud,
-      //   CabeceraAsiento,
-      //   EstadosSolicitud
-      // } = cds.entities["com.carrefour.journal"];
-
       const catalogService = await cds.connect.to('CatalogService');
-
-      console.info(`[RegistrarRechazo] numeroSolicitu=${numeroSolicitudPram}, emailAprobador=${emailAprobador}`);
-
+      console.info(`[RegistrarRechazo] numeroSolicitud=${numeroSolicitudPram}, emailAprobador=${emailAprobador}, motivoRechazo=${motivoRechazo}`);
       // 🔎 Buscar empleado
       const empleado = await catalogService.run(SELECT.one.from('CatalogService.Empleados').where({ email: emailAprobador }));
       if (!empleado) req.reject(404, `No se encontró empleado con email ${emailAprobador}`);
-
-      const estadoIniciada = await catalogService.run(
-        SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "INI" })
-      );
-      if (!estadoIniciada) req.reject(404, `No se encontró estado con código 'INI'`);
-
-
       // 🔎 Validar solicitud
+      // ✅ MEJORA 10: ya no se filtra por estado 'INI'. Un rechazo puede llegar desde
+      //    cualquiera de los estados "Pendiente ..." intermedios.
       const solicitud = await tx.run(SELECT.one.from('GestionaAsientos.CabeceraAsiento').where({ numeroSolicitud: numeroSolicitudPram }));
-      if (!solicitud || solicitud.estadoSolicitud_ID != estadoIniciada.ID)
-        req.reject(404, `No existe la solicitud con número ${numeroSolicitudPram} o no se encuentra en el estado Iniciada`);
-
+      if (!solicitud) req.reject(404, `No existe la solicitud con número ${numeroSolicitudPram}`);
       // 📝 Insertar registro en AprobadorSolicitud
+      // ✅ MEJORA 11: persiste flujoaprobadores
+      // ✅ MEJORA 12: persiste motivoRechazo (antes no se leía del payload)
       await tx.run(
         INSERT.into('GestionaAsientos.AprobadorSolicitud').entries({
           empleado_ID: empleado.ID,
           cabecera_ID: solicitud.ID,
           fechaAprobacion: new Date(),
-          decision: DECISION_RECHAZO
+          decision: DECISION_RECHAZO,
+          flujoaprobadores: flujoaprobadores ?? null,
+          motivoRechazo: motivoRechazo ?? null
         })
       );
-
       // 🔄 Actualizar estadoSolicitud al código 'RDA'
       const estadoRechazada = await catalogService.run(
         SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "RDA" })
       );
       if (!estadoRechazada) req.reject(404, `No se encontró estado con código 'RDA'`);
-
       await tx.run(
         UPDATE('GestionaAsientos.CabeceraAsiento')
           .set({ estadoSolicitud_ID: estadoRechazada.ID })
           .where({ ID: solicitud.ID })
       );
-
       console.info(`[RegistrarRechazo] 🔴 Rechazo registrado y estado actualizado a 'RDA'`);
       return { message: "Rechazo registrado correctamente" };
     } catch (err) {
@@ -275,16 +261,12 @@ module.exports = cds.service.impl(async function () {
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
-
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
       console.error("❌ [RegistrarRechazo] 🔴 Error interno", err);
-
       // devolvemos un error 500 limpio
       return req.reject(500, "[RegistrarRechazo] 🔴 Error interno");
     }
   });
-
-
 
   /**
    * -------------------------------------------------------------------------
@@ -292,25 +274,21 @@ module.exports = cds.service.impl(async function () {
    * -------------------------------------------------------------------------
    */
   async function EjecutarContabilizacionPorID(id, req) {
-
     const numeroSolicitudParam = id;
-
     try {
-
       const catalogService = await cds.connect.to('CatalogService');
-
-      const estadoIniciada = await catalogService.run(
-        SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "INI" })
+      // ✅ MEJORA 10: con la nueva máquina de estados, una solicitud llega a
+      //    contabilización en estado 'APO' (Aprobada), ya no 'INI' (Iniciada,
+      //    que además dejó de usarse como estado de trabajo).
+      const estadoAprobada = await catalogService.run(
+        SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "APO" })
       );
-      if (!estadoIniciada) req.reject(404, `No se encontró estado con código 'INI'`);
-
+      if (!estadoAprobada) req.reject(404, `No se encontró estado con código 'APO'`);
       const cabecera = await SELECT.one
         .from('com.carrefour.journal.CabeceraAsiento')
         .where({ numeroSolicitud: numeroSolicitudParam });
-
-      if (!cabecera || cabecera.estadoSolicitud_ID != estadoIniciada.ID)
-        req.reject(400, `Solicitud con numero ${numeroSolicitudParam} no encontrada o en estado distinto a Iniciada`);
-
+      if (!cabecera || cabecera.estadoSolicitud_ID != estadoAprobada.ID)
+        req.reject(400, `Solicitud con numero ${numeroSolicitudParam} no encontrada o en estado distinto a Aprobada`);
       // 🔥 Traer los items + el número de cuenta desde Cuenta
       const items = await SELECT
         .from('com.carrefour.journal.DetalleAsiento as D')
@@ -326,14 +304,9 @@ module.exports = cds.service.impl(async function () {
           'D.cuentaContable_ID'
         )
         .where({ cabecera_ID: cabecera.ID });
-
       if (!items) req.reject(400, `Items de CabeceraAsiento con numero de solicitud ${numeroSolicitudParam} no encontrados`);
-
-
       cabecera.items = items;
-
       req.data = cabecera;
-
       // Llama al método real de contabilización
       return await ValidaContabilizaAsiento(req, false);
     } catch (err) {
@@ -342,16 +315,12 @@ module.exports = cds.service.impl(async function () {
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
-
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
       console.error("❌ [RegistrarRechazo] 🔴 Error interno", err);
-
       // devolvemos un error 500 limpio
       return req.reject(500, "[RegistrarRechazo] 🔴 Error interno");
     }
   }
-
-
   /**
    * -------------------------------------------------------------------------
    * Acción: RealizarContabilizacion (versión completa)
@@ -360,34 +329,26 @@ module.exports = cds.service.impl(async function () {
   this.on('RealizarContabilizacion', async (req) => {
     const tx = req.tx;
     const catalogService = await cds.connect.to('CatalogService');
-
     try {
       //const id = req.data.id;
       const numeroSolicitudParam = req.data.id;
-
       if (!numeroSolicitudParam) return req.reject(400, 'Falta ID de la solicitud');
-
       console.info(`[RealizarContabilizacion] 🧮 Iniciando contabilización para numero de solicitud=${numeroSolicitudParam}`);
-
       // 1️⃣ Ejecutar contabilización en S/4HANA
       const resultado = await EjecutarContabilizacionPorID(numeroSolicitudParam, req);
-
       //2️⃣ Si el resultado fue exitoso → actualizar estadoSolicitud = CON
       if (resultado.success) {
         //const { CabeceraAsiento, EstadosSolicitud } = cds.entities['com.carrefour.journal'];
-
         // const estadoContabilizada = await catalogService.run(
         //   SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: 'CON' })
         // );
         // if (!estadoContabilizada)
         //   req.reject(404, `No se encontró estado con código 'CON'`);
-
         // await tx.run(
         //   UPDATE('GestionaAsientos.CabeceraAsiento')
         //     .set({ estadoSolicitud_ID: estadoContabilizada.ID })
         //     .where({ numeroSolicitud: numeroSolicitudParam })
         // );
-
         console.info(`[RealizarContabilizacion] ✅ Contabilización exitosa y estado actualizado a 'CON'`);
         return resultado;
       } else {
@@ -401,76 +362,55 @@ module.exports = cds.service.impl(async function () {
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
-
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
       console.error("❌ [RealizarContabilizacion] 🔴 Error interno:", err);
-
       // devolvemos un error 500 limpio
       return req.reject(500, "[RealizarContabilizacion] 🔴 Error interno");
     }
   });
-
-
   // 1️⃣ Preparar carpeta temporal
   this.on("prepareAdjuntos", async req => {
     try {
-
       const { sessionId } = req.data;
-
       if (!sessionId) return req.reject(400, "sessionId requerido");
-
       await ensureFolder(`/solicitud-asientos-adjuntos/temp/${sessionId}`, req);
-
       return { success: true };
-
     } catch (err) {
       console.error("❌ [prepareAdjuntos] 🔴 Error detectado", err);
       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
-
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
       console.error("❌ [prepareAdjuntos] 🔴 Error interno:", err);
-
       // devolvemos un error 500 limpio
       return req.reject(500, "[prepareAdjuntos] 🔴 Error interno");
     }
   });
-
   this.on("confirmAdjuntos", async req => {
     await confirmAdjuntos(req);
   });
-
   // 3️⃣ Rollback
   this.on("rollbackAdjuntos", async req => {
     await rollbackAdjuntos(req);
   });
-
-
   // ===========================================================
   // BEFORE CREATE: Validaciones previas + helpers
   // ===========================================================
   this.before('CREATE', 'CabeceraAsiento', async (req) => {
     console.info('[CabeceraAsiento] 🟢 Entrando en BEFORE CREATE');
-
     try {
-
       const { periodoAnio, periodoMes, fechaDocumento, fechaContabilizacion, correo_solicitante } = req.data;
-
       // Si no vienen estos campos -> no validar
       if (!periodoAnio || !periodoMes)
         req.reject(400,
           `Falta fechaDocumento y fechaContabilizaci[on]`);;
-
       //try {
       // 1️⃣ Obtener fecha inicio y fin del período
       const mes = Number(periodoMes);
       const anio = Number(periodoAnio);
-
       const fechaInicio = new Date(anio, mes - 1, 1);      // primer día del mes
       const fechaFin = new Date(anio, mes, 0);             // último día del mes
-
       // 2️⃣ Validar fechaDocumento
       if (fechaDocumento) {
         const fdoc = new Date(fechaDocumento);
@@ -481,7 +421,6 @@ module.exports = cds.service.impl(async function () {
           );
         }
       }
-
       // 3️⃣ Validar fechaContabilizacion
       if (fechaContabilizacion) {
         const fcont = new Date(fechaContabilizacion);
@@ -492,21 +431,16 @@ module.exports = cds.service.impl(async function () {
           );
         }
       }
-
       console.info(
         `[ValidaFechasPeriodo] OK - Fechas dentro del período ${periodoMes}/${periodoAnio}`
       );
-
-
       // ================================================================
       // 1️⃣ CONSTANTE DE CONTROL
       // ================================================================
       const MAX_ITEMS_ASIENTO = 900;
-
       const cab = req.data;
       const items = cab.items || [];
       const tx = req.tx;
-
       // ================================================================
       // 2️⃣ VALIDAR CANTIDAD MÁXIMA DE ITEMS
       // ================================================================
@@ -516,16 +450,12 @@ module.exports = cds.service.impl(async function () {
           `El asiento no puede contener más de ${MAX_ITEMS_ASIENTO} ítems. Se enviaron ${items.length}.`
         );
       }
-
       // ================================================================
       // 3️⃣ VALIDACIÓN DE CLAVE Y IMPORTE
       // ================================================================
       let sumaDebe = 0;
       let sumaHaber = 0;
-
-
       for (const it of items) {
-
         // Clave válida
         if (it.clave !== 40 && it.clave !== 50) {
           return req.reject(
@@ -533,7 +463,6 @@ module.exports = cds.service.impl(async function () {
             `El ítem con cuenta ${it.cuentaContable_ID || it.cuentaContable} tiene clave inválida (${it.clave}). Debe ser 40 o 50.`
           );
         }
-
         if (!it.descripcion || it.descripcion.length == 0) {
           return req.reject(
             400,
@@ -545,7 +474,6 @@ module.exports = cds.service.impl(async function () {
             `El campo descripción de la linea ${it.numeroLinea} supera los 50 caracteres de extensión incluyendo espacios`
           );
         }
-
         // Importe válido
         if (!it.importe || Number(it.importe) <= 0) {
           return req.reject(
@@ -553,19 +481,14 @@ module.exports = cds.service.impl(async function () {
             `El ítem con cuenta ${it.cuentaContable_ID || it.cuentaContable} tiene importe inválido (${it.importe}). Debe ser mayor a 0.`
           );
         }
-
         // Acumular sumatoria
         const importe = Math.round(Number(it.importe) * 100);
-
         if (it.clave === 40) sumaDebe += importe;
         if (it.clave === 50) sumaHaber += importe;
-
         // console.info(`🧮 Log por items → nro linea=${it.numeroLinea} , Clave=${it.clave} it.importe= ${it.importe}, Importe=${importe}, Debe=${sumaDebe}, Haber=${sumaHaber}`);
       }
-
       sumaDebe = sumaDebe / 100;
       sumaHaber = sumaHaber / 100;
-
       // ================================================================
       // 4️⃣ VALIDAR QUE SUMA DEBE == SUMA HABER
       // ================================================================
@@ -575,21 +498,17 @@ module.exports = cds.service.impl(async function () {
           `Las sumatorias del asiento no cuadran: Debe=${sumaDebe} | Haber=${sumaHaber}. La suma de clave 40 debe ser igual a la suma de clave 50.`
         );
       }
-
       console.info(`🧮 Validación contable OK → Debe=${sumaDebe}, Haber=${sumaHaber}`);
-
       // ================================================================
       // 6️⃣ REEMPLAZOS Y COMPLETADO AUTOMÁTICO
       // ================================================================
       await ReemplazaMailSolicitantePorID(req);
       await ReemplazaCuentaPorID(req);
       await CompletaCamposCabecera(req);
-
       // ================================================================
       // 5️⃣ LLAMAR VALIDACIÓN SOAP (modo test)
       // ================================================================
       await ValidaContabilizaAsiento(req, true);
-
       // -------------------------------------------------------------------------
       // 🔹 Generar número de solicitud NO repetido, atómico, sin baches
       // -------------------------------------------------------------------------
@@ -597,48 +516,43 @@ module.exports = cds.service.impl(async function () {
         cab.numeroSolicitud = await getNextNumeroSolicitudFU(tx);
         console.info(`[CabeceraAsiento] NumeroSolicitud asignado = ${cab.numeroSolicitud}`);
       }
-
       // ================================================================
       // 7️⃣ Iniciar Workflow BPA
       // ================================================================
-      idWF = await IniciaWorkflowBPA(req);
-      cab.idInstanciaWorkflow = idWF;
-
+      // ✅ MEJORA 10: IniciaWorkflowBPA ahora devuelve { id, niveles }.
+      //    'niveles' NO se persiste en la cabecera (nivelesWorkflow fue removido
+      //    del schema por el problema de shadow-table en HDI); queda solo en el
+      //    log para diagnóstico. El total de niveles real que gobierna la máquina
+      //    de estados viaja desde BPA en cada RegistrarAprobacion (totalNiveles).
+      const resultadoBPA = await IniciaWorkflowBPA(req);
+      cab.idInstanciaWorkflow = resultadoBPA.id;
+      console.info(`[CabeceraAsiento] Workflow iniciado. idInstanciaWorkflow=${resultadoBPA.id}, niveles calculados=${resultadoBPA.niveles}`);
       await confirmAdjuntos(req);
-
     } catch (err) {
       console.error("❌ [CabeceraAsiento] 🔴 Error detectado", err);
       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
-
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
       console.error("❌ [CabeceraAsiento] 🔴 Error interno:", err);
-
       //DJ 2025-12-25 se comenta ya que no es aplicable por el momento
       //DJ 2025-12-25 await rollbackAdjuntos(req);
-
       // devolvemos un error 500 limpio
       return req.reject(500, "[CabeceraAsiento] 🔴 Error interno");
     }
   });
-
   /* ============================================================================================
    * 🟩 FUNCIÓN PRINCIPAL — IniciaWorkflowBPA
    * ============================================================================================ */
-
   //!!!!!!!ATENCION!!!!!! EN ESTE METODO Y OTROS RELACIOANDOS EN PARTE DEL CIRCUITO SE UTILIZA
   //                                EL NRO DE SOLICITUD EN EL EL CAMPO IdSolicitud PARA ENVIARLO AL WORKFLOW 
   //                                PORQUE EN EL WORKFLOW SE UTILIZÓ DE ESA MANERA.
-
-
   async function IniciaWorkflowBPA(req) {
     try {
       const TIPO_ASIENTO_PROV_REVERSA = "1";
       const TIPO_ASIENTO_ASI_CIERRE = "2";
       const TIPO_ASIENTO_AJU_EXC = "3";
-
       const SUBT_ASIENTO_RECLA_MISMAS_GASTOS = "A";
       const SUBT_ASIENTO_RECLA_DIF_GASTOS = "B";
       const SUBT_ASIENTO_RECLA_MAR_GAS = "C";
@@ -647,110 +561,72 @@ module.exports = cds.service.impl(async function () {
       const SUBT_ASIENTO_BANCOS = "F";
       const SUBT_ASIENTO_PROV_REVERSA = "G";
       const SUBT_ASIENTO_CUENTAS_EXCEP = "H";
-
       console.info("🟦 [IniciaWorkflowBPA] Inicio");
-
       const d = req.data;
-
       var n1 = [];
       var n2 = [];
       var n3 = [];
       var n4 = [];
-
       // 🔍 Validaciones mínimas
       if (!d.items?.length) return req.reject(400, "La solicitud no contiene items");
       if (!d.tipoAsiento_ID) return req.reject(400, "Falta tipoAsiento_ID");
       if (!d.subtipoAsiento_ID) return req.reject(400, "Falta subtipoAsiento_ID");
       if (!d.solicitante_ID) return req.reject(400, "Falta solicitante");
       if (!d.sectorSolicitante_ID) return req.reject(400, "Falta sector solicitante");
-
       // 1️⃣ Obtener maestros
       const valores = await getValoresCabecera(req);
-
       const { solicitante, tipoAsiento, subtipoAsiento, referencia, sector } = valores;
-
       // 2️⃣ Calcular sumatorias
       const tablasumatorias = await getTablaSumatorias(req);
-
-
-
       // 3️⃣ Aprobadores
       n1 = await getAprobadoresNivel1(req);
-
       if ((tipoAsiento.codigo == TIPO_ASIENTO_PROV_REVERSA) ||
-
         (tipoAsiento.codigo == TIPO_ASIENTO_ASI_CIERRE &&
           (subtipoAsiento.codigo == SUBT_ASIENTO_RECLA_MAR_GAS ||
             subtipoAsiento.codigo == SUBT_ASIENTO_PROV_GASTOS ||
             subtipoAsiento.codigo == SUBT_ASIENTO_PROV_MARGEN
           )
         ) ||
-
         (tipoAsiento.codigo == TIPO_ASIENTO_AJU_EXC)
       ) {
         n2 = await getAprobadoresNivel2(req);
         n3 = await getAprobadoresNivel3(req, tablasumatorias);
       };
-
       if (tipoAsiento.codigo == TIPO_ASIENTO_AJU_EXC) {
         n4 = await getAprobadoresNivel4(req, tablasumatorias);
       };
-
       const listaurldms = await getUrlsAdjuntos(req);
-
       // 4️⃣ Construir payload final
       const payload = buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldms);
-
       console.info("🟩 [IniciaWorkflowBPA] Payload final:", JSON.stringify(payload, null, 2));
-
       // 5️⃣ Enviar workflow
       const id = await callBPA(payload, req);
-
-      console.info("🟩 [IniciaWorkflowBPA] Instancia BPA creada:", id);
-
-      return id;
+      // ✅ MEJORA 10: calcular cuántos niveles tiene este workflow en particular.
+      //    Este valor viaja de vuelta al BEFORE CREATE solo en memoria (no se persiste).
+      //    BPA debe incluir el equivalente como parámetro 'totalNiveles' en cada
+      //    llamada a RegistrarAprobacion para que la máquina de estados funcione.
+      const niveles = [n1, n2, n3, n4].filter(arr => arr && arr.length > 0).length;
+      console.info(`🟩 [IniciaWorkflowBPA] Instancia BPA creada: ${id}, niveles: ${niveles}`);
+      return { id, niveles };
     } catch (err) {
       console.error("❌ [IniciaWorkflowBPA] 🔴 Error detectado", err);
       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
-
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
       console.error("❌ [IniciaWorkflowBPA] 🔴 Error interno:", err);
-
       // devolvemos un error 500 limpio
       return req.reject(500, "[IniciaWorkflowBPA] 🔴 Error interno");
     }
   }
-
-
-
-  // ============================================================================
-  // EXPORTS PARA USO EN service.js
-  // ============================================================================
-  // module.exports = {
-  //   getValoresCabecera,
-  //   getTablaSumatorias,
-  //   getAprobadoresNivel1,
-  //   getAprobadoresNivel2,
-  //   getAprobadoresNivel3,
-  //   getAprobadoresNivel4,
-  //   buildPayloadBPA,
-  //   callBPA,
-  //   IniciaWorkflowBPA
-  // };
-
   // this.on("ListarWorkflowsBPA", async (req) => {
   //   try {
   //           const remote = await cds.connect.to("bpa-api");  // igual que en callBPA
-
   //           const destinationName = remote.options.credentials.destination;
   //           const destination = await getDestination({ destinationName });
-
   //         console.log("👉 Destination seleccionado:", destinationName);
   //         console.log("👉 Destination completo:", destination);
-
   //           const resp = await executeHttpRequest(destination, {
   //             method: "get",
   //             url: "/workflow/rest/v1/workflow-definitions",
@@ -758,120 +634,50 @@ module.exports = cds.service.impl(async function () {
   //               'Accept': 'application/json','api-key': 'BdBXlx-emFjZWctW6ozyjRUOUAMBt8II'
   //             }
   //           });
-
   //           console.info("[ListarWorkflowsBPA] ✔ Workflow definitions:");
   //           console.info(JSON.stringify(resp.data, null, 2));
-
   //           return resp.data;
-
   //       } catch (err) {
   //         console.error("❌ [ListarWorkflowsBPA] 🔴 Error detectado", err);
   //         // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
   //         if (err.code) {
   //           throw err; // ⚡ sigue para arriba sin cambios
   //         }
-
   //         // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
   //         console.error("❌ [ListarWorkflowsBPA] 🔴 Error interno:", err);
-
   //         // devolvemos un error 500 limpio
   //         return req.reject(500, "[ListarWorkflowsBPA] 🔴 Error interno");
   //       }
   // });
-
   async function getNextNumeroSolicitudFU(tx) {
     try {
       //const db = cds.connect.to('db');
       const scope = 'NUMERO_SOLICITUD'; // Define your scope
-
       // Acquire a lock and get the current number within a transaction
       //const tx = db.transaction(req);
       const secuencias = await tx.run(
         SELECT.one.from('GestionaAsientos.Secuencias').where({ nombre: scope }).forUpdate() // forUpdate() helps with concurrency in HANA
       );
-
       if (secuencias) {
         const nextNumber = secuencias.valor + 1;
         // Format the ID with prefix, padding, etc.
         //req.data.ID = `${numberRange.prefix}${String(nextNumber).padStart(5, '0')}${numberRange.suffix}`;
-
         // Update the number range
         await tx.run(
           UPDATE('GestionaAsientos.Secuencias').set({ valor: nextNumber }).where({ nombre: scope })
         );
-
         return nextNumber;
       }
-
     } catch (err) {
       console.error("❌ [getNextNumeroSolicitudFU] 🔴 Error detectado", err);
       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
       if (err.code) {
         throw err; // ⚡ sigue para arriba sin cambios
       }
-
       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
       console.error("❌ [getNextNumeroSolicitudFU] 🔴 Error interno:", err);
-
       // devolvemos un error 500 limpio
       return req.reject(500, "[getNextNumeroSolicitudFU] 🔴 Error interno");
     }
   }
-
-
-
-  // async function getNextNumeroSolicitud(tx) {
-  //   try{
-  //         //const { Secuencias } = cds.entities['com.carrefour.journal'];
-
-  //         // 1️⃣ Incrementar la secuencia (sin returning)
-
-  //         await tx.run(
-  //           UPDATE('GestionaAsientos.Secuencias')
-  //             .set({ valor: { "+=": 1 } })
-  //             .where({ nombre: 'NUMERO_SOLICITUD' })
-  //         );
-
-  //         // 2️⃣ Leer el valor actualizado
-  //         const row = await tx.run(
-  //           SELECT.one.from('GestionaAsientos.Secuencias').columns('valor')
-  //             .where({ nombre: 'NUMERO_SOLICITUD' })
-  //         );
-
-  //         // 3️⃣ Si aún no existe → crearlo
-  //         if (!row) {
-  //           const nuevoValor = 1;
-
-  //           await tx.run(
-  //             INSERT.into('GestionaAsientos.Secuencias').entries({
-  //               ID: cds.utils.uuid(),
-  //               nombre: 'NUMERO_SOLICITUD',
-  //               valor: nuevoValor,
-  //               createdAt: new Date().toISOString(),
-  //               createdBy: 'system',
-  //               modifiedAt: new Date().toISOString(),
-  //               modifiedB: 'system'
-  //             })
-  //           );
-
-  //           return nuevoValor;
-  //         }
-
-  //       return row.valor;
-  //     } catch (err) {
-  //       console.error("❌ [getNextNumeroSolicitud] 🔴 Error detectado", err);
-  //       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
-  //       if (err.code) {
-  //         throw err; // ⚡ sigue para arriba sin cambios
-  //       }
-
-  //       // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-  //       console.error("❌ [getNextNumeroSolicitud] 🔴 Error interno:", err);
-
-  //       // devolvemos un error 500 limpio
-  //       return req.reject(500, "[getNextNumeroSolicitud] 🔴 Error interno");
-  //     }
-  // }
-
-
 });
