@@ -257,7 +257,7 @@ async function getAprobadoresNivel1(req) {
           );
 
           const cuentas = await cds.tx(req).run(
-            SELECT.from('com.carrefour.journal.CuentaUsuario')
+            SELECT.from('CuentaUsuario')
               .columns('empleado_ID', 'username')
               .where({ empleado_ID: { in: aprobadoresIDs } })
           );
@@ -342,7 +342,7 @@ async function getAprobadoresNivel1(req) {
             );
 
             const cuentas = await cds.tx(req).run(
-              SELECT.from('com.carrefour.journal.CuentaUsuario')
+              SELECT.from('CuentaUsuario')
                 .columns('empleado_ID', 'username')
                 .where({ empleado_ID: { in: aprobadoresIDs } })
             );
@@ -487,7 +487,7 @@ async function getAprobadoresNivel1(req) {
             );
 
             const cuentas = await cds.tx(req).run(
-              SELECT.from('com.carrefour.journal.CuentaUsuario')
+              SELECT.from('CuentaUsuario')
                 .columns('empleado_ID', 'username')
                 .where({ empleado_ID: { in: aprobadoresIDs } })
             );
@@ -633,7 +633,7 @@ async function getAprobadoresNivel1(req) {
               );
 
               const cuentas = await cds.tx(req).run(
-                SELECT.from('com.carrefour.journal.CuentaUsuario')
+                SELECT.from('CuentaUsuario')
                   .columns('empleado_ID', 'username')
                   .where({ empleado_ID: { in: aprobadoresIDs } })
               );
