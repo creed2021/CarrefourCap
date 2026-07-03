@@ -132,14 +132,32 @@ module.exports = cds.service.impl(async function () {
   this.before(['UPDATE', 'draftActivate'], 'Empleados', controlesCampoRegistro({ immutable: ['email'] }));
 
   this.after(['CREATE', 'UPDATE'], 'Empleados', async (data, req) => {
-    // data can be an array or a single object
     const records = Array.isArray(data) ? data : [data];
+
+    // 1. Inicializar la conexión una sola vez fuera del bucle
+    let iasApi;
+    try {
+      iasApi = await cds.connect.to("ias-api");
+    } catch (connectErr) {
+      console.error("❌ [IAS API] Error al conectar con ias-api:", connectErr.message);
+      return;
+    }
 
     for (const record of records) {
       if (record.email && record.ID) {
         try {
-          const iasApi = await cds.connect.to("ias-api");
-          let res = await iasApi.tx(req).get(`/scim/Users?filter=emails.value eq "${record.email}"`);
+          // 2. CORRECCIÓN DEL 406: Forzar las cabeceras requeridas por SAP IAS
+          const headers = {
+            'Accept': 'application/scim+json',
+            'Content-Type': 'application/scim+json'
+          };
+
+          // Pasamos las cabeceras como opciones en el segundo parámetro del .get()
+          let res = await iasApi.tx(req).get(
+            `/scim/Users?filter=emails.value eq "${record.email}"`,
+            undefined, // Opciones de body (GET no lleva body)
+            { headers } // Cabeceras personalizadas para la petición
+          );
 
           if (res && res.Resources && res.Resources.length > 0) {
             let user = res.Resources[0];
@@ -149,13 +167,21 @@ module.exports = cds.service.impl(async function () {
             }
 
             const tx = req.tx;
-            // Check if CuentaUsuario already exists for this empleado
-            const existing = await tx.run(SELECT.one.from('com.carrefour.journal.CuentaUsuario').where({ empleado_ID: record.ID }));
+            const existing = await tx.run(
+              SELECT.one.from('com.carrefour.journal.CuentaUsuario').where({ empleado_ID: record.ID })
+            );
 
             if (existing) {
-              await tx.run(UPDATE('com.carrefour.journal.CuentaUsuario').set({ username: fetchedUsername }).where({ ID: existing.ID }));
+              await tx.run(
+                UPDATE('com.carrefour.journal.CuentaUsuario')
+                  .set({ username: fetchedUsername })
+                  .where({ ID: existing.ID })
+              );
             } else {
-              await tx.run(INSERT.into('com.carrefour.journal.CuentaUsuario').entries({ empleado_ID: record.ID, username: fetchedUsername }));
+              await tx.run(
+                INSERT.into('com.carrefour.journal.CuentaUsuario')
+                  .entries({ empleado_ID: record.ID, username: fetchedUsername })
+              );
             }
 
             console.info(`[IAS API] Fetched username ${fetchedUsername} for email ${record.email} and saved to CuentaUsuario manually`);
@@ -168,6 +194,7 @@ module.exports = cds.service.impl(async function () {
       }
     }
   });
+
   this.on(['CREATE', 'UPDATE'], 'ConfigAprobadores', informaFailConstraint);
   this.on('DELETE', 'ConfigAprobadores', informaConstraintsDelete);
   this.on(['CREATE', 'UPDATE'], 'UmbralesCuentas', informaFailConstraint);
