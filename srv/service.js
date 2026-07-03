@@ -166,18 +166,18 @@ module.exports = cds.service.impl(async function () {
 
             const tx = req.tx;
             const existing = await tx.run(
-              SELECT.one.from('com.carrefour.journal.CuentaUsuario').where({ empleado_ID: record.ID })
+              SELECT.one.from('CuentaUsuario').where({ empleado_ID: record.ID })
             );
 
             if (existing) {
               await tx.run(
-                UPDATE('com.carrefour.journal.CuentaUsuario')
+                UPDATE('CuentaUsuario')
                   .set({ username: fetchedUsername })
                   .where({ ID: existing.ID })
               );
             } else {
               await tx.run(
-                INSERT.into('com.carrefour.journal.CuentaUsuario')
+                INSERT.into('CuentaUsuario')
                   .entries({ empleado_ID: record.ID, username: fetchedUsername })
               );
             }
