@@ -337,6 +337,86 @@ module.exports = cds.service.impl(async function () {
   });
 
   // ===========================================================
+  // ⚙️ sincronizarCuentaUsuario (sincronización manual desde Postman)
+  // ===========================================================
+  this.on("sincronizarCuentaUsuario", async (req) => {
+    const tx = req.tx;
+    try {
+      console.info("🚀 [sincronizarCuentaUsuario] Iniciando sincronización de usernames desde Postman...");
+      
+      const iasApi = await cds.connect.to("ias-api");
+
+      // 1. Obtener empleados
+      const empleados = await tx.run(SELECT.from('Empleados'));
+      console.info(`[sincronizarCuentaUsuario] Se encontraron ${empleados.length} empleados.`);
+
+      let successCount = 0;
+      let skippedCount = 0;
+      let errorCount = 0;
+
+      for (const emp of empleados) {
+        if (!emp.email || emp.email.trim() === '') {
+          console.warn(`[sincronizarCuentaUsuario] ⚠️ Empleado ID ${emp.ID} (${emp.nombre}) sin email. Omitiendo.`);
+          skippedCount++;
+          continue;
+        }
+
+        try {
+          // Consultamos la API SCIM de IAS
+          const res = await iasApi.send({
+            method: 'GET',
+            path: `/scim/Users?filter=emails.value eq "${emp.email.trim()}"`,
+            headers: {
+              'Accept': 'application/scim+json',
+              'Content-Type': 'application/scim+json'
+            }
+          });
+
+          if (res && res.Resources && res.Resources.length > 0) {
+            const user = res.Resources[0];
+            let fetchedUsername = user.userName;
+            if (!fetchedUsername || fetchedUsername.trim() === "") {
+              fetchedUsername = user.id;
+            }
+
+            // Verificar si ya existe en CuentaUsuario
+            const existing = await tx.run(
+              SELECT.one.from('CuentaUsuario').where({ empleado_ID: emp.ID })
+            );
+
+            if (existing) {
+              await tx.run(
+                UPDATE('CuentaUsuario')
+                  .set({ username: fetchedUsername })
+                  .where({ ID: existing.ID })
+              );
+            } else {
+              await tx.run(
+                INSERT.into('CuentaUsuario')
+                  .entries({ empleado_ID: emp.ID, username: fetchedUsername })
+              );
+            }
+            successCount++;
+          } else {
+            console.warn(`[sincronizarCuentaUsuario] ⚠️ Correo ${emp.email} no encontrado en IAS.`);
+            skippedCount++;
+          }
+        } catch (err) {
+          console.error(`[sincronizarCuentaUsuario] ❌ Error con ${emp.email}:`, err.message);
+          errorCount++;
+        }
+      }
+
+      const summary = `Sincronización completada. Exitosos: ${successCount}, Omitidos/No encontrados: ${skippedCount}, Fallidos: ${errorCount}`;
+      console.info(`🏁 [sincronizarCuentaUsuario] ${summary}`);
+      return summary;
+    } catch (err) {
+      console.error("❌ [sincronizarCuentaUsuario] Error general:", err.message);
+      return req.reject(500, `Error de sincronización: ${err.message}`);
+    }
+  });
+
+  // ===========================================================
   // 🔴 RegistrarRechazo  —  MEJORA 11 + MEJORA 12
   // ===========================================================
   this.on("RegistrarRechazo", async (req) => {
