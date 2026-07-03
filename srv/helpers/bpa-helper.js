@@ -256,7 +256,7 @@ async function getAprobadoresNivel1(req) {
               .where({ ID: { in: aprobadoresIDs } })
           );
 
-          const cuentas = await cds.tx(req).run(
+          const cuentas = await req.tx.run(
             SELECT.from('CuentaUsuario')
               .columns('empleado_ID', 'username')
               .where({ empleado_ID: { in: aprobadoresIDs } })
@@ -341,7 +341,7 @@ async function getAprobadoresNivel1(req) {
                 .where({ ID: { in: aprobadoresIDs } })
             );
 
-            const cuentas = await cds.tx(req).run(
+            const cuentas = await req.tx.run(
               SELECT.from('CuentaUsuario')
                 .columns('empleado_ID', 'username')
                 .where({ empleado_ID: { in: aprobadoresIDs } })
@@ -486,7 +486,7 @@ async function getAprobadoresNivel1(req) {
                 .where({ ID: { in: aprobadoresIDs } })
             );
 
-            const cuentas = await cds.tx(req).run(
+            const cuentas = await req.tx.run(
               SELECT.from('CuentaUsuario')
                 .columns('empleado_ID', 'username')
                 .where({ empleado_ID: { in: aprobadoresIDs } })
@@ -632,7 +632,7 @@ async function getAprobadoresNivel1(req) {
                   .where({ ID: { in: aprobadoresIDs } })
               );
 
-              const cuentas = await cds.tx(req).run(
+              const cuentas = await req.tx.run(
                 SELECT.from('CuentaUsuario')
                   .columns('empleado_ID', 'username')
                   .where({ empleado_ID: { in: aprobadoresIDs } })
