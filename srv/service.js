@@ -18,7 +18,6 @@ const { getUrlsAdjuntos,
   buildPayloadBPA,
   callBPA
 } = require("./helpers/bpa-helper");
-const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
 const { safeUndef,
   safeDate,
   primerDiaMesSiguiente,
