@@ -267,6 +267,76 @@ module.exports = cds.service.impl(async function () {
   });
 
   // ===========================================================
+  // ⚙️ obtenerPayloadBPA (para testing y postman)
+  // ===========================================================
+  this.on("obtenerPayloadBPA", async (req) => {
+    const { idSolicitud } = req.data;
+    const tx = req.tx;
+    try {
+      if (!idSolicitud) return req.reject(400, "Debe enviar idSolicitud.");
+      
+      const d = await tx.run(
+        SELECT.one.from('GestionaAsientos.CabeceraAsiento')
+          .where({ ID: idSolicitud })
+          .columns(c => {
+            c('*');
+            c.items('*');
+            c.adjuntosSolicitud('*');
+          })
+      );
+      if (!d) return req.reject(404, `No existe la solicitud con ID ${idSolicitud}`);
+
+      const mockReq = {
+        data: d,
+        tx: req.tx,
+        reject: req.reject
+      };
+
+      const TIPO_ASIENTO_PROV_REVERSA = "1";
+      const TIPO_ASIENTO_ASI_CIERRE = "2";
+      const TIPO_ASIENTO_AJU_EXC = "3";
+      const SUBT_ASIENTO_RECLA_MAR_GAS = "C";
+      const SUBT_ASIENTO_PROV_GASTOS = "D";
+      const SUBT_ASIENTO_PROV_MARGEN = "E";
+
+      const valores = await getValoresCabecera(mockReq);
+      const { tipoAsiento, subtipoAsiento } = valores;
+
+      const tablasumatorias = await getTablaSumatorias(mockReq);
+
+      let n1 = await getAprobadoresNivel1(mockReq);
+      let n2 = [];
+      let n3 = [];
+      let n4 = [];
+
+      if ((tipoAsiento.codigo == TIPO_ASIENTO_PROV_REVERSA) ||
+        (tipoAsiento.codigo == TIPO_ASIENTO_ASI_CIERRE &&
+          (subtipoAsiento.codigo == SUBT_ASIENTO_RECLA_MAR_GAS ||
+            subtipoAsiento.codigo == SUBT_ASIENTO_PROV_GASTOS ||
+            subtipoAsiento.codigo == SUBT_ASIENTO_PROV_MARGEN
+          )
+        ) ||
+        (tipoAsiento.codigo == TIPO_ASIENTO_AJU_EXC)
+      ) {
+        n2 = await getAprobadoresNivel2(mockReq);
+        n3 = await getAprobadoresNivel3(mockReq, tablasumatorias);
+      }
+      if (tipoAsiento.codigo == TIPO_ASIENTO_AJU_EXC) {
+        n4 = await getAprobadoresNivel4(mockReq, tablasumatorias);
+      }
+
+      const listaurldms = await getUrlsAdjuntos(mockReq) || [];
+
+      const payload = buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldms);
+      
+      return JSON.stringify(payload, null, 2);
+    } catch (err) {
+      console.error("❌ [obtenerPayloadBPA] Error:", err.message);
+      return req.reject(500, `Error al obtener payload: ${err.message}`);
+    }
+  });
+
+  // ===========================================================
   // 🔴 RegistrarRechazo  —  MEJORA 11 + MEJORA 12
   // ===========================================================
   this.on("RegistrarRechazo", async (req) => {
