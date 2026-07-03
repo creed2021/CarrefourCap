@@ -42,6 +42,7 @@ service GestionaAsientos {
     entity SubTiposAsiento            as projection on my.SubTipoAsiento;
     entity Referencia                 as projection on my.Referencia;
     entity Empleados                  as projection on my.Empleado;
+    entity CuentaUsuario    as projection on my.CuentaUsuario;
     entity Cuentas                    as projection on my.Cuenta;
     entity TiposCuentas               as projection on my.TipoCuenta;
     entity Secuencias                 as projection on my.Secuencias;
