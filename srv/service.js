@@ -18,6 +18,7 @@ const { getUrlsAdjuntos,
   buildPayloadBPA,
   callBPA
 } = require("./helpers/bpa-helper");
+const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
 const { safeUndef,
   safeDate,
   primerDiaMesSiguiente,
@@ -146,18 +147,15 @@ module.exports = cds.service.impl(async function () {
     for (const record of records) {
       if (record.email && record.ID) {
         try {
-          // 2. CORRECCIÓN DEL 406: Forzar las cabeceras requeridas por SAP IAS
-          const headers = {
-            'Accept': 'application/scim+json',
-            'Content-Type': 'application/scim+json'
-          };
-
-          // Pasamos las cabeceras como opciones en el segundo parámetro del .get()
-          let res = await iasApi.tx(req).get(
-            `/scim/Users?filter=emails.value eq "${record.email}"`,
-            undefined, // Opciones de body (GET no lleva body)
-            { headers } // Cabeceras personalizadas para la petición
-          );
+          // 2. CORRECCIÓN DEL 406: Forzar las cabeceras requeridas por SAP IAS usando .send()
+          let res = await iasApi.tx(req).send({
+            method: 'GET',
+            path: `/scim/Users?filter=emails.value eq "${record.email}"`,
+            headers: {
+              'Accept': 'application/scim+json',
+              'Content-Type': 'application/scim+json'
+            }
+          });
 
           if (res && res.Resources && res.Resources.length > 0) {
             let user = res.Resources[0];
