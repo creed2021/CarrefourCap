@@ -120,11 +120,6 @@ entity Empleado : cuid, managed {
   email    : String(100);
 }
 
-entity CuentaUsuario : cuid, managed {
-  empleado : Association to Empleado;
-  username : String(100);
-}
-
 entity AprobadorSolicitud : cuid, managed {
   empleado         : Association to Empleado;
   fechaAprobacion  : Date;

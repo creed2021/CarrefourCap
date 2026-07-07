@@ -256,16 +256,7 @@ async function getAprobadoresNivel1(req) {
               .where({ ID: { in: aprobadoresIDs } })
           );
 
-          const cuentas = await req.tx.run(
-            SELECT.from('CuentaUsuario')
-              .columns('empleado_ID', 'username')
-              .where({ empleado_ID: { in: aprobadoresIDs } })
-          );
-
-          return empleados.map(e => {
-              const c = cuentas.find(x => x.empleado_ID === e.ID);
-              return { email: e.email, username: c?.username || e.email };
-          });
+          return empleados.map(e => ({ email: e.email }));
     } catch (err) {
       AppLog.error("❌ [getAprobadoresNivel1] 🔴 Error detectado", err);
       // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -341,16 +332,7 @@ async function getAprobadoresNivel1(req) {
                 .where({ ID: { in: aprobadoresIDs } })
             );
 
-            const cuentas = await req.tx.run(
-              SELECT.from('CuentaUsuario')
-                .columns('empleado_ID', 'username')
-                .where({ empleado_ID: { in: aprobadoresIDs } })
-            );
-
-            return empleados.map(e => {
-                const c = cuentas.find(x => x.empleado_ID === e.ID);
-                return { email: e.email, username: c?.username || e.email };
-            });
+            return empleados.map(e => ({ email: e.email }));
         } catch (err) {
           AppLog.error("❌ [getAprobadoresNivel2] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -486,18 +468,9 @@ async function getAprobadoresNivel1(req) {
                 .where({ ID: { in: aprobadoresIDs } })
             );
 
-            const cuentas = await req.tx.run(
-              SELECT.from('CuentaUsuario')
-                .columns('empleado_ID', 'username')
-                .where({ empleado_ID: { in: aprobadoresIDs } })
-            );
-
             console.info(`🟦 [getAprobadoresNivel3] Aprobadores Nivel 3 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
-            return empleados.map(e => {
-                const c = cuentas.find(x => x.empleado_ID === e.ID);
-                return { email: e.email, username: c?.username || e.email };
-            });
+            return empleados.map(e => ({ email: e.email }));
         } catch (err) {
           AppLog.error("❌ [getAprobadoresNivel3] 🔴 Error detectado", err);
           // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -632,18 +605,9 @@ async function getAprobadoresNivel1(req) {
                   .where({ ID: { in: aprobadoresIDs } })
               );
 
-              const cuentas = await req.tx.run(
-                SELECT.from('CuentaUsuario')
-                  .columns('empleado_ID', 'username')
-                  .where({ empleado_ID: { in: aprobadoresIDs } })
-              );
-
               console.info(`🟥 Aprobadores Nivel 4 encontrados: ${empleados.map(e => e.email).join(", ")}`);
 
-              return empleados.map(e => {
-                  const c = cuentas.find(x => x.empleado_ID === e.ID);
-                  return { email: e.email, username: c?.username || e.email };
-              });
+              return empleados.map(e => ({ email: e.email }));
           } catch (err) {
             AppLog.error("❌ [getAprobadoresNivel4] 🔴 Error detectado", err);
             // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
@@ -691,10 +655,6 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
               listamailsnivel2: n2.map(e => e.email),
               listamailsnivel3: n3.map(e => e.email),
               listamailsnivel4: n4.map(e => e.email),
-              listausernamesnivel1: n1.map(e => e.username),
-              listausernamesnivel2: n2.map(e => e.username),
-              listausernamesnivel3: n3.map(e => e.username),
-              listausernamesnivel4: n4.map(e => e.username),
               enlacedms: "",
               listaurldms
             }

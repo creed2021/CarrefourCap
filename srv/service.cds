@@ -35,8 +35,6 @@ service GestionaAsientos {
     action   RegistrarRechazo(idSolicitud: UUID, emailAprobador: String, flujoaprobadores: String, motivoRechazo: String)       returns String;
     action   ObtenerDatosFormularioAprobacion(id: UUID);
     action   RealizarContabilizacion(id: UUID)                                                                                  returns String;
-    action   obtenerPayloadBPA(idSolicitud: UUID)                                                                               returns String;
-    action   sincronizarCuentaUsuario()                                                                                         returns String;
     function ListarWorkflowsBPA()                                                                                               returns String;
     entity EstadosSolicitud           as projection on my.EstadosSolicitud;
     entity Sectores                   as projection on my.Sector;
@@ -44,7 +42,6 @@ service GestionaAsientos {
     entity SubTiposAsiento            as projection on my.SubTipoAsiento;
     entity Referencia                 as projection on my.Referencia;
     entity Empleados                  as projection on my.Empleado;
-    entity CuentaUsuario    as projection on my.CuentaUsuario;
     entity Cuentas                    as projection on my.Cuenta;
     entity TiposCuentas               as projection on my.TipoCuenta;
     entity Secuencias                 as projection on my.Secuencias;
