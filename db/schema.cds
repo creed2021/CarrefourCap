@@ -128,6 +128,8 @@ entity AprobadorSolicitud : cuid, managed {
   cabecera         : Association to one CabeceraAsiento;
   flujoaprobadores : String(5000);
   motivoRechazo    : String(1000);
+  responsable          : String(200);      
+  usuariosAlternativos : String(1000);
 }
 
 @assert.unique: {empSecConfigSol: [

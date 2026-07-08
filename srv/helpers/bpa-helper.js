@@ -715,8 +715,46 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
             }
     }
 
+const NOMBRES_NIVEL = {
+  1: 'Aprobación Gerente o Director Area Solicitante',
+  2: 'Aprobación Jefe Contabilidad',
+  3: 'Aprobación Gerente o Director Contabilidad',
+  4: 'Aprobación CFO'
+};
+
+/* ============================================================================================
+ * 🧩 HELPER 8 — Sembrar instancias PENDIENTES de aprobación (Mejora 11)
+ * ============================================================================================ */
+async function sembrarAprobadoresPendientes(tx, cabeceraID, n1, n2, n3, n4) {
+  try {
+    const niveles = [n1, n2, n3, n4];
+    const filas = [];
+
+    niveles.forEach((lista, idx) => {
+      const nivel = idx + 1;
+      if (lista && lista.length > 0) {
+        filas.push({
+          cabecera_ID: cabeceraID,
+          nivelAprobacion: String(nivel),
+          responsable: NOMBRES_NIVEL[nivel],
+          usuariosAlternativos: lista.map(e => e.email).join(', '),
+          decision: 'PENDIENTE'
+        });
+      }
+    });
+
+    if (filas.length > 0) {
+      await tx.run(INSERT.into('GestionaAsientos.AprobadorSolicitud').entries(filas));
+      AppLog.debug(`🟩 [sembrarAprobadoresPendientes] ${filas.length} instancias pendientes sembradas`);
+    }
+  } catch (err) {
+    AppLog.error("❌ [sembrarAprobadoresPendientes] 🔴 Error detectado", err);
+    throw err; // sí o sí debe abortar el CREATE si esto falla — sin pendientes sembrados, la Mejora 11 queda rota
+  }
+}
+
 module.exports = {
-  getValoresCabecera,  
+  getValoresCabecera,
   getUrlsAdjuntos,
   getTablaSumatorias,
   getAprobadoresNivel1,
@@ -724,5 +762,6 @@ module.exports = {
   getAprobadoresNivel3,
   getAprobadoresNivel4,
   buildPayloadBPA,
-  callBPA
+  callBPA,
+  sembrarAprobadoresPendientes   
 };

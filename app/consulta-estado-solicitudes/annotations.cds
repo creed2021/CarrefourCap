@@ -424,6 +424,11 @@ annotate service.AprobadorSolicitud with @(
         },
         {
             $Type: 'UI.DataField',
+            Value: cabecera.aprobadoresSolicitud.responsable,
+            Label: 'Responsable',
+        },
+        {
+            $Type: 'UI.DataField',
             Value: cabecera.aprobadoresSolicitud.empleado.nombre,
             Label: 'Empleado',
         },
@@ -431,6 +436,16 @@ annotate service.AprobadorSolicitud with @(
             $Type: 'UI.DataField',
             Value: cabecera.aprobadoresSolicitud.decision,
             Label: 'Decisión',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: cabecera.aprobadoresSolicitud.usuariosAlternativos,
+            Label: 'Usuarios Aprobadores',
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: cabecera.aprobadoresSolicitud.motivoRechazo,
+            Label: 'Motivo de Rechazo',
         },
     ],
     UI.SelectionPresentationVariant #DetalledeAprobadores1: {
