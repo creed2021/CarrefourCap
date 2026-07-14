@@ -601,6 +601,9 @@ async function ObtenerIDSubtipoAsiento(req) {
       const subE = solo(["MAR", "PAT"]) || solo(["MAR", "GAS", "PAT"]);
       const subF = solo(["BAN"]);
 
+      // 🆕 NUEVO — Dante Tagliavini [14-07-2026] — subtipo para varias cuentas Patrimoniales
+      const subI = solo(["PAT"]) && cuentasPorTipo.PAT.size > 1;
+
       if (subA) return (await getSub("A")).ID;
       if (subB) return (await getSub("B")).ID;
       if (subC) return (await getSub("C")).ID;
@@ -625,6 +628,17 @@ async function ObtenerIDSubtipoAsiento(req) {
 
       if (subF) return (await getSub("F")).ID;
 
+
+      // 🆕 NUEVO — mismo patrón que D/E: valida umbral antes de aceptar
+      if (subI) {
+        const st = await getSub("I");
+        if (sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+        return req.reject(
+          400,
+          `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo I.`
+        );
+      }
+
       // ❌ → RETORNO CON JSON EXTRAS
       return req.reject(400, {
         message:
@@ -648,10 +662,17 @@ async function ObtenerIDSubtipoAsiento(req) {
 
       //Tagliavini 15-05-26 - se pemite tener otras cuentas además de EXC y PAT o EXC y BAN, pero debe haber al menos una de cada una de esas dos
       const tieneBAN = cuentasPorTipo.BAN?.size > 0;
+
+      // 🆕 NUEVO — Dante Tagliavini [fecha] — se agregan combinaciones con cuentas de Gastos (GAS)
+      const tieneGAS = cuentasPorTipo.GAS?.size > 0;
+
       if (
         (tieneEXC && tienePAT && solo(["EXC", "PAT"])) ||
         (tieneEXC && tieneBAN && solo(["EXC", "BAN"])) ||
-        (tieneEXC && tienePAT && tieneBAN && solo(["EXC", "PAT", "BAN"]))
+        (tieneEXC && tienePAT && tieneBAN && solo(["EXC", "PAT", "BAN"])) ||
+        // 🆕 NUEVO 14-7-2026
+        (tieneEXC && tieneGAS && solo(["EXC", "GAS"])) ||
+        (tieneEXC && tieneGAS && tienePAT && solo(["EXC", "GAS", "PAT"]))
       ) {
         return (await getSub("H")).ID;
       }
@@ -661,7 +682,7 @@ async function ObtenerIDSubtipoAsiento(req) {
       // ❌ → RETORNO CON JSON EXTRAS
       return req.reject(400, {
         message:
-          "El tipo de asiento solicitado (TipoAsiento=3) requiere al menos una cuenta EXC y una cuenta PAT o BAN.",
+          "El tipo de asiento solicitado (TipoAsiento=3) requiere al menos una cuenta EXC y una cuenta PAT, BAN o GAS.",
         detalleCuentas: {
           totalCuentas: cuentasUnicas.size,
           cuentasPorTipo: Object.fromEntries(
