@@ -353,24 +353,18 @@ async function CompletaCamposCabecera(req) {
   const TipoAsiento = cds.entities.TipoAsiento;
   const EstadosSolicitud = cds.entities.EstadosSolicitud;
   const Referencia = cds.entities.Referencia;
-
   AppLog.info('[CompletaCamposCabecera] ✅ Ingresa en método');
-
   try {
-
-    const estado = await SELECT.one.from(EstadosSolicitud).where({ codigo: 'INI' });
+    const estado = await SELECT.one.from(EstadosSolicitud).where({ codigo: 'P1' });
     if (estado) cab.estadoSolicitud_ID = estado.ID
     else {
-      AppLog.error(`[CompletaCamposCabecera] ❌ Error al completar el estado`);
-      return req.reject(404, `[CompletaCamposCabecera] ❌ Error al completar el estado`);
+      AppLog.error(`[CompletaCamposCabecera] ❌ No se encontró estado con código 'P1' en el maestro EstadosSolicitud`);
+      return req.reject(404, `[CompletaCamposCabecera] ❌ Error al completar el estado: falta código 'P1' en EstadosSolicitud`);
     }
-
     // subtipoAsiento_ID
     const subtipoID = await ObtenerIDSubtipoAsiento(req);
     if (subtipoID) cab.subtipoAsiento_ID = subtipoID;
-
     const tipo = await SELECT.one.from(TipoAsiento).where({ ID: cab.tipoAsiento_ID });
-
     // referencia_ID según tipoAsiento
     if (tipo?.codigo) {
       let refCodigo = null;
@@ -386,15 +380,10 @@ async function CompletaCamposCabecera(req) {
     }
   } catch (err) {
     AppLog.error("❌ [CompletaCamposCabecera] 🔴 Error detectado", err);
-    // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
     if (err.code) {
-      throw err; // ⚡ sigue para arriba sin cambios
+      throw err;
     }
-
-    // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
     AppLog.error("❌ [CompletaCamposCabecera] 🔴 Error interno:", err);
-
-    // devolvemos un error 500 limpio
     return req.reject(500, "[CompletaCamposCabecera] 🔴 Error interno");
   }
 }

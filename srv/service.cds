@@ -1,4 +1,5 @@
 using com.carrefour.journal as my from '../db/schema';
+
 @odata: {version: '4.0'}
 service GestionaAsientos {
     entity CabeceraAsiento            as
@@ -15,27 +16,33 @@ service GestionaAsientos {
             adjuntosSolicitud,
             resumenCuentas : redirected to ResumenCuentas
         };
+
     annotate CabeceraAsiento with {
         numeroSolicitud @cds.collation: 'SAP_DEFAULT';
     }
+
     @cds.redirection.target
     entity DetalleAsiento             as
         projection on my.DetalleAsiento {
             *,
             cuentaContable : redirected to Cuentas
         };
+
     entity AprobadorSolicitud         as
         projection on my.AprobadorSolicitud {
             *,
             empleado : redirected to Empleados
-        };
+        }
+        order by
+            nivelAprobacion asc;
+
     entity AdjuntoSolicitud           as projection on my.AdjuntoSolicitud;
     action   prepareAdjuntos(sessionId: String);
     action   RegistrarAprobacion(idSolicitud: UUID, emailAprobador: String, nivelAprobacion: Integer, flujoaprobadores: String, totalNiveles: Integer) returns String;
-    action   RegistrarRechazo(idSolicitud: UUID, emailAprobador: String, flujoaprobadores: String, motivoRechazo: String)       returns String;
+    action   RegistrarRechazo(idSolicitud: UUID, emailAprobador: String, flujoaprobadores: String, motivoRechazo: String)                              returns String;
     action   ObtenerDatosFormularioAprobacion(id: UUID);
-    action   RealizarContabilizacion(id: UUID)                                                                                  returns String;
-    function ListarWorkflowsBPA()                                                                                               returns String;
+    action   RealizarContabilizacion(id: UUID)                                                                                                         returns String;
+    function ListarWorkflowsBPA()                                                                                                                      returns String;
     entity EstadosSolicitud           as projection on my.EstadosSolicitud;
     entity Sectores                   as projection on my.Sector;
     entity TiposAsiento               as projection on my.TipoAsiento;
@@ -48,6 +55,7 @@ service GestionaAsientos {
     entity ConfigAdjuntosObligatorios as projection on my.ConfigAdjuntoObligatorio;
     entity ResumenCuentas             as projection on my.ResumenCuentas;
 }
+
 @odata: {version: '4.0'}
 service CatalogService {
     entity Cargos                     as projection on my.Cargo;
@@ -55,6 +63,7 @@ service CatalogService {
     entity ConfigAprobadores          as projection on my.ConfigAprobador;
     entity ConfigSolicitantes         as projection on my.ConfigSolicitante;
     entity TiposCuentas               as projection on my.TipoCuenta;
+
     entity Cuentas                    as
         projection on my.Cuenta {
             ID,
@@ -62,19 +71,23 @@ service CatalogService {
             nombre,
             tipo
         };
+
     entity UmbralesCuentas            as projection on my.UmbralCuenta;
     entity TiposAsiento               as projection on my.TipoAsiento;
     entity SubTiposAsiento            as projection on my.SubTipoAsiento;
     entity Constantes                 as projection on my.Constantes;
     entity EstadosSolicitud           as projection on my.EstadosSolicitud;
     entity Referencia                 as projection on my.Referencia;
+
     entity Empleados                  as
         projection on my.Empleado {
             ID,
             *
         };
+
     entity ConfigAdjuntosObligatorios as projection on my.ConfigAdjuntoObligatorio;
 }
+
 annotate GestionaAsientos.CabeceraAsiento with @UI.CreateEnabled: false;
 annotate GestionaAsientos.CabeceraAsiento @UI.CreateHidden: true;
 annotate GestionaAsientos.CabeceraAsiento @UI.DeleteHidden: true;
