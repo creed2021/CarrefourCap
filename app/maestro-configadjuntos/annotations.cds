@@ -34,6 +34,14 @@ annotate service.ConfigAdjuntosObligatorios with @(
             Label: 'Adjunto Obligatorio',
         },
     ],
+    UI.HeaderInfo: {
+        TypeName      : 'Configuración de Adjunto',
+        TypeNamePlural: 'Configuraciones de Adjuntos',
+        Title         : {
+            $Type: 'UI.DataField',
+            Value: tipoAsiento.nombre,
+        },
+    },
 );
 
 annotate service.TiposAsiento with {
