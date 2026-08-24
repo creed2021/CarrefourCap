@@ -8,10 +8,10 @@ modules:
   path: gen/srv
   requires:
   - name: asientos-ajustes-auth
+  - name: asientos-ajustes-db
   - name: asientos-ajustes-destination
   - name: dest_dms_dev
   - name: asientos-ajustes-connectivity-service
-  - name: ups-database-external
   provides:
   - name: srv-api
     properties:
@@ -22,6 +22,13 @@ modules:
     instances: 1
   build-parameters:
     builder: npm-ci
+- name: asientos-ajustes-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: asientos-ajustes-db
+  parameters:
+    buildpack: nodejs_buildpack
 - name: asientos-ajustes-app-deployer
   type: com.sap.application.content
   path: .
@@ -199,11 +206,6 @@ modules:
     - npm run build:cf
     supported-platforms: []
 resources:
-- name: ups-database-external
-  type: org.cloudfoundry.existing-service
-  parameters:
-    service: user-provided
-    service-name: ups-database-external
 - name: asientos-ajustes-auth
   type: org.cloudfoundry.managed-service
   parameters:
@@ -226,6 +228,11 @@ resources:
     path: ./xs-security.json
     service: xsuaa
     service-plan: application
+- name: asientos-ajustes-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
 - name: asientos-ajustes-destination
   type: org.cloudfoundry.managed-service
   parameters:
@@ -306,6 +313,7 @@ resources:
     service: connectivity
     service-plan: lite
 parameters:
+  bpa_api_key: BdBXlx-emFjZWctW6ozyjRUOUAMBt8II
   deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:

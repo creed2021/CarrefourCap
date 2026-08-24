@@ -4,7 +4,7 @@ const { getDestination } = require('@sap-cloud-sdk/connectivity');
 
 const REPO_ID_DEV = "59ec1b8c-cf7c-465c-bd5b-460bcb6ca9a4";
 const REPO_ID_PRD = "f2fdf3d8-7692-4816-ba33-563a9390dae1";
-const BASE = `/browser/${REPO_ID_PRD}`;
+const BASE = `/browser/${REPO_ID_DEV}`;
 
 const AppLog = require('../helpers/logging/app-log');
 

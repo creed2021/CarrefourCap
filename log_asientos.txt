@@ -1,0 +1,1002 @@
+Retrieving logs for app asientos-ajustes-srv in org Carrefour ARG_process-automation-95oeuot4 / space SP_DEV as dftagliavini@indracompany.com...
+
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <BusinessTransactionType>RFBU</BusinessTransactionType>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <AccountingDocumentType>SA</AccountingDocumentType>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <CreatedByUser>BTP_ASI_CONT</CreatedByUser>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <CompanyCode>INCS</CompanyCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <DocumentDate>2026-07-31</DocumentDate>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <PostingDate>2026-07-31</PostingDate>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <DocumentReferenceID>Prov c/Reversa</DocumentReferenceID>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <Reference1InDocumentHeader></Reference1InDocumentHeader>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <DocumentHeaderText>prueba</DocumentHeaderText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <ReversalDate>2026-08-01</ReversalDate>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            <ReversalReason>05</ReversalReason>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                            \n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5414110307</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-97701.97</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5414110307</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-121947.69</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5414110774</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-62260.44</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030141</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-87462.32</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010262</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-135908.64</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010191</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-114447.29</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5414110609</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-133545.31</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5413090239</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-61981.16</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010252</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-88515.34</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030249</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-72129.68</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030660</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-60616.21</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030796</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-95311.44</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010243</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-371436.64</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010156</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-99673.57</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030771</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-129927.7</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5413060021</CostCenter>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.88+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-110062.46</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                 '... 45448 more characters,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR allowAbsoluteUrls: true
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR request: <ref *1> ClientRequest {
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _events: [Object: null prototype] {
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR abort: [Function (anonymous)],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR aborted: [Function (anonymous)],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR connect: [Function (anonymous)],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR error: [Function (anonymous)],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR socket: [Function (anonymous)],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR timeout: [Function (anonymous)],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR finish: [Function: requestOnFinish]
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _eventsCount: 7,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR outputData: [],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR outputSize: 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR writable: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR destroyed: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _last: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR chunkedEncoding: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR shouldKeepAlive: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxRequestsOnConnectionReached: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _defaultKeepAlive: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR useChunkedEncodingByDefault: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR sendDate: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _removedConnection: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _removedContLen: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _removedTE: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR strictContentLength: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _contentLength: 55448,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _hasBody: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _trailer: '',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR finished: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _headerSent: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _closed: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _header: 'POST http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi HTTP/1.1\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Accept: text/xml\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Content-Type: text/xml\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'authorization: Basic QlRQX0FTSV9DT05UOkluaWNpby0xMjM0NTY3ODk=\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Proxy-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJqaWQiOiJPL0hvbEpsSWcyMWFTTFNwWGRQYzRycXY1SWVjVVI0cXlXTHBRR2RSRjJrPSIsImFsZyI6IlJTMjU2Iiwiamt1IjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS90b2tlbl9rZXlzIiwia2lkIjoiZGVmYXVsdC1qd3Qta2V5LTMzMjNmODRiZmUifQ.eyJzdWIiOiJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiaXNzIjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS9vYXV0aC90b2tlbiIsImF1dGhvcml0aWVzIjpbInVhYS5yZXNvdXJjZSIsImNvbm5lY3Rpdml0eSFiMzMucHJveHkiXSwiY2xpZW50X2lkIjoic2ItY2xvbmU3NGYzYjk3NjMzMGI0ZGI3YWMwMmZiY2ZjMGI5NjkzOCFiNDIwNzl8Y29ubmVjdGl2aXR5IWIzMyIsImF1ZCI6WyJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiY29ubmVjdGl2aXR5IWIzMyIsInVhYSJdLCJleHRfYXR0ciI6eyJlbmhhbmNlciI6IlhTVUFBIiwic3ViYWNjb3VudGlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiemRuIjoicHJvY2Vzcy1hdXRvbWF0aW9uLTk1b2V1b3Q0Iiwic2VydmljZWluc3RhbmNlaWQiOiI3NGYzYjk3Ni0zMzBiLTRkYjctYWMwMi1mYmNmYzBiOTY5MzgifSwiemlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsImF6cCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMiLCJzY29wZSI6WyJ1YWEucmVzb3VyY2UiLCJjb25uZWN0aXZpdHkhYjMzLnByb3h5Il0sImV4cCI6MTc4NTkwODczNiwiaWF0IjoxNzg1ODY1NTM2LCJqdGkiOiJhM2E0ZjBiMTQxMTY0NTE3YmVhNjg0YTMyN2NjMmNiZSIsInJldl9zaWciOiJjODU4ZDA0NSIsImNpZCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMifQ.OQ6MYlO2AA133h2ctxtobwDw7ZvEUyRfOtZqlt3tTqLAXZTupLhDJgNygAc5-EeXDG4LMI0vxB-eBcx1FLDEGup7wYC_C5lq7BhH4ywOOVorktNg7wfHQn5USpN-XT14RjeP5ByVemua5LQsSVinTE8E1Zrrmk7PwGcefQ-tjyumUkz-JQO276LpHzKSoLWUOK0ra9mvnQivrW5VAFuuQRakmBXPg5rd1rmb6Cd88NKH6JGPrcKjaaN_n8wQ2gyvWOMgp0hKj5Bjt8kqRDVnjb0aX1oShIrRqoqI56M5WaDrSvHLzCCoJ0a0Tt0Pq78TZWg5mgo5NT987vus9U85fA\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'sap-client: 300\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'User-Agent: axios/1.13.2\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Content-Length: 55448\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'host: webdispatcherqas:8043\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Connection: close\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '\r\n',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _keepAliveTimeout: 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _onPendingData: [Function: nop],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR agent: Agent {
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _events: [Object: null prototype],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _eventsCount: 2,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR options: [Object: null prototype],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR defaultPort: 80,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR protocol: 'http:',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR requests: [Object: null prototype] {},
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR sockets: [Object: null prototype],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR freeSockets: [Object: null prototype] {},
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR keepAliveMsecs: 1000,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR keepAlive: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxSockets: Infinity,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxFreeSockets: 256,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR scheduling: 'lifo',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxTotalSockets: Infinity,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR totalSocketCount: 1,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR agentKeepAliveTimeoutBuffer: 1000,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR socketPath: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR method: 'POST',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxHeaderSize: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR insecureHTTPParser: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR joinDuplicateHeaders: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _ended: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR res: [object IncomingMessage],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR aborted: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR timeoutCb: null,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR upgradeOrConnect: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR parser: null,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxHeadersCount: null,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR reusedSocket: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR host: '192.168.2.5',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR protocol: 'http:',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _redirectable: Writable {
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _events: [Object],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _writableState: [WritableState],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _options: [Object],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _ended: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _ending: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _redirectCount: 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _redirects: [],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _requestBodyLength: 55448,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _requestBodyBuffers: [],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _eventsCount: 3,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _onNativeResponse: [Function (anonymous)],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _currentRequest: [Circular *1],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _currentUrl: 'http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _timeout: null,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kBytesWritten): 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kNeedDrain): false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(corked): 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedBuffer): [],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedLength): 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kSocket): [object Socket],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kOutHeaders): [Object: null prototype] {
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR accept: [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'content-type': [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR authorization: [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'proxy-authorization': [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'sap-client': [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'user-agent': [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'content-length': [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'accept-encoding': [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR host: [Array]
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(errored): null,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kHighWaterMark): 65536,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kRejectNonStandardBodyWrites): false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kPath): 'http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kUniqueHeaders): null
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR response: {
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR status: 500,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR statusText: 'Internal Server Error',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR headers: Object [AxiosHeaders] {
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'set-cookie': [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'content-type': 'text/xml; charset=utf-8',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'content-length': '469',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR accept: 'text/xml',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'sap-srt_id': '20260804/162321/v1.00_final_6.40/EB3387CE11361FD1A4873E9237177688',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'sap-server': 'true',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'sap-perf-fesrec': '86564.000000',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR connection: 'close'
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR config: {
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR transitional: [Object],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR adapter: [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR transformRequest: [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR transformResponse: [Array],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR timeout: 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR xsrfCookieName: 'XSRF-TOKEN',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR xsrfHeaderName: 'X-XSRF-TOKEN',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxContentLength: -1,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxBodyLength: -1,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR env: [Object],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR validateStatus: [Function: validateStatus],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR headers: [Object [AxiosHeaders]],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR httpAgent: [Agent],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR httpsAgent: [Agent],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR paramsSerializer: [Object],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR method: 'post',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR baseURL: 'http://webdispatcherqas:8043',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR params: {},
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR proxy: [Object],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR url: '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR data: '\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <soapenv:Header/>         \n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <soapenv:Body>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <sfin:JournalEntryBulkCreateRequest>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <MessageHeader>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                          <CreationDateTime>2026-08-04T19:23:19.036Z</CreationDateTime>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                          <TestDataIndicator>true</TestDataIndicator>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        </MessageHeader>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <JournalEntryCreateRequest>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                          <MessageHeader>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <CreationDateTime>2026-08-04T19:23:19.036Z</CreationDateTime>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <TestDataIndicator>true</TestDataIndicator>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                          </MessageHeader>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                          <JournalEntry>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <BusinessTransactionType>RFBU</BusinessTransactionType>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <AccountingDocumentType>SA</AccountingDocumentType>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <CreatedByUser>BTP_ASI_CONT</CreatedByUser>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <CompanyCode>INCS</CompanyCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <DocumentDate>2026-07-31</DocumentDate>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <PostingDate>2026-07-31</PostingDate>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <DocumentReferenceID>Prov c/Reversa</DocumentReferenceID>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <Reference1InDocumentHeader></Reference1InDocumentHeader>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <DocumentHeaderText>prueba</DocumentHeaderText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <ReversalDate>2026-08-01</ReversalDate>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            <ReversalReason>05</ReversalReason>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                            \n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5414110307</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-97701.97</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5414110307</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-121947.69</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5414110774</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-62260.44</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030141</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-87462.32</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010262</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-135908.64</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010191</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-114447.29</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5414110609</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-133545.31</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5413090239</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-61981.16</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010252</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-88515.34</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030249</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-72129.68</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030660</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-60616.21</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030796</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-95311.44</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010243</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-371436.64</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5411010156</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-99673.57</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5412030771</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-129927.7</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    </Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                    <Item>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <GLAccount>60090117</GLAccount>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DebitCreditCode>H</DebitCreditCode>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <DocumentItemText>RRHH  SAC FAR  AGENCIA 02 2026</DocumentItemText>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                        <CostCenter>5413060021</CostCenter>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      </AccountAssignment>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                      <AmountInTransactionCurrency currencyCode="ARS">-110062.46</AmountInTransactionCurrency>\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '                 '... 45448 more characters,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR allowAbsoluteUrls: true
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR request: <ref *1> ClientRequest {
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _events: [Object: null prototype],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _eventsCount: 7,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _maxListeners: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR outputData: [],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR outputSize: 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR writable: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR destroyed: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _last: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR chunkedEncoding: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR shouldKeepAlive: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxRequestsOnConnectionReached: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _defaultKeepAlive: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR useChunkedEncodingByDefault: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR sendDate: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _removedConnection: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _removedContLen: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _removedTE: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR strictContentLength: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _contentLength: 55448,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _hasBody: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _trailer: '',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR finished: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _headerSent: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _closed: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _header: 'POST http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi HTTP/1.1\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Accept: text/xml\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Content-Type: text/xml\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'authorization: Basic QlRQX0FTSV9DT05UOkluaWNpby0xMjM0NTY3ODk=\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Proxy-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJqaWQiOiJPL0hvbEpsSWcyMWFTTFNwWGRQYzRycXY1SWVjVVI0cXlXTHBRR2RSRjJrPSIsImFsZyI6IlJTMjU2Iiwiamt1IjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS90b2tlbl9rZXlzIiwia2lkIjoiZGVmYXVsdC1qd3Qta2V5LTMzMjNmODRiZmUifQ.eyJzdWIiOiJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiaXNzIjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS9vYXV0aC90b2tlbiIsImF1dGhvcml0aWVzIjpbInVhYS5yZXNvdXJjZSIsImNvbm5lY3Rpdml0eSFiMzMucHJveHkiXSwiY2xpZW50X2lkIjoic2ItY2xvbmU3NGYzYjk3NjMzMGI0ZGI3YWMwMmZiY2ZjMGI5NjkzOCFiNDIwNzl8Y29ubmVjdGl2aXR5IWIzMyIsImF1ZCI6WyJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiY29ubmVjdGl2aXR5IWIzMyIsInVhYSJdLCJleHRfYXR0ciI6eyJlbmhhbmNlciI6IlhTVUFBIiwic3ViYWNjb3VudGlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiemRuIjoicHJvY2Vzcy1hdXRvbWF0aW9uLTk1b2V1b3Q0Iiwic2VydmljZWluc3RhbmNlaWQiOiI3NGYzYjk3Ni0zMzBiLTRkYjctYWMwMi1mYmNmYzBiOTY5MzgifSwiemlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsImF6cCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMiLCJzY29wZSI6WyJ1YWEucmVzb3VyY2UiLCJjb25uZWN0aXZpdHkhYjMzLnByb3h5Il0sImV4cCI6MTc4NTkwODczNiwiaWF0IjoxNzg1ODY1NTM2LCJqdGkiOiJhM2E0ZjBiMTQxMTY0NTE3YmVhNjg0YTMyN2NjMmNiZSIsInJldl9zaWciOiJjODU4ZDA0NSIsImNpZCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMifQ.OQ6MYlO2AA133h2ctxtobwDw7ZvEUyRfOtZqlt3tTqLAXZTupLhDJgNygAc5-EeXDG4LMI0vxB-eBcx1FLDEGup7wYC_C5lq7BhH4ywOOVorktNg7wfHQn5USpN-XT14RjeP5ByVemua5LQsSVinTE8E1Zrrmk7PwGcefQ-tjyumUkz-JQO276LpHzKSoLWUOK0ra9mvnQivrW5VAFuuQRakmBXPg5rd1rmb6Cd88NKH6JGPrcKjaaN_n8wQ2gyvWOMgp0hKj5Bjt8kqRDVnjb0aX1oShIrRqoqI56M5WaDrSvHLzCCoJ0a0Tt0Pq78TZWg5mgo5NT987vus9U85fA\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'sap-client: 300\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'User-Agent: axios/1.13.2\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Content-Length: 55448\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'host: webdispatcherqas:8043\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR 'Connection: close\r\n' +
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR '\r\n',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _keepAliveTimeout: 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _onPendingData: [Function: nop],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR agent: [Agent],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR socketPath: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR method: 'POST',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxHeaderSize: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR insecureHTTPParser: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR joinDuplicateHeaders: undefined,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _ended: true,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR res: [object IncomingMessage],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR aborted: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR timeoutCb: null,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR upgradeOrConnect: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR parser: null,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR maxHeadersCount: null,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR reusedSocket: false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR host: '192.168.2.5',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR protocol: 'http:',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR _redirectable: [Writable],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(shapeMode): false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kCapture): false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kBytesWritten): 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kNeedDrain): false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(corked): 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedBuffer): [],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kChunkedLength): 0,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kSocket): [object Socket],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kOutHeaders): [Object: null prototype],
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(errored): null,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kHighWaterMark): 65536,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kRejectNonStandardBodyWrites): false,
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kPath): 'http://webdispatcherqas:8043/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi',
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR Symbol(kUniqueHeaders): null
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR data: '<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"><soap-env:Header/><soap-env:Body><soap-env:Fault><faultcode>soap-env:Server</faultcode><faultstring xml:lang="es">Error en el tratamiento de servicio web; Más detalles en log de error de servicio web en la página de proveedor (Cronomarcador UTC 20260804192321; ID de transacción 1485B0910CE50320E006A71D0CAFB9CD)</faultstring><detail/></soap-env:Fault></soap-env:Body></soap-env:Envelope>'
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:23:21.89+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:23:25.99+0000 [RTR/1] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:23:25.944733985Z] "POST /odata/v4/gestiona-asientos/$batch HTTP/1.1" 200 609 511 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.maestroempleados&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" "10.2.8.2:55220" "10.1.9.30:61152" x_forwarded_for:"181.86.218.188, 10.1.8.2, 34.132.192.46, 10.2.8.2" x_forwarded_proto:"https" vcap_request_id:"7b0d99cd-2963-4f19-786b-8fdb4f23000b" response_time:0.048171 gorouter_time:0.000093 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.001010 tls_time:0.010891 backend_time:0.048079 local_address:"10.2.1.8:38554" x_cf_routererror:"-" x_correlationid:"7b0d99cd-2963-4f19-786b-8fdb4f23000b" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"675f6026-4191-421a-943e-ed7e7ebed63d-6A723C2D-69E0F65" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-fd33356c2c58eecd1a94e6026489dcc7-a07f35e4f4095a4e-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"7b0d99cd29634f19786b8fdb4f23000b" x_b3_spanid:"786b8fdb4f23000b" x_b3_parentspanid:"-" b3:"7b0d99cd29634f19786b8fdb4f23000b-786b8fdb4f23000b"
+   2026-08-04T19:23:31.73+0000 [RTR/2] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:23:31.705163874Z] "POST /odata/v4/gestiona-asientos/$batch HTTP/1.1" 200 572 490 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.maestroempleados&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" "10.1.8.2:40674" "10.1.9.30:61152" x_forwarded_for:"181.86.218.188, 10.1.8.2, 34.132.192.46, 10.1.8.2" x_forwarded_proto:"https" vcap_request_id:"7a806700-4f1c-48fd-610e-3c48c13c5764" response_time:0.030171 gorouter_time:0.000070 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.000936 tls_time:0.010061 backend_time:0.030101 local_address:"10.1.1.9:65348" x_cf_routererror:"-" x_correlationid:"7a806700-4f1c-48fd-610e-3c48c13c5764" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"350f11c4-dbe4-489d-8850-be4552099149-6A723C33-69E9A0C" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-c0b07c11f11bd5019f114bc3de045a62-0b1f34d3632876e0-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"7a8067004f1c48fd610e3c48c13c5764" x_b3_spanid:"610e3c48c13c5764" x_b3_parentspanid:"-" b3:"7a8067004f1c48fd610e3c48c13c5764-610e3c48c13c5764"
+   2026-08-04T19:24:13.61+0000 [RTR/1] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:24:13.608770549Z] "GET /odata/v4/gestiona-asientos/$metadata?sap-language=ES HTTP/1.1" 304 0 0 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0" "10.2.8.0:50114" "10.1.9.30:61152" x_forwarded_for:"163.116.225.117, 10.2.8.2, 34.132.192.46, 10.2.8.0" x_forwarded_proto:"https" vcap_request_id:"1802d78b-86ff-4544-7ca1-d6a544533055" response_time:0.004269 gorouter_time:0.000056 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.000000 tls_time:0.000000 backend_time:0.004213 local_address:"10.2.1.8:38554" x_cf_routererror:"-" x_correlationid:"1802d78b-86ff-4544-7ca1-d6a544533055" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"bade1fd2-08f4-4553-bb1d-661950ca6eb6-6A723C5D-6E5CB94" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-f99f19fb915f6eb7cc7d85c82d220581-ca1d50c3b9833741-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"1802d78b86ff45447ca1d6a544533055" x_b3_spanid:"7ca1d6a544533055" x_b3_parentspanid:"-" b3:"1802d78b86ff45447ca1d6a544533055-7ca1d6a544533055"
+   2026-08-04T19:24:13.61+0000 [RTR/5] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:24:13.613982580Z] "HEAD /odata/v4/catalog/ HTTP/1.1" 200 0 0 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0" "10.5.8.3:62374" "10.1.9.30:61152" x_forwarded_for:"163.116.225.117, 10.2.8.2, 34.132.192.46, 10.5.8.3" x_forwarded_proto:"https" vcap_request_id:"cb79050e-88c0-4df9-7729-310c5735a8a6" response_time:0.004238 gorouter_time:0.000061 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.000000 tls_time:0.000000 backend_time:0.004177 local_address:"10.5.1.9:31654" x_cf_routererror:"-" x_correlationid:"cb79050e-88c0-4df9-7729-310c5735a8a6" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"2d83d2f9-88d6-4d87-80ce-36f9b3b7407f-6A723C5D-6D25639" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-0466fc4e0b679e2bc50079437a515d56-8650d79b9eb4db44-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"cb79050e88c04df97729310c5735a8a6" x_b3_spanid:"7729310c5735a8a6" x_b3_parentspanid:"-" b3:"cb79050e88c04df97729310c5735a8a6-7729310c5735a8a6"
+   2026-08-04T19:24:13.67+0000 [RTR/4] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:24:13.667462795Z] "GET /odata/v4/catalog/$metadata?sap-language=ES HTTP/1.1" 304 0 0 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0" "10.5.8.3:40662" "10.1.9.30:61152" x_forwarded_for:"163.116.225.117, 10.2.8.2, 34.132.192.46, 10.5.8.3" x_forwarded_proto:"https" vcap_request_id:"b4991750-8dcf-4712-6acc-c41fc9e6bb58" response_time:0.002557 gorouter_time:0.000042 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.000000 tls_time:0.000000 backend_time:0.002516 local_address:"10.5.1.8:39186" x_cf_routererror:"-" x_correlationid:"b4991750-8dcf-4712-6acc-c41fc9e6bb58" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"2d83d2f9-88d6-4d87-80ce-36f9b3b7407f-6A723C5D-6D25642" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-917acc25c3cc0c4373f3f866fba66921-568355fc3b230512-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"b49917508dcf47126accc41fc9e6bb58" x_b3_spanid:"6accc41fc9e6bb58" x_b3_parentspanid:"-" b3:"b49917508dcf47126accc41fc9e6bb58-6accc41fc9e6bb58"
+   2026-08-04T19:24:13.91+0000 [RTR/4] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:24:13.906330985Z] "GET /odata/v4/catalog/TiposAsiento?$select=ID,nombre&$skip=0&$top=100 HTTP/1.1" 200 0 311 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0" "10.5.8.3:41092" "10.1.9.30:61152" x_forwarded_for:"163.116.225.117, 10.2.8.2, 34.132.192.46, 10.5.8.3" x_forwarded_proto:"https" vcap_request_id:"f1ed636c-ecb2-4087-7922-2d7faa694f56" response_time:0.010928 gorouter_time:0.000056 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.000000 tls_time:0.000000 backend_time:0.010872 local_address:"10.5.1.8:39186" x_cf_routererror:"-" x_correlationid:"f1ed636c-ecb2-4087-7922-2d7faa694f56" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"2d83d2f9-88d6-4d87-80ce-36f9b3b7407f-6A723C5D-6D2565C" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-e04d478fe28186ba816e5baffcc49e0f-b800a69bf8fd001a-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"f1ed636cecb2408779222d7faa694f56" x_b3_spanid:"79222d7faa694f56" x_b3_parentspanid:"-" b3:"f1ed636cecb2408779222d7faa694f56-79222d7faa694f56"
+   2026-08-04T19:24:13.95+0000 [RTR/3] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:24:13.927203073Z] "GET /odata/v4/catalog/Sectores?$select=ID,nombre&$orderby=nombre&$skip=0&$top=100 HTTP/1.1" 200 0 1516 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0" "10.2.8.0:16346" "10.1.9.30:61152" x_forwarded_for:"163.116.225.117, 10.2.8.2, 34.132.192.46, 10.2.8.0" x_forwarded_proto:"https" vcap_request_id:"89cff2d0-574b-49f9-790a-f1b7a3e6d56e" response_time:0.023840 gorouter_time:0.000069 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.001080 tls_time:0.010637 backend_time:0.023771 local_address:"10.2.1.9:40840" x_cf_routererror:"-" x_correlationid:"89cff2d0-574b-49f9-790a-f1b7a3e6d56e" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"bade1fd2-08f4-4553-bb1d-661950ca6eb6-6A723C5D-6E5CBAB" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-7c0ca063d55db52dcefe4833e517cc4c-6692949952b5e4c1-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"89cff2d0574b49f9790af1b7a3e6d56e" x_b3_spanid:"790af1b7a3e6d56e" x_b3_parentspanid:"-" b3:"89cff2d0574b49f9790af1b7a3e6d56e-790af1b7a3e6d56e"
+   2026-08-04T19:24:35.81+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:35.815Z","written_at":"2026-08-04T19:24:35.815Z","written_ts":1785871475815}
+   2026-08-04T19:24:35.81+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:35.815Z","written_at":"2026-08-04T19:24:35.815Z","written_ts":1785871475815}
+   2026-08-04T19:24:35.81+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"http-agent","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"\"isTrustingAllCertificates\" property in the provided destination is set to \"true\". This is highly discouraged in production.","msg":"\"isTrustingAllCertificates\" property in the provided destination is set to \"true\". This is highly discouraged in production.","timestamp":"2026-08-04T19:24:35.816Z","written_at":"2026-08-04T19:24:35.816Z","written_ts":1785871475816}
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT [app] - [folderExists] 🧩 ***********res folder exists = {
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "succinctProperties": {
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:objectId": "QtSjeUEd3dYPrEYavLAjalxTVz9hzNPh2NeeYFsplo4",
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "sap:parentIds": [
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "41e7157000de39c512748e86"
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT ],
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:name": "solicitud-asientos-adjuntos",
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:lastModifiedBy": "sb-6ebd6ad1-7329-428f-a9eb-3289b9e2dcc8!b42079|sdm-di-documentmanagement-sdm_integration!b2797",
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:objectTypeId": "cmis:folder",
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:lastModificationDate": 1765974524818,
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:createdBy": "sb-6ebd6ad1-7329-428f-a9eb-3289b9e2dcc8!b42079|sdm-di-documentmanagement-sdm_integration!b2797",
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:baseTypeId": "cmis:folder",
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:parentId": "41e7157000de39c512748e86",
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "sap:owner": "sb-6ebd6ad1-7329-428f-a9eb-3289b9e2dcc8!b42079|sdm-di-documentmanagement-sdm_integration!b2797",
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:creationDate": 1765974524818,
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "cmis:changeToken": "4"
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT },
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT "exactACL": false
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT }
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:35.942Z","written_at":"2026-08-04T19:24:35.942Z","written_ts":1785871475942}
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:35.942Z","written_at":"2026-08-04T19:24:35.942Z","written_ts":1785871475942}
+   2026-08-04T19:24:35.94+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"http-agent","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"\"isTrustingAllCertificates\" property in the provided destination is set to \"true\". This is highly discouraged in production.","msg":"\"isTrustingAllCertificates\" property in the provided destination is set to \"true\". This is highly discouraged in production.","timestamp":"2026-08-04T19:24:35.942Z","written_at":"2026-08-04T19:24:35.942Z","written_ts":1785871475942}
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT [app] - [folderExists] 🧩 ***********res folder exists = {
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "succinctProperties": {
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:objectId": "NEcRV4-TZgrOPj1-UqQT9_GWAnq3PSOahJvcQ4O-vp8",
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "sap:parentIds": [
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "QtSjeUEd3dYPrEYavLAjalxTVz9hzNPh2NeeYFsplo4"
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT ],
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:name": "temp",
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:lastModifiedBy": "sb-6ebd6ad1-7329-428f-a9eb-3289b9e2dcc8!b42079|sdm-di-documentmanagement-sdm_integration!b2797",
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:objectTypeId": "cmis:folder",
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:lastModificationDate": 1765975988335,
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:createdBy": "sb-6ebd6ad1-7329-428f-a9eb-3289b9e2dcc8!b42079|sdm-di-documentmanagement-sdm_integration!b2797",
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:baseTypeId": "cmis:folder",
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:parentId": "QtSjeUEd3dYPrEYavLAjalxTVz9hzNPh2NeeYFsplo4",
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "sap:owner": "sb-6ebd6ad1-7329-428f-a9eb-3289b9e2dcc8!b42079|sdm-di-documentmanagement-sdm_integration!b2797",
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:creationDate": 1765975988335,
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "cmis:changeToken": "272"
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT },
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT "exactACL": false
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT }
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:36.077Z","written_at":"2026-08-04T19:24:36.077Z","written_ts":1785871476077}
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:36.077Z","written_at":"2026-08-04T19:24:36.077Z","written_ts":1785871476077}
+   2026-08-04T19:24:36.07+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"http-agent","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"\"isTrustingAllCertificates\" property in the provided destination is set to \"true\". This is highly discouraged in production.","msg":"\"isTrustingAllCertificates\" property in the provided destination is set to \"true\". This is highly discouraged in production.","timestamp":"2026-08-04T19:24:36.078Z","written_at":"2026-08-04T19:24:36.078Z","written_ts":1785871476078}
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR [remote] - Error: Error during request to remote service: Request failed with status code 404
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT [app] - [folderExists] 🧩 ***********errrrrrr = {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at module.exports.run (/home/vcap/app/node_modules/@sap/cds/libx/_runtime/remote/utils/client.js:196:31)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "statusCode": 502,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "reason": {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "message": "",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "name": "Error",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "request": {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "method": "GET",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async RemoteService.on_handler (/home/vcap/app/node_modules/@sap/cds/libx/_runtime/remote/Service.js:279:20)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "url": "https://api-sdm-di.cfapps.us30.hana.ondemand.com/browser/59ec1b8c-cf7c-465c-bd5b-460bcb6ca9a4/root/solicitud-asientos-adjuntos/temp/4dadf623-81b8-41ca-ab6e-8e42a7f84009?cmisselector=object&succinct=true",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async next (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:57:17)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async RemoteService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:55:10)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async folderExists (/home/vcap/app/srv/helpers/dms-helper.js:39:17)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async ensureFolder (/home/vcap/app/srv/helpers/dms-helper.js:99:20)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "headers": {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:335:7)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async next (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:57:17)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "Accept": "application/json,text/plain",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:55:10) {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "authorization": "Bearer ***",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR statusCode: 502,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "accept-language": "es-419,es;q=0.9,es-ES;q=0.8,en;q=0.7,en-GB;q=0.6,en-US;q=0.5,es-AR;q=0.4",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR reason: AxiosError: Request failed with status code 404
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "x-correlation-id": "7f2bafd7-5683-4ab6-42a9-dc3933b7850f",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "x-correlationid": "7f2bafd7-5683-4ab6-42a9-dc3933b7850f",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "User-Agent": "axios/1.13.2",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "Accept-Encoding": "gzip, compress, deflate, br"
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at settle (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:2106:12)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT }
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at Unzip.handleStreamEnd (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:3491:11)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT },
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at Unzip.emit (node:events:509:28)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "response": {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at endReadableNT (node:internal/streams/readable:1729:12)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "status": 404,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at Axios.request (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:4731:41)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "statusText": "Not Found",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "headers": {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "cache-control": "private, private, max-age=0",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async module.exports.run (/home/vcap/app/node_modules/@sap/cds/libx/_runtime/remote/utils/client.js:190:16)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "content-type": "application/json;charset=UTF-8",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async RemoteService.on_handler (/home/vcap/app/node_modules/@sap/cds/libx/_runtime/remote/Service.js:279:20)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "date": "Tue, 04 Aug 2026 19:24:36 GMT",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async next (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:57:17)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async RemoteService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:55:10)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "server": "",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async folderExists (/home/vcap/app/srv/helpers/dms-helper.js:39:17)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async ensureFolder (/home/vcap/app/srv/helpers/dms-helper.js:99:20)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "set-cookie": "JSESSIONID=9B273F4359917652EE61D08875EA9198; Path=/; Secure; HttpOnly, __VCAP_ID__=e85b3dc4-a9b7-4a58-79e0-30b1; Path=/; HttpOnly; Secure, __VCAP_ID_META__=secure; Path=/; HttpOnly; Secure",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:335:7)
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "vary": "accept-encoding",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR at async next (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:57:17) {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "x-correlationid": "7f2bafd7-5683-4ab6-42a9-dc3933b7850f, 7f2bafd7-5683-4ab6-42a9-dc3933b7850f",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "x-vcap-request-id": "48f5364b-96ed-4509-49a1-8e648e0a701e",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR message: 'Error during request to remote service: Request failed with status code 404',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "transfer-encoding": "chunked",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR code: 'ERR_BAD_REQUEST',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR config: {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "strict-transport-security": "max-age=31536000; includeSubDomains; preload;",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR timeout: 0,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR xsrfCookieName: 'XSRF-TOKEN',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "connection": "close"
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR xsrfHeaderName: 'X-XSRF-TOKEN',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT },
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "body": {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "exception": "objectNotFound",
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT "message": "/solicitud-asientos-adjuntos/temp/4dadf623-81b8-41ca-ab6e-8e42a7f84009"
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT }
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT }
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT }
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR maxContentLength: -1,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT }
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT [app] - [createFolder] 🧩 ***********parentAbsPath = "/solicitud-asientos-adjuntos/temp"
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR maxBodyLength: -1,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR method: 'get',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT [app] - [createFolder] 🧩 ***********parentCmis = "/browser/59ec1b8c-cf7c-465c-bd5b-460bcb6ca9a4/root/solicitud-asientos-adjuntos/temp"
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR baseURL: 'https://api-sdm-di.cfapps.us30.hana.ondemand.com',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT [app] - [createFolder] 🧩 ***********name = 4dadf623-81b8-41ca-ab6e-8e42a7f84009
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR proxy: false,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR url: '/browser/59ec1b8c-cf7c-465c-bd5b-460bcb6ca9a4/root/solicitud-asientos-adjuntos/temp/4dadf623-81b8-41ca-ab6e-8e42a7f84009?cmisselector=object&succinct=true',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR allowAbsoluteUrls: true,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR data: undefined
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR request: {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR method: 'GET',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR url: 'https://api-sdm-di.cfapps.us30.hana.ondemand.com/browser/59ec1b8c-cf7c-465c-bd5b-460bcb6ca9a4/root/solicitud-asientos-adjuntos/temp/4dadf623-81b8-41ca-ab6e-8e42a7f84009?cmisselector=object&succinct=true',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR headers: [Object [AxiosHeaders]]
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR response: {
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR status: 404,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR statusText: 'Not Found',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR headers: [Object [AxiosHeaders]],
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR body: [Object]
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR status: 404,
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR correlationId: '7f2bafd7-5683-4ab6-42a9-dc3933b7850f',
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR toJSON: [Function (anonymous)]
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:36.186Z","written_at":"2026-08-04T19:24:36.186Z","written_ts":1785871476186}
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:36.186Z","written_at":"2026-08-04T19:24:36.186Z","written_ts":1785871476186}
+   2026-08-04T19:24:36.18+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"http-agent","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"\"isTrustingAllCertificates\" property in the provided destination is set to \"true\". This is highly discouraged in production.","msg":"\"isTrustingAllCertificates\" property in the provided destination is set to \"true\". This is highly discouraged in production.","timestamp":"2026-08-04T19:24:36.187Z","written_at":"2026-08-04T19:24:36.187Z","written_ts":1785871476187}
+   2026-08-04T19:24:36.39+0000 [RTR/2] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:24:35.811416760Z] "POST /odata/v4/gestiona-asientos/prepareAdjuntos HTTP/1.1" 204 52 0 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0" "10.1.8.2:56300" "10.1.9.30:61152" x_forwarded_for:"163.116.225.117, 10.2.8.2, 34.132.192.46, 10.1.8.2" x_forwarded_proto:"https" vcap_request_id:"7f2bafd7-5683-4ab6-42a9-dc3933b7850f" response_time:0.578451 gorouter_time:0.000073 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.000000 tls_time:0.000000 backend_time:0.578378 local_address:"10.1.1.9:65348" x_cf_routererror:"-" x_correlationid:"7f2bafd7-5683-4ab6-42a9-dc3933b7850f" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"350f11c4-dbe4-489d-8850-be4552099149-6A723C73-69EBD21" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-2c6f875c58c4e81a16df5a4b3bc455e8-f09bac893a79ba08-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"7f2bafd756834ab642a9dc3933b7850f" x_b3_spanid:"42a9dc3933b7850f" x_b3_parentspanid:"-" b3:"7f2bafd756834ab642a9dc3933b7850f-42a9dc3933b7850f"
+   2026-08-04T19:24:38.50+0000 [RTR/0] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:24:38.473921553Z] "GET /odata/v4/catalog/ConfigAdjuntosObligatorios?$filter=tipoAsiento_ID%20eq%20406bd618-c071-42cd-b33c-72df2f655978&$skip=0&$top=1 HTTP/1.1" 200 0 414 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0" "10.1.8.2:50964" "10.1.9.30:61152" x_forwarded_for:"163.116.225.117, 10.2.8.2, 34.132.192.46, 10.1.8.2" x_forwarded_proto:"https" vcap_request_id:"e433e593-068d-4850-4f8d-9baefcaec6a6" response_time:0.029791 gorouter_time:0.000044 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.001105 tls_time:0.009956 backend_time:0.029747 local_address:"10.1.1.8:54408" x_cf_routererror:"-" x_correlationid:"e433e593-068d-4850-4f8d-9baefcaec6a6" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"350f11c4-dbe4-489d-8850-be4552099149-6A723C74-69EBE67" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-b7ae6bf9b820987bae7c7f84462eb382-79bf0b24126075d7-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"e433e593068d48504f8d9baefcaec6a6" x_b3_spanid:"4f8d9baefcaec6a6" x_b3_parentspanid:"-" b3:"e433e593068d48504f8d9baefcaec6a6-4f8d9baefcaec6a6"
+   2026-08-04T19:24:38.74+0000 [APP/PROC/WEB/0] OUT [CabeceraAsiento] 🟢 Entrando en BEFORE CREATE
+   2026-08-04T19:24:38.74+0000 [APP/PROC/WEB/0] OUT [ValidaFechasPeriodo] OK - Fechas dentro del período 8/2026
+   2026-08-04T19:24:38.74+0000 [APP/PROC/WEB/0] OUT 🧮 Validación contable OK → Debe=20000, Haber=20000
+   2026-08-04T19:24:38.74+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaMailSolicitantePorID] ✅ Ingresa en método
+   2026-08-04T19:24:38.75+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaMailSolicitantePorID] ✅ Mail dario_nicolas_tedesco@carrefour.com → ID 42a4e977-594f-4b0b-9e0d-a7d4fe0c3a97
+   2026-08-04T19:24:38.75+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaMailSolicitantePorID] ✅ Sale del método
+   2026-08-04T19:24:38.75+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Ingresa en método
+   2026-08-04T19:24:38.76+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Mapeada cuenta 70290161 → 84666aec-9164-4b83-a86a-e9c0c1dbfe5e
+   2026-08-04T19:24:38.76+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Mapeada cuenta 70290161 → 84666aec-9164-4b83-a86a-e9c0c1dbfe5e
+   2026-08-04T19:24:38.77+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Mapeada cuenta 27010404 → e25b87a2-be77-4afa-85a0-7ee5b192dee5
+   2026-08-04T19:24:38.77+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Mapeada cuenta 27010101 → dd8a25fc-59fe-4bc4-9816-97e0d3652605
+   2026-08-04T19:24:38.77+0000 [APP/PROC/WEB/0] OUT [app] - [CompletaCamposCabecera] ✅ Ingresa en método
+   2026-08-04T19:24:38.78+0000 [APP/PROC/WEB/0] OUT [app] - 🔎 [ObtenerIDSubtipoAsiento] Inicio
+   2026-08-04T19:24:38.78+0000 [APP/PROC/WEB/0] OUT [app] - 📌 Cuenta 70290161 | Intereses Fondo Comu → Tipo EXC (Excepcional)
+   2026-08-04T19:24:38.79+0000 [APP/PROC/WEB/0] OUT [app] - 📌 Cuenta 70290161 | Intereses Fondo Comu → Tipo EXC (Excepcional)
+   2026-08-04T19:24:38.79+0000 [APP/PROC/WEB/0] OUT [app] - 📌 Cuenta 27010404 | Int Depositos A Corto → Tipo BAN (Banco)
+   2026-08-04T19:24:38.80+0000 [APP/PROC/WEB/0] OUT [app] - 📌 Cuenta 27010101 | Int Inversiones fina → Tipo BAN (Banco)
+   2026-08-04T19:24:38.80+0000 [APP/PROC/WEB/0] OUT [app] - 🔢 Total de cuentas distintas recibidas: 3
+   2026-08-04T19:24:38.80+0000 [APP/PROC/WEB/0] OUT [app] - 📘 Totales por Tipo de Cuenta:
+   2026-08-04T19:24:38.80+0000 [APP/PROC/WEB/0] OUT [app] -    - EXC: 1 cuenta(s) → [70290161]
+   2026-08-04T19:24:38.80+0000 [APP/PROC/WEB/0] OUT [app] -    - BAN: 2 cuenta(s) → [27010404, 27010101]
+   2026-08-04T19:24:38.80+0000 [APP/PROC/WEB/0] OUT [app] - 🧮 Suma clave 40 = 20000, Suma clave 50 = 20000
+   2026-08-04T19:24:38.81+0000 [APP/PROC/WEB/0] OUT [app] - 📌 TipoAsiento.codigo = 3
+   2026-08-04T19:24:38.82+0000 [APP/PROC/WEB/0] OUT [app] - [ValidaContabilizaAsiento] ✅ Ingresando al método
+   2026-08-04T19:24:38.82+0000 [APP/PROC/WEB/0] OUT [app] - [ValidaContabilizaAsiento] 🧩 testDataIndicator = true
+   2026-08-04T19:24:38.82+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:38.826Z","written_at":"2026-08-04T19:24:38.826Z","written_ts":1785871478826}
+   2026-08-04T19:24:38.82+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found multiple bindings for service 'destination'. App names:\n\t- clone286b91fc710647f1a794c8edc88fb17b!b42079|destination-xsappname!b24\n\t- clone60982c2124304673b2188d13b28b8bc8!b42079|destination-xsappname!b24\nChoosing first one ('clone286b91fc710647f1a794c8edc88fb17b!b42079|destination-xsappname!b24').","msg":"Found multiple bindings for service 'destination'. App names:\n\t- clone286b91fc710647f1a794c8edc88fb17b!b42079|destination-xsappname!b24\n\t- clone60982c2124304673b2188d13b28b8bc8!b42079|destination-xsappname!b24\nChoosing first one ('clone286b91fc710647f1a794c8edc88fb17b!b42079|destination-xsappname!b24').","timestamp":"2026-08-04T19:24:38.827Z","written_at":"2026-08-04T19:24:38.827Z","written_ts":1785871478827}
+   2026-08-04T19:24:38.85+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"connectivity-service","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"You are connecting to an On-Premise system using basic authentication. For productive usage Principal propagation is recommended.","msg":"You are connecting to an On-Premise system using basic authentication. For productive usage Principal propagation is recommended.","timestamp":"2026-08-04T19:24:38.857Z","written_at":"2026-08-04T19:24:38.857Z","written_ts":1785871478857}
+   2026-08-04T19:24:38.85+0000 [APP/PROC/WEB/0] OUT [app] - [ValidaContabilizaAsiento] 🌍 Usando destination: S4_QAS_Basic
+   2026-08-04T19:24:38.86+0000 [APP/PROC/WEB/0] OUT [app] - 📌 [ValidaContabilizaAsiento] TipoAsiento.codigo = 3
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT [app] - [ValidaContabilizaAsiento] 🚀 Enviando payload SOAP a SAP...
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <soapenv:Header/>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <soapenv:Body>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <sfin:JournalEntryBulkCreateRequest>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <MessageHeader>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <CreationDateTime>2026-08-04T19:24:38.875Z</CreationDateTime>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <TestDataIndicator>true</TestDataIndicator>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </MessageHeader>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <JournalEntryCreateRequest>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <MessageHeader>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <CreationDateTime>2026-08-04T19:24:38.875Z</CreationDateTime>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <TestDataIndicator>true</TestDataIndicator>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </MessageHeader>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <JournalEntry>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <BusinessTransactionType>RFBU</BusinessTransactionType>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <AccountingDocumentType>SA</AccountingDocumentType>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <CreatedByUser>BTP_ASI_CONT</CreatedByUser>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <CompanyCode>INCS</CompanyCode>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DocumentDate>2026-08-04</DocumentDate>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <PostingDate>2026-08-04</PostingDate>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DocumentReferenceID>Aj Excep</DocumentReferenceID>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <Reference1InDocumentHeader></Reference1InDocumentHeader>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DocumentHeaderText>a</DocumentHeaderText>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <ReversalDate></ReversalDate>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <ReversalReason></ReversalReason>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT 
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <Item>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <GLAccount>70290161</GLAccount>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DebitCreditCode>S</DebitCreditCode>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DocumentItemText>Prueba ajuste excepcional</DocumentItemText>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <AccountAssignment>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <CostCenter>5416109000</CostCenter>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </AccountAssignment>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <AmountInTransactionCurrency currencyCode="ARS">10000</AmountInTransactionCurrency>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </Item>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <Item>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <GLAccount>70290161</GLAccount>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DebitCreditCode>S</DebitCreditCode>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DocumentItemText>Prueba ajuste excepcional</DocumentItemText>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <AccountAssignment>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <CostCenter>5416109000</CostCenter>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </AccountAssignment>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <AmountInTransactionCurrency currencyCode="ARS">10000</AmountInTransactionCurrency>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </Item>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <Item>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <GLAccount>27010404</GLAccount>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DebitCreditCode>H</DebitCreditCode>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DocumentItemText>Prueba ajuste excepcional</DocumentItemText>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <AccountAssignment>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <CostCenter>5416109000</CostCenter>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </AccountAssignment>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <AmountInTransactionCurrency currencyCode="ARS">-10000</AmountInTransactionCurrency>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </Item>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <Item>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <GLAccount>27010101</GLAccount>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DebitCreditCode>H</DebitCreditCode>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <DocumentItemText>Prueba ajuste excepcional</DocumentItemText>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <AccountAssignment>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <CostCenter>5416109000</CostCenter>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </AccountAssignment>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT <AmountInTransactionCurrency currencyCode="ARS">-10000</AmountInTransactionCurrency>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </Item>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </JournalEntry>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </JournalEntryCreateRequest>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </sfin:JournalEntryBulkCreateRequest>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </soapenv:Body>
+   2026-08-04T19:24:38.87+0000 [APP/PROC/WEB/0] OUT </soapenv:Envelope>
+   2026-08-04T19:24:39.66+0000 [APP/PROC/WEB/0] OUT {"cause":{"code":"ERR_BAD_RESPONSE","config":{"adapter":["xhr","http","fetch"],"allowAbsoluteUrls":true,"baseURL":"http://webdispatcherqas:8043","env":{},"headers":{"Accept":"text/xml","Accept-Encoding":"gzip, compress, deflate, br","Content-Type":"text/xml","Proxy-Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJqaWQiOiJPL0hvbEpsSWcyMWFTTFNwWGRQYzRycXY1SWVjVVI0cXlXTHBRR2RSRjJrPSIsImFsZyI6IlJTMjU2Iiwiamt1IjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS90b2tlbl9rZXlzIiwia2lkIjoiZGVmYXVsdC1qd3Qta2V5LTMzMjNmODRiZmUifQ.eyJzdWIiOiJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiaXNzIjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS9vYXV0aC90b2tlbiIsImF1dGhvcml0aWVzIjpbInVhYS5yZXNvdXJjZSIsImNvbm5lY3Rpdml0eSFiMzMucHJveHkiXSwiY2xpZW50X2lkIjoic2ItY2xvbmU3NGYzYjk3NjMzMGI0ZGI3YWMwMmZiY2ZjMGI5NjkzOCFiNDIwNzl8Y29ubmVjdGl2aXR5IWIzMyIsImF1ZCI6WyJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiY29ubmVjdGl2aXR5IWIzMyIsInVhYSJdLCJleHRfYXR0ciI6eyJlbmhhbmNlciI6IlhTVUFBIiwic3ViYWNjb3VudGlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiemRuIjoicHJvY2Vzcy1hdXRvbWF0aW9uLTk1b2V1b3Q0Iiwic2VydmljZWluc3RhbmNlaWQiOiI3NGYzYjk3Ni0zMzBiLTRkYjctYWMwMi1mYmNmYzBiOTY5MzgifSwiemlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsImF6cCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMiLCJzY29wZSI6WyJ1YWEucmVzb3VyY2UiLCJjb25uZWN0aXZpdHkhYjMzLnByb3h5Il0sImV4cCI6MTc4NTkwODczNiwiaWF0IjoxNzg1ODY1NTM2LCJqdGkiOiJhM2E0ZjBiMTQxMTY0NTE3YmVhNjg0YTMyN2NjMmNiZSIsInJldl9zaWciOiJjODU4ZDA0NSIsImNpZCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMifQ.OQ6MYlO2AA133h2ctxtobwDw7ZvEUyRfOtZqlt3tTqLAXZTupLhDJgNygAc5-EeXDG4LMI0vxB-eBcx1FLDEGup7wYC_C5lq7BhH4ywOOVorktNg7wfHQn5USpN-XT14RjeP5ByVemua5LQsSVinTE8E1Zrrmk7PwGcefQ-tjyumUkz-JQO276LpHzKSoLWUOK0ra9mvnQivrW5VAFuuQRakmBXPg5rd1rmb6Cd88NKH6JGPrcKjaaN_n8wQ2gyvWOMgp0hKj5Bjt8kqRDVnjb0aX1oShIrRqoqI56M5WaDrSvHLzCCoJ0a0Tt0Pq78TZWg5mgo5NT987vus9U85fA","User-Agent":"axios/1.13.2","authorization":"Basic QlRQX0FTSV9DT05UOkluaWNpby0xMjM0NTY3ODk=","content-length":"0","sap-client":"300","x-csrf-token":"Fetch"},"httpAgent":{"_events":{},"_eventsCount":2,"agentKeepAliveTimeoutBuffer":1000,"defaultPort":80,"freeSockets":{},"keepAlive":false,"keepAliveMsecs":1000,"maxFreeSockets":256,"maxSockets":null,"maxTotalSockets":null,"options":{"noDelay":true,"path":null},"protocol":"http:","requests":{},"scheduling":"lifo","sockets":{"192.168.2.5:20003:":["[object Socket]"]},"totalSocketCount":1},"maxBodyLength":-1,"maxContentLength":-1,"method":"head","proxy":{"host":"192.168.2.5","port":"20003","protocol":"http"},"timeout":0,"transformRequest":[null],"transformResponse":[null],"transitional":{"clarifyTimeoutError":false,"forcedJSONParsing":true,"silentJSONParsing":true},"url":"/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi/","xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN"},"message":"Request failed with status code 500","name":"AxiosError","stack":"AxiosError: Request failed with status code 500\n    at settle (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:2106:12)\n    at IncomingMessage.handleStreamEnd (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:3491:11)\n    at IncomingMessage.emit (node:events:521:24)\n    at endReadableNT (node:internal/streams/readable:1729:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\n    at Axios.request (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:4731:41)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async makeCsrfRequest (/home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:88:26)\n    at async makeCsrfRequests (/home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:132:14)\n    at async /home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:23:27\n    at async ValidaContabilizaAsiento (/home/vcap/app/srv/helpers/sol-helper.js:201:22)\n    at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:439:7)\n    at async Promise.all (index 0)\n    at async ApplicationService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:48:24)","status":500},"custom_fields":{"messageContext":"csrf-middleware"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Failed to get CSRF token from  URL: /sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi/.","msg":"Failed to get CSRF token from  URL: /sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi/.","name":"ErrorWithCause","stack":"ErrorWithCause: Failed to get CSRF token from  URL: /sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi/.\n    at makeCsrfRequest (/home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:99:21)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async makeCsrfRequests (/home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:132:14)\n    at async /home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:23:27\n    at async ValidaContabilizaAsiento (/home/vcap/app/srv/helpers/sol-helper.js:201:22)\n    at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:439:7)\n    at async Promise.all (index 0)\n    at async ApplicationService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:48:24)\nCaused by:\nHTTP Response: Request failed with status code 500","timestamp":"2026-08-04T19:24:39.669Z","written_at":"2026-08-04T19:24:39.669Z","written_ts":1785871479669}
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] OUT [app] - [ValidaContabilizaAsiento] 📦 Respuesta recibida desde SAP
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR [app] - ❌ [ValidaContabilizaAsiento] 🔴 Error detectado Error: SAP devolvió errores en la validación/contabilización [
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR {
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "codigo": "609(RW)",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "severidad": "3",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "mensaje": "Error en el documento: BKPFF $ QASCLNT300",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "link": "http://vhcfrqasai01.sap.wcorp.ar.carrefour.com:8000/sap/xi/docu_apperror?ID=NA&OBJECT=RW609&LANGUAGE=S&MSGV1=BKPFF&MSGV2=%24&MSGV3=QASCLNT300"
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR {
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "codigo": "286(F5)",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "severidad": "3",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "mensaje": "El periodo 008/2026 no está abierto para la clase cta. S LM 70290161.",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "link": "http://vhcfrqasai01.sap.wcorp.ar.carrefour.com:8000/sap/xi/docu_apperror?ID=NA&OBJECT=F5286&LANGUAGE=S&MSGV1=008&MSGV2=2026&MSGV3=S&MSGV4=70290161"
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR ]
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at ValidaContabilizaAsiento (/home/vcap/app/srv/helpers/sol-helper.js:246:18)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:439:7)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at async Promise.all (index 0)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:48:24) {
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR code: 400,
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR args: { details: [ [Object], [Object] ] },
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR numericSeverity: 4
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR ❌ [CabeceraAsiento] 🔴 Error detectado Error: SAP devolvió errores en la validación/contabilización [
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR {
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "codigo": "609(RW)",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "severidad": "3",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "mensaje": "Error en el documento: BKPFF $ QASCLNT300",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "link": "http://vhcfrqasai01.sap.wcorp.ar.carrefour.com:8000/sap/xi/docu_apperror?ID=NA&OBJECT=RW609&LANGUAGE=S&MSGV1=BKPFF&MSGV2=%24&MSGV3=QASCLNT300"
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR {
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "codigo": "286(F5)",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "severidad": "3",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "mensaje": "El periodo 008/2026 no está abierto para la clase cta. S LM 70290161.",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "link": "http://vhcfrqasai01.sap.wcorp.ar.carrefour.com:8000/sap/xi/docu_apperror?ID=NA&OBJECT=F5286&LANGUAGE=S&MSGV1=008&MSGV2=2026&MSGV3=S&MSGV4=70290161"
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR ]
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at ValidaContabilizaAsiento (/home/vcap/app/srv/helpers/sol-helper.js:246:18)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:439:7)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at async Promise.all (index 0)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:48:24) {
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR code: 400,
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR args: { details: [ [Object], [Object] ] },
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR numericSeverity: 4
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR [error] - 400 - Error: SAP devolvió errores en la validación/contabilización [
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR {
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "codigo": "609(RW)",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "severidad": "3",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "mensaje": "Error en el documento: BKPFF $ QASCLNT300",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "link": "http://vhcfrqasai01.sap.wcorp.ar.carrefour.com:8000/sap/xi/docu_apperror?ID=NA&OBJECT=RW609&LANGUAGE=S&MSGV1=BKPFF&MSGV2=%24&MSGV3=QASCLNT300"
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR },
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR {
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "codigo": "286(F5)",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "severidad": "3",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "mensaje": "El periodo 008/2026 no está abierto para la clase cta. S LM 70290161.",
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR "link": "http://vhcfrqasai01.sap.wcorp.ar.carrefour.com:8000/sap/xi/docu_apperror?ID=NA&OBJECT=F5286&LANGUAGE=S&MSGV1=008&MSGV2=2026&MSGV3=S&MSGV4=70290161"
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR ]
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at ValidaContabilizaAsiento (/home/vcap/app/srv/helpers/sol-helper.js:246:18)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:439:7)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at async Promise.all (index 0)
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR at async ApplicationService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:48:24) {
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR code: '400',
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR args: { details: [ [Object], [Object] ] },
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR numericSeverity: 4
+   2026-08-04T19:24:41.25+0000 [APP/PROC/WEB/0] ERR }
+   2026-08-04T19:24:41.26+0000 [RTR/2] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:24:38.745262768Z] "POST /odata/v4/gestiona-asientos/$batch HTTP/1.1" 200 1807 983 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0" "10.1.8.2:56300" "10.1.9.30:61152" x_forwarded_for:"163.116.225.117, 10.2.8.2, 34.132.192.46, 10.1.8.2" x_forwarded_proto:"https" vcap_request_id:"607dc113-5a65-4c3b-5e64-51e81b59e5cc" response_time:2.516021 gorouter_time:0.000090 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.000000 tls_time:0.000000 backend_time:2.515931 local_address:"10.1.1.9:65348" x_cf_routererror:"-" x_correlationid:"607dc113-5a65-4c3b-5e64-51e81b59e5cc" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"350f11c4-dbe4-489d-8850-be4552099149-6A723C76-69EBEBF" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-a28fdd6d1fa7090d81a06084d7e8d21e-1d976e13e701f25b-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"607dc1135a654c3b5e6451e81b59e5cc" x_b3_spanid:"5e6451e81b59e5cc" x_b3_parentspanid:"-" b3:"607dc1135a654c3b5e6451e81b59e5cc-5e6451e81b59e5cc"
+   2026-08-04T19:24:54.77+0000 [RTR/3] OUT carrefour-arg-process-automation-95oeuot4-sp-dev-asient5a21c038.cfapps.us30.hana.ondemand.com - [2026-08-04T19:24:54.753327715Z] "GET /odata/v4/catalog/ConfigAdjuntosObligatorios?$filter=tipoAsiento_ID%20eq%20406bd618-c071-42cd-b33c-72df2f655978&$skip=0&$top=1 HTTP/1.1" 200 0 414 "https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/cp.portal/ui5appruntime.html?siteId=a1f596bc-f540-4494-aa12-4648e159b174&subaccountId=46a44490-f5bf-43a0-9b94-6636c8c11bcc&saasApprouter=true&sap-ui-app-id=com.carrefour.solicitudasientosajuste&scenario=LAUNCHPAD&sap-startup-params=&sap-shell=FLP&sap-touch=0&sap-ui-versionedLibCss=true&sap-plugins=RTAPluginAgent&sap-history-dir=NewEntry&sap-personalization=true&sap-theme=sap_fiori_3&sap-locale=es-ES&sap-propagate-async-loading=true&sap-iframe-hint=UI5" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0" "10.2.8.1:16620" "10.1.9.30:61152" x_forwarded_for:"163.116.225.117, 10.2.8.2, 34.132.192.46, 10.2.8.1" x_forwarded_proto:"https" vcap_request_id:"1683419f-c0db-4819-65d8-f632c4aee191" response_time:0.016966 gorouter_time:0.000052 app_id:"0c2ac756-eb1b-4670-a9e6-f728fdc83267" app_index:"0" instance_id:"05ab7459-54b9-43ad-4fe2-7cac" failed_attempts:0 failed_attempts_time:"-" dns_time:0.000000 dial_time:0.000000 tls_time:0.000000 backend_time:0.016914 local_address:"10.2.1.9:40840" x_cf_routererror:"-" x_correlationid:"1683419f-c0db-4819-65d8-f632c4aee191" tenantid:"portal!process-automation-95oeuot4" sap_passport:"-" x_scp_request_id:"4a8a2ed9-8a22-40bc-861e-3f842d743c2d-6A723C86-7319BA5" x_cf_app_instance:"-" x_forwarded_host:"process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com" x_custom_host:"-" x_ssl_client:"-" x_ssl_client_session_id:"-" x_ssl_client_verify:"-" x_ssl_client_subject_dn:"-" x_ssl_client_subject_cn:"-" x_ssl_client_issuer_dn:"-" x_ssl_client_notbefore:"-" x_ssl_client_notafter:"-" x_cf_forwarded_url:"-" traceparent:"00-bbabbcbdbb07e71bfe5050a4a24d8120-c849e22e841470d6-01" true_client_ip:"-" x_cf_true_client_ip:"34.132.192.46" x_request_id:"-" x_b3_traceid:"1683419fc0db481965d8f632c4aee191" x_b3_spanid:"65d8f632c4aee191" x_b3_parentspanid:"-" b3:"1683419fc0db481965d8f632c4aee191-65d8f632c4aee191"
+   2026-08-04T19:24:54.99+0000 [APP/PROC/WEB/0] OUT [CabeceraAsiento] 🟢 Entrando en BEFORE CREATE
+   2026-08-04T19:24:54.99+0000 [APP/PROC/WEB/0] OUT [ValidaFechasPeriodo] OK - Fechas dentro del período 7/2026
+   2026-08-04T19:24:54.99+0000 [APP/PROC/WEB/0] OUT 🧮 Validación contable OK → Debe=20000, Haber=20000
+   2026-08-04T19:24:54.99+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaMailSolicitantePorID] ✅ Ingresa en método
+   2026-08-04T19:24:55.00+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaMailSolicitantePorID] ✅ Mail dario_nicolas_tedesco@carrefour.com → ID 42a4e977-594f-4b0b-9e0d-a7d4fe0c3a97
+   2026-08-04T19:24:55.00+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaMailSolicitantePorID] ✅ Sale del método
+   2026-08-04T19:24:55.00+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Ingresa en método
+   2026-08-04T19:24:55.00+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Mapeada cuenta 70290161 → 84666aec-9164-4b83-a86a-e9c0c1dbfe5e
+   2026-08-04T19:24:55.01+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Mapeada cuenta 70290161 → 84666aec-9164-4b83-a86a-e9c0c1dbfe5e
+   2026-08-04T19:24:55.01+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Mapeada cuenta 27010404 → e25b87a2-be77-4afa-85a0-7ee5b192dee5
+   2026-08-04T19:24:55.02+0000 [APP/PROC/WEB/0] OUT [app] - [ReemplazaCuentaPorID] ✅ Mapeada cuenta 27010101 → dd8a25fc-59fe-4bc4-9816-97e0d3652605
+   2026-08-04T19:24:55.02+0000 [APP/PROC/WEB/0] OUT [app] - [CompletaCamposCabecera] ✅ Ingresa en método
+   2026-08-04T19:24:55.03+0000 [APP/PROC/WEB/0] OUT [app] - 🔎 [ObtenerIDSubtipoAsiento] Inicio
+   2026-08-04T19:24:55.03+0000 [APP/PROC/WEB/0] OUT [app] - 📌 Cuenta 70290161 | Intereses Fondo Comu → Tipo EXC (Excepcional)
+   2026-08-04T19:24:55.04+0000 [APP/PROC/WEB/0] OUT [app] - 📌 Cuenta 70290161 | Intereses Fondo Comu → Tipo EXC (Excepcional)
+   2026-08-04T19:24:55.04+0000 [APP/PROC/WEB/0] OUT [app] - 📌 Cuenta 27010404 | Int Depositos A Corto → Tipo BAN (Banco)
+   2026-08-04T19:24:55.05+0000 [APP/PROC/WEB/0] OUT [app] - 📌 Cuenta 27010101 | Int Inversiones fina → Tipo BAN (Banco)
+   2026-08-04T19:24:55.05+0000 [APP/PROC/WEB/0] OUT [app] - 🔢 Total de cuentas distintas recibidas: 3
+   2026-08-04T19:24:55.05+0000 [APP/PROC/WEB/0] OUT [app] - 📘 Totales por Tipo de Cuenta:
+   2026-08-04T19:24:55.05+0000 [APP/PROC/WEB/0] OUT [app] -    - EXC: 1 cuenta(s) → [70290161]
+   2026-08-04T19:24:55.05+0000 [APP/PROC/WEB/0] OUT [app] -    - BAN: 2 cuenta(s) → [27010404, 27010101]
+   2026-08-04T19:24:55.05+0000 [APP/PROC/WEB/0] OUT [app] - 🧮 Suma clave 40 = 20000, Suma clave 50 = 20000
+   2026-08-04T19:24:55.06+0000 [APP/PROC/WEB/0] OUT [app] - 📌 TipoAsiento.codigo = 3
+   2026-08-04T19:24:55.07+0000 [APP/PROC/WEB/0] OUT [app] - [ValidaContabilizaAsiento] ✅ Ingresando al método
+   2026-08-04T19:24:55.07+0000 [APP/PROC/WEB/0] OUT [app] - [ValidaContabilizaAsiento] 🧩 testDataIndicator = true
+   2026-08-04T19:24:55.07+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"environment-accessor","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","msg":"Found more than one service binding for service type 'destination':\n\t- dest_dms_dev\n\t- asientos-ajustes-destination\nSelecting the first one.","timestamp":"2026-08-04T19:24:55.077Z","written_at":"2026-08-04T19:24:55.077Z","written_ts":1785871495077}
+   2026-08-04T19:24:55.07+0000 [APP/PROC/WEB/0] OUT {"custom_fields":{"messageContext":"connectivity-service","package":"connectivity"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"You are connecting to an On-Premise system using basic authentication. For productive usage Principal propagation is recommended.","msg":"You are connecting to an On-Premise system using basic authentication. For productive usage Principal propagation is recommended.","timestamp":"2026-08-04T19:24:55.077Z","written_at":"2026-08-04T19:24:55.077Z","written_ts":1785871495077}
+   2026-08-04T19:24:55.07+0000 [APP/PROC/WEB/0] OUT [app] - [ValidaContabilizaAsiento] 🌍 Usando destination: S4_QAS_Basic
+   2026-08-04T19:24:55.08+0000 [APP/PROC/WEB/0] OUT [app] - 📌 [ValidaContabilizaAsiento] TipoAsiento.codigo = 3
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT [app] - [ValidaContabilizaAsiento] 🚀 Enviando payload SOAP a SAP...
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <soapenv:Header/>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <soapenv:Body>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <sfin:JournalEntryBulkCreateRequest>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <MessageHeader>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <CreationDateTime>2026-08-04T19:24:55.096Z</CreationDateTime>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <TestDataIndicator>true</TestDataIndicator>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </MessageHeader>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <JournalEntryCreateRequest>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <MessageHeader>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <CreationDateTime>2026-08-04T19:24:55.096Z</CreationDateTime>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <TestDataIndicator>true</TestDataIndicator>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </MessageHeader>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <JournalEntry>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <OriginalReferenceDocumentType>BKPFF</OriginalReferenceDocumentType>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <BusinessTransactionType>RFBU</BusinessTransactionType>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <AccountingDocumentType>SA</AccountingDocumentType>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <CreatedByUser>BTP_ASI_CONT</CreatedByUser>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <CompanyCode>INCS</CompanyCode>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DocumentDate>2026-07-31</DocumentDate>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <PostingDate>2026-07-31</PostingDate>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DocumentReferenceID>Aj Excep</DocumentReferenceID>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <Reference1InDocumentHeader></Reference1InDocumentHeader>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DocumentHeaderText>a</DocumentHeaderText>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <ReversalDate></ReversalDate>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <ReversalReason></ReversalReason>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT 
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <Item>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <GLAccount>70290161</GLAccount>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DebitCreditCode>S</DebitCreditCode>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DocumentItemText>Prueba ajuste excepcional</DocumentItemText>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <AccountAssignment>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <CostCenter>5416109000</CostCenter>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </AccountAssignment>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <AmountInTransactionCurrency currencyCode="ARS">10000</AmountInTransactionCurrency>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </Item>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <Item>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <GLAccount>70290161</GLAccount>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DebitCreditCode>S</DebitCreditCode>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DocumentItemText>Prueba ajuste excepcional</DocumentItemText>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <AccountAssignment>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <CostCenter>5416109000</CostCenter>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </AccountAssignment>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <AmountInTransactionCurrency currencyCode="ARS">10000</AmountInTransactionCurrency>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </Item>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <Item>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <GLAccount>27010404</GLAccount>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DebitCreditCode>H</DebitCreditCode>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DocumentItemText>Prueba ajuste excepcional</DocumentItemText>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <AccountAssignment>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <CostCenter>5416109000</CostCenter>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </AccountAssignment>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <AmountInTransactionCurrency currencyCode="ARS">-10000</AmountInTransactionCurrency>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </Item>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <Item>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <GLAccount>27010101</GLAccount>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DebitCreditCode>H</DebitCreditCode>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <DocumentItemText>Prueba ajuste excepcional</DocumentItemText>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <AccountAssignment>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <CostCenter>5416109000</CostCenter>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </AccountAssignment>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT <AmountInTransactionCurrency currencyCode="ARS">-10000</AmountInTransactionCurrency>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </Item>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </JournalEntry>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </JournalEntryCreateRequest>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </sfin:JournalEntryBulkCreateRequest>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </soapenv:Body>
+   2026-08-04T19:24:55.09+0000 [APP/PROC/WEB/0] OUT </soapenv:Envelope>
+   2026-08-04T19:24:55.87+0000 [APP/PROC/WEB/0] OUT {"cause":{"code":"ERR_BAD_RESPONSE","config":{"adapter":["xhr","http","fetch"],"allowAbsoluteUrls":true,"baseURL":"http://webdispatcherqas:8043","env":{},"headers":{"Accept":"text/xml","Accept-Encoding":"gzip, compress, deflate, br","Content-Type":"text/xml","Proxy-Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJqaWQiOiJPL0hvbEpsSWcyMWFTTFNwWGRQYzRycXY1SWVjVVI0cXlXTHBRR2RSRjJrPSIsImFsZyI6IlJTMjU2Iiwiamt1IjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS90b2tlbl9rZXlzIiwia2lkIjoiZGVmYXVsdC1qd3Qta2V5LTMzMjNmODRiZmUifQ.eyJzdWIiOiJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiaXNzIjoiaHR0cHM6Ly9wcm9jZXNzLWF1dG9tYXRpb24tOTVvZXVvdDQuYXV0aGVudGljYXRpb24udXMzMC5oYW5hLm9uZGVtYW5kLmNvbS9vYXV0aC90b2tlbiIsImF1dGhvcml0aWVzIjpbInVhYS5yZXNvdXJjZSIsImNvbm5lY3Rpdml0eSFiMzMucHJveHkiXSwiY2xpZW50X2lkIjoic2ItY2xvbmU3NGYzYjk3NjMzMGI0ZGI3YWMwMmZiY2ZjMGI5NjkzOCFiNDIwNzl8Y29ubmVjdGl2aXR5IWIzMyIsImF1ZCI6WyJzYi1jbG9uZTc0ZjNiOTc2MzMwYjRkYjdhYzAyZmJjZmMwYjk2OTM4IWI0MjA3OXxjb25uZWN0aXZpdHkhYjMzIiwiY29ubmVjdGl2aXR5IWIzMyIsInVhYSJdLCJleHRfYXR0ciI6eyJlbmhhbmNlciI6IlhTVUFBIiwic3ViYWNjb3VudGlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiemRuIjoicHJvY2Vzcy1hdXRvbWF0aW9uLTk1b2V1b3Q0Iiwic2VydmljZWluc3RhbmNlaWQiOiI3NGYzYjk3Ni0zMzBiLTRkYjctYWMwMi1mYmNmYzBiOTY5MzgifSwiemlkIjoiNDZhNDQ0OTAtZjViZi00M2EwLTliOTQtNjYzNmM4YzExYmNjIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsImF6cCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMiLCJzY29wZSI6WyJ1YWEucmVzb3VyY2UiLCJjb25uZWN0aXZpdHkhYjMzLnByb3h5Il0sImV4cCI6MTc4NTkwODczNiwiaWF0IjoxNzg1ODY1NTM2LCJqdGkiOiJhM2E0ZjBiMTQxMTY0NTE3YmVhNjg0YTMyN2NjMmNiZSIsInJldl9zaWciOiJjODU4ZDA0NSIsImNpZCI6InNiLWNsb25lNzRmM2I5NzYzMzBiNGRiN2FjMDJmYmNmYzBiOTY5MzghYjQyMDc5fGNvbm5lY3Rpdml0eSFiMzMifQ.OQ6MYlO2AA133h2ctxtobwDw7ZvEUyRfOtZqlt3tTqLAXZTupLhDJgNygAc5-EeXDG4LMI0vxB-eBcx1FLDEGup7wYC_C5lq7BhH4ywOOVorktNg7wfHQn5USpN-XT14RjeP5ByVemua5LQsSVinTE8E1Zrrmk7PwGcefQ-tjyumUkz-JQO276LpHzKSoLWUOK0ra9mvnQivrW5VAFuuQRakmBXPg5rd1rmb6Cd88NKH6JGPrcKjaaN_n8wQ2gyvWOMgp0hKj5Bjt8kqRDVnjb0aX1oShIrRqoqI56M5WaDrSvHLzCCoJ0a0Tt0Pq78TZWg5mgo5NT987vus9U85fA","User-Agent":"axios/1.13.2","authorization":"Basic QlRQX0FTSV9DT05UOkluaWNpby0xMjM0NTY3ODk=","content-length":"0","sap-client":"300","x-csrf-token":"Fetch"},"httpAgent":{"_events":{},"_eventsCount":2,"agentKeepAliveTimeoutBuffer":1000,"defaultPort":80,"freeSockets":{},"keepAlive":false,"keepAliveMsecs":1000,"maxFreeSockets":256,"maxSockets":null,"maxTotalSockets":null,"options":{"noDelay":true,"path":null},"protocol":"http:","requests":{},"scheduling":"lifo","sockets":{"192.168.2.5:20003:":["[object Socket]"]},"totalSocketCount":1},"maxBodyLength":-1,"maxContentLength":-1,"method":"head","proxy":{"host":"192.168.2.5","port":"20003","protocol":"http"},"timeout":0,"transformRequest":[null],"transformResponse":[null],"transitional":{"clarifyTimeoutError":false,"forcedJSONParsing":true,"silentJSONParsing":true},"url":"/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi/","xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN"},"message":"Request failed with status code 500","name":"AxiosError","stack":"AxiosError: Request failed with status code 500\n    at settle (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:2106:12)\n    at IncomingMessage.handleStreamEnd (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:3491:11)\n    at IncomingMessage.emit (node:events:521:24)\n    at endReadableNT (node:internal/streams/readable:1729:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\n    at Axios.request (/home/vcap/app/node_modules/axios/dist/node/axios.cjs:4731:41)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async makeCsrfRequest (/home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:88:26)\n    at async makeCsrfRequests (/home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:132:14)\n    at async /home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:23:27\n    at async ValidaContabilizaAsiento (/home/vcap/app/srv/helpers/sol-helper.js:201:22)\n    at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:439:7)\n    at async Promise.all (index 0)\n    at async ApplicationService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:48:24)","status":500},"custom_fields":{"messageContext":"csrf-middleware"},"level":"warn","logger":"sap-cloud-sdk-logger","message":"Failed to get CSRF token from  URL: /sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi/.","msg":"Failed to get CSRF token from  URL: /sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi/.","name":"ErrorWithCause","stack":"ErrorWithCause: Failed to get CSRF token from  URL: /sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi/.\n    at makeCsrfRequest (/home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:99:21)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async makeCsrfRequests (/home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:132:14)\n    at async /home/vcap/app/node_modules/@sap-cloud-sdk/http-client/dist/csrf-token-middleware.js:23:27\n    at async ValidaContabilizaAsiento (/home/vcap/app/srv/helpers/sol-helper.js:201:22)\n    at async ApplicationService.<anonymous> (/home/vcap/app/srv/service.js:439:7)\n    at async Promise.all (index 0)\n    at async ApplicationService.handle (/home/vcap/app/node_modules/@sap/cds/lib/srv/srv-dispatch.js:48:24)\nCaused by:\nHTTP Response: Request failed with status code 500","timestamp":"2026-08-04T19:24:55.878Z","written_at":"2026-08-04T19:24:55.878Z","written_ts":1785871495878}

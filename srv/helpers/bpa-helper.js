@@ -380,9 +380,9 @@ async function getAprobadoresNivel1(req) {
                   .where({ cuentaContable_ID: cuenta.ID })
               );
 
-              if (!umbral && !umbral.importeGerencia) {
+              if (!umbral || !umbral.importeGerencia) {
                 AppLog.error(`⚠ [getAprobadoresNivel3] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
-                return req.reject(400, `[getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
+                return req.reject(400, `[getAprobadoresNivel3] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
               } else {
                 AppLog.debug(`   🔍  [getAprobadoresNivel3] Umbral Gerencia: ${umbral.importeGerencia}`);
               }
@@ -518,7 +518,7 @@ async function getAprobadoresNivel1(req) {
                     .where({ cuentaContable_ID: cuenta.ID })
                 );
 
-                if (!umbral && !umbral.importeCFO) {
+                if (!umbral || !umbral.importeCFO) {
                   AppLog.error(`⚠ [getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
                   return req.reject(400, `[getAprobadoresNivel4] Cuenta ${t.IdCuenta} no tiene umbral configurado en UmbralesCuentas`);
                 } else {
@@ -633,7 +633,7 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
           const { solicitante, tipoAsiento, subtipoAsiento, referencia, sector } = valores;
 
           return {
-            definitionId: DEFINITION_ID_BPA_PRD,
+            definitionId: DEFINITION_ID_BPA_DEV,
             context: {
               numerosolicitud: `${String(d.numeroSolicitud)}`,
               clasedocumento: d.claseDocumento,
@@ -683,10 +683,10 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
           try {
 
                   let header = {
-                    'irpa-api-key': APIKEY_BPA_PRD
+                    'irpa-api-key': APIKEY_BPA_DEV
                   };
                   
-                  let oResult = await bpa_destination.tx(req).post(URL_BPA_PRD, 
+                  let oResult = await bpa_destination.tx(req).post(URL_BPA_DEV, 
                                       payload,
                                       header);
 

@@ -200,7 +200,7 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
     // 5️⃣ Ejecutar la llamada
     const response = await executeHttpRequest(destination, {
       method: 'POST',
-      url: URL_S4_HANA_PRD,
+      url: URL_S4_HANA_QAS,
       headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
       data: xmlPayload
     });
