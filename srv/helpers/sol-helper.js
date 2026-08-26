@@ -13,7 +13,26 @@ const AppLog = require('../helpers/logging/app-log');
 const URL_S4_HANA_QAS = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi';
 const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi/journalentrycreaterequestconfi?saml2=disabled';
 
+function AplicaConversionMoneda(req) {
+  const cab = req.data;
+  const moneda = (cab.moneda || 'ARS').toUpperCase();
 
+  if (moneda === 'ARS') {
+    cab.tipoCambio = 1;
+  } else {
+    const tc = Number(cab.tipoCambio);
+    if (!cab.tipoCambio || isNaN(tc) || tc <= 0) {
+      return req.reject(
+        400,
+        `El campo Tipo de Cambio es obligatorio y debe ser mayor a 0 `
+        + `cuando la moneda es distinta de ARS (moneda seleccionada: ${moneda}).`
+      );
+    }
+    cab.tipoCambio = tc;
+  }
+
+  AppLog.debug(`[AplicaConversionMoneda] Moneda=${moneda} TipoCambio=${cab.tipoCambio}`);
+}
 
 function safeUndef(value) {
   if (
@@ -766,5 +785,6 @@ module.exports = {
   ReemplazaMailSolicitantePorID,
   CompletaCamposCabecera,
   ObtenerIDSubtipoAsiento,
-  ReemplazaCuentaPorID
+  ReemplazaCuentaPorID,
+  AplicaConversionMoneda
 };

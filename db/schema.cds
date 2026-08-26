@@ -13,6 +13,7 @@ entity CabeceraAsiento : cuid, managed {
   fechaContabilizacion         : Date                          @title: 'Fecha Contabilización';
   claseDocumento               : String                        @title: 'Clase Documento';
   moneda                       : String(5)                     @title: 'Moneda'; // Usar 3 caracteres si es ISO 4217
+  tipoCambio                   : Decimal(15, 6)                @title: 'Tipo de Cambio';
   textoCabecera                : String(255)                   @title: 'Texto de Cabecera';
   sociedad                     : String(50)                    @title: 'Sociedad';
   numeroDocumentoSAP           : String(20);
@@ -59,13 +60,15 @@ entity EstadosSolicitud : cuid, managed {
 }
 
 entity DetalleAsiento : cuid, managed {
-  cabecera       : Association to one CabeceraAsiento;
-  numeroLinea    : Integer        @title: 'Número Línea';
-  descripcion    : String         @title: 'Descripcion';
-  cuentaContable : Association to Cuenta;
-  centroCosto    : String(20)     @title: 'Centro Costo';
-  clave          : Integer        @title: 'Clave';
-  importe        : Decimal(15, 2) @title: 'Importe';
+  cabecera           : Association to one CabeceraAsiento;
+  numeroLinea        : Integer        @title: 'Número Línea';
+  descripcion        : String         @title: 'Descripcion';
+  cuentaContable     : Association to Cuenta;
+  centroCosto        : String(20)     @title: 'Centro Costo';
+  clave              : Integer        @title: 'Clave';
+  importe            : Decimal(15, 2) @title: 'Importe';
+  importeMonSociedad : Decimal(15, 2) = importe * cabecera.tipoCambio
+                                      @title: 'Importe Mon Sociedad';
 }
 
 entity ResumenCuentas as
@@ -116,19 +119,19 @@ entity Sector : cuid, managed {
   emailEmp : [email],
 }
 entity Empleado : cuid, managed {
-  nombre   : String(50);
-  email    : String(100);
+  nombre : String(50);
+  email  : String(100);
 }
 
 entity AprobadorSolicitud : cuid, managed {
-  empleado         : Association to Empleado;
-  fechaAprobacion  : Date;
-  nivelAprobacion  : String(200);
-  decision         : String(15);
-  cabecera         : Association to one CabeceraAsiento;
-  flujoaprobadores : String(5000);
-  motivoRechazo    : String(1000);
-  responsable          : String(200);      
+  empleado             : Association to Empleado;
+  fechaAprobacion      : Date;
+  nivelAprobacion      : String(200);
+  decision             : String(15);
+  cabecera             : Association to one CabeceraAsiento;
+  flujoaprobadores     : String(5000);
+  motivoRechazo        : String(1000);
+  responsable          : String(200);
   usuariosAlternativos : String(1000);
 }
 

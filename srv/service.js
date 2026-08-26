@@ -26,7 +26,8 @@ const { safeUndef,
   ReemplazaMailSolicitantePorID,
   CompletaCamposCabecera,
   ObtenerIDSubtipoAsiento,
-  ReemplazaCuentaPorID
+  ReemplazaCuentaPorID,
+  AplicaConversionMoneda
 } = require("./helpers/sol-helper");
 const { informaFailConstraint,
   informaConstraintsDelete,
@@ -189,7 +190,7 @@ module.exports = cds.service.impl(async function () {
     } catch (err) {
       console.error("❌ [RegistrarAprobacion] 🔴 Error detectado", err);
       if (err.code) {
-        throw err; 
+        throw err;
       }
       console.error("❌ [RegistrarAprobacion] 🔴 Error interno", err);
       return req.reject(500, "[RegistrarAprobacion] 🔴 Error interno");
@@ -254,7 +255,7 @@ module.exports = cds.service.impl(async function () {
     } catch (err) {
       console.error("❌ [RegistrarRechazo] 🔴 Error detectado", err);
       if (err.code) {
-        throw err; 
+        throw err;
       }
       console.error("❌ [RegistrarRechazo] 🔴 Error interno", err);
       return req.reject(500, "[RegistrarRechazo] 🔴 Error interno");
@@ -337,7 +338,7 @@ module.exports = cds.service.impl(async function () {
     } catch (err) {
       console.error("❌ [prepareAdjuntos] 🔴 Error detectado", err);
       if (err.code) {
-        throw err; 
+        throw err;
       }
       console.error("❌ [prepareAdjuntos] 🔴 Error interno:", err);
       return req.reject(500, "[prepareAdjuntos] 🔴 Error interno");
@@ -361,8 +362,8 @@ module.exports = cds.service.impl(async function () {
           `Falta fechaDocumento y fechaContabilizaci[on]`);
       const mes = Number(periodoMes);
       const anio = Number(periodoAnio);
-      const fechaInicio = new Date(anio, mes - 1, 1);      
-      const fechaFin = new Date(anio, mes, 0);            
+      const fechaInicio = new Date(anio, mes - 1, 1);
+      const fechaFin = new Date(anio, mes, 0);
       if (fechaDocumento) {
         const fdoc = new Date(fechaDocumento);
         if (fdoc < fechaInicio || fdoc > fechaFin) {
@@ -433,6 +434,7 @@ module.exports = cds.service.impl(async function () {
         );
       }
       console.info(`🧮 Validación contable OK → Debe=${sumaDebe}, Haber=${sumaHaber}`);
+      AplicaConversionMoneda(req);
       await ReemplazaMailSolicitantePorID(req);
       await ReemplazaCuentaPorID(req);
       await CompletaCamposCabecera(req);
@@ -550,7 +552,7 @@ module.exports = cds.service.impl(async function () {
 
   async function getNextNumeroSolicitudFU(tx) {
     try {
-      const scope = 'NUMERO_SOLICITUD'; 
+      const scope = 'NUMERO_SOLICITUD';
       const secuencias = await tx.run(
         SELECT.one.from('GestionaAsientos.Secuencias').where({ nombre: scope }).forUpdate()
       );
@@ -564,7 +566,7 @@ module.exports = cds.service.impl(async function () {
     } catch (err) {
       console.error("❌ [getNextNumeroSolicitudFU] 🔴 Error detectado", err);
       if (err.code) {
-        throw err; 
+        throw err;
       }
       console.error("❌ [getNextNumeroSolicitudFU] 🔴 Error interno:", err);
       return req.reject(500, "[getNextNumeroSolicitudFU] 🔴 Error interno");
