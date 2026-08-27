@@ -57,7 +57,7 @@
       }
     },
     "features": {
-      "assert_integrity": "db"
+      "assert_integrity": "rt"
     },
     "server": {
       "body_parser": {

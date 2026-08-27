@@ -22,13 +22,13 @@ modules:
     instances: 1
   build-parameters:
     builder: npm-ci
-# - name: asientos-ajustes-db-deployer
-#   type: hdb
-#   path: gen/db
-#   requires:
-#   - name: asientos-ajustes-db
-#   parameters:
-#     buildpack: nodejs_buildpack
+- name: asientos-ajustes-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: asientos-ajustes-db
+  parameters:
+    buildpack: nodejs_buildpack
 - name: asientos-ajustes-app-deployer
   type: com.sap.application.content
   path: .
@@ -320,5 +320,4 @@ build-parameters:
   before-all:
   - builder: custom
     commands:
-    - npm ci
     - npx cds build --production
