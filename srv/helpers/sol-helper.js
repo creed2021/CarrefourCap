@@ -158,6 +158,9 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
         ? -Math.abs(Number(item.importe) || 0)
         : Math.abs(Number(item.importe) || 0);
 
+      const tipoCambioVigente = Number(cabecera.tipoCambio) || 1;
+      const importeARS = importe * tipoCambioVigente;
+
       var cuentaFinal = 0;
 
       if (!testDataIndicator) {
@@ -176,6 +179,7 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
                         <CostCenter>${safeUndef(item.centroCosto)}</CostCenter>
                       </AccountAssignment>
                       <AmountInTransactionCurrency currencyCode="${cabecera.moneda || 'ARS'}">${importe}</AmountInTransactionCurrency>
+                      <AmountInCompanyCodeCurrency currencyCode="ARS">${importeARS}</AmountInCompanyCodeCurrency>
                     </Item>`;
     }).join('');
 
@@ -493,13 +497,13 @@ async function ObtenerIDSubtipoAsiento(req) {
     // ============================================================
     let sumaClave40 = 0;
     let sumaClave50 = 0;
-
+    const tipoCambioVigente = Number(cab.tipoCambio) || 1;
     items.forEach(it => {
-      if (it.clave == 40) sumaClave40 += Number(it.importe || 0);
-      if (it.clave == 50) sumaClave50 += Number(it.importe || 0);
+      const importeARS = Number(it.importe || 0) * tipoCambioVigente;
+      if (it.clave == 40) sumaClave40 += importeARS;
+      if (it.clave == 50) sumaClave50 += importeARS;
     });
-
-    AppLog.debug(`🧮 Suma clave 40 = ${sumaClave40}, Suma clave 50 = ${sumaClave50}`);
+    AppLog.debug(`🧮 Suma clave 40 (ARS) = ${sumaClave40}, Suma clave 50 (ARS) = ${sumaClave50}, TipoCambio=${tipoCambioVigente}`);
 
     // ============================================================
     // 3️⃣ OBTENER TIPO ASIENTO (antes: TipoSolicitud)
