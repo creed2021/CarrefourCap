@@ -117,7 +117,10 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
     const cabecera = req.data;
     let nombreReferencia = '';
     const numeroSol = !testDataIndicator ? cabecera.numeroSolicitud : '';
-
+    const tipoCambioHeader = Number(cabecera.tipoCambio) || 1;
+    const exchangeRateXml = (cabecera.moneda && cabecera.moneda.toUpperCase() !== 'ARS')
+      ? `<ExchangeRate>${tipoCambioHeader}</ExchangeRate>`
+      : '';
 
     // ============================================================
     // 3️⃣ OBTENER TIPO ASIENTO
@@ -157,9 +160,7 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
       const importe = item.clave === 50
         ? -Math.abs(Number(item.importe) || 0)
         : Math.abs(Number(item.importe) || 0);
-
-      const tipoCambioVigente = Number(cabecera.tipoCambio) || 1;
-      const importeARS = importe * tipoCambioVigente;
+      const importeARS = importe * tipoCambioHeader;
 
       var cuentaFinal = 0;
 
@@ -206,6 +207,7 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
                             <CompanyCode>${cabecera.sociedad || '1000'}</CompanyCode>
                             <DocumentDate>${safeDate(cabecera.fechaDocumento)}</DocumentDate>
                             <PostingDate>${safeDate(cabecera.fechaContabilizacion)}</PostingDate>
+                            ${exchangeRateXml}
                             <DocumentReferenceID>${nombreReferencia}</DocumentReferenceID>
                             <Reference1InDocumentHeader>${numeroSol}</Reference1InDocumentHeader>
                             <DocumentHeaderText>${cabecera.textoCabecera}</DocumentHeaderText>

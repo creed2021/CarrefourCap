@@ -1,4 +1,5 @@
 using GestionaAsientos as service from '../../srv/service';
+
 annotate service.CabeceraAsiento with @(
     UI.FieldGroup #GeneratedGroup: {
         $Type: 'UI.FieldGroupType',
@@ -34,6 +35,10 @@ annotate service.CabeceraAsiento with @(
             {
                 $Type: 'UI.DataField',
                 Value: moneda,
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: tipoCambio,
             },
             {
                 $Type: 'UI.DataField',
@@ -153,6 +158,7 @@ annotate service.CabeceraAsiento with @(
         },
     ],
 );
+
 annotate service.CabeceraAsiento with {
     estadoSolicitud @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -174,6 +180,7 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
+
 annotate service.CabeceraAsiento with {
     sectorSolicitante @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -195,6 +202,7 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
+
 annotate service.CabeceraAsiento with {
     tipoAsiento @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -220,6 +228,7 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
+
 annotate service.CabeceraAsiento with {
     subtipoAsiento @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -245,6 +254,7 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
+
 annotate service.CabeceraAsiento with {
     referencia @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -266,6 +276,7 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
+
 annotate service.CabeceraAsiento with {
     solicitante @Common.ValueList: {
         $Type         : 'Common.ValueListType',
@@ -287,6 +298,7 @@ annotate service.CabeceraAsiento with {
         ],
     }
 };
+
 annotate service.DetalleAsiento with @(
     UI.DeleteHidden                                  : true,
     UI.LineItem #DetalledeAsiento                    : [
@@ -315,6 +327,16 @@ annotate service.DetalleAsiento with @(
         {
             $Type: 'UI.DataField',
             Value: importe,
+            Label: 'Importe Mon Transacción',
+        },
+        {
+            $Type        : 'UI.DataField',
+            Value        : importeMonSociedad,
+            Label        : 'Importe Mon Sociedad',
+            ![@UI.Hidden]: {$Eq: [
+                {$Path: 'cabecera/moneda'},
+                'ARS'
+            ]},
         },
     ],
     UI.SelectionPresentationVariant #DetalledeAsiento: {
@@ -335,6 +357,7 @@ annotate service.DetalleAsiento with @(
         },
     },
 );
+
 annotate service.ResumenCuentas with @(
     UI.LineItem #ResumenCuentas                    : [
         {
@@ -381,6 +404,7 @@ annotate service.ResumenCuentas with @(
         },
     },
 );
+
 annotate service.AprobadorSolicitud with @(
     UI.LineItem #DetalledeAprobadores                     : [
         {
@@ -466,6 +490,7 @@ annotate service.AprobadorSolicitud with @(
         },
     },
 );
+
 annotate service.AdjuntoSolicitud with @(UI.LineItem #Adjuntos: [
     {
         $Type: 'UI.DataField',
@@ -484,6 +509,7 @@ annotate service.AdjuntoSolicitud with @(UI.LineItem #Adjuntos: [
         Url  : urlAdjunto
     },
 ]);
+
 annotate service.CabeceraAsiento with @(UI.HeaderInfo: {
     TypeName      : 'Listado de Solicitudes',
     TypeNamePlural: 'Listado de Solicitudes'
