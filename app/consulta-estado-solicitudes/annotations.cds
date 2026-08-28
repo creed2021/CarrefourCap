@@ -316,9 +316,10 @@ annotate service.DetalleAsiento with @(
             Label: 'numero',
         },
         {
-            $Type: 'UI.DataField',
-            Value: cuentaContable.nombre,
-            Label: 'nombre',
+            $Type                : 'UI.DataField',
+            Value                : cuentaContable.nombre,
+            Label                : 'nombre',
+            ![@HTML5.CssDefaults]: {width: '10rem'},
         },
         {
             $Type: 'UI.DataField',
