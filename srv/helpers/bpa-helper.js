@@ -15,11 +15,13 @@ const AppLog = require('../helpers/logging/app-log');
 const DEFINITION_ID_BPA_DEV = "us30.process-automation-95oeuot4.ajustescontables.main";
 const URL_BPA_DEV = '/workflow/rest/v1/workflow-instances?environmentId=dev';
 const APIKEY_BPA_DEV = 'eoV2Z3u1DDGAQdusyr_qNQuU0Pjil5Rj';
+const URL_MYINBOX_DEV = 'https://process-automation-95oeuot4.launchpad.cfapps.us30.hana.ondemand.com/site/Finanzas-DEV#Shell-home';
 
 //AMBIENTE PRD
 const DEFINITION_ID_BPA_PRD = "us30.process-automation-95oeuot4.ajustescontables.main";
 const URL_BPA_PRD = '/workflow/rest/v1/workflow-instances?environmentId=prd';
 const APIKEY_BPA_PRD = 'lh8zeBreIeV5VsVISeTEbu8yX9uk48cs';
+const URL_MYINBOX_PRD = 'https://carrefour-asientos-manuales-6nw9u6rt.launchpad.cfapps.us30.hana.ondemand.com/site?siteId=05c77039-b85c-4a2a-b196-0ea24a6a2489#Shell-home';
 
 /* ============================================================================================
  * 🧩 HELPER — URLs de Adjuntos (DMS)
@@ -152,7 +154,7 @@ async function getTablaSumatorias(req) {
 
     const sumMap = {};
     const tipoCambioVigente = Number(d.tipoCambio) || 1;
-    
+
     for (const it of d.items) {
       const cta = mapCtas.get(it.cuentaContable_ID);
 
@@ -635,6 +637,7 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
 
     return {
       definitionId: DEFINITION_ID_BPA_DEV,
+      urlmyinbox: URL_MYINBOX_DEV,
       context: {
         numerosolicitud: `${String(d.numeroSolicitud)}`,
         clasedocumento: d.claseDocumento,

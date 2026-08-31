@@ -5,6 +5,7 @@ Capa | Acción | Archivo | Constante
 Backend | Cambiar constante | bpa-helper.js | DEFINITION_ID_BPA_PRD 
 Backend	| Cambiar constante	| bpa-helper.js | URL_BPA_PRD
 Backend	| Cambiar constante	| bpa-helper.js | APIKEY_BPA_PRD
+Backend	| Cambiar constante	| bpa-helper.js | URL_MYINBOX_PRD
 Backend	| Cambiar constante	| dms-helper.js	| REPO_ID_PRD
 Backend	| Cambiar constante	| sol-helper.js	| URL_S4_HANA_PRD
 Backend | Renombrar Archivo | mta.jaml	| N/A
