@@ -561,15 +561,15 @@ async function ObtenerIDSubtipoAsiento(req) {
 
         );
 
-
       if (valido) {
         const st = await getSub("G");
-        if (sumaClave40 >= st.umbralMinimoAsiento) {
+        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
+        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) {
           return st.ID;
         } else {
           return req.reject(
             400,
-            `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo .`
+            `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo G.`
           );
         };
       };
@@ -624,7 +624,8 @@ async function ObtenerIDSubtipoAsiento(req) {
 
       if (subD) {
         const st = await getSub("D");
-        if (sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
+        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
         return req.reject(
           400,
           `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo D.`
@@ -633,7 +634,8 @@ async function ObtenerIDSubtipoAsiento(req) {
 
       if (subE) {
         const st = await getSub("E");
-        if (sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
+        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
         return req.reject(
           400,
           `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo E.`
@@ -642,11 +644,10 @@ async function ObtenerIDSubtipoAsiento(req) {
 
       if (subF) return (await getSub("F")).ID;
 
-
-      // 🆕 NUEVO — mismo patrón que D/E: valida umbral antes de aceptar
       if (subI) {
         const st = await getSub("I");
-        if (sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
+        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
         return req.reject(
           400,
           `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo I.`
