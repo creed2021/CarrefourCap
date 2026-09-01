@@ -637,7 +637,6 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
 
     return {
       definitionId: DEFINITION_ID_BPA_DEV,
-      urlmyinbox: URL_MYINBOX_DEV,
       context: {
         numerosolicitud: `${String(d.numeroSolicitud)}`,
         clasedocumento: d.claseDocumento,
@@ -660,7 +659,8 @@ function buildPayloadBPA(d, valores, tablasumatorias, n1, n2, n3, n4, listaurldm
         listamailsnivel3: n3.map(e => e.email),
         listamailsnivel4: n4.map(e => e.email),
         enlacedms: "",
-        listaurldms
+        listaurldms,
+        urlmyinbox: URL_MYINBOX_DEV,
       }
     };
   } catch (err) {
