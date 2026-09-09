@@ -687,7 +687,9 @@ async function ObtenerIDSubtipoAsiento(req) {
         (tieneEXC && tienePAT && tieneBAN && solo(["EXC", "PAT", "BAN"])) ||
         // 🆕 NUEVO 14-7-2026
         (tieneEXC && tieneGAS && solo(["EXC", "GAS"])) ||
-        (tieneEXC && tieneGAS && tienePAT && solo(["EXC", "GAS", "PAT"]))
+        (tieneEXC && tieneGAS && tienePAT && solo(["EXC", "GAS", "PAT"])) ||
+        // 🆕 NUEVO — todas las cuentas son EXC (ajuste excepcional puro)
+        (tieneEXC && solo(["EXC"]))
       ) {
         return (await getSub("H")).ID;
       }
