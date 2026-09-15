@@ -11,6 +11,11 @@ annotate service.ConfigAdjuntosObligatorios with @(
             },
             {
                 $Type: 'UI.DataField',
+                Value: subtipoAsiento.nombre,
+                Label: 'Subtipo de Asiento',
+            },
+            {
+                $Type: 'UI.DataField',
                 Value: obligatorio,
                 Label: 'Adjunto Obligatorio',
             },
@@ -30,6 +35,11 @@ annotate service.ConfigAdjuntosObligatorios with @(
         },
         {
             $Type: 'UI.DataField',
+            Value: subtipoAsiento.nombre,
+            Label: 'Subtipo de Asiento',
+        },
+        {
+            $Type: 'UI.DataField',
             Value: obligatorio,
             Label: 'Adjunto Obligatorio',
         },
@@ -39,7 +49,7 @@ annotate service.ConfigAdjuntosObligatorios with @(
         TypeNamePlural: 'Configuraciones de Adjuntos',
         Title         : {
             $Type: 'UI.DataField',
-            Value: tipoAsiento.nombre,
+            Value: subtipoAsiento.nombre,
         },
     },
 );

@@ -202,10 +202,14 @@ entity SubTipoAsiento : cuid, managed {
   umbralMinimoAsiento : Decimal(15, 2);
 }
 
-@assert.unique: {tipoAsientoConfigAdjunto: [tipoAsiento], }
+@assert.unique: {tipoSubtipoConfigAdjunto: [
+  tipoAsiento,
+  subtipoAsiento
+], }
 entity ConfigAdjuntoObligatorio : cuid, managed {
-  tipoAsiento : Association to TipoAsiento @title: 'Tipo Asiento';
-  obligatorio : Boolean default true       @title: 'Adjunto Obligatorio';
+  tipoAsiento    : Association to TipoAsiento    @title: 'Tipo Asiento';
+  subtipoAsiento : Association to SubTipoAsiento @title: 'Subtipo Asiento';
+  obligatorio    : Boolean default true          @title: 'Adjunto Obligatorio';
 }
 
 entity Constantes : cuid, managed {

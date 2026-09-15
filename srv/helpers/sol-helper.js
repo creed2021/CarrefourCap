@@ -387,8 +387,30 @@ async function CompletaCamposCabecera(req) {
       return req.reject(404, `[CompletaCamposCabecera] ❌ Error al completar el estado: falta código 'P1' en EstadosSolicitud`);
     }
     // subtipoAsiento_ID
-    const subtipoID = await ObtenerIDSubtipoAsiento(req);
-    if (subtipoID) cab.subtipoAsiento_ID = subtipoID;
+    if (!cab.subtipoAsiento_ID) {
+      return req.reject(400, "Debe seleccionar un Subtipo de Asiento.");
+    }
+
+    const SubTipoAsiento = cds.entities.SubTipoAsiento;
+    const subtipoElegido = await SELECT.one.from(SubTipoAsiento)
+      .where({ ID: cab.subtipoAsiento_ID });
+
+    if (!subtipoElegido || subtipoElegido.tipoAsiento_ID !== cab.tipoAsiento_ID) {
+      return req.reject(400, "El subtipo seleccionado no corresponde al tipo de asiento elegido.");
+    }
+
+    const subtipoSeleccionado_ID = cab.subtipoAsiento_ID;
+    const subtipoDetectado_ID = await ObtenerIDSubtipoAsiento(req); // función sin cambios internos
+
+    if (subtipoDetectado_ID && subtipoDetectado_ID !== subtipoSeleccionado_ID) {
+      const detectado = await SELECT.one.from(SubTipoAsiento).where({ ID: subtipoDetectado_ID });
+      return req.reject(400,
+        `El subtipo seleccionado no corresponde a las cuentas ingresadas. ` +
+        `Según las cuentas cargadas, el subtipo correcto es: ${detectado.codigo} - ${detectado.nombre}.`
+      );
+    }
+    // Si coincide, no se toca nada más — el flujo continúa igual que hoy (umbral, workflow, etc.)
+
     const tipo = await SELECT.one.from(TipoAsiento).where({ ID: cab.tipoAsiento_ID });
     // referencia_ID según tipoAsiento
     if (tipo?.codigo) {
