@@ -57,3 +57,7 @@ annotate service.ConfigAdjuntosObligatorios with @(
 annotate service.TiposAsiento with {
     nombre @Core.Computed : true;
 };
+
+annotate service.SubTiposAsiento with {
+    nombre @Core.Computed : true;
+};
