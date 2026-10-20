@@ -1,0 +1,61 @@
+-- ============================================================
+-- ABTP - Carrefour
+-- ITSAP-1349 - Nuevo SubTipoAsiento 'J' - Asientos con cuentas Patrimoniales y Bancos
+-- Nuevo TipoCuenta 'PAC' - Patrimoniales Cobranzas
+-- Tipo de Asiento asociado: codigo = '2' (Ajustes de asientos de cierre)
+-- ============================================================
+
+-- 1) Verificación previa: confirmar que no existan ya 'PAC' ni 'J'
+SELECT ID, CODIGO, NOMBRE FROM COM_CARREFOUR_JOURNAL_TIPOCUENTA WHERE CODIGO = 'PAC';
+
+SELECT S.ID, S.CODIGO, S.NOMBRE, S.TIPOASIENTO_ID
+FROM COM_CARREFOUR_JOURNAL_SUBTIPOASIENTO S
+JOIN COM_CARREFOUR_JOURNAL_TIPOASIENTO T
+  ON S.TIPOASIENTO_ID = T.ID
+WHERE T.CODIGO = '2'
+  AND S.CODIGO = 'J';
+
+-- 2) Alta del TipoCuenta 'PAC'
+INSERT INTO COM_CARREFOUR_JOURNAL_TIPOCUENTA
+  (ID, CODIGO, NOMBRE, MODIFIEDBY)
+VALUES
+  (SYSUUID, 'PAC', 'Patrimoniales Cobranzas', 'it-script');
+
+-- 3) Alta del SubTipoAsiento 'J' (sin importe mínimo: no valida umbral)
+INSERT INTO COM_CARREFOUR_JOURNAL_SUBTIPOASIENTO
+  (ID, CODIGO, NOMBRE, TIPOASIENTO_ID, UMBRALMINIMOASIENTO, MODIFIEDBY)
+SELECT
+  SYSUUID,
+  'J',
+  'Asientos con cuentas Patrimoniales y Bancos',
+  T.ID,
+  0,
+  'it-script'
+FROM COM_CARREFOUR_JOURNAL_TIPOASIENTO T
+WHERE T.CODIGO = '2';
+
+-- 4) Actualización de cuentas a tipo PAC (hoy son PRO)
+UPDATE COM_CARREFOUR_JOURNAL_CUENTA C
+SET TIPO_ID = (
+    SELECT T.ID
+    FROM COM_CARREFOUR_JOURNAL_TIPOCUENTA T
+    WHERE T.CODIGO = 'PAC'
+)
+WHERE C.NUMERO IN ('25340000',
+'25340913');
+
+-- 5) Verificación posterior
+SELECT ID, CODIGO, NOMBRE FROM COM_CARREFOUR_JOURNAL_TIPOCUENTA WHERE CODIGO = 'PAC';
+
+SELECT S.ID, S.CODIGO, S.NOMBRE, S.TIPOASIENTO_ID, S.UMBRALMINIMOASIENTO, S.MODIFIEDBY
+FROM COM_CARREFOUR_JOURNAL_SUBTIPOASIENTO S
+JOIN COM_CARREFOUR_JOURNAL_TIPOASIENTO T
+  ON S.TIPOASIENTO_ID = T.ID
+WHERE T.CODIGO = '2'
+  AND S.CODIGO = 'J';
+
+SELECT C.NUMERO, C.NOMBRE, T.CODIGO
+FROM COM_CARREFOUR_JOURNAL_CUENTA C
+JOIN COM_CARREFOUR_JOURNAL_TIPOCUENTA T
+  ON C.TIPO_ID = T.ID
+WHERE C.NUMERO IN ('25340000', '25340913');

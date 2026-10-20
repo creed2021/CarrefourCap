@@ -38,3 +38,6 @@ resources/
 *.zip
 *.mta
 
+
+# ui5-tooling-modules cache
+.ui5-tooling-modules/

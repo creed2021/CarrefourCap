@@ -1,38 +1,10 @@
 const cds = require('@sap/cds');
-const path = require('path');
-const soap = require('soap');
-const axios = require("axios");
 const { getDestination } = require('@sap-cloud-sdk/connectivity');
 const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
 const xml2js = require('xml2js');
-const { Token } = require('@sap/xssec');
-const { threadId } = require('worker_threads');
-
 const AppLog = require('../helpers/logging/app-log');
-
 const URL_S4_HANA_QAS = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi_b/journalentrycreaterequestconfi';
 const URL_S4_HANA_PRD = '/sap/bc/srt/xip/sap/journalentrycreaterequestconfi/300/journalentrycreaterequestconfi/journalentrycreaterequestconfi?saml2=disabled';
-
-function AplicaConversionMoneda(req) {
-  const cab = req.data;
-  const moneda = (cab.moneda || 'ARS').toUpperCase();
-
-  if (moneda === 'ARS') {
-    cab.tipoCambio = 1;
-  } else {
-    const tc = Number(cab.tipoCambio);
-    if (!cab.tipoCambio || isNaN(tc) || tc <= 0) {
-      return req.reject(
-        400,
-        `El campo Tipo de Cambio es obligatorio y debe ser mayor a 0 `
-        + `cuando la moneda es distinta de ARS (moneda seleccionada: ${moneda}).`
-      );
-    }
-    cab.tipoCambio = tc;
-  }
-
-  AppLog.debug(`[AplicaConversionMoneda] Moneda=${moneda} TipoCambio=${cab.tipoCambio}`);
-}
 
 function safeUndef(value) {
   if (
@@ -46,10 +18,6 @@ function safeUndef(value) {
   return String(value);
 }
 
-
-/**
- * Devuelve fecha en formato YYYY-MM-DD o vacío si no es válida
- */
 function safeDate(dateValue) {
   if (!dateValue) return '';
   try {
@@ -63,28 +31,371 @@ function safeDate(dateValue) {
 
 function primerDiaMesSiguiente(fechaStr) {
   const fecha = new Date(fechaStr);
-
-  // Obtener año y mes
   let year = fecha.getFullYear();
-  let month = fecha.getMonth(); // 0=Enero ... 11=Diciembre
-
-  // Avanzar al mes siguiente
-  if (month === 11) {          // Si es diciembre
+  let month = fecha.getMonth();
+  if (month === 11) {
     year += 1;
-    month = 0;               // Enero
+    month = 0;
   } else {
     month += 1;
   }
-
-  // Primer día del mes siguiente → día 1
   const nuevaFecha = new Date(year, month, 1);
-
-  // Formato YYYY-MM-DD
   const yyyy = nuevaFecha.getFullYear();
   const mm = String(nuevaFecha.getMonth() + 1).padStart(2, "0");
   const dd = String(nuevaFecha.getDate()).padStart(2, "0");
-
   return `${yyyy}-${mm}-${dd}`;
+}
+
+function AplicaConversionMoneda(req) {
+  const cab = req.data;
+  const moneda = (cab.moneda || 'ARS').toUpperCase();
+  if (moneda === 'ARS') {
+    cab.tipoCambio = 1;
+  } else {
+    const tc = Number(cab.tipoCambio);
+    if (!cab.tipoCambio || isNaN(tc) || tc <= 0) {
+      return req.reject(
+        400,
+        `El campo Tipo de Cambio es obligatorio y debe ser mayor a 0 `
+        + `cuando la moneda es distinta de ARS (moneda seleccionada: ${moneda}).`
+      );
+    }
+    cab.tipoCambio = tc;
+  }
+  AppLog.debug(`[AplicaConversionMoneda] Moneda=${moneda} TipoCambio=${cab.tipoCambio}`);
+}
+
+async function ReemplazaMailSolicitantePorID(req) {
+  const emailSolicitante = req.data.correo_solicitante;
+  const Empleado = cds.entities.Empleado;
+  AppLog.info('[ReemplazaMailSolicitantePorID] ✅ Ingresa en método');
+  try {
+    if (!emailSolicitante) return;
+    const empleado = await SELECT.one.from(Empleado).where({ email: emailSolicitante });
+    if (empleado) {
+      req.data.solicitante_ID = empleado.ID;
+      AppLog.debug(`[ReemplazaMailSolicitantePorID] ✅ Mail ${emailSolicitante} → ID ${empleado.ID}`);
+    } else {
+      AppLog.error(`[ReemplazaMailSolicitantePorID] ❌ Error buscando empleado con mail ${emailSolicitante}`);
+      return req.reject(400, `[ReemplazaMailSolicitantePorID] ⚠ No se encontró empleado con mail ${emailSolicitante}`)
+    }
+    AppLog.info('[ReemplazaMailSolicitantePorID] ✅ Sale del método');
+  } catch (err) {
+    AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
+    if (err.code) {
+      throw err;
+    }
+    AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
+    return req.reject(500, "[ReemplazaMailSolicitantePorID] 🔴 Error interno");
+  }
+}
+
+async function ReemplazaCuentaPorID(req) {
+  const data = req.data;
+  const Cuenta = cds.entities.Cuenta;
+  const tx = req.tx;
+  try {
+    AppLog.info('[ReemplazaCuentaPorID] ✅ Ingresa en método');
+    const catalogService = await cds.connect.to('CatalogService');
+    if (!data.items || !Array.isArray(data.items)) {
+      AppLog.error(`[ReemplazaCuentaPorID] ❌ Error en items`);
+      return req.reject(404, `[ReemplazaCuentaPorID] ❌ Error en items`);
+    }
+    for (const item of data.items) {
+      if (item.cuentaContable_ID && !/^[0-9a-fA-F-]{36}$/.test(item.cuentaContable_ID)) {
+        const codigoCuenta = String(item.cuentaContable_ID).trim();
+        const cuentaRec = await catalogService.run(
+          SELECT.one.from('CatalogService.Cuentas').where({ numero: codigoCuenta })
+        );
+        if (cuentaRec) {
+          item.cuentaContable_ID = cuentaRec.ID;
+          AppLog.debug(`[ReemplazaCuentaPorID] ✅ Mapeada cuenta ${codigoCuenta} → ${cuentaRec.ID}`);
+        } else {
+          const msg = `[ReemplazaCuentaPorID] ❌ Cuenta contable inexistente: ${codigoCuenta}`;
+          AppLog.error(msg);
+          req.reject(404, msg);
+        }
+      } else if (!item.cuentaContable_ID) {
+        AppLog.error(`[ReemplazaCuentaPorID] ❌ Error buscando cuenta ${codigoCuenta}: ${err.message}`);
+        return req.reject(404, `Error buscando cuenta contable: ${codigoCuenta}`);
+      }
+    }
+  } catch (err) {
+    AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
+    if (err.code) {
+      throw err;
+    }
+    AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
+    return req.reject(500, "[ReemplazaMailSolicitantePorID] 🔴 Error interno");
+  }
+}
+
+async function CompletaCamposCabecera(req) {
+  const cab = req.data;
+  const tx = req.tx;
+  const TipoAsiento = cds.entities.TipoAsiento;
+  const EstadosSolicitud = cds.entities.EstadosSolicitud;
+  const Referencia = cds.entities.Referencia;
+  AppLog.info('[CompletaCamposCabecera] ✅ Ingresa en método');
+  try {
+    const estado = await SELECT.one.from(EstadosSolicitud).where({ codigo: 'P1' });
+    if (estado) cab.estadoSolicitud_ID = estado.ID
+    else {
+      AppLog.error(`[CompletaCamposCabecera] ❌ No se encontró estado con código 'P1' en el maestro EstadosSolicitud`);
+      return req.reject(404, `[CompletaCamposCabecera] ❌ Error al completar el estado: falta código 'P1' en EstadosSolicitud`);
+    }
+    if (!cab.subtipoAsiento_ID) {
+      return req.reject(400, "Debe seleccionar un Subtipo de Asiento.");
+    }
+    const SubTipoAsiento = cds.entities.SubTipoAsiento;
+    const subtipoElegido = await SELECT.one.from(SubTipoAsiento)
+      .where({ ID: cab.subtipoAsiento_ID });
+    if (!subtipoElegido || subtipoElegido.tipoAsiento_ID !== cab.tipoAsiento_ID) {
+      return req.reject(400, "El subtipo seleccionado no corresponde al tipo de asiento elegido.");
+    }
+    const subtipoSeleccionado_ID = cab.subtipoAsiento_ID;
+    const subtipoDetectado_ID = await ObtenerIDSubtipoAsiento(req);
+    if (subtipoDetectado_ID && subtipoDetectado_ID !== subtipoSeleccionado_ID) {
+      const detectado = await SELECT.one.from(SubTipoAsiento).where({ ID: subtipoDetectado_ID });
+      return req.reject(400,
+        `El subtipo seleccionado no corresponde a las cuentas ingresadas. ` +
+        `Según las cuentas cargadas, el subtipo correcto es: ${detectado.codigo} - ${detectado.nombre}.`
+      );
+    }
+    const tipo = await SELECT.one.from(TipoAsiento).where({ ID: cab.tipoAsiento_ID });
+    if (tipo?.codigo) {
+      let refCodigo = null;
+      switch (tipo.codigo) {
+        case '1': refCodigo = 'PRO'; break;
+        case '2': refCodigo = 'AJC'; break;
+        case '3': refCodigo = 'AJX'; break;
+      }
+      if (refCodigo) {
+        const ref = await SELECT.one.from(Referencia).where({ codigo: refCodigo });
+        if (ref) cab.referencia_ID = ref.ID;
+      }
+    }
+  } catch (err) {
+    AppLog.error("❌ [CompletaCamposCabecera] 🔴 Error detectado", err);
+    if (err.code) {
+      throw err;
+    }
+    AppLog.error("❌ [CompletaCamposCabecera] 🔴 Error interno:", err);
+    return req.reject(500, "[CompletaCamposCabecera] 🔴 Error interno");
+  }
+}
+
+async function ObtenerIDSubtipoAsiento(req) {
+  try {
+    AppLog.info("🔎 [ObtenerIDSubtipoAsiento] Inicio");
+    const tx = cds.transaction(req);
+    const cab = req.data;
+    const items = req.data.items || [];
+    if (!items.length) {
+      return req.reject(400, "Debe enviar al menos un ítem en el detalle del asiento.");
+    }
+    const cuentasPorTipo = {};
+    const cuentasUnicas = new Set();
+    const cuentasDetalle = [];
+    for (const it of items) {
+      const cuentaID = it.cuentaContable_ID || it.cuentaContable;
+      if (!cuentaID) {
+        return req.reject(400,
+          `El ítem con ID ${it.ID || "(sin ID)"} no tiene cuenta contable informada`);
+      }
+      cuentasUnicas.add(cuentaID);
+      const cuentaRow = await tx.run(
+        SELECT.one.from("com.carrefour.journal.Cuenta as C")
+          .columns(
+            "C.ID",
+            "C.numero",
+            "C.nombre",
+            "T.codigo as tipoCodigo",
+            "T.nombre as tipoNombre"
+          )
+          .join("com.carrefour.journal.TipoCuenta as T").on("C.tipo_ID = T.ID")
+          .where({ "C.ID": cuentaID })
+      );
+      if (!cuentaRow) {
+        return req.reject(
+          400,
+          `La cuenta contable seleccionada (${cuentaID}) no existe en el maestro de Cuentas.`
+        );
+      }
+      const tipoCod = cuentaRow.tipoCodigo;
+      if (!cuentasPorTipo[tipoCod]) cuentasPorTipo[tipoCod] = new Set();
+      cuentasPorTipo[tipoCod].add(cuentaRow.numero);
+      cuentasDetalle.push({
+        cuenta: cuentaRow.numero,
+        nombreCuenta: cuentaRow.nombre,
+        tipoCuenta: cuentaRow.tipoCodigo,
+        nombreTipoCuenta: cuentaRow.tipoNombre
+      });
+      AppLog.debug(`📌 Cuenta ${cuentaRow.numero} | ${cuentaRow.nombre} → Tipo ${cuentaRow.tipoCodigo} (${cuentaRow.tipoNombre})`);
+    }
+    AppLog.debug(`🔢 Total de cuentas distintas recibidas: ${cuentasUnicas.size}`);
+    AppLog.debug("📘 Totales por Tipo de Cuenta:");
+    for (const [tipo, setCuentas] of Object.entries(cuentasPorTipo)) {
+      AppLog.debug(`   - ${tipo}: ${setCuentas.size} cuenta(s) → [${[...setCuentas].join(", ")}]`);
+    }
+    let sumaClave40 = 0;
+    let sumaClave50 = 0;
+    const tipoCambioVigente = Number(cab.tipoCambio) || 1;
+    items.forEach(it => {
+      const importeARS = Number(it.importe || 0) * tipoCambioVigente;
+      if (it.clave == 40) sumaClave40 += importeARS;
+      if (it.clave == 50) sumaClave50 += importeARS;
+    });
+    AppLog.debug(`🧮 Suma clave 40 (ARS) = ${sumaClave40}, Suma clave 50 (ARS) = ${sumaClave50}, TipoCambio=${tipoCambioVigente}`);
+    const tipoAsiento = await tx.run(
+      SELECT.one.from("com.carrefour.journal.TipoAsiento")
+        .where({ ID: cab.tipoAsiento_ID })
+    );
+    if (!tipoAsiento) {
+      return req.reject(400, "No existe el TipoAsiento indicado.");
+    }
+    const codigoTS = tipoAsiento.codigo;
+    AppLog.debug(`📌 TipoAsiento.codigo = ${codigoTS}`);
+    async function getSub(cod) {
+      const r = await tx.run(
+        SELECT.one.from("com.carrefour.journal.SubTipoAsiento").where({ codigo: cod })
+      );
+      if (!r) {
+        return req.reject(400, `No existe SubTipoAsiento con código ${cod}`);
+      }
+      return r;
+    }
+    const solo = arr =>
+      Object.keys(cuentasPorTipo).length === arr.length &&
+      arr.every(k => cuentasPorTipo[k]);
+    if (codigoTS == "1") {
+      const tienePRO = cuentasPorTipo.PRO?.size > 0;
+      const tieneGAS = cuentasPorTipo.GAS?.size > 0;
+      const tieneMAR = cuentasPorTipo.MAR?.size > 0;
+      const valido =
+        (
+          (tienePRO && tieneGAS) ||
+          (tienePRO && tieneGAS && tieneMAR) ||
+          (tienePRO && tieneMAR)
+        ) &&
+        (
+          solo(["GAS", "MAR", "PRO"]) ||
+          solo(["GAS", "PRO"]) ||
+          solo(["MAR", "PRO"])
+        );
+      if (valido) {
+        const st = await getSub("G");
+        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
+        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) {
+          return st.ID;
+        } else {
+          return req.reject(
+            400,
+            `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo G.`
+          );
+        };
+      };
+      return req.reject(400, {
+        message:
+          "El tipo de asiento solicitado (TipoAsiento=1) no es compatible con las cuentas presentadas.",
+        detalleCuentas: {
+          totalCuentas: cuentasUnicas.size,
+          cuentasPorTipo: Object.fromEntries(
+            Object.entries(cuentasPorTipo).map(([k, v]) => [k, v.size])
+          )
+        }
+      });
+    }
+    if (codigoTS == "2") {
+      const subA = solo(["GAS"]) && cuentasPorTipo.GAS.size === 1;
+      const subB = solo(["GAS"]) && cuentasPorTipo.GAS.size > 1;
+      const subC = solo(["GAS", "MAR"]) || solo(["MAR"]);
+      const subD = solo(["GAS", "PAT"]);
+      const subE = solo(["MAR", "PAT"]) || solo(["MAR", "GAS", "PAT"]);
+      const subF = solo(["BAN"]);
+      const subI = solo(["PAT"]) && cuentasPorTipo.PAT.size > 1;
+      const subJ = solo(["PAC", "BAN"]);
+      if (subA) return (await getSub("A")).ID;
+      if (subB) return (await getSub("B")).ID;
+      if (subC) return (await getSub("C")).ID;
+      if (subD) {
+        const st = await getSub("D");
+        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
+        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+        return req.reject(
+          400,
+          `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo D.`
+        );
+      }
+      if (subE) {
+        const st = await getSub("E");
+        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
+        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+        return req.reject(
+          400,
+          `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo E.`
+        );
+      }
+      if (subF) return (await getSub("F")).ID;
+      if (subI) {
+        const st = await getSub("I");
+        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
+        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
+        return req.reject(
+          400,
+          `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo I.`
+        );
+      }
+      if (subJ) return (await getSub("J")).ID;
+      return req.reject(400, {
+        message:
+          "El tipo de asiento solicitado (TipoAsiento=2) no es compatible con las cuentas presentadas.",
+        detalleCuentas: {
+          totalCuentas: cuentasUnicas.size,
+          cuentasPorTipo: Object.fromEntries(
+            Object.entries(cuentasPorTipo).map(([k, v]) => [k, v.size])
+          )
+        }
+      });
+    }
+    if (codigoTS == "3") {
+      const tieneEXC = cuentasPorTipo.EXC?.size > 0;
+      const tienePAT = cuentasPorTipo.PAT?.size > 0;
+      const tieneBAN = cuentasPorTipo.BAN?.size > 0;
+      const tieneGAS = cuentasPorTipo.GAS?.size > 0;
+      if (
+        (tieneEXC && tienePAT && solo(["EXC", "PAT"])) ||
+        (tieneEXC && tieneBAN && solo(["EXC", "BAN"])) ||
+        (tieneEXC && tienePAT && tieneBAN && solo(["EXC", "PAT", "BAN"])) ||
+        (tieneEXC && tieneGAS && solo(["EXC", "GAS"])) ||
+        (tieneEXC && tieneGAS && tienePAT && solo(["EXC", "GAS", "PAT"])) ||
+        (tieneEXC && solo(["EXC"]))
+      ) {
+        return (await getSub("H")).ID;
+      }
+      return req.reject(400, {
+        message:
+          "El tipo de asiento solicitado (TipoAsiento=3) requiere al menos una cuenta EXC, opcionalmente combinada con cuentas PAT, BAN o GAS.",
+        detalleCuentas: {
+          totalCuentas: cuentasUnicas.size,
+          cuentasPorTipo: Object.fromEntries(
+            Object.entries(cuentasPorTipo).map(([k, v]) => [k, v.size])
+          )
+        }
+      });
+    }
+    return req.reject(
+      400,
+      "El tipo de asiento solicitado no es compatible con las cuentas presentadas."
+    );
+  } catch (err) {
+    AppLog.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error detectado", err);
+    if (err.code) {
+      throw err;
+    }
+    AppLog.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error interno:", err);
+    return req.reject(500, "[ObtenerIDSubtipoAsiento] 🔴 Error interno");
+  }
 }
 
 /**
@@ -98,22 +409,14 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
   const Referencia = cds.entities.Referencia;
   const Cuenta = cds.entities.Cuenta;
   const TipoAsiento = cds.entities.TipoAsiento;
-
   const tx = req.tx;
-
   try {
-    // 1️⃣ Conectar al destino configurado
     const remote = await cds.connect.to('S4HANA');
     const destinationName = remote.options.credentials.destination;
     const destination = await getDestination({ destinationName });
-
     const CabeceraAsiento = cds.entities.CabceraAsiento;
-
-
     if (!destination) throw new Error(`No se encontró el destino ${destinationName}`);
     AppLog.debug(`[ValidaContabilizaAsiento] 🌍 Usando destination: ${destinationName}`);
-
-    // 2️⃣ Extraer datos del request
     const cabecera = req.data;
     let nombreReferencia = '';
     const numeroSol = !testDataIndicator ? cabecera.numeroSolicitud : '';
@@ -121,56 +424,40 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
     const exchangeRateXml = (cabecera.moneda && cabecera.moneda.toUpperCase() !== 'ARS')
       ? `<ExchangeRate>${tipoCambioHeader}</ExchangeRate>`
       : '';
-
-    // ============================================================
-    // 3️⃣ OBTENER TIPO ASIENTO
-    // ============================================================
     const tipoAsiento = await SELECT.one.from(TipoAsiento).where({ ID: cabecera.tipoAsiento_ID });
-
     if (!tipoAsiento) {
       return req.reject(400, "No existe el TipoAsiento indicado.");
     }
-
     const codigoTS = tipoAsiento.codigo;
     let reversalDateValor = '';
     let reversalReasonValor = '';
     AppLog.debug(`📌 [ValidaContabilizaAsiento] TipoAsiento.codigo = ${codigoTS}`);
-
     if (codigoTS == "1") {
       reversalDateValor = primerDiaMesSiguiente(cabecera.fechaContabilizacion);
       reversalReasonValor = '05';
     }
-
     if (cabecera.referencia_ID) {
       const ref = await SELECT.one.from(Referencia).where({ ID: cabecera.referencia_ID });
       if (ref) nombreReferencia = ref.nombre;
     }
-
     const items = Array.isArray(cabecera.items) ? cabecera.items : [];
-
     const cuentas = await SELECT.from(Cuenta).where({
       ID: { in: items.map(i => i.cuentaContable_ID) }
     });
     const mapCuentas = new Map(cuentas.map(c => [c.ID, c]));
-
-
-    // 3️⃣ Armar los ítems con reglas de clave e importe
     const itemsXml = items.map(item => {
       const debitCreditCode = item.clave === 40 ? 'S' : 'H';
       const importe = item.clave === 50
         ? -Math.abs(Number(item.importe) || 0)
         : Math.abs(Number(item.importe) || 0);
       const importeARS = importe * tipoCambioHeader;
-
       var cuentaFinal = 0;
-
       if (!testDataIndicator) {
         cuentaFinal = item.numero;
       } else {
         const cta = mapCuentas.get(item.cuentaContable_ID);
         cuentaFinal = cta.numero;
       };
-
       return `
                     <Item>
                       <GLAccount>${cuentaFinal}</GLAccount>
@@ -183,8 +470,6 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
                       <AmountInCompanyCodeCurrency currencyCode="ARS">${importeARS}</AmountInCompanyCodeCurrency>
                     </Item>`;
     }).join('');
-
-    // 4️⃣ Construir el XML SOAP
     const xmlPayload = `
                   <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sfin="http://sap.com/xi/SAPSCORE/SFIN">
                     <soapenv:Header/>         
@@ -219,40 +504,29 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
                       </sfin:JournalEntryBulkCreateRequest>
                     </soapenv:Body>
                   </soapenv:Envelope>`;
-
     AppLog.debug(`[ValidaContabilizaAsiento] 🚀 Enviando payload SOAP a SAP... ${xmlPayload}`);
-
-    // 5️⃣ Ejecutar la llamada
     const response = await executeHttpRequest(destination, {
       method: 'POST',
       url: URL_S4_HANA_QAS,
       headers: { 'Content-Type': 'text/xml', 'Accept': 'text/xml' },
       data: xmlPayload
     });
-
     const xmlResponse = response.data;
     AppLog.info('[ValidaContabilizaAsiento] 📦 Respuesta recibida desde SAP');
-
-    // 6️⃣ Parsear XML a JSON
     const parsed = await xml2js.parseStringPromise(xmlResponse, {
       explicitArray: false,
       ignoreAttrs: false
     });
-
     const confirmation = parsed?.['soap-env:Envelope']?.['soap-env:Body']?.['n0:JournalEntryBulkCreateConfirmation'];
     const responseDoc = confirmation?.JournalEntryCreateConfirmation?.JournalEntryCreateConfirmation;
     const log = confirmation?.JournalEntryCreateConfirmation?.Log;
-    // 7️⃣ Detectar errores en SAP
     const maxSeverity = Number(log?.MaximumLogItemSeverityCode || 0);
     const logItems = Array.isArray(log?.Item)
       ? log.Item
       : log?.Item
         ? [log.Item]
         : [];
-
-    // Solo tomamos los primeros 10
     const primeros10 = logItems.slice(0, 10);
-
     if (maxSeverity >= 2) {
       const errores = primeros10.map(e => ({
         codigo: e.TypeID,
@@ -260,14 +534,6 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
         mensaje: e.Note,
         link: e.WebURI
       }));
-
-      // const erroresOData = errores.slice(0, 10).map(e => ({
-      //   code: e.codigo || 'SAP_ERROR',
-      //   message: e.mensaje,
-      //   severity: e.severidad,
-      //   target: 'ValidaContabilizaAsiento'
-      // }));
-
       return req.reject(400, `SAP devolvió errores en la validación/contabilización ${JSON.stringify(errores, null, 2)}`, {
         details: errores.map(e => ({
           code: e.codigo,
@@ -276,25 +542,19 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
         }))
       });
     }
-
-    // 8️⃣ Si no hay errores y es contabilización real, actualizar datos en CAP
     if (!testDataIndicator) {
       const numeroDocumento = responseDoc?.AccountingDocument;
       const codigoEmpresa = responseDoc?.CompanyCode || cabecera.sociedad || null;
       const anioFiscal = responseDoc?.FiscalYear
         ? Number(responseDoc.FiscalYear)
         : new Date().getFullYear();
-
       const fechaContabilizacionSAP = safeDate(new Date());
       AppLog.info(`[ValidaContabilizaAsiento] 💾 Actualizando registro CAP → Documento=${numeroDocumento}`);
-
       const catalogService = await cds.connect.to('CatalogService');
-
       const estadoContabilizada = await catalogService.run(
         SELECT.one.from('CatalogService.EstadosSolicitud').where({ codigo: "CON" })
       );
       if (!estadoContabilizada) req.reject(404, `No se encontró estado con código 'CON'`);
-
       await tx.run(
         UPDATE('GestionaAsientos.CabeceraAsiento')
           .set({
@@ -309,7 +569,6 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
           .where({ ID: cabecera.ID })
       );
     }
-    // 9️⃣ Retornar resultado exitoso
     return {
       success: true,
       message: testDataIndicator
@@ -318,493 +577,13 @@ async function ValidaContabilizaAsiento(req, testDataIndicator) {
       rawXML: xmlResponse,
       parsed
     };
-
   } catch (err) {
     AppLog.error("❌ [ValidaContabilizaAsiento] 🔴 Error detectado", err);
-    // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
-    if (err.code) {
-      throw err; // ⚡ sigue para arriba sin cambios
-    }
-
-    // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-    AppLog.error("❌ [ValidaContabilizaAsiento] 🔴 Error interno:", err);
-
-    // devolvemos un error 500 limpio
-    return req.reject(500, "[ValidaContabilizaAsiento] 🔴 Error interno");
-  }
-}
-
-
-
-
-// 🔹 1. Reemplaza mail del solicitante por el ID real de Empleado
-async function ReemplazaMailSolicitantePorID(req) {
-  const emailSolicitante = req.data.correo_solicitante;
-  const Empleado = cds.entities.Empleado;
-
-  AppLog.info('[ReemplazaMailSolicitantePorID] ✅ Ingresa en método');
-
-  try {
-    if (!emailSolicitante) return;
-    const empleado = await SELECT.one.from(Empleado).where({ email: emailSolicitante });
-    if (empleado) {
-      req.data.solicitante_ID = empleado.ID;
-      AppLog.debug(`[ReemplazaMailSolicitantePorID] ✅ Mail ${emailSolicitante} → ID ${empleado.ID}`);
-    } else {
-      AppLog.error(`[ReemplazaMailSolicitantePorID] ❌ Error buscando empleado con mail ${emailSolicitante}`);
-      return req.reject(400, `[ReemplazaMailSolicitantePorID] ⚠ No se encontró empleado con mail ${emailSolicitante}`)
-    }
-
-    AppLog.info('[ReemplazaMailSolicitantePorID] ✅ Sale del método');
-  } catch (err) {
-    AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
-    // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
-    if (err.code) {
-      throw err; // ⚡ sigue para arriba sin cambios
-    }
-
-    // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-    AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
-
-    // devolvemos un error 500 limpio
-    return req.reject(500, "[ReemplazaMailSolicitantePorID] 🔴 Error interno");
-  }
-}
-
-// 🔹 2. Completa los campos calculados de la cabecera
-async function CompletaCamposCabecera(req) {
-  const cab = req.data;
-  const tx = req.tx;
-  const TipoAsiento = cds.entities.TipoAsiento;
-  const EstadosSolicitud = cds.entities.EstadosSolicitud;
-  const Referencia = cds.entities.Referencia;
-  AppLog.info('[CompletaCamposCabecera] ✅ Ingresa en método');
-  try {
-    const estado = await SELECT.one.from(EstadosSolicitud).where({ codigo: 'P1' });
-    if (estado) cab.estadoSolicitud_ID = estado.ID
-    else {
-      AppLog.error(`[CompletaCamposCabecera] ❌ No se encontró estado con código 'P1' en el maestro EstadosSolicitud`);
-      return req.reject(404, `[CompletaCamposCabecera] ❌ Error al completar el estado: falta código 'P1' en EstadosSolicitud`);
-    }
-    // subtipoAsiento_ID
-    if (!cab.subtipoAsiento_ID) {
-      return req.reject(400, "Debe seleccionar un Subtipo de Asiento.");
-    }
-
-    const SubTipoAsiento = cds.entities.SubTipoAsiento;
-    const subtipoElegido = await SELECT.one.from(SubTipoAsiento)
-      .where({ ID: cab.subtipoAsiento_ID });
-
-    if (!subtipoElegido || subtipoElegido.tipoAsiento_ID !== cab.tipoAsiento_ID) {
-      return req.reject(400, "El subtipo seleccionado no corresponde al tipo de asiento elegido.");
-    }
-
-    const subtipoSeleccionado_ID = cab.subtipoAsiento_ID;
-    const subtipoDetectado_ID = await ObtenerIDSubtipoAsiento(req); // función sin cambios internos
-
-    if (subtipoDetectado_ID && subtipoDetectado_ID !== subtipoSeleccionado_ID) {
-      const detectado = await SELECT.one.from(SubTipoAsiento).where({ ID: subtipoDetectado_ID });
-      return req.reject(400,
-        `El subtipo seleccionado no corresponde a las cuentas ingresadas. ` +
-        `Según las cuentas cargadas, el subtipo correcto es: ${detectado.codigo} - ${detectado.nombre}.`
-      );
-    }
-    // Si coincide, no se toca nada más — el flujo continúa igual que hoy (umbral, workflow, etc.)
-
-    const tipo = await SELECT.one.from(TipoAsiento).where({ ID: cab.tipoAsiento_ID });
-    // referencia_ID según tipoAsiento
-    if (tipo?.codigo) {
-      let refCodigo = null;
-      switch (tipo.codigo) {
-        case '1': refCodigo = 'PRO'; break;
-        case '2': refCodigo = 'AJC'; break;
-        case '3': refCodigo = 'AJX'; break;
-      }
-      if (refCodigo) {
-        const ref = await SELECT.one.from(Referencia).where({ codigo: refCodigo });
-        if (ref) cab.referencia_ID = ref.ID;
-      }
-    }
-  } catch (err) {
-    AppLog.error("❌ [CompletaCamposCabecera] 🔴 Error detectado", err);
     if (err.code) {
       throw err;
     }
-    AppLog.error("❌ [CompletaCamposCabecera] 🔴 Error interno:", err);
-    return req.reject(500, "[CompletaCamposCabecera] 🔴 Error interno");
-  }
-}
-
-// 🔹 3. Determina el ID del SubTipoAsiento según lógica completa, validación y joins
-async function ObtenerIDSubtipoAsiento(req) {
-  try {
-
-    AppLog.info("🔎 [ObtenerIDSubtipoAsiento] Inicio");
-
-    const tx = cds.transaction(req); //req.tx;
-    const cab = req.data;
-    const items = req.data.items || [];
-
-    if (!items.length) {
-      return req.reject(400, "Debe enviar al menos un ítem en el detalle del asiento.");
-    }
-
-    // ============================================================
-    // 1️⃣ AGRUPAR CUENTAS POR TIPO DE CUENTA
-    // ============================================================
-    const cuentasPorTipo = {};
-    const cuentasUnicas = new Set();
-    const cuentasDetalle = [];
-
-    for (const it of items) {
-
-      const cuentaID = it.cuentaContable_ID || it.cuentaContable;
-      if (!cuentaID) {
-        return req.reject(400,
-          `El ítem con ID ${it.ID || "(sin ID)"} no tiene cuenta contable informada`);
-      }
-
-      cuentasUnicas.add(cuentaID);
-
-      // 🔍 Un solo SELECT con join → Cuenta + TipoCuenta
-      const cuentaRow = await tx.run(
-        SELECT.one.from("com.carrefour.journal.Cuenta as C")
-          .columns(
-            "C.ID",
-            "C.numero",
-            "C.nombre",
-            "T.codigo as tipoCodigo",
-            "T.nombre as tipoNombre"
-          )
-          .join("com.carrefour.journal.TipoCuenta as T").on("C.tipo_ID = T.ID")
-          .where({ "C.ID": cuentaID })
-      );
-
-      if (!cuentaRow) {
-        return req.reject(
-          400,
-          `La cuenta contable seleccionada (${cuentaID}) no existe en el maestro de Cuentas.`
-        );
-      }
-
-      const tipoCod = cuentaRow.tipoCodigo;
-
-      if (!cuentasPorTipo[tipoCod]) cuentasPorTipo[tipoCod] = new Set();
-      cuentasPorTipo[tipoCod].add(cuentaRow.numero);
-
-      cuentasDetalle.push({
-        cuenta: cuentaRow.numero,
-        nombreCuenta: cuentaRow.nombre,
-        tipoCuenta: cuentaRow.tipoCodigo,
-        nombreTipoCuenta: cuentaRow.tipoNombre
-      });
-
-      AppLog.debug(`📌 Cuenta ${cuentaRow.numero} | ${cuentaRow.nombre} → Tipo ${cuentaRow.tipoCodigo} (${cuentaRow.tipoNombre})`);
-
-    }
-
-    // ============================================================
-    // 🧾 LOG: TOTALES DE CUENTAS
-    // ============================================================
-
-    // 1) Total global de cuentas únicas
-    AppLog.debug(`🔢 Total de cuentas distintas recibidas: ${cuentasUnicas.size}`);
-
-    // 2) Total por tipo de cuenta
-    AppLog.debug("📘 Totales por Tipo de Cuenta:");
-    for (const [tipo, setCuentas] of Object.entries(cuentasPorTipo)) {
-      AppLog.debug(`   - ${tipo}: ${setCuentas.size} cuenta(s) → [${[...setCuentas].join(", ")}]`);
-    }
-
-    // ============================================================
-    // 2️⃣ SUMAR IMPORTES CLAVE 40 Y 50
-    // ============================================================
-    let sumaClave40 = 0;
-    let sumaClave50 = 0;
-    const tipoCambioVigente = Number(cab.tipoCambio) || 1;
-    items.forEach(it => {
-      const importeARS = Number(it.importe || 0) * tipoCambioVigente;
-      if (it.clave == 40) sumaClave40 += importeARS;
-      if (it.clave == 50) sumaClave50 += importeARS;
-    });
-    AppLog.debug(`🧮 Suma clave 40 (ARS) = ${sumaClave40}, Suma clave 50 (ARS) = ${sumaClave50}, TipoCambio=${tipoCambioVigente}`);
-
-    // ============================================================
-    // 3️⃣ OBTENER TIPO ASIENTO (antes: TipoSolicitud)
-    // ============================================================
-    const tipoAsiento = await tx.run(
-      SELECT.one.from("com.carrefour.journal.TipoAsiento")
-        .where({ ID: cab.tipoAsiento_ID })
-    );
-
-    if (!tipoAsiento) {
-      return req.reject(400, "No existe el TipoAsiento indicado.");
-    }
-
-    const codigoTS = tipoAsiento.codigo;
-    AppLog.debug(`📌 TipoAsiento.codigo = ${codigoTS}`);
-
-    // ============================================================
-    // Helper para obtener subtipo
-    // ============================================================
-    async function getSub(cod) {
-      const r = await tx.run(
-        SELECT.one.from("com.carrefour.journal.SubTipoAsiento").where({ codigo: cod })
-      );
-      if (!r) {
-        return req.reject(400, `No existe SubTipoAsiento con código ${cod}`);
-      }
-      return r;
-    }
-
-    const solo = arr =>
-      Object.keys(cuentasPorTipo).length === arr.length &&
-      arr.every(k => cuentasPorTipo[k]);
-
-    // ============================================================
-    // 🟦 TIPO ASIENTO 1
-    // ============================================================
-    if (codigoTS == "1") {
-
-      const tienePRO = cuentasPorTipo.PRO?.size > 0;
-      const tieneGAS = cuentasPorTipo.GAS?.size > 0;
-      const tieneMAR = cuentasPorTipo.MAR?.size > 0;
-
-      const valido =
-        (
-          (tienePRO && tieneGAS) ||
-          (tienePRO && tieneGAS && tieneMAR) ||
-          (tienePRO && tieneMAR)
-        ) &&
-        (
-          solo(["GAS", "MAR", "PRO"]) ||
-          solo(["GAS", "PRO"]) ||
-          solo(["MAR", "PRO"])
-
-        );
-
-      if (valido) {
-        const st = await getSub("G");
-        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
-        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) {
-          return st.ID;
-        } else {
-          return req.reject(
-            400,
-            `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo G.`
-          );
-        };
-      };
-
-      // ❌ → RETORNO CON JSON EXTRAS
-      return req.reject(400, {
-        message:
-          "El tipo de asiento solicitado (TipoAsiento=1) no es compatible con las cuentas presentadas.",
-        detalleCuentas: {
-          totalCuentas: cuentasUnicas.size,
-          cuentasPorTipo: Object.fromEntries(
-            Object.entries(cuentasPorTipo).map(([k, v]) => [k, v.size])
-          )
-        }
-      });
-    }
-
-    const SUBT_ASIENTO_RECLA_MISMAS_GASTOS = "A";
-    const SUBT_ASIENTO_RECLA_DIF_GASTOS = "B";
-    const SUBT_ASIENTO_RECLA_MAR_GAS = "C";
-    const SUBT_ASIENTO_PROV_GASTOS = "D";
-    const SUBT_ASIENTO_PROV_MARGEN = "E";
-    const SUBT_ASIENTO_BANCOS = "F";
-    const SUBT_ASIENTO_PROV_REVERSA = "G";
-    const SUBT_ASIENTO_CUENTAS_EXCEP = "H";
-
-    // ============================================================
-    // 🟩 TIPO ASIENTO 2
-    // ============================================================
-    if (codigoTS == "2") {
-
-      const subA = solo(["GAS"]) && cuentasPorTipo.GAS.size === 1;
-      const subB = solo(["GAS"]) && cuentasPorTipo.GAS.size > 1;
-      const subC = solo(["GAS", "MAR"]) || solo(["MAR"]);
-      //const subD = solo(["GAS", "PRO"]) || solo(["GAS", "PAT"]) || solo(["GAS", "PRO", "PAT"]); //DJ 2025-12-19
-      // 12-03-26 - Dante Tagliavini
-      const subD = solo(["GAS", "PAT"]);
-
-      /* const subE = solo(["MAR", "PRO"]) || solo(["MAR", "GAS", "PRO"]) || 
-                   solo(["MAR", "PAT"]) || solo(["MAR", "GAS", "PAT"]) ||
-                   solo(["MAR", "PRO", "PAT"]) || solo(["MAR", "GAS", "PRO", "PAT"]); //DJ 2025-12-19
-      */
-      const subE = solo(["MAR", "PAT"]) || solo(["MAR", "GAS", "PAT"]);
-      const subF = solo(["BAN"]);
-
-      // 🆕 NUEVO — Dante Tagliavini [14-07-2026] — subtipo para varias cuentas Patrimoniales
-      const subI = solo(["PAT"]) && cuentasPorTipo.PAT.size > 1;
-
-      if (subA) return (await getSub("A")).ID;
-      if (subB) return (await getSub("B")).ID;
-      if (subC) return (await getSub("C")).ID;
-
-      if (subD) {
-        const st = await getSub("D");
-        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
-        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
-        return req.reject(
-          400,
-          `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo D.`
-        );
-      }
-
-      if (subE) {
-        const st = await getSub("E");
-        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
-        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
-        return req.reject(
-          400,
-          `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo E.`
-        );
-      }
-
-      if (subF) return (await getSub("F")).ID;
-
-      if (subI) {
-        const st = await getSub("I");
-        const esARS = !cab.moneda || cab.moneda.toUpperCase() === 'ARS';
-        if (!esARS || sumaClave40 >= st.umbralMinimoAsiento) return st.ID;
-        return req.reject(
-          400,
-          `El monto clave=40 (${sumaClave40}) no supera el umbral mínimo (${st.umbralMinimoAsiento}) para subtipo I.`
-        );
-      }
-
-      // ❌ → RETORNO CON JSON EXTRAS
-      return req.reject(400, {
-        message:
-          "El tipo de asiento solicitado (TipoAsiento=2) no es compatible con las cuentas presentadas.",
-        detalleCuentas: {
-          totalCuentas: cuentasUnicas.size,
-          cuentasPorTipo: Object.fromEntries(
-            Object.entries(cuentasPorTipo).map(([k, v]) => [k, v.size])
-          )
-        }
-      });
-    }
-
-    // ============================================================
-    // 🟧 TIPO ASIENTO 3
-    // ============================================================
-    if (codigoTS == "3") {
-
-      const tieneEXC = cuentasPorTipo.EXC?.size > 0;
-      const tienePAT = cuentasPorTipo.PAT?.size > 0;
-
-      //Tagliavini 15-05-26 - se pemite tener otras cuentas además de EXC y PAT o EXC y BAN, pero debe haber al menos una de cada una de esas dos
-      const tieneBAN = cuentasPorTipo.BAN?.size > 0;
-
-      // 🆕 NUEVO — Dante Tagliavini [fecha] — se agregan combinaciones con cuentas de Gastos (GAS)
-      const tieneGAS = cuentasPorTipo.GAS?.size > 0;
-
-      if (
-        (tieneEXC && tienePAT && solo(["EXC", "PAT"])) ||
-        (tieneEXC && tieneBAN && solo(["EXC", "BAN"])) ||
-        (tieneEXC && tienePAT && tieneBAN && solo(["EXC", "PAT", "BAN"])) ||
-        // 🆕 NUEVO 14-7-2026
-        (tieneEXC && tieneGAS && solo(["EXC", "GAS"])) ||
-        (tieneEXC && tieneGAS && tienePAT && solo(["EXC", "GAS", "PAT"])) ||
-        // 🆕 NUEVO — todas las cuentas son EXC (ajuste excepcional puro)
-        (tieneEXC && solo(["EXC"]))
-      ) {
-        return (await getSub("H")).ID;
-      }
-      //if (tieneEXC && tienePAT && solo(["EXC", "PAT"]))
-      //return (await getSub("H")).ID;
-
-      // ❌ → RETORNO CON JSON EXTRAS
-      return req.reject(400, {
-        message:
-          "El tipo de asiento solicitado (TipoAsiento=3) requiere al menos una cuenta EXC, opcionalmente combinada con cuentas PAT, BAN o GAS.",
-        detalleCuentas: {
-          totalCuentas: cuentasUnicas.size,
-          cuentasPorTipo: Object.fromEntries(
-            Object.entries(cuentasPorTipo).map(([k, v]) => [k, v.size])
-          )
-        }
-      });
-    }
-
-    // ============================================================
-    // ❌ TIPO ASIENTO DESCONOCIDO
-    // ============================================================
-    return req.reject(
-      400,
-      "El tipo de asiento solicitado no es compatible con las cuentas presentadas."
-    );
-  } catch (err) {
-    AppLog.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error detectado", err);
-    // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
-    if (err.code) {
-      throw err; // ⚡ sigue para arriba sin cambios
-    }
-
-    // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-    AppLog.error("❌ [ObtenerIDSubtipoAsiento] 🔴 Error interno:", err);
-
-    // devolvemos un error 500 limpio
-    return req.reject(500, "[ObtenerIDSubtipoAsiento] 🔴 Error interno");
-  }
-}
-
-
-
-
-async function ReemplazaCuentaPorID(req) {
-  const data = req.data;
-  const Cuenta = cds.entities.Cuenta;
-  const tx = req.tx;
-
-  try {
-    AppLog.info('[ReemplazaCuentaPorID] ✅ Ingresa en método');
-
-    const catalogService = await cds.connect.to('CatalogService');
-
-    if (!data.items || !Array.isArray(data.items)) {
-      AppLog.error(`[ReemplazaCuentaPorID] ❌ Error en items`);
-      return req.reject(404, `[ReemplazaCuentaPorID] ❌ Error en items`);
-    }
-
-    for (const item of data.items) {
-      if (item.cuentaContable_ID && !/^[0-9a-fA-F-]{36}$/.test(item.cuentaContable_ID)) {
-        const codigoCuenta = String(item.cuentaContable_ID).trim();
-        // try {
-        const cuentaRec = await catalogService.run(
-          SELECT.one.from('CatalogService.Cuentas').where({ numero: codigoCuenta })
-        );
-
-        if (cuentaRec) {
-          item.cuentaContable_ID = cuentaRec.ID;
-          AppLog.debug(`[ReemplazaCuentaPorID] ✅ Mapeada cuenta ${codigoCuenta} → ${cuentaRec.ID}`);
-        } else {
-          const msg = `[ReemplazaCuentaPorID] ❌ Cuenta contable inexistente: ${codigoCuenta}`;
-          AppLog.error(msg);
-          req.reject(404, msg);
-        }
-
-      } else if (!item.cuentaContable_ID) {
-        AppLog.error(`[ReemplazaCuentaPorID] ❌ Error buscando cuenta ${codigoCuenta}: ${err.message}`);
-        return req.reject(404, `Error buscando cuenta contable: ${codigoCuenta}`);
-      }
-    }
-  } catch (err) {
-    AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error detectado", err);
-    // 👉 Si el error ES de CAP (proviene de req.reject), lo re-lanzamos tal cual
-    if (err.code) {
-      throw err; // ⚡ sigue para arriba sin cambios
-    }
-
-    // 👉 Si es un error inesperado, lo logueamos sin tumbar el servidor
-    AppLog.error("❌ [ReemplazaMailSolicitantePorID] 🔴 Error interno:", err);
-
-    // devolvemos un error 500 limpio
-    return req.reject(500, "[ReemplazaMailSolicitantePorID] 🔴 Error interno");
+    AppLog.error("❌ [ValidaContabilizaAsiento] 🔴 Error interno:", err);
+    return req.reject(500, "[ValidaContabilizaAsiento] 🔴 Error interno");
   }
 }
 
@@ -812,10 +591,10 @@ module.exports = {
   safeUndef,
   safeDate,
   primerDiaMesSiguiente,
-  ValidaContabilizaAsiento,
+  AplicaConversionMoneda,
   ReemplazaMailSolicitantePorID,
+  ReemplazaCuentaPorID,
   CompletaCamposCabecera,
   ObtenerIDSubtipoAsiento,
-  ReemplazaCuentaPorID,
-  AplicaConversionMoneda
+  ValidaContabilizaAsiento
 };
