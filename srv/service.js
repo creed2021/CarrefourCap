@@ -69,7 +69,6 @@ module.exports = cds.service.impl(async function () {
       const SUBT_ASIENTO_RECLA_MAR_GAS = "C";
       const SUBT_ASIENTO_PROV_GASTOS = "D";
       const SUBT_ASIENTO_PROV_MARGEN = "E";
-      const SUBT_ASIENTO_PAT_COBRANZAS = "J";
       console.info("🟦 [IniciaWorkflowBPA] Inicio");
       const d = req.data;
       var n1 = [];
@@ -89,8 +88,7 @@ module.exports = cds.service.impl(async function () {
         (tipoAsiento.codigo == TIPO_ASIENTO_ASI_CIERRE &&
           (subtipoAsiento.codigo == SUBT_ASIENTO_RECLA_MAR_GAS ||
             subtipoAsiento.codigo == SUBT_ASIENTO_PROV_GASTOS ||
-            subtipoAsiento.codigo == SUBT_ASIENTO_PROV_MARGEN ||
-            subtipoAsiento.codigo == SUBT_ASIENTO_PAT_COBRANZAS
+            subtipoAsiento.codigo == SUBT_ASIENTO_PROV_MARGEN
           )
         ) ||
         (tipoAsiento.codigo == TIPO_ASIENTO_AJU_EXC)
