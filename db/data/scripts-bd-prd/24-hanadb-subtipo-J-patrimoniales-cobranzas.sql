@@ -15,19 +15,19 @@ JOIN COM_CARREFOUR_JOURNAL_TIPOASIENTO T
 WHERE T.CODIGO = '2'
   AND S.CODIGO = 'J';
 
--- 2) Alta del TipoCuenta 'PAC'
+-- 2) Alta del TipoCuenta 'PAC' (ID fijo con formato UUID: SYSUUID no tiene guiones y la app no lo encuentra)
 INSERT INTO COM_CARREFOUR_JOURNAL_TIPOCUENTA
   (ID, CODIGO, NOMBRE, MODIFIEDBY)
 VALUES
-  (SYSUUID, 'PAC', 'Patrimoniales Cobranzas', 'it-script');
+  ('1da1a848-4ddd-4915-80b5-0f372cbe513f', 'PAC', 'Patrimoniales Cobranzas', 'it-script');
 
 -- 3) Alta del SubTipoAsiento 'J' (sin importe mínimo: no valida umbral)
 INSERT INTO COM_CARREFOUR_JOURNAL_SUBTIPOASIENTO
   (ID, CODIGO, NOMBRE, TIPOASIENTO_ID, UMBRALMINIMOASIENTO, MODIFIEDBY)
 SELECT
-  SYSUUID,
+  '337eb64d-f4f5-40cc-8d13-8c7ac941483d',
   'J',
-  'Asientos con cuentas Patrimoniales y Bancos',
+  'Ajustes por cobranzas',
   T.ID,
   0,
   'it-script'

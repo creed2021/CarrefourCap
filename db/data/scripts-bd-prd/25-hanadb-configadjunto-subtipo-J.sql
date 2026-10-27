@@ -16,11 +16,11 @@ JOIN COM_CARREFOUR_JOURNAL_SUBTIPOASIENTO S
 WHERE T.CODIGO = '2'
   AND S.CODIGO = 'J';
 
--- 2) Alta de la configuración de adjunto obligatorio para 'J'
+-- 2) Alta de la configuración de adjunto obligatorio para 'J' (ID fijo con formato UUID)
 INSERT INTO COM_CARREFOUR_JOURNAL_CONFIGADJUNTOOBLIGATORIO
   (ID, TIPOASIENTO_ID, SUBTIPOASIENTO_ID, OBLIGATORIO, MODIFIEDBY)
 SELECT
-  SYSUUID,
+  '3c9e1f42-7a5d-4b8e-9f21-6d0a8b4c2e17',
   T.ID,
   S.ID,
   TRUE,
