@@ -1,0 +1,45 @@
+-- ============================================================
+-- ABTP - Carrefour
+-- Corrección de IDs dados de alta con SYSUUID (32 caracteres, sin guiones).
+-- La app filtra por Edm.Guid y le agrega guiones al valor, por lo que no encuentra
+-- esos registros (ej. "La cuenta contable seleccionada (45585AD4...) no existe en el maestro de Cuentas.").
+-- Se convierte el mismo valor a formato UUID (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx, minúsculas),
+-- actualizando primero las referencias. Es idempotente.
+-- ============================================================
+
+-- 1) Detección: IDs sin formato UUID en los maestros (revisar si aparecen otras tablas además de Cuenta)
+SELECT 'CUENTA' AS TABLA, ID, NUMERO AS CODIGO FROM COM_CARREFOUR_JOURNAL_CUENTA WHERE ID NOT LIKE '%-%'
+UNION ALL SELECT 'TIPOCUENTA', ID, CODIGO FROM COM_CARREFOUR_JOURNAL_TIPOCUENTA WHERE ID NOT LIKE '%-%'
+UNION ALL SELECT 'TIPOASIENTO', ID, CODIGO FROM COM_CARREFOUR_JOURNAL_TIPOASIENTO WHERE ID NOT LIKE '%-%'
+UNION ALL SELECT 'SUBTIPOASIENTO', ID, CODIGO FROM COM_CARREFOUR_JOURNAL_SUBTIPOASIENTO WHERE ID NOT LIKE '%-%'
+UNION ALL SELECT 'UMBRALCUENTA', ID, '' FROM COM_CARREFOUR_JOURNAL_UMBRALCUENTA WHERE ID NOT LIKE '%-%'
+UNION ALL SELECT 'SECTOR', ID, CODIGO FROM COM_CARREFOUR_JOURNAL_SECTOR WHERE ID NOT LIKE '%-%'
+UNION ALL SELECT 'CARGO', ID, CODIGO FROM COM_CARREFOUR_JOURNAL_CARGO WHERE ID NOT LIKE '%-%'
+UNION ALL SELECT 'CONFIGADJUNTOOBLIGATORIO', ID, '' FROM COM_CARREFOUR_JOURNAL_CONFIGADJUNTOOBLIGATORIO WHERE ID NOT LIKE '%-%';
+
+-- 2) Referencias a Cuenta (detalle de asientos y umbrales)
+UPDATE COM_CARREFOUR_JOURNAL_DETALLEASIENTO
+SET CUENTACONTABLE_ID = LOWER(SUBSTRING(CUENTACONTABLE_ID, 1, 8) || '-' || SUBSTRING(CUENTACONTABLE_ID, 9, 4) || '-' ||
+                              SUBSTRING(CUENTACONTABLE_ID, 13, 4) || '-' || SUBSTRING(CUENTACONTABLE_ID, 17, 4) || '-' ||
+                              SUBSTRING(CUENTACONTABLE_ID, 21, 12))
+WHERE LENGTH(CUENTACONTABLE_ID) = 32 AND CUENTACONTABLE_ID NOT LIKE '%-%';
+
+UPDATE COM_CARREFOUR_JOURNAL_UMBRALCUENTA
+SET CUENTACONTABLE_ID = LOWER(SUBSTRING(CUENTACONTABLE_ID, 1, 8) || '-' || SUBSTRING(CUENTACONTABLE_ID, 9, 4) || '-' ||
+                              SUBSTRING(CUENTACONTABLE_ID, 13, 4) || '-' || SUBSTRING(CUENTACONTABLE_ID, 17, 4) || '-' ||
+                              SUBSTRING(CUENTACONTABLE_ID, 21, 12))
+WHERE LENGTH(CUENTACONTABLE_ID) = 32 AND CUENTACONTABLE_ID NOT LIKE '%-%';
+
+-- 3) Cuentas
+UPDATE COM_CARREFOUR_JOURNAL_CUENTA
+SET ID = LOWER(SUBSTRING(ID, 1, 8) || '-' || SUBSTRING(ID, 9, 4) || '-' || SUBSTRING(ID, 13, 4) || '-' ||
+               SUBSTRING(ID, 17, 4) || '-' || SUBSTRING(ID, 21, 12))
+WHERE LENGTH(ID) = 32 AND ID NOT LIKE '%-%';
+
+-- 4) Verificación posterior: no debería devolver filas
+SELECT ID, NUMERO, NOMBRE FROM COM_CARREFOUR_JOURNAL_CUENTA WHERE ID NOT LIKE '%-%';
+
+SELECT C.ID, C.NUMERO, C.NOMBRE, T.CODIGO AS TIPO
+FROM COM_CARREFOUR_JOURNAL_CUENTA C
+LEFT JOIN COM_CARREFOUR_JOURNAL_TIPOCUENTA T ON C.TIPO_ID = T.ID
+WHERE C.NUMERO IN ('25340000', '25340913');
