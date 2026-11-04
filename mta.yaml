@@ -94,6 +94,10 @@ modules:
       - maestroconfigadjuntos.zip
       name: maestroconfigadjuntos
       target-path: resources/
+    - artifacts:
+      - comcarrefourconfignotificaciones.zip
+      name: comcarrefourconfignotificaciones
+      target-path: resources/
 - name: asientos-ajustes-destinations
   type: com.sap.application.content
   requires:
@@ -198,6 +202,16 @@ modules:
 - name: maestroconfigadjuntos
   type: html5
   path: app/maestro-configadjuntos
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comcarrefourconfignotificaciones
+  type: html5
+  path: app/config-notificaciones
   build-parameters:
     build-result: dist
     builder: custom

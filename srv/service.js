@@ -188,6 +188,66 @@ module.exports = cds.service.impl(async function () {
   this.on(['CREATE', 'UPDATE'], 'UmbralesCuentas', informaFailConstraint);
   this.on('DELETE', 'UmbralesCuentas', informaConstraintsDelete);
 
+  // ── Mejora 22: Configuración de notificación de contabilización ─────────────
+  // Subquery con los IDs de empleado del usuario logueado (match por email, case-insensitive)
+  const empleadosDelUsuario = (req) => {
+    const email = String(req.user?.id ?? '').toLowerCase();
+    return SELECT('ID').from('com.carrefour.journal.Empleado').where`tolower(email) = ${email}`;
+  };
+
+  this.before('READ', 'ConfigNotificaciones', req => {
+    req.query.where({ empleado_ID: { in: empleadosDelUsuario(req) } });
+  });
+
+  this.before(['UPDATE', 'EDIT'], 'ConfigNotificaciones', async req => {
+    const ID = req.data?.ID ?? req.params?.[0]?.ID ?? req.params?.[0];
+    const propia = await SELECT.one.from('com.carrefour.journal.ConfigAprobador')
+      .columns('ID')
+      .where({ ID, empleado_ID: { in: empleadosDelUsuario(req) } });
+    if (!propia) return req.reject(403, 'Solo puede modificar su propia configuración de notificaciones.');
+  });
+
+  this.before(['CREATE', 'DELETE', 'NEW'], 'ConfigNotificaciones', req =>
+    req.reject(405, 'Las configuraciones se generan desde Configuración de Aprobadores.')
+  );
+
+  this.on('ObtenerNotificadosContabilizacion', async (req) => {
+    try {
+      const numeroSolicitud = req.data.idSolicitud;
+      if (!numeroSolicitud) return req.reject(400, 'Debe enviar idSolicitud.');
+      const solicitud = await SELECT.one.from('com.carrefour.journal.CabeceraAsiento')
+        .columns('ID', 'sectorSolicitante_ID')
+        .where({ numeroSolicitud });
+      if (!solicitud) return req.reject(404, `No existe la solicitud con número ${numeroSolicitud}`);
+      // Aprobadores que efectivamente aprobaron esta solicitud
+      const aprobaciones = await SELECT.from('com.carrefour.journal.AprobadorSolicitud')
+        .columns('empleado_ID')
+        .where({ cabecera_ID: solicitud.ID, decision: DECISION_APROBACION });
+      const aprobadorIDs = [...new Set(aprobaciones.map(a => a.empleado_ID).filter(Boolean))];
+      if (!aprobadorIDs.length) return '';
+      // ...que tienen el aviso activo para el sector solicitante de la solicitud
+      const configs = await SELECT.from('com.carrefour.journal.ConfigAprobador')
+        .columns('empleado_ID')
+        .where({
+          empleado_ID: { in: aprobadorIDs },
+          sector_ID: solicitud.sectorSolicitante_ID,
+          notificarContabilizacion: true
+        });
+      const notificarIDs = [...new Set(configs.map(c => c.empleado_ID))];
+      if (!notificarIDs.length) return '';
+      const empleados = await SELECT.from('com.carrefour.journal.Empleado')
+        .columns('email')
+        .where({ ID: { in: notificarIDs } });
+      const emails = empleados.map(e => e.email).filter(Boolean).join(',');
+      console.info(`[ObtenerNotificadosContabilizacion] numeroSolicitud=${numeroSolicitud} → ${emails || '(ninguno)'}`);
+      return emails;
+    } catch (err) {
+      console.error("❌ [ObtenerNotificadosContabilizacion] 🔴 Error detectado", err);
+      if (err.code) throw err;
+      return req.reject(500, "[ObtenerNotificadosContabilizacion] 🔴 Error interno");
+    }
+  });
+
   this.before('READ', 'CabeceraAsiento', req => {
     const q = req.query?.SELECT;
     if (!q) return;

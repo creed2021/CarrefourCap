@@ -43,6 +43,8 @@ service GestionaAsientos {
     action   ObtenerDatosFormularioAprobacion(id: UUID);
     action   RealizarContabilizacion(id: UUID)                                                                                                         returns String;
     function ListarWorkflowsBPA()                                                                                                                      returns String;
+    // Mejora 22: emails (separados por coma) de los aprobadores de la solicitud que activaron el aviso de contabilización
+    function ObtenerNotificadosContabilizacion(idSolicitud: String)                                                                                    returns String;
     entity EstadosSolicitud           as projection on my.EstadosSolicitud;
     entity Sectores                   as projection on my.Sector;
     entity TiposAsiento               as projection on my.TipoAsiento;
@@ -62,7 +64,18 @@ service CatalogService {
     entity Sectores                   as projection on my.Sector;
     entity ConfigAprobadores          as projection on my.ConfigAprobador;
     entity ConfigSolicitantes         as projection on my.ConfigSolicitante;
-    entity TiposCuentas               as projection on my.TipoCuenta;
+
+    // Mejora 22: cada aprobador ve y edita solo sus propias filas (filtro por usuario en service.js)
+    entity ConfigNotificaciones       as
+        projection on my.ConfigAprobador {
+            ID,
+            empleado,
+            sector,
+            cargo,
+            notificarContabilizacion
+        };
+
+    entity TiposCuentas              as projection on my.TipoCuenta;
 
     entity Cuentas                    as
         projection on my.Cuenta {
@@ -121,6 +134,18 @@ annotate CatalogService.ConfigAprobadores with @Capabilities.DeleteRestrictions.
 annotate CatalogService.ConfigAprobadores with @UI.CreateEnabled: true;
 annotate CatalogService.ConfigAprobadores @UI.CreateHidden: false;
 annotate CatalogService.ConfigAprobadores with @odata.draft.enabled;
+annotate CatalogService.ConfigNotificaciones with @Capabilities.InsertRestrictions.Insertable: false;
+annotate CatalogService.ConfigNotificaciones with @Capabilities.UpdateRestrictions.Updatable: true;
+annotate CatalogService.ConfigNotificaciones with @Capabilities.DeleteRestrictions.Deletable: false;
+annotate CatalogService.ConfigNotificaciones with @UI.CreateEnabled: false;
+annotate CatalogService.ConfigNotificaciones @UI.CreateHidden: true;
+annotate CatalogService.ConfigNotificaciones @UI.DeleteHidden: true;
+annotate CatalogService.ConfigNotificaciones with @odata.draft.enabled;
+annotate CatalogService.ConfigNotificaciones with {
+    empleado @readonly;
+    sector   @readonly;
+    cargo    @readonly;
+};
 annotate GestionaAsientos.Empleados with @Capabilities.InsertRestrictions.Insertable: true;
 annotate GestionaAsientos.Empleados with @Capabilities.UpdateRestrictions.Updatable: true;
 annotate GestionaAsientos.Empleados with @Capabilities.DeleteRestrictions.Deletable: true;

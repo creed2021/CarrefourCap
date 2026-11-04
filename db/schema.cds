@@ -159,9 +159,11 @@ entity TipoCuenta : cuid, managed {
   cargo
 ], }
 entity ConfigAprobador : cuid, managed {
-  empleado : Association to Empleado;
-  sector   : Association to Sector;
-  cargo    : Association to Cargo;
+  empleado                 : Association to Empleado;
+  sector                   : Association to Sector;
+  cargo                    : Association to Cargo;
+  // Mejora 22: el aprobador decide si recibe mail cuando se contabiliza una solicitud que aprobó
+  notificarContabilizacion : Boolean default false @title: 'Notificar Contabilización';
 }
 
 @assert.unique: {numeroCuenta: [numero], }

@@ -36,7 +36,8 @@
     "watch-maestro-empleados": "cds watch --open com.carrefour.maestroempleados/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-maestro-sectores": "cds watch --open com.carrefour.maestrosectores/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-maestro-cuentas": "cds watch --open com.carrefour.maestrocuentas/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "watch-maestro-configadjuntos": "cds watch --open maestroconfigadjuntos/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-maestro-configadjuntos": "cds watch --open maestroconfigadjuntos/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-config-notificaciones": "cds watch --open com.carrefour.confignotificaciones/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "workspaces": [
@@ -128,6 +129,7 @@
     "app/maestro-empleados",
     "app/maestro-sectores",
     "app/maestro-cuentas",
-    "app/maestro-configadjuntos"
+    "app/maestro-configadjuntos",
+    "app/config-notificaciones"
   ]
 }
