@@ -189,11 +189,30 @@ module.exports = cds.service.impl(async function () {
   this.on('DELETE', 'UmbralesCuentas', informaConstraintsDelete);
 
   // ── Mejora 22: Configuración de notificación de contabilización ─────────────
-  // Subquery con los IDs de empleado del usuario logueado (match por email, case-insensitive)
-  const empleadosDelUsuario = (req) => {
-    const email = String(req.user?.id ?? '').toLowerCase();
-    return SELECT('ID').from('com.carrefour.journal.Empleado').where`tolower(email) = ${email}`;
+  // Emails candidatos del usuario logueado. Según la config del IdP, req.user.id puede ser
+  // el email o el UUID del usuario (IAS), por eso se toma también el email del token.
+  const emailsDelUsuario = (req) => {
+    const u = req.user ?? {};
+    const safe = (fn) => { try { return fn(); } catch { return undefined; } };
+    const candidatos = [
+      u.id,
+      u.attr?.email,
+      safe(() => u.authInfo?.getEmail?.()),
+      safe(() => u.tokenInfo?.getEmail?.()),
+      safe(() => u.authInfo?.getPayload?.()?.email),
+      safe(() => u.tokenInfo?.getPayload?.()?.email)
+    ];
+    const emails = [...new Set(candidatos
+      .filter(v => typeof v === 'string' && v.includes('@'))
+      .map(v => v.toLowerCase()))];
+    if (!emails.length) console.warn(`[ConfigNotificaciones] ⚠️ No se pudo determinar el email del usuario id=${u.id}`);
+    return emails.length ? emails : ['__sin_email__'];
   };
+
+  // Subquery con los IDs de empleado del usuario logueado (match por email, case-insensitive)
+  const empleadosDelUsuario = (req) =>
+    SELECT('ID').from('com.carrefour.journal.Empleado')
+      .where`tolower(email) in ${emailsDelUsuario(req)}`;
 
   this.before('READ', 'ConfigNotificaciones', req => {
     req.query.where({ empleado_ID: { in: empleadosDelUsuario(req) } });
