@@ -15,6 +15,10 @@
       "description": "Admin_Datos_Maestros"
     },
     {
+      "name": "$XSAPPNAME.Consulta_Global",
+      "description": "Consulta de todas las solicitudes (Contabilidad, Auditoria, CFO)"
+    },
+    {
       "name": "$XSAPPNAME.Callback",
       "description": "Allow token exchange",
       "grant-as-authority-to-apps": []
@@ -43,6 +47,14 @@
       "description": "generated",
       "scope-references": [
         "$XSAPPNAME.Solicitante"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Consulta_Global",
+      "description": "Consulta de todas las solicitudes (Contabilidad, Auditoria, CFO)",
+      "scope-references": [
+        "$XSAPPNAME.Consulta_Global"
       ],
       "attribute-references": []
     }

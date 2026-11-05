@@ -237,6 +237,10 @@ resources:
         name: Admin_Datos_Maestros (asientos-ajustes-${space})
         role-template-references:
         - $XSAPPNAME.Admin_Datos_Maestros
+      - description: Consulta de todas las solicitudes (Contabilidad, Auditoria, CFO)
+        name: Consulta_Global (asientos-ajustes-${space})
+        role-template-references:
+        - $XSAPPNAME.Consulta_Global
       tenant-mode: dedicated
       xsappname: asientos-ajustes-${space}
     path: ./xs-security.json

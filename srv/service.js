@@ -188,9 +188,6 @@ module.exports = cds.service.impl(async function () {
   this.on(['CREATE', 'UPDATE'], 'UmbralesCuentas', informaFailConstraint);
   this.on('DELETE', 'UmbralesCuentas', informaConstraintsDelete);
 
-  // ── Mejora 22: Configuración de notificación de contabilización ─────────────
-  // Emails candidatos del usuario logueado. Según la config del IdP, req.user.id puede ser
-  // el email o el UUID del usuario (IAS), por eso se toma también el email del token.
   const emailsDelUsuario = (req) => {
     const u = req.user ?? {};
     const safe = (fn) => { try { return fn(); } catch { return undefined; } };
@@ -209,7 +206,6 @@ module.exports = cds.service.impl(async function () {
     return emails.length ? emails : ['__sin_email__'];
   };
 
-  // Subquery con los IDs de empleado del usuario logueado (match por email, case-insensitive)
   const empleadosDelUsuario = (req) =>
     SELECT('ID').from('com.carrefour.journal.Empleado')
       .where`tolower(email) in ${emailsDelUsuario(req)}`;
@@ -238,13 +234,11 @@ module.exports = cds.service.impl(async function () {
         .columns('ID', 'sectorSolicitante_ID')
         .where({ numeroSolicitud });
       if (!solicitud) return req.reject(404, `No existe la solicitud con número ${numeroSolicitud}`);
-      // Aprobadores que efectivamente aprobaron esta solicitud
       const aprobaciones = await SELECT.from('com.carrefour.journal.AprobadorSolicitud')
         .columns('empleado_ID')
         .where({ cabecera_ID: solicitud.ID, decision: DECISION_APROBACION });
       const aprobadorIDs = [...new Set(aprobaciones.map(a => a.empleado_ID).filter(Boolean))];
       if (!aprobadorIDs.length) return '';
-      // ...que tienen el aviso activo para el sector solicitante de la solicitud
       const configs = await SELECT.from('com.carrefour.journal.ConfigAprobador')
         .columns('empleado_ID')
         .where({
@@ -292,6 +286,70 @@ module.exports = cds.service.impl(async function () {
       ],
       sort: desc ? 'desc' : 'asc'
     };
+  });
+
+  const ROL_CONSULTA_GLOBAL = 'Consulta_Global';
+
+  const extraerSoloPropias = (where) => {
+    if (!Array.isArray(where)) return { where, valor: undefined };
+    let valor;
+    const out = [];
+    for (let i = 0; i < where.length; i++) {
+      const t = where[i];
+      if (t?.xpr) {
+        const r = extraerSoloPropias(t.xpr);
+        if (r.valor !== undefined) valor = r.valor;
+        out.push({ ...t, xpr: r.where });
+        continue;
+      }
+      const esRef = (x) => x?.ref?.[x.ref.length - 1] === 'soloPropias';
+      if (['=', '!=', '<>'].includes(where[i + 1]) && (esRef(t) || esRef(where[i + 2]))) {
+        const v = esRef(t) ? where[i + 2]?.val : t?.val;
+        const b = v === true || v === 'true' || v === 1;
+        valor = where[i + 1] === '=' ? b : !b;
+        out.push({ val: 1 }, '=', { val: 1 });
+        i += 2;
+        continue;
+      }
+      out.push(t);
+    }
+    return { where: out, valor };
+  };
+
+  this.before('READ', 'CabeceraAsiento', req => {
+    const q = req.query?.SELECT;
+    if (!q) return;
+    const { where, valor: soloPropias } = extraerSoloPropias(q.where);
+    q.where = where;
+    const u = req.user;
+    const url = req.http?.req?.originalUrl ?? req.http?.req?.url ?? '';
+    const esConsultaOData = /\/CabeceraAsiento|\/\$batch/.test(url);
+    const esUsuarioNominal = u && !u.is?.('system-user') && !u.is?.('internal-user');
+    if (!esConsultaOData || !esUsuarioNominal) return;
+    const propias = [{ ref: ['solicitante_ID'] }, 'in', empleadosDelUsuario(req)];
+    let condicion;
+    if (u.is(ROL_CONSULTA_GLOBAL)) {
+      if (!soloPropias) return;
+      condicion = propias;
+    } else if (soloPropias) {
+      condicion = propias;
+    } else {
+      const sectoresAprobador = SELECT('sector_ID').from('com.carrefour.journal.ConfigAprobador')
+        .where({ empleado_ID: { in: empleadosDelUsuario(req) } });
+      const asignadas = SELECT('cabecera_ID').from('com.carrefour.journal.AprobadorSolicitud');
+      asignadas.SELECT.where = [
+        { ref: ['empleado_ID'] }, 'in', empleadosDelUsuario(req),
+        ...emailsDelUsuario(req).flatMap(e => [
+          'or', { func: 'tolower', args: [{ ref: ['usuariosAlternativos'] }] }, 'like', { val: `%${e}%` }
+        ])
+      ];
+      condicion = [
+        ...propias,
+        'or', { ref: ['sectorSolicitante_ID'] }, 'in', sectoresAprobador,
+        'or', { ref: ['ID'] }, 'in', asignadas
+      ];
+    }
+    q.where = q.where?.length ? [{ xpr: q.where }, 'and', { xpr: condicion }] : [{ xpr: condicion }];
   });
 
   this.before('CREATE', 'CabeceraAsiento', async (req) => {

@@ -14,7 +14,8 @@ service GestionaAsientos {
             items,
             aprobadoresSolicitud,
             adjuntosSolicitud,
-            resumenCuentas : redirected to ResumenCuentas
+            resumenCuentas : redirected to ResumenCuentas,
+            false as soloPropias : Boolean @title: 'Solo mis solicitudes'
         };
 
     annotate CabeceraAsiento with {

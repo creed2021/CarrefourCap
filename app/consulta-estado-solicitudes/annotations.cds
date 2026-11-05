@@ -159,6 +159,27 @@ annotate service.CabeceraAsiento with @(
     ],
 );
 
+annotate service.CabeceraAsiento with @(UI.SelectionFields: [
+    estadoSolicitud_ID,
+    soloPropias
+]);
+
+annotate service.CabeceraAsiento with {
+    estadoSolicitud @(
+        Common.Label                    : 'Estado',
+        Common.Text                     : estadoSolicitud.nombre,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+        Common.ValueListWithFixedValues : true
+    );
+};
+
+annotate service.EstadosSolicitud with {
+    ID @(
+        Common.Text                     : nombre,
+        Common.Text.@UI.TextArrangement : #TextOnly
+    );
+};
+
 annotate service.CabeceraAsiento with {
     estadoSolicitud @Common.ValueList: {
         $Type         : 'Common.ValueListType',
