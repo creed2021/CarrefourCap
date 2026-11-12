@@ -307,7 +307,7 @@ module.exports = cds.service.impl(async function () {
         const v = esRef(t) ? where[i + 2]?.val : t?.val;
         const b = v === true || v === 'true' || v === 1;
         valor = where[i + 1] === '=' ? b : !b;
-        out.push({ val: 1 }, '=', { val: 1 });
+        out.push({ val: 1, param: false }, '=', { val: 1, param: false });
         i += 2;
         continue;
       }
