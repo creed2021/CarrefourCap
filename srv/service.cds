@@ -46,6 +46,7 @@ service GestionaAsientos {
     function ListarWorkflowsBPA()                                                                                                                      returns String;
     // Mejora 22: emails (separados por coma) de los aprobadores de la solicitud que activaron el aviso de contabilización
     function ObtenerNotificadosContabilizacion(idSolicitud: String)                                                                                    returns String;
+    function ObtenerSolicitanteNotificado(idSolicitud: String)                                                                                         returns String;
     entity EstadosSolicitud           as projection on my.EstadosSolicitud;
     entity Sectores                   as projection on my.Sector;
     entity TiposAsiento               as projection on my.TipoAsiento;
@@ -74,6 +75,14 @@ service CatalogService {
             sector,
             cargo,
             notificarContabilizacion
+        };
+
+    @cds.redirection.target: false
+    entity AvisoSolicitante           as
+        projection on my.Empleado {
+            ID,
+            nombre,
+            notificarContabilizacionSolicitante
         };
 
     entity TiposCuentas              as projection on my.TipoCuenta;
@@ -146,6 +155,16 @@ annotate CatalogService.ConfigNotificaciones with {
     empleado @readonly;
     sector   @readonly;
     cargo    @readonly;
+};
+annotate CatalogService.AvisoSolicitante with @Capabilities.InsertRestrictions.Insertable: false;
+annotate CatalogService.AvisoSolicitante with @Capabilities.UpdateRestrictions.Updatable: true;
+annotate CatalogService.AvisoSolicitante with @Capabilities.DeleteRestrictions.Deletable: false;
+annotate CatalogService.AvisoSolicitante with @UI.CreateEnabled: false;
+annotate CatalogService.AvisoSolicitante @UI.CreateHidden: true;
+annotate CatalogService.AvisoSolicitante @UI.DeleteHidden: true;
+annotate CatalogService.AvisoSolicitante with @odata.draft.enabled;
+annotate CatalogService.AvisoSolicitante with {
+    nombre @readonly;
 };
 annotate GestionaAsientos.Empleados with @Capabilities.InsertRestrictions.Insertable: true;
 annotate GestionaAsientos.Empleados with @Capabilities.UpdateRestrictions.Updatable: true;

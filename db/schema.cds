@@ -119,8 +119,9 @@ entity Sector : cuid, managed {
   emailEmp : [email],
 }
 entity Empleado : cuid, managed {
-  nombre : String(50);
-  email  : String(100);
+  nombre                              : String(50);
+  email                               : String(100);
+  notificarContabilizacionSolicitante : Boolean default true @title: 'Recibir aviso de contabilización';
 }
 
 entity AprobadorSolicitud : cuid, managed {

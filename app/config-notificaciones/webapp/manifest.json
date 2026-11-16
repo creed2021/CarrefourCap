@@ -105,6 +105,11 @@
           "pattern": "ConfigNotificaciones({key}):?query:",
           "name": "ConfigNotificacionesObjectPage",
           "target": "ConfigNotificacionesObjectPage"
+        },
+        {
+          "pattern": "AvisoSolicitante({key}):?query:",
+          "name": "AvisoSolicitanteObjectPage",
+          "target": "AvisoSolicitanteObjectPage"
         }
       ],
       "targets": {
@@ -121,10 +126,35 @@
                   "detail": {
                     "route": "ConfigNotificacionesObjectPage"
                   }
+                },
+                "AvisoSolicitante": {
+                  "detail": {
+                    "route": "AvisoSolicitanteObjectPage"
+                  }
                 }
+              },
+              "views": {
+                "paths": [
+                  {
+                    "key": "aprobador",
+                    "entitySet": "ConfigNotificaciones",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#Aprobador"
+                  },
+                  {
+                    "key": "solicitante",
+                    "entitySet": "AvisoSolicitante",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#Solicitante"
+                  }
+                ],
+                "showCounts": false
               },
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                },
+                "/AvisoSolicitante/@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable"
                   }
@@ -142,6 +172,17 @@
             "settings": {
               "editableHeaderContent": false,
               "contextPath": "/ConfigNotificaciones"
+            }
+          }
+        },
+        "AvisoSolicitanteObjectPage": {
+          "type": "Component",
+          "id": "AvisoSolicitanteObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/AvisoSolicitante"
             }
           }
         }

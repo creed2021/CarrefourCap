@@ -226,6 +226,44 @@ module.exports = cds.service.impl(async function () {
     req.reject(405, 'Las configuraciones se generan desde Configuración de Aprobadores.')
   );
 
+  this.before('READ', 'AvisoSolicitante', req => {
+    req.query.where({ ID: { in: empleadosDelUsuario(req) } });
+  });
+
+  this.before(['UPDATE', 'EDIT'], 'AvisoSolicitante', async req => {
+    const ID = req.data?.ID ?? req.params?.[0]?.ID ?? req.params?.[0];
+    const propio = await SELECT.one.from('com.carrefour.journal.Empleado')
+      .columns('ID')
+      .where({ ID })
+      .and({ ID: { in: empleadosDelUsuario(req) } });
+    if (!propio) return req.reject(403, 'Solo puede modificar su propia configuración de notificaciones.');
+  });
+
+  this.before(['CREATE', 'DELETE', 'NEW'], 'AvisoSolicitante', req =>
+    req.reject(405, 'La configuración se genera desde el maestro de Empleados.')
+  );
+
+  this.on('ObtenerSolicitanteNotificado', async (req) => {
+    try {
+      const numeroSolicitud = req.data.idSolicitud;
+      if (!numeroSolicitud) return req.reject(400, 'Debe enviar idSolicitud.');
+      const solicitud = await SELECT.one.from('com.carrefour.journal.CabeceraAsiento')
+        .columns('solicitante_ID')
+        .where({ numeroSolicitud });
+      if (!solicitud) return req.reject(404, `No existe la solicitud con número ${numeroSolicitud}`);
+      const solicitante = await SELECT.one.from('com.carrefour.journal.Empleado')
+        .columns('email', 'notificarContabilizacionSolicitante')
+        .where({ ID: solicitud.solicitante_ID });
+      const email = solicitante?.notificarContabilizacionSolicitante === false ? '' : (solicitante?.email ?? '');
+      console.info(`[ObtenerSolicitanteNotificado] numeroSolicitud=${numeroSolicitud} → ${email || '(no notificar)'}`);
+      return email;
+    } catch (err) {
+      console.error("❌ [ObtenerSolicitanteNotificado] 🔴 Error detectado", err);
+      if (err.code) throw err;
+      return req.reject(500, "[ObtenerSolicitanteNotificado] 🔴 Error interno");
+    }
+  });
+
   this.on('ObtenerNotificadosContabilizacion', async (req) => {
     try {
       const numeroSolicitud = req.data.idSolicitud;
