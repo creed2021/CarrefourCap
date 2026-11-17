@@ -576,7 +576,7 @@ module.exports = cds.service.impl(async function () {
           .where({ ID: solicitud.ID })
       );
       console.info(`[RegistrarAprobacion] ✅ Aprobación registrada, estado actualizado a '${proximoCodigo}'`);
-      return { message: "Aprobación registrada correctamente" };
+      return { message: "Aprobación registrada correctamente", nombreAprobador: empleado.nombre ?? '' };
     } catch (err) {
       console.error("❌ [RegistrarAprobacion] 🔴 Error detectado", err);
       if (err.code) {

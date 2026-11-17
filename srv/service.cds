@@ -39,7 +39,12 @@ service GestionaAsientos {
 
     entity AdjuntoSolicitud           as projection on my.AdjuntoSolicitud;
     action   prepareAdjuntos(sessionId: String);
-    action   RegistrarAprobacion(idSolicitud: UUID, emailAprobador: String, nivelAprobacion: Integer, flujoaprobadores: String, totalNiveles: Integer) returns String;
+    type ResultadoAprobacion {
+        message         : String;
+        nombreAprobador : String;
+    }
+
+    action   RegistrarAprobacion(idSolicitud: UUID, emailAprobador: String, nivelAprobacion: Integer, flujoaprobadores: String, totalNiveles: Integer) returns ResultadoAprobacion;
     action   RegistrarRechazo(idSolicitud: UUID, emailAprobador: String, flujoaprobadores: String, motivoRechazo: String)                              returns String;
     action   ObtenerDatosFormularioAprobacion(id: UUID);
     action   RealizarContabilizacion(id: UUID)                                                                                                         returns String;
