@@ -29,44 +29,6 @@ modules:
   - name: asientos-ajustes-db
   parameters:
     buildpack: nodejs_buildpack
-  properties:
-    HDI_DEPLOY_OPTIONS: >
-      {
-        "undeploy": [
-          "src/gen/data/com.carrefour.journal-CabeceraAsiento.csv",
-          "src/gen/data/com.carrefour.journal-CabeceraAsiento.hdbtabledata",
-          "src/gen/data/com.carrefour.journal-Constantes.csv",
-          "src/gen/data/com.carrefour.journal-Constantes.hdbtabledata",
-          "src/gen/data/com.carrefour.journal-DatosReporteSeguimiento.csv",
-          "src/gen/data/com.carrefour.journal-DatosReporteSeguimiento.hdbtabledata",
-          "src/gen/data/com.carrefour.journal-DetalleAsiento.csv",
-          "src/gen/data/com.carrefour.journal-DetalleAsiento.hdbtabledata",
-          "src/gen/data/com.carrefour.journal-Empleado.csv",
-          "src/gen/data/com.carrefour.journal-Empleado.hdbtabledata",
-          "src/gen/data/com.carrefour.journal-Secuencias.csv",
-          "src/gen/data/com.carrefour.journal-Secuencias.hdbtabledata",
-          "src/gen/data/com.carrefour.journal-ConfigAprobador.csv",
-          "src/gen/data/com.carrefour.journal-ConfigAprobador.hdbtabledata",
-          "src/gen/data/com.carrefour.journal-ConfigSolicitante.csv",
-          "src/gen/data/com.carrefour.journal-ConfigSolicitante.hdbtabledata",
-          "src/gen/data/com.carrefour.journal-Cuenta.csv",
-          "src/gen/data/com.carrefour.journal-Cuenta.hdbtabledata",
-          "src/gen/data/com.carrefour.journal-UmbralCuenta.csv",
-          "src/gen/data/com.carrefour.journal-UmbralCuenta.hdbtabledata"
-        ],
-        "path_parameter": {
-          "src/gen/data/com.carrefour.journal-CabeceraAsiento.hdbtabledata:skip_data_deletion": "true",
-          "src/gen/data/com.carrefour.journal-Constantes.hdbtabledata:skip_data_deletion": "true",
-          "src/gen/data/com.carrefour.journal-DatosReporteSeguimiento.hdbtabledata:skip_data_deletion": "true",
-          "src/gen/data/com.carrefour.journal-DetalleAsiento.hdbtabledata:skip_data_deletion": "true",
-          "src/gen/data/com.carrefour.journal-Empleado.hdbtabledata:skip_data_deletion": "true",
-          "src/gen/data/com.carrefour.journal-Secuencias.hdbtabledata:skip_data_deletion": "true",
-          "src/gen/data/com.carrefour.journal-ConfigAprobador.hdbtabledata:skip_data_deletion": "true",
-          "src/gen/data/com.carrefour.journal-ConfigSolicitante.hdbtabledata:skip_data_deletion": "true",
-          "src/gen/data/com.carrefour.journal-Cuenta.hdbtabledata:skip_data_deletion": "true",
-          "src/gen/data/com.carrefour.journal-UmbralCuenta.hdbtabledata:skip_data_deletion": "true"
-        }
-      }
 - name: asientos-ajustes-app-deployer
   type: com.sap.application.content
   path: .
