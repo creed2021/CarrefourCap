@@ -87,6 +87,10 @@ modules:
       - maestroconfigadjuntos.zip
       name: maestroconfigadjuntos
       target-path: resources/
+    - artifacts:
+      - comcarrefourconfignotificaciones.zip
+      name: comcarrefourconfignotificaciones
+      target-path: resources/
 - name: asientos-ajustes-destinations
   type: com.sap.application.content
   requires:
@@ -198,6 +202,16 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: comcarrefourconfignotificaciones
+  type: html5
+  path: app/config-notificaciones
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: ups-database-external
   type: org.cloudfoundry.existing-service
@@ -221,6 +235,10 @@ resources:
         name: Admin_Datos_Maestros (asientos-ajustes-${space})
         role-template-references:
         - $XSAPPNAME.Admin_Datos_Maestros
+      - description: Consulta de todas las solicitudes (Contabilidad, Auditoria, CFO)
+        name: Consulta_Global (asientos-ajustes-${space})
+        role-template-references:
+        - $XSAPPNAME.Consulta_Global
       tenant-mode: dedicated
       xsappname: asientos-ajustes-${space}
     path: ./xs-security.json

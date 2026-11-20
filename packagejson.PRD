@@ -137,6 +137,7 @@
     "app/consulta-estado-solicitudes",
     "app/maestro-empleados",
     "app/maestro-sectores",
-    "app/maestro-configadjuntos"
+    "app/maestro-configadjuntos",
+    "app/config-notificaciones"
   ]
 }
