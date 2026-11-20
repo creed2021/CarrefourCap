@@ -144,24 +144,10 @@ async function CompletaCamposCabecera(req) {
       AppLog.error(`[CompletaCamposCabecera] ❌ No se encontró estado con código 'P1' en el maestro EstadosSolicitud`);
       return req.reject(404, `[CompletaCamposCabecera] ❌ Error al completar el estado: falta código 'P1' en EstadosSolicitud`);
     }
-    if (!cab.subtipoAsiento_ID) {
-      return req.reject(400, "Debe seleccionar un Subtipo de Asiento.");
-    }
-    const SubTipoAsiento = cds.entities.SubTipoAsiento;
-    const subtipoElegido = await SELECT.one.from(SubTipoAsiento)
-      .where({ ID: cab.subtipoAsiento_ID });
-    if (!subtipoElegido || subtipoElegido.tipoAsiento_ID !== cab.tipoAsiento_ID) {
-      return req.reject(400, "El subtipo seleccionado no corresponde al tipo de asiento elegido.");
-    }
-    const subtipoSeleccionado_ID = cab.subtipoAsiento_ID;
-    const subtipoDetectado_ID = await ObtenerIDSubtipoAsiento(req);
-    if (subtipoDetectado_ID && subtipoDetectado_ID !== subtipoSeleccionado_ID) {
-      const detectado = await SELECT.one.from(SubTipoAsiento).where({ ID: subtipoDetectado_ID });
-      return req.reject(400,
-        `El subtipo seleccionado no corresponde a las cuentas ingresadas. ` +
-        `Según las cuentas cargadas, el subtipo correcto es: ${detectado.codigo} - ${detectado.nombre}.`
-      );
-    }
+    // subtipoAsiento_ID: se asigna automáticamente según las cuentas cargadas
+    const subtipoID = await ObtenerIDSubtipoAsiento(req);
+    if (subtipoID) cab.subtipoAsiento_ID = subtipoID;
+    await ValidaAdjuntoObligatorio(req);
     const tipo = await SELECT.one.from(TipoAsiento).where({ ID: cab.tipoAsiento_ID });
     if (tipo?.codigo) {
       let refCodigo = null;
@@ -183,6 +169,25 @@ async function CompletaCamposCabecera(req) {
     AppLog.error("❌ [CompletaCamposCabecera] 🔴 Error interno:", err);
     return req.reject(500, "[CompletaCamposCabecera] 🔴 Error interno");
   }
+}
+
+// Valida el adjunto obligatorio según la configuración (Tipo + Subtipo) del maestro
+// ConfigAdjuntoObligatorio. Si no hay configuración para la combinación, no es obligatorio.
+async function ValidaAdjuntoObligatorio(req) {
+  const cab = req.data;
+  if (!cab.tipoAsiento_ID || !cab.subtipoAsiento_ID) return;
+  const config = await SELECT.one.from("com.carrefour.journal.ConfigAdjuntoObligatorio")
+    .where({ tipoAsiento_ID: cab.tipoAsiento_ID, subtipoAsiento_ID: cab.subtipoAsiento_ID });
+  if (!config?.obligatorio) return;
+  const adjuntos = cab.adjuntosSolicitud || [];
+  if (adjuntos.length > 0) return;
+  const st = await SELECT.one.from("com.carrefour.journal.SubTipoAsiento")
+    .columns("codigo", "nombre").where({ ID: cab.subtipoAsiento_ID });
+  AppLog.info(`[ValidaAdjuntoObligatorio] Falta adjunto obligatorio para subtipo ${st?.codigo}`);
+  return req.reject(400,
+    `Debe adjuntar al menos un archivo. Según las cuentas cargadas, la solicitud corresponde al subtipo ` +
+    `${st?.codigo} - ${st?.nombre}, que tiene adjunto obligatorio.`
+  );
 }
 
 async function ObtenerIDSubtipoAsiento(req) {
